@@ -56,6 +56,15 @@ func TestListRemoveRoundTrip(t *testing.T) {
 		t.Fatalf("expected [demo], got %v", names)
 	}
 
+	// the .skillet metadata dir must not be listed as a skill
+	if err := os.MkdirAll(filepath.Join(dir, ".skillet"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	names, _ = ListInstalled(dir)
+	if len(names) != 1 || names[0] != "demo" {
+		t.Fatalf("expected [demo] (no .skillet), got %v", names)
+	}
+
 	if err := Remove("demo", dir); err != nil {
 		t.Fatalf("Remove: %v", err)
 	}
@@ -66,6 +75,42 @@ func TestListRemoveRoundTrip(t *testing.T) {
 
 	if err := Remove("demo", dir); err == nil {
 		t.Fatal("removing a missing skill should error")
+	}
+}
+
+func TestManifestRoundTrip(t *testing.T) {
+	dir := t.TempDir()
+
+	if recs, err := Records(dir); err != nil || len(recs) != 0 {
+		t.Fatalf("empty dir: recs=%v err=%v", recs, err)
+	}
+
+	r := Record{Name: "demo", Repo: "https://x/y", Path: "p", Commit: "abc", Cksum: "sha256:1"}
+	if err := writeRecord(dir, r); err != nil {
+		t.Fatal(err)
+	}
+
+	got, ok, err := ReadRecord(dir, "demo")
+	if err != nil || !ok {
+		t.Fatalf("read: ok=%v err=%v", ok, err)
+	}
+	if got.Repo != "https://x/y" || got.Commit != "abc" {
+		t.Fatalf("record mismatch: %+v", got)
+	}
+
+	recs, err := Records(dir)
+	if err != nil || len(recs) != 1 || recs[0].Name != "demo" {
+		t.Fatalf("records: %v err=%v", recs, err)
+	}
+
+	if err := removeRecord(dir, "demo"); err != nil {
+		t.Fatal(err)
+	}
+	if _, ok, _ := ReadRecord(dir, "demo"); ok {
+		t.Fatal("expected record removed")
+	}
+	if err := removeRecord(dir, "demo"); err != nil {
+		t.Fatal("removing a missing record should be a no-op")
 	}
 }
 
@@ -140,8 +185,9 @@ func TestInstallPinnedAndChecksum(t *testing.T) {
 
 	base := registry.Entry{Name: "hello-skill", Description: "d", Author: "t", Repo: src, Path: "examples/hello-skill"}
 
-	// plain install
-	got, err := Install(context.Background(), base, t.TempDir())
+	// plain install records provenance
+	dir := t.TempDir()
+	got, err := Install(context.Background(), base, dir)
 	if err != nil {
 		t.Fatalf("install: %v", err)
 	}
@@ -149,11 +195,24 @@ func TestInstallPinnedAndChecksum(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	rec, ok, err := ReadRecord(dir, "hello-skill")
+	if err != nil || !ok {
+		t.Fatalf("expected a manifest record, ok=%v err=%v", ok, err)
+	}
+	if rec.Cksum != sum || rec.Commit == "" || rec.Repo != src {
+		t.Fatalf("record mismatch: %+v (sum=%s)", rec, sum)
+	}
+	if err := Remove("hello-skill", dir); err != nil {
+		t.Fatalf("remove: %v", err)
+	}
+	if _, ok, _ := ReadRecord(dir, "hello-skill"); ok {
+		t.Fatal("record not cleared on remove")
+	}
 
 	// correct checksum installs cleanly
-	ok := base
-	ok.Cksum = sum
-	if _, err := Install(context.Background(), ok, t.TempDir()); err != nil {
+	withCksum := base
+	withCksum.Cksum = sum
+	if _, err := Install(context.Background(), withCksum, t.TempDir()); err != nil {
 		t.Fatalf("install with correct cksum: %v", err)
 	}
 

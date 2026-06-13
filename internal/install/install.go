@@ -12,6 +12,7 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
+	"time"
 
 	"github.com/Brattlof/skillet/internal/registry"
 )
@@ -79,18 +80,42 @@ func Install(ctx context.Context, e registry.Entry, dir string) (string, error) 
 		return "", err
 	}
 
-	if e.Cksum != "" {
-		got, err := hashTree(dest)
-		if err != nil {
-			os.RemoveAll(dest)
-			return "", err
-		}
-		if got != e.Cksum {
-			os.RemoveAll(dest)
-			return "", fmt.Errorf("checksum mismatch for %s: got %s, want %s", e.Name, got, e.Cksum)
-		}
+	// Always hash the installed tree: it verifies a pinned cksum and is recorded
+	// for drift detection by doctor and update.
+	sum, err := hashTree(dest)
+	if err != nil {
+		os.RemoveAll(dest)
+		return "", err
+	}
+	if e.Cksum != "" && sum != e.Cksum {
+		os.RemoveAll(dest)
+		return "", fmt.Errorf("checksum mismatch for %s: got %s, want %s", e.Name, sum, e.Cksum)
+	}
+
+	commit, _ := resolveCommit(ctx, tmp) // best-effort; empty if git cannot report it
+	rec := Record{
+		Name:        e.Name,
+		Repo:        e.Repo,
+		Path:        e.Path,
+		Ref:         e.Ref,
+		Commit:      commit,
+		Cksum:       sum,
+		InstalledAt: time.Now(),
+	}
+	if err := writeRecord(dir, rec); err != nil {
+		os.RemoveAll(dest)
+		return "", fmt.Errorf("recording install of %s: %w", e.Name, err)
 	}
 	return dest, nil
+}
+
+// resolveCommit returns the commit currently checked out in repoDir.
+func resolveCommit(ctx context.Context, repoDir string) (string, error) {
+	out, err := exec.CommandContext(ctx, "git", "-C", repoDir, "rev-parse", "HEAD").Output()
+	if err != nil {
+		return "", err
+	}
+	return strings.TrimSpace(string(out)), nil
 }
 
 // fetchRepo clones e.Repo into tmp. With no ref it shallow-clones the default
@@ -125,7 +150,10 @@ func Remove(name, dir string) error {
 	if _, err := os.Stat(dest); os.IsNotExist(err) {
 		return fmt.Errorf("%q is not installed in %s", name, dir)
 	}
-	return os.RemoveAll(dest)
+	if err := os.RemoveAll(dest); err != nil {
+		return err
+	}
+	return removeRecord(dir, name)
 }
 
 // ListInstalled returns the names of installed skills (top-level directories).
@@ -139,7 +167,8 @@ func ListInstalled(dir string) ([]string, error) {
 	}
 	var names []string
 	for _, e := range entries {
-		if e.IsDir() {
+		// Skip the .skillet metadata dir and any other hidden entries.
+		if e.IsDir() && !strings.HasPrefix(e.Name(), ".") {
 			names = append(names, e.Name())
 		}
 	}

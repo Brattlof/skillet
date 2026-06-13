@@ -11,7 +11,10 @@ than 3,000 dead links.
 ## Add a skill
 
 1. Fork and create a branch.
-2. Add one file `skills/<name>.json` (one skill per file, so two PRs never conflict):
+2. Add one file `skills/<first-letter>/<name>.json` - the directory is the first
+   character of the skill name (for example `git-commit` goes in `skills/g/git-commit.json`).
+   One skill per file, so two PRs never conflict, and the first-letter shard keeps the
+   directory browsable as the registry grows. CI rejects a shard placed in the wrong folder.
 
    ```json
    {

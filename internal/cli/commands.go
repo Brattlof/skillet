@@ -478,7 +478,7 @@ func cmdPublish(_ context.Context, _ []string) error {
 	fmt.Print(`Publish a skill to the registry:
 
   1. Fork github.com/Brattlof/skillet
-  2. Add skills/<name>.json:
+  2. Add skills/<first-letter>/<name>.json (e.g. skills/g/git-commit.json):
 
        {
          "name": "your-skill",

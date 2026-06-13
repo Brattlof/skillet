@@ -60,15 +60,19 @@ func TestSearch(t *testing.T) {
 
 func writeShard(t *testing.T, dir, file, body string) {
 	t.Helper()
-	if err := os.WriteFile(filepath.Join(dir, file), []byte(body), 0o644); err != nil {
+	full := filepath.Join(dir, file)
+	if err := os.MkdirAll(filepath.Dir(full), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(full, []byte(body), 0o644); err != nil {
 		t.Fatal(err)
 	}
 }
 
 func TestBuildIndexSortsAndValidates(t *testing.T) {
 	dir := t.TempDir()
-	writeShard(t, dir, "b.json", `{"name":"beta","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
-	writeShard(t, dir, "a.json", `{"name":"alpha","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
+	writeShard(t, dir, "b/beta.json", `{"name":"beta","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
+	writeShard(t, dir, "a/alpha.json", `{"name":"alpha","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
 	entries, err := BuildIndex(dir)
 	if err != nil {
 		t.Fatal(err)
@@ -80,8 +84,8 @@ func TestBuildIndexSortsAndValidates(t *testing.T) {
 
 func TestBuildIndexRejectsDuplicate(t *testing.T) {
 	dir := t.TempDir()
-	writeShard(t, dir, "a.json", `{"name":"Dup","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
-	writeShard(t, dir, "b.json", `{"name":"dup","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
+	writeShard(t, dir, "d/Dup.json", `{"name":"Dup","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
+	writeShard(t, dir, "d/dup.json", `{"name":"dup","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
 	if _, err := BuildIndex(dir); err == nil {
 		t.Fatal("expected duplicate-name error")
 	}
@@ -89,9 +93,18 @@ func TestBuildIndexRejectsDuplicate(t *testing.T) {
 
 func TestBuildIndexRejectsMissingField(t *testing.T) {
 	dir := t.TempDir()
-	writeShard(t, dir, "a.json", `{"name":"x","repo":"https://x/y","path":"p","author":"a"}`) // no description
+	writeShard(t, dir, "x/x.json", `{"name":"x","repo":"https://x/y","path":"p","author":"a"}`) // no description
 	if _, err := BuildIndex(dir); err == nil {
 		t.Fatal("expected validation error for missing description")
+	}
+}
+
+func TestBuildIndexRejectsMisplacedShard(t *testing.T) {
+	dir := t.TempDir()
+	// "alpha" belongs in a/, not z/
+	writeShard(t, dir, "z/alpha.json", `{"name":"alpha","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
+	if _, err := BuildIndex(dir); err == nil {
+		t.Fatal("expected a placement error for a misfiled shard")
 	}
 }
 

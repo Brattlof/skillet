@@ -15,6 +15,7 @@ import (
 	"io/fs"
 	"net/http"
 	"os"
+	"path"
 	"path/filepath"
 	"sort"
 	"strings"
@@ -276,10 +277,22 @@ func loadEmbedded() ([]Entry, error) {
 	return parseShards(sub)
 }
 
-// parseShards reads each *.json file (one Entry per file) from fsys, validates it,
-// rejects duplicate names, and returns the entries sorted by name.
+// parseShards reads every *.json shard (one Entry per file) from fsys, walking
+// subdirectories, validates each, enforces that it lives in its first-letter
+// shard directory, rejects duplicate names, and returns the entries sorted by
+// name. Shards are sharded by first letter (skills/<letter>/<name>.json) so the
+// source tree stays browsable as the registry grows.
 func parseShards(fsys fs.FS) ([]Entry, error) {
-	names, err := fs.Glob(fsys, "*.json")
+	var names []string
+	err := fs.WalkDir(fsys, ".", func(p string, d fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if !d.IsDir() && strings.HasSuffix(p, ".json") {
+			names = append(names, p)
+		}
+		return nil
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -298,6 +311,9 @@ func parseShards(fsys fs.FS) ([]Entry, error) {
 		if err := Validate(e); err != nil {
 			return nil, fmt.Errorf("%s: %w", n, err)
 		}
+		if want := shardDir(e.Name); path.Dir(n) != want {
+			return nil, fmt.Errorf("%s: skill %q must live in %s/%s.json", n, e.Name, want, e.Name)
+		}
 		key := strings.ToLower(e.Name)
 		if seen[key] {
 			return nil, fmt.Errorf("%s: duplicate skill name %q", n, e.Name)
@@ -307,6 +323,15 @@ func parseShards(fsys fs.FS) ([]Entry, error) {
 	}
 	sortEntries(out)
 	return out, nil
+}
+
+// shardDir returns the shard subdirectory a skill's shard belongs in: the
+// lowercased first character of its name (for example "git-commit" -> "g").
+func shardDir(name string) string {
+	if name == "" {
+		return "."
+	}
+	return strings.ToLower(name[:1])
 }
 
 // decodeIndex parses the compiled index (a JSON array of entries) and validates

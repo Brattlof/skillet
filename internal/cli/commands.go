@@ -286,12 +286,17 @@ func cmdList(ctx context.Context, args []string) error {
 
 		display := map[string]string{}
 		recByName := map[string]install.Record{}
+		recArtifacts := map[string]bool{}
 		for _, r := range recs {
 			k := strings.ToLower(r.Name)
 			display[k] = r.Name
 			recByName[k] = r
+			recArtifacts[r.ArtifactName()] = true
 		}
 		for _, n := range installed {
+			if recArtifacts[n] {
+				continue // a command/hook file already shown under its record's name
+			}
 			display[strings.ToLower(n)] = n
 		}
 		if len(display) == 0 {

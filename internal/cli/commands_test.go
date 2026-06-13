@@ -126,6 +126,28 @@ func TestCompleteListsRecordlessSkill(t *testing.T) {
 	}
 }
 
+func TestListDeduplicatesCommandArtifacts(t *testing.T) {
+	home := t.TempDir()
+	t.Setenv("HOME", home)
+	t.Setenv("SKILLET_OFFLINE", "1")
+	t.Setenv("SKILLET_CACHE_DIR", filepath.Join(home, "cache"))
+
+	src := makeGitRepo(t, map[string]string{"commands/foo.md": "# foo\n"})
+	target := filepath.Join(home, ".claude", "commands")
+	e := registry.Entry{Name: "foo", Description: "d", Author: "t", Repo: src, Path: "commands/foo.md", Kind: "command"}
+	if _, err := install.Install(context.Background(), e, target); err != nil {
+		t.Fatalf("install: %v", err)
+	}
+
+	out := captureStdout(t, func() { Run(context.Background(), []string{"list"}) })
+	if !strings.Contains(out, "foo") {
+		t.Fatalf("list should show the command:\n%s", out)
+	}
+	if strings.Contains(out, "foo.md") {
+		t.Fatalf("list must not also show the bare filename:\n%s", out)
+	}
+}
+
 func TestListStatus(t *testing.T) {
 	cases := []struct {
 		name   string

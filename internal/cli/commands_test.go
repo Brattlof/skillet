@@ -1,12 +1,58 @@
 package cli
 
 import (
+	"context"
 	"flag"
+	"io"
+	"os"
+	"strings"
 	"testing"
 
 	"github.com/Brattlof/skillet/internal/install"
 	"github.com/Brattlof/skillet/internal/registry"
 )
+
+func captureStdout(t *testing.T, f func()) string {
+	t.Helper()
+	old := os.Stdout
+	r, w, err := os.Pipe()
+	if err != nil {
+		t.Fatal(err)
+	}
+	os.Stdout = w
+	f()
+	w.Close()
+	os.Stdout = old
+	b, _ := io.ReadAll(r)
+	return string(b)
+}
+
+func TestInfoCommand(t *testing.T) {
+	t.Setenv("SKILLET_OFFLINE", "1")
+	t.Setenv("SKILLET_CACHE_DIR", t.TempDir())
+	t.Setenv("SKILLET_SKILLS_DIR", t.TempDir()) // empty -> Installed: no
+
+	var code int
+	out := captureStdout(t, func() {
+		code = Run(context.Background(), []string{"info", "hello-skill"})
+	})
+	if code != 0 {
+		t.Fatalf("info exit = %d, want 0", code)
+	}
+	for _, want := range []string{"hello-skill", "examples/hello-skill", "Author", "Installed"} {
+		if !strings.Contains(out, want) {
+			t.Errorf("info output missing %q:\n%s", want, out)
+		}
+	}
+}
+
+func TestInfoUnknownExitsNonZero(t *testing.T) {
+	t.Setenv("SKILLET_OFFLINE", "1")
+	t.Setenv("SKILLET_CACHE_DIR", t.TempDir())
+	if code := Run(context.Background(), []string{"info", "nope-not-real"}); code == 0 {
+		t.Fatal("expected non-zero exit for an unknown skill")
+	}
+}
 
 func TestListStatus(t *testing.T) {
 	cases := []struct {

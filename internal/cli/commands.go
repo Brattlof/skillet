@@ -351,6 +351,56 @@ func cmdRegistry(ctx context.Context, _ []string) error {
 	return nil
 }
 
+func cmdInfo(ctx context.Context, args []string) error {
+	fs := flag.NewFlagSet("info", flag.ContinueOnError)
+	dir := fs.String("dir", "", dirUsage)
+	pos, err := parseArgs(fs, args)
+	if err != nil {
+		return err
+	}
+	if len(pos) < 1 {
+		return errors.New("usage: skillet info <name> [--dir PATH]")
+	}
+	name := pos[0]
+
+	entry, ok, err := registry.Find(ctx, name)
+	if err != nil {
+		return err
+	}
+	if !ok {
+		return fmt.Errorf("no skill named %q in the registry (try: skillet search %s)", name, name)
+	}
+
+	fmt.Println(entry.Name)
+	tw := tabwriter.NewWriter(os.Stdout, 0, 2, 2, ' ', 0)
+	fmt.Fprintf(tw, "  Description\t%s\n", entry.Description)
+	fmt.Fprintf(tw, "  Source\t%s\n", entry.Repo)
+	fmt.Fprintf(tw, "  Path\t%s\n", entry.Path)
+	fmt.Fprintf(tw, "  Author\t%s\n", entry.Author)
+	if len(entry.Tags) > 0 {
+		fmt.Fprintf(tw, "  Tags\t%s\n", strings.Join(entry.Tags, ", "))
+	}
+	if entry.Ref != "" {
+		fmt.Fprintf(tw, "  Ref\t%s\n", entry.Ref)
+	}
+	if entry.Cksum != "" {
+		fmt.Fprintf(tw, "  Cksum\t%s\n", entry.Cksum)
+	}
+
+	if target, derr := install.SkillsDir(*dir); derr == nil {
+		if rec, installed, _ := install.ReadRecord(target, entry.Name); installed {
+			detail := short(rec.Commit)
+			if !rec.InstalledAt.IsZero() {
+				detail += ", " + rec.InstalledAt.Format("2006-01-02")
+			}
+			fmt.Fprintf(tw, "  Installed\tyes (%s)\n", detail)
+		} else {
+			fmt.Fprintf(tw, "  Installed\tno\n")
+		}
+	}
+	return tw.Flush()
+}
+
 func cmdPublish(_ context.Context, _ []string) error {
 	fmt.Print(`Publish a skill to the registry:
 

@@ -38,6 +38,8 @@ func Run(ctx context.Context, args []string) int {
 		err = cmdList(ctx, rest)
 	case "search", "find":
 		err = cmdSearch(ctx, rest)
+	case "info", "show":
+		err = cmdInfo(ctx, rest)
 	case "registry":
 		err = cmdRegistry(ctx, rest)
 	case "publish":
@@ -75,6 +77,7 @@ Commands:
   remove <name>    Remove an installed skill
   list             List installed skills
   search <query>   Search the registry
+  info <name>      Show details of a registry entry
   registry         Show every registry entry
   publish          How to publish your own skill
   version          Print the version

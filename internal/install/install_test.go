@@ -273,6 +273,19 @@ func TestTargetDirRouting(t *testing.T) {
 	}
 }
 
+func TestRejectsTraversal(t *testing.T) {
+	if _, _, err := FindInstall("../x", t.TempDir()); err == nil {
+		t.Error("FindInstall should reject a traversal name")
+	}
+	// Install rejects unsafe name/path up front, before touching git or the disk.
+	if _, err := Install(context.Background(), registry.Entry{Name: "../x", Repo: "https://x/y", Path: "p"}, t.TempDir()); err == nil {
+		t.Error("Install should reject a traversal name")
+	}
+	if _, err := Install(context.Background(), registry.Entry{Name: "ok", Repo: "https://x/y", Path: "../escape"}, t.TempDir()); err == nil {
+		t.Error("Install should reject a traversal path")
+	}
+}
+
 func TestManifestRoundTrip(t *testing.T) {
 	dir := t.TempDir()
 

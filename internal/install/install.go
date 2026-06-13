@@ -49,6 +49,14 @@ func expand(p string) (string, error) {
 // The entry is assumed already validated by the registry (Repo is an http(s) URL
 // and Ref is a plain git ref), which keeps the git calls below safe.
 func Install(ctx context.Context, e registry.Entry, dir string) (string, error) {
+	// Defense in depth: never let a name or path escape the install directory,
+	// even if a caller forgot to validate (for example restoring from a lockfile).
+	if !safeName(e.Name) {
+		return "", fmt.Errorf("unsafe skill name %q", e.Name)
+	}
+	if !filepath.IsLocal(filepath.FromSlash(e.Path)) {
+		return "", fmt.Errorf("unsafe skill path %q", e.Path)
+	}
 	if _, err := exec.LookPath("git"); err != nil {
 		return "", fmt.Errorf("git is required to install skills: %w", err)
 	}

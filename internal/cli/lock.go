@@ -75,13 +75,23 @@ func restoreFromLock(ctx context.Context, dirOverride string) error {
 		return nil
 	}
 
-	var n int
+	var n, skipped int
 	for _, le := range lf.Skills {
+		e := registry.Entry{Name: le.Name, Kind: le.Kind, Repo: le.Repo, Path: le.Path, Ref: le.Commit, Cksum: le.Cksum}
+		// The lockfile is an untrusted, shareable artifact, so validate every
+		// entry before it reaches git or the filesystem. An invalid or unknown
+		// entry is skipped, not fatal, which also keeps restore forward compatible.
+		if err := registry.ValidateInstall(e); err != nil {
+			fmt.Fprintf(os.Stderr, "skipping %s: %v\n", le.Name, err)
+			skipped++
+			continue
+		}
 		target, err := install.TargetDir(le.Kind, dirOverride)
 		if err != nil {
-			return err
+			fmt.Fprintf(os.Stderr, "skipping %s: %v\n", le.Name, err)
+			skipped++
+			continue
 		}
-		e := registry.Entry{Name: le.Name, Kind: le.Kind, Repo: le.Repo, Path: le.Path, Ref: le.Commit, Cksum: le.Cksum}
 		dest, err := install.Install(ctx, e, target)
 		if err != nil {
 			return fmt.Errorf("installing %s: %w", le.Name, err)
@@ -89,7 +99,11 @@ func restoreFromLock(ctx context.Context, dirOverride string) error {
 		fmt.Printf("Installed %s -> %s\n", le.Name, dest)
 		n++
 	}
-	fmt.Printf("\nrestored %d skill(s) from %s\n", n, p)
+	if skipped > 0 {
+		fmt.Printf("\nrestored %d skill(s), skipped %d from %s\n", n, skipped, p)
+	} else {
+		fmt.Printf("\nrestored %d skill(s) from %s\n", n, p)
+	}
 	return nil
 }
 

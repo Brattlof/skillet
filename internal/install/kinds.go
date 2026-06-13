@@ -4,7 +4,14 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 )
+
+// safeName reports whether name is a single safe path component (no separators,
+// no traversal), so it can never escape the install directory.
+func safeName(name string) bool {
+	return name != "" && !strings.ContainsAny(name, `/\`) && filepath.IsLocal(name)
+}
 
 // standardKinds are the artifact kinds skillet installs, in display order.
 var standardKinds = []string{"skill", "command", "hook"}
@@ -73,6 +80,9 @@ func ScanDirs(override string) ([]DirKind, error) {
 // FindInstall returns the directory a named artifact is installed in, searching
 // the scanned directories. It matches either an install dir or a manifest record.
 func FindInstall(name, override string) (string, bool, error) {
+	if !safeName(name) {
+		return "", false, fmt.Errorf("invalid skill name %q", name)
+	}
 	dirs, err := ScanDirs(override)
 	if err != nil {
 		return "", false, err

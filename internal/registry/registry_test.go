@@ -116,6 +116,53 @@ func TestValidateRejectsUnsafeRefAndCksum(t *testing.T) {
 	}
 }
 
+func TestValidateInstall(t *testing.T) {
+	// lock-shaped entry: no description/author, but safe to install
+	ok := Entry{Name: "x", Repo: "https://x/y", Path: "p"}
+	if err := ValidateInstall(ok); err != nil {
+		t.Fatalf("valid install entry rejected: %v", err)
+	}
+	// the full Validate still requires descriptive metadata
+	if err := Validate(ok); err == nil {
+		t.Fatal("full Validate should require description and author")
+	}
+
+	bad := []Entry{
+		{Name: "x", Repo: "file:///etc", Path: "p"},                       // non-http transport
+		{Name: "x", Repo: "git@h:r", Path: "p"},                           // ssh transport
+		{Name: "../x", Repo: "https://x/y", Path: "p"},                    // traversal name
+		{Name: "x", Repo: "https://x/y", Path: "../e"},                    // traversal path
+		{Name: "x", Path: "p"},                                            // missing repo
+		{Name: "x", Repo: "https://x/y", Path: "p", Ref: "--upload-pack"}, // option-shaped ref
+	}
+	for i, e := range bad {
+		if err := ValidateInstall(e); err == nil {
+			t.Errorf("bad install entry %d (%+v) should be rejected", i, e)
+		}
+	}
+}
+
+func TestValidateRejectsTraversal(t *testing.T) {
+	base := Entry{Name: "ok", Description: "d", Repo: "https://x/y", Path: "p", Author: "a"}
+	if err := Validate(base); err != nil {
+		t.Fatalf("clean entry rejected: %v", err)
+	}
+	for _, n := range []string{"../evil", "a/b", "..", "/abs", `a\b`} {
+		e := base
+		e.Name = n
+		if err := Validate(e); err == nil {
+			t.Errorf("name %q should be rejected", n)
+		}
+	}
+	for _, p := range []string{"../../etc", "/etc", ".."} {
+		e := base
+		e.Path = p
+		if err := Validate(e); err == nil {
+			t.Errorf("path %q should be rejected", p)
+		}
+	}
+}
+
 func TestKindValidationAndDefault(t *testing.T) {
 	base := Entry{Name: "x", Description: "d", Repo: "https://x/y", Path: "p", Author: "a"}
 	if base.KindOrDefault() != "skill" {

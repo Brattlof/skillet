@@ -202,23 +202,24 @@ func BuildIndex(dir string) ([]Entry, error) {
 	return parseShards(os.DirFS(dir))
 }
 
-// Validate reports whether an entry has the required fields and safe values.
-// Repo must be an http(s) URL and Ref must be a plain git ref, so neither can be
-// smuggled into git as a command-line option at install time.
-func Validate(e Entry) error {
+// ValidateInstall checks the fields skillet needs to install a skill safely: a
+// safe single-component name, an http(s) repo, a contained path, and a valid
+// kind, ref, and cksum. It does not require descriptive metadata, so it also
+// validates an untrusted lockfile entry before it reaches git or the filesystem.
+func ValidateInstall(e Entry) error {
+	if !validName(e.Name) {
+		return fmt.Errorf("invalid name %q (no separators or path traversal)", e.Name)
+	}
 	switch {
-	case strings.TrimSpace(e.Name) == "":
-		return errors.New("missing name")
-	case strings.TrimSpace(e.Description) == "":
-		return errors.New("missing description")
 	case strings.TrimSpace(e.Repo) == "":
 		return errors.New("missing repo")
 	case !strings.HasPrefix(e.Repo, "http://") && !strings.HasPrefix(e.Repo, "https://"):
 		return errors.New("repo must be an http(s) URL")
 	case strings.TrimSpace(e.Path) == "":
 		return errors.New("missing path")
-	case strings.TrimSpace(e.Author) == "":
-		return errors.New("missing author")
+	}
+	if !filepath.IsLocal(filepath.FromSlash(e.Path)) {
+		return fmt.Errorf("invalid path %q (must stay within the repo)", e.Path)
 	}
 	if e.Kind != "" && e.Kind != "skill" && e.Kind != "command" && e.Kind != "hook" {
 		return fmt.Errorf("invalid kind %q (want skill, command, or hook)", e.Kind)
@@ -230,6 +231,24 @@ func Validate(e Entry) error {
 		return fmt.Errorf("invalid cksum %q (want sha256:...)", e.Cksum)
 	}
 	return nil
+}
+
+// Validate is the full registry-entry check: descriptive metadata plus everything
+// ValidateInstall covers. Registry shards and the compiled index use this.
+func Validate(e Entry) error {
+	switch {
+	case strings.TrimSpace(e.Description) == "":
+		return errors.New("missing description")
+	case strings.TrimSpace(e.Author) == "":
+		return errors.New("missing author")
+	}
+	return ValidateInstall(e)
+}
+
+// validName requires a single safe path component: no separators and no traversal,
+// so the name can be used as a directory and filename without escaping its parent.
+func validName(s string) bool {
+	return s != "" && !strings.ContainsAny(s, `/\`) && filepath.IsLocal(s)
 }
 
 // validRef allows only plain git ref characters and forbids a leading dash, so a

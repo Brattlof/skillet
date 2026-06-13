@@ -1,0 +1,40 @@
+version: 2
+project_name: skillet
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - main: ./cmd/skillet
+    binary: skillet
+    env:
+      - CGO_ENABLED=0
+    goos: [linux, darwin, windows]
+    goarch: [amd64, arm64]
+    ldflags:
+      - -s -w -X github.com/Brattlof/skillet/internal/cli.Version={{.Version}}
+
+archives:
+  - formats: [tar.gz]
+    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+
+checksum:
+  name_template: "checksums.txt"
+
+release:
+  github:
+    owner: Brattlof
+    name: skillet
+
+# Uncomment to also publish a Homebrew formula (create Brattlof/homebrew-tap first):
+# brews:
+#   - repository:
+#       owner: Brattlof
+#       name: homebrew-tap
+#     homepage: "https://github.com/Brattlof/skillet"
+#     description: "A package manager for AI-agent skills"
+#     license: "MIT"

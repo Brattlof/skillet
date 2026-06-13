@@ -1,0 +1,32 @@
+name: Add a skill
+description: Suggest a skill for the registry
+title: "[skill] <name>"
+labels: ["registry"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Skill name
+    validations:
+      required: true
+  - type: input
+    id: repo
+    attributes:
+      label: Repository URL
+      placeholder: https://github.com/you/your-repo
+    validations:
+      required: true
+  - type: input
+    id: path
+    attributes:
+      label: Path to the skill folder inside the repo
+      placeholder: path/to/skill-folder
+    validations:
+      required: true
+  - type: textarea
+    id: usage
+    attributes:
+      label: How have you used it?
+      description: The one rule - tell us you've actually run it for real work.
+    validations:
+      required: true

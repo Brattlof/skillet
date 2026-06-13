@@ -1,0 +1,11 @@
+# build output
+/dist/
+/skillet
+skillet.exe
+*.test
+*.out
+
+# editors / OS
+.DS_Store
+.idea/
+.vscode/

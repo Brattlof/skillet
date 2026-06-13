@@ -1,0 +1,10 @@
+[
+  {
+    "name": "hello-skill",
+    "description": "Minimal example skill that ships with skillet - install it to learn the SKILL.md format.",
+    "repo": "https://github.com/Brattlof/skillet",
+    "path": "examples/hello-skill",
+    "author": "skillet",
+    "tags": ["example", "starter", "docs"]
+  }
+]

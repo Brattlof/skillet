@@ -73,6 +73,7 @@ skillet info <name>      Show details of a registry entry
 skillet registry         Show every registry entry
 skillet publish          How to publish your own skill
 skillet completion <sh>  Output a bash, zsh, or fish completion script
+skillet self-update      Update the skillet binary to the latest release
 ```
 
 ### Shell completion

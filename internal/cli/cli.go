@@ -50,6 +50,8 @@ func Run(ctx context.Context, args []string) int {
 		err = cmdPublish(ctx, rest)
 	case "completion":
 		err = cmdCompletion(ctx, rest)
+	case "self-update":
+		err = cmdSelfUpdate(ctx, rest)
 	case "__complete":
 		err = cmdComplete(ctx, rest)
 	case "version", "--version", "-v":
@@ -91,6 +93,7 @@ Commands:
   registry         Show every registry entry
   publish          How to publish your own skill
   completion <sh>  Output a bash, zsh, or fish completion script
+  self-update      Update the skillet binary to the latest release
   version          Print the version
   help             Show this help
 

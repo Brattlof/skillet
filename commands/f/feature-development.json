@@ -1,0 +1,12 @@
+{
+  "name": "feature-development",
+  "description": "Multi-agent workflow that plans, implements, and tests a new feature end to end.",
+  "repo": "https://github.com/wshobson/commands",
+  "path": "workflows/feature-development.md",
+  "author": "wshobson",
+  "tags": [
+    "workflow",
+    "feature",
+    "multi-agent"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "algorithmic-art",
+  "description": "Create generative and algorithmic art using code.",
+  "repo": "https://github.com/anthropics/skills",
+  "path": "skills/algorithmic-art",
+  "author": "anthropics",
+  "tags": [
+    "art",
+    "generative",
+    "creative",
+    "code"
+  ]
+}

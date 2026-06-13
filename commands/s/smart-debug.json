@@ -1,0 +1,12 @@
+{
+  "name": "smart-debug",
+  "description": "Analyzes an error and traces it to a root cause with a proposed fix.",
+  "repo": "https://github.com/wshobson/commands",
+  "path": "tools/smart-debug.md",
+  "author": "wshobson",
+  "tags": [
+    "debug",
+    "error",
+    "troubleshooting"
+  ]
+}

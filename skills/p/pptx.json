@@ -1,0 +1,13 @@
+{
+  "name": "pptx",
+  "description": "Create, edit, and analyze Microsoft PowerPoint .pptx presentations.",
+  "repo": "https://github.com/anthropics/skills",
+  "path": "skills/pptx",
+  "author": "anthropics",
+  "tags": [
+    "pptx",
+    "powerpoint",
+    "presentations",
+    "office"
+  ]
+}

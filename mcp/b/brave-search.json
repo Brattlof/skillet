@@ -1,0 +1,19 @@
+{
+  "name": "brave-search",
+  "description": "Brave Search API access (web, news, image, video, local search). Requires BRAVE_API_KEY env var.",
+  "author": "Brave",
+  "tags": [
+    "web",
+    "search",
+    "official"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@brave/brave-search-mcp-server",
+      "--transport",
+      "stdio"
+    ]
+  }
+}

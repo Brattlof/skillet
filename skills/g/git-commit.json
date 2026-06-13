@@ -1,8 +1,0 @@
-{
-  "name": "git-commit",
-  "description": "Write a clear, conventional commit message from the staged diff.",
-  "repo": "https://github.com/Brattlof/skillet",
-  "path": "examples/git-commit",
-  "author": "skillet",
-  "tags": ["git", "workflow", "writing"]
-}

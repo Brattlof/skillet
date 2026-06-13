@@ -1,0 +1,13 @@
+{
+  "name": "mcp-builder",
+  "description": "Build Model Context Protocol servers, including tool, resource, and prompt definitions.",
+  "repo": "https://github.com/anthropics/skills",
+  "path": "skills/mcp-builder",
+  "author": "anthropics",
+  "tags": [
+    "mcp",
+    "server",
+    "tools",
+    "integration"
+  ]
+}

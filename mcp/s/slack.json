@@ -1,0 +1,17 @@
+{
+  "name": "slack",
+  "description": "Slack workspace access: list channels, post messages, read history, reactions. Requires SLACK_BOT_TOKEN and SLACK_TEAM_ID env vars.",
+  "author": "Model Context Protocol",
+  "tags": [
+    "productivity",
+    "chat",
+    "reference"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@modelcontextprotocol/server-slack"
+    ]
+  }
+}

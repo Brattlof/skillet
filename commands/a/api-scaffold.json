@@ -1,0 +1,12 @@
+{
+  "name": "api-scaffold",
+  "description": "Generates a production-ready API endpoint with routing, validation, and tests.",
+  "repo": "https://github.com/wshobson/commands",
+  "path": "tools/api-scaffold.md",
+  "author": "wshobson",
+  "tags": [
+    "api",
+    "scaffold",
+    "codegen"
+  ]
+}

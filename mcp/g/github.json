@@ -1,0 +1,15 @@
+{
+  "name": "github",
+  "description": "GitHub's official hosted MCP server for repos, issues, PRs, and code search over GitHub.",
+  "author": "GitHub",
+  "tags": [
+    "github",
+    "official",
+    "git",
+    "remote",
+    "dev"
+  ],
+  "mcp": {
+    "url": "https://api.githubcopilot.com/mcp/"
+  }
+}

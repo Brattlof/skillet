@@ -1,0 +1,17 @@
+{
+  "name": "qdrant",
+  "description": "Qdrant vector search as a semantic memory layer (store and find). Configure via QDRANT_URL/QDRANT_API_KEY/COLLECTION_NAME env vars.",
+  "author": "Qdrant",
+  "tags": [
+    "ai-data",
+    "vector-db",
+    "memory",
+    "official"
+  ],
+  "mcp": {
+    "command": "uvx",
+    "args": [
+      "mcp-server-qdrant"
+    ]
+  }
+}

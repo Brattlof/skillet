@@ -1,0 +1,13 @@
+{
+  "name": "skill-creator",
+  "description": "Scaffold, structure, and write new Agent Skills following the SKILL.md format.",
+  "repo": "https://github.com/anthropics/skills",
+  "path": "skills/skill-creator",
+  "author": "anthropics",
+  "tags": [
+    "skills",
+    "authoring",
+    "meta",
+    "scaffolding"
+  ]
+}

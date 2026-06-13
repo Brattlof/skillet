@@ -1,0 +1,12 @@
+{
+  "name": "deps-audit",
+  "description": "Audits project dependencies for outdated, deprecated, or vulnerable packages.",
+  "repo": "https://github.com/wshobson/commands",
+  "path": "tools/deps-audit.md",
+  "author": "wshobson",
+  "tags": [
+    "dependencies",
+    "audit",
+    "security"
+  ]
+}

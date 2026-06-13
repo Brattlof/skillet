@@ -1,0 +1,13 @@
+{
+  "name": "docx",
+  "description": "Create, edit, and analyze Microsoft Word .docx documents with formatting and tracked changes.",
+  "repo": "https://github.com/anthropics/skills",
+  "path": "skills/docx",
+  "author": "anthropics",
+  "tags": [
+    "docx",
+    "word",
+    "documents",
+    "office"
+  ]
+}

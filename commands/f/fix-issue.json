@@ -1,0 +1,12 @@
+{
+  "name": "fix-issue",
+  "description": "Reads a GitHub issue and implements a fix for the described problem.",
+  "repo": "https://github.com/qdhenry/Claude-Command-Suite",
+  "path": ".claude/commands/dev/fix-issue.md",
+  "author": "qdhenry",
+  "tags": [
+    "github",
+    "issue",
+    "dev"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "brainstorming",
+  "description": "Refine a rough idea into a design and spec through one-question-at-a-time dialogue before coding.",
+  "repo": "https://github.com/obra/superpowers",
+  "path": "skills/brainstorming",
+  "author": "obra",
+  "tags": [
+    "planning",
+    "brainstorming",
+    "design",
+    "workflow"
+  ]
+}

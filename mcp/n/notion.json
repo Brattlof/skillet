@@ -1,0 +1,17 @@
+{
+  "name": "notion",
+  "description": "Notion workspace access: search, read, create and update pages and databases. Requires NOTION_TOKEN env var (or use remote OAuth at mcp.notion.com).",
+  "author": "Notion (makenotion)",
+  "tags": [
+    "productivity",
+    "notes",
+    "official"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@notionhq/notion-mcp-server"
+    ]
+  }
+}

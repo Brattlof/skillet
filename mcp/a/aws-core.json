@@ -1,0 +1,16 @@
+{
+  "name": "aws-core",
+  "description": "AWS Labs core MCP server: orchestration and entry point for the AWS MCP server suite. Configure via AWS credentials env.",
+  "author": "AWS Labs",
+  "tags": [
+    "aws",
+    "cloud",
+    "official"
+  ],
+  "mcp": {
+    "command": "uvx",
+    "args": [
+      "awslabs.core-mcp-server@latest"
+    ]
+  }
+}

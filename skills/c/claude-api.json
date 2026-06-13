@@ -1,0 +1,13 @@
+{
+  "name": "claude-api",
+  "description": "Reference and patterns for building with the Claude API and Anthropic SDK.",
+  "repo": "https://github.com/anthropics/skills",
+  "path": "skills/claude-api",
+  "author": "anthropics",
+  "tags": [
+    "api",
+    "sdk",
+    "claude",
+    "reference"
+  ]
+}

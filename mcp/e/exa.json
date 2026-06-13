@@ -1,0 +1,17 @@
+{
+  "name": "exa",
+  "description": "Exa neural/semantic web search and crawling. Requires EXA_API_KEY env var.",
+  "author": "Exa Labs",
+  "tags": [
+    "web",
+    "search",
+    "official"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "exa-mcp-server"
+    ]
+  }
+}

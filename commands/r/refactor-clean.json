@@ -1,0 +1,12 @@
+{
+  "name": "refactor-clean",
+  "description": "Refactors code to improve readability and structure without changing behavior.",
+  "repo": "https://github.com/wshobson/commands",
+  "path": "tools/refactor-clean.md",
+  "author": "wshobson",
+  "tags": [
+    "refactor",
+    "cleanup",
+    "quality"
+  ]
+}

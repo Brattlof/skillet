@@ -1,0 +1,12 @@
+{
+  "name": "full-review",
+  "description": "Runs a multi-agent code review covering correctness, security, and performance.",
+  "repo": "https://github.com/wshobson/commands",
+  "path": "workflows/full-review.md",
+  "author": "wshobson",
+  "tags": [
+    "review",
+    "workflow",
+    "multi-agent"
+  ]
+}

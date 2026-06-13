@@ -1,0 +1,14 @@
+{
+  "name": "linear",
+  "description": "Linear issue tracking and project management (25+ tools). Remote server with OAuth; no install needed.",
+  "author": "Linear",
+  "tags": [
+    "productivity",
+    "issues",
+    "official",
+    "remote"
+  ],
+  "mcp": {
+    "url": "https://mcp.linear.app/mcp"
+  }
+}

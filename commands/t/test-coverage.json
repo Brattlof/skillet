@@ -1,0 +1,12 @@
+{
+  "name": "test-coverage",
+  "description": "Analyzes test coverage and identifies untested code paths.",
+  "repo": "https://github.com/qdhenry/Claude-Command-Suite",
+  "path": ".claude/commands/test/test-coverage.md",
+  "author": "qdhenry",
+  "tags": [
+    "testing",
+    "coverage",
+    "quality"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "grafana",
+  "description": "Grafana's official MCP server for dashboards, datasources, and querying Prometheus/Loki.",
+  "author": "Grafana Labs",
+  "tags": [
+    "grafana",
+    "observability",
+    "metrics",
+    "official",
+    "data"
+  ],
+  "mcp": {
+    "command": "docker",
+    "args": [
+      "run",
+      "--rm",
+      "-i",
+      "-e",
+      "GRAFANA_URL",
+      "-e",
+      "GRAFANA_API_KEY",
+      "mcp/grafana",
+      "-t",
+      "stdio"
+    ]
+  }
+}

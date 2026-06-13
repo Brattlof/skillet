@@ -1,0 +1,13 @@
+{
+  "name": "web-artifacts-builder",
+  "description": "Build interactive single-file web artifacts and HTML/JS applications.",
+  "repo": "https://github.com/anthropics/skills",
+  "path": "skills/web-artifacts-builder",
+  "author": "anthropics",
+  "tags": [
+    "web",
+    "artifacts",
+    "html",
+    "interactive"
+  ]
+}

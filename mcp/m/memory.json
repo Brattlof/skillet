@@ -1,0 +1,18 @@
+{
+  "name": "memory",
+  "description": "Official MCP reference server providing a knowledge-graph-based persistent memory store.",
+  "author": "Anthropic / Model Context Protocol",
+  "tags": [
+    "official",
+    "memory",
+    "knowledge-graph",
+    "reference"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@modelcontextprotocol/server-memory"
+    ]
+  }
+}

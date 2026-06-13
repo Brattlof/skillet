@@ -1,0 +1,14 @@
+{
+  "name": "cloudflare-docs",
+  "description": "Up-to-date Cloudflare documentation reference search. Remote server, no authentication required.",
+  "author": "Cloudflare",
+  "tags": [
+    "docs",
+    "reference",
+    "official",
+    "remote"
+  ],
+  "mcp": {
+    "url": "https://docs.mcp.cloudflare.com/mcp"
+  }
+}

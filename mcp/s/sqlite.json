@@ -1,0 +1,19 @@
+{
+  "name": "sqlite",
+  "description": "MCP server exposing a SQLite database for queries and table inspection over stdio.",
+  "author": "Model Context Protocol (archived reference)",
+  "tags": [
+    "sqlite",
+    "database",
+    "sql",
+    "data"
+  ],
+  "mcp": {
+    "command": "uvx",
+    "args": [
+      "mcp-server-sqlite",
+      "--db-path",
+      "/path/to/db.sqlite"
+    ]
+  }
+}

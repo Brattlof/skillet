@@ -1,0 +1,13 @@
+{
+  "name": "brand-guidelines",
+  "description": "Apply organizational brand guidelines such as colors, typography, and tone to generated content.",
+  "repo": "https://github.com/anthropics/skills",
+  "path": "skills/brand-guidelines",
+  "author": "anthropics",
+  "tags": [
+    "brand",
+    "design",
+    "style",
+    "content"
+  ]
+}

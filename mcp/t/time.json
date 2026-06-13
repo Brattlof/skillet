@@ -1,0 +1,17 @@
+{
+  "name": "time",
+  "description": "Official MCP reference server for current time queries and timezone conversion.",
+  "author": "Anthropic / Model Context Protocol",
+  "tags": [
+    "official",
+    "time",
+    "timezone",
+    "reference"
+  ],
+  "mcp": {
+    "command": "uvx",
+    "args": [
+      "mcp-server-time"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "code-review",
+  "description": "Reviews the current changes for bugs, style issues, and improvements.",
+  "repo": "https://github.com/qdhenry/Claude-Command-Suite",
+  "path": ".claude/commands/dev/code-review.md",
+  "author": "qdhenry",
+  "tags": [
+    "review",
+    "quality",
+    "dev"
+  ]
+}

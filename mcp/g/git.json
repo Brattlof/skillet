@@ -1,0 +1,19 @@
+{
+  "name": "git",
+  "description": "Official MCP reference server to read, search, and manipulate a local Git repository.",
+  "author": "Anthropic / Model Context Protocol",
+  "tags": [
+    "official",
+    "git",
+    "vcs",
+    "reference"
+  ],
+  "mcp": {
+    "command": "uvx",
+    "args": [
+      "mcp-server-git",
+      "--repository",
+      "/path/to/repo"
+    ]
+  }
+}

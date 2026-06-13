@@ -1,0 +1,12 @@
+{
+  "name": "evaluate-repository",
+  "description": "Evaluates a repository against the awesome-claude-code submission criteria.",
+  "repo": "https://github.com/hesreallyhim/awesome-claude-code",
+  "path": ".claude/commands/evaluate-repository.md",
+  "author": "hesreallyhim",
+  "tags": [
+    "repository",
+    "evaluation",
+    "meta"
+  ]
+}

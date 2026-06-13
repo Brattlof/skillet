@@ -1,0 +1,13 @@
+{
+  "name": "test-driven-development",
+  "description": "Drive implementation with a red-green-refactor test-first workflow.",
+  "repo": "https://github.com/obra/superpowers",
+  "path": "skills/test-driven-development",
+  "author": "obra",
+  "tags": [
+    "tdd",
+    "testing",
+    "workflow",
+    "development"
+  ]
+}

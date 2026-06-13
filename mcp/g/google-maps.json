@@ -1,0 +1,18 @@
+{
+  "name": "google-maps",
+  "description": "Google Maps geocoding, places search, directions and distance matrix. Requires GOOGLE_MAPS_API_KEY env var.",
+  "author": "Model Context Protocol",
+  "tags": [
+    "productivity",
+    "maps",
+    "geo",
+    "reference"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@modelcontextprotocol/server-google-maps"
+    ]
+  }
+}

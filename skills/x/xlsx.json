@@ -1,0 +1,13 @@
+{
+  "name": "xlsx",
+  "description": "Create, read, and modify Microsoft Excel .xlsx spreadsheets including formulas and charts.",
+  "repo": "https://github.com/anthropics/skills",
+  "path": "skills/xlsx",
+  "author": "anthropics",
+  "tags": [
+    "xlsx",
+    "excel",
+    "spreadsheets",
+    "office"
+  ]
+}

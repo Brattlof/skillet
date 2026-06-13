@@ -1,0 +1,11 @@
+{
+  "name": "security-audit",
+  "description": "Performs a structured security audit of the codebase and reports findings.",
+  "repo": "https://github.com/qdhenry/Claude-Command-Suite",
+  "path": ".claude/commands/security/security-audit.md",
+  "author": "qdhenry",
+  "tags": [
+    "security",
+    "audit"
+  ]
+}

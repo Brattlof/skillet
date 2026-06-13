@@ -1,0 +1,19 @@
+{
+  "name": "postgres",
+  "description": "Postgres MCP server (Crystal DBA) for SQL queries, schema inspection, and performance analysis.",
+  "author": "Crystal DBA (crystaldba)",
+  "tags": [
+    "postgres",
+    "database",
+    "sql",
+    "data",
+    "dev"
+  ],
+  "mcp": {
+    "command": "uvx",
+    "args": [
+      "postgres-mcp",
+      "--access-mode=unrestricted"
+    ]
+  }
+}

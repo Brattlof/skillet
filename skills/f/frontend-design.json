@@ -1,0 +1,13 @@
+{
+  "name": "frontend-design",
+  "description": "Generate frontend UI designs and layouts following design best practices.",
+  "repo": "https://github.com/anthropics/skills",
+  "path": "skills/frontend-design",
+  "author": "anthropics",
+  "tags": [
+    "frontend",
+    "design",
+    "ui",
+    "web"
+  ]
+}

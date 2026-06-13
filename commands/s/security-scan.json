@@ -1,0 +1,12 @@
+{
+  "name": "security-scan",
+  "description": "Scans the codebase for security vulnerabilities, exposed secrets, and insecure dependencies.",
+  "repo": "https://github.com/wshobson/commands",
+  "path": "tools/security-scan.md",
+  "author": "wshobson",
+  "tags": [
+    "security",
+    "audit",
+    "scan"
+  ]
+}

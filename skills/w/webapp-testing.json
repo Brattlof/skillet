@@ -1,0 +1,13 @@
+{
+  "name": "webapp-testing",
+  "description": "Test web applications by driving a browser to verify behavior and capture screenshots.",
+  "repo": "https://github.com/anthropics/skills",
+  "path": "skills/webapp-testing",
+  "author": "anthropics",
+  "tags": [
+    "testing",
+    "web",
+    "browser",
+    "qa"
+  ]
+}

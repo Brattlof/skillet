@@ -1,0 +1,19 @@
+{
+  "name": "filesystem",
+  "description": "Official MCP reference server for secure local file operations within allowed directories.",
+  "author": "Anthropic / Model Context Protocol",
+  "tags": [
+    "official",
+    "filesystem",
+    "files",
+    "reference"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@modelcontextprotocol/server-filesystem",
+      "/path/to/allowed/dir"
+    ]
+  }
+}

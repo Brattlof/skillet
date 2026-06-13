@@ -42,11 +42,11 @@ hello-skill  skill  a1b2c3d    github.com/Brattlof/skillet  tracking
 ## Why
 
 Copy-pasting skill folders by hand, hunting through random repos, never knowing what's worth
-installing. `skillet` fixes that: search a curated, **human-tested** registry and install with
-one command.
+installing. `skillet` fixes that: search a curated registry and install with one command.
 
 - One static binary, no dependencies. The registry ships embedded - no backend, no account.
-- Every entry is hand-reviewed by someone who actually ran it. No slop.
+- Curated from official and widely-used sources, with every link and package verified. No
+  dead-link slop. Contributed entries follow the one rule: you've actually used it.
 - Skills use the open [Agent Skills](https://agentskills.io) `SKILL.md` format, so they work
   across tools. Install for Claude Code (default) or for the shared `~/.agents/skills`
   directory with `--target agents`, which Cursor, Codex, Gemini CLI, and Copilot all read.

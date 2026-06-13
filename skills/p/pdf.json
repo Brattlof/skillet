@@ -1,0 +1,13 @@
+{
+  "name": "pdf",
+  "description": "Fill, create, merge, split, and extract text and tables from PDF files programmatically.",
+  "repo": "https://github.com/anthropics/skills",
+  "path": "skills/pdf",
+  "author": "anthropics",
+  "tags": [
+    "pdf",
+    "documents",
+    "office",
+    "extraction"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "sequential-thinking",
+  "description": "Official MCP reference server for structured step-by-step reasoning via a thought-sequence tool.",
+  "author": "Anthropic / Model Context Protocol",
+  "tags": [
+    "official",
+    "reasoning",
+    "thinking",
+    "reference"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@modelcontextprotocol/server-sequential-thinking"
+    ]
+  }
+}

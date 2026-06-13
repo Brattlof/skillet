@@ -1,0 +1,17 @@
+{
+  "name": "block-dangerous-commands",
+  "description": "PreToolUse hook for Bash that blocks destructive shell commands such as rm -rf and disk overwrites before they run.",
+  "repo": "https://github.com/karanb192/claude-code-hooks",
+  "path": "hook-scripts/pre-tool-use/block-dangerous-commands.js",
+  "author": "karanb192",
+  "tags": [
+    "security",
+    "safety",
+    "bash",
+    "nodejs"
+  ],
+  "hook": {
+    "event": "PreToolUse",
+    "matcher": "Bash"
+  }
+}

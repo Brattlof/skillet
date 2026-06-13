@@ -1,0 +1,13 @@
+{
+  "name": "using-git-worktrees",
+  "description": "Use git worktrees to isolate parallel branches of work.",
+  "repo": "https://github.com/obra/superpowers",
+  "path": "skills/using-git-worktrees",
+  "author": "obra",
+  "tags": [
+    "git",
+    "worktrees",
+    "workflow",
+    "vcs"
+  ]
+}

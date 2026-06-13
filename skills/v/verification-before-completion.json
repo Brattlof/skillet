@@ -1,0 +1,13 @@
+{
+  "name": "verification-before-completion",
+  "description": "Verify a task actually works by running it before declaring it complete.",
+  "repo": "https://github.com/obra/superpowers",
+  "path": "skills/verification-before-completion",
+  "author": "obra",
+  "tags": [
+    "verification",
+    "workflow",
+    "quality",
+    "testing"
+  ]
+}

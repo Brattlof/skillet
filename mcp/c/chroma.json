@@ -1,0 +1,16 @@
+{
+  "name": "chroma",
+  "description": "Chroma vector database for embeddings storage and semantic retrieval. Configure with --client-type and env vars.",
+  "author": "Chroma",
+  "tags": [
+    "ai-data",
+    "vector-db",
+    "official"
+  ],
+  "mcp": {
+    "command": "uvx",
+    "args": [
+      "chroma-mcp"
+    ]
+  }
+}

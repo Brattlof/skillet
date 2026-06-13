@@ -1,0 +1,13 @@
+{
+  "name": "canvas-design",
+  "description": "Produce canvas-based visual designs and graphics.",
+  "repo": "https://github.com/anthropics/skills",
+  "path": "skills/canvas-design",
+  "author": "anthropics",
+  "tags": [
+    "design",
+    "canvas",
+    "graphics",
+    "creative"
+  ]
+}

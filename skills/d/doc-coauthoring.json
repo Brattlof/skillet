@@ -1,0 +1,13 @@
+{
+  "name": "doc-coauthoring",
+  "description": "Co-author long-form documents with structured drafting and revision workflows.",
+  "repo": "https://github.com/anthropics/skills",
+  "path": "skills/doc-coauthoring",
+  "author": "anthropics",
+  "tags": [
+    "documents",
+    "writing",
+    "collaboration",
+    "drafting"
+  ]
+}

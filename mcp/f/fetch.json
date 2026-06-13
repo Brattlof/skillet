@@ -1,0 +1,16 @@
+{
+  "name": "fetch",
+  "description": "Fetch a URL and convert its HTML to markdown for the model. No API key required.",
+  "author": "Model Context Protocol (Anthropic)",
+  "tags": [
+    "web",
+    "fetch",
+    "reference"
+  ],
+  "mcp": {
+    "command": "uvx",
+    "args": [
+      "mcp-server-fetch"
+    ]
+  }
+}

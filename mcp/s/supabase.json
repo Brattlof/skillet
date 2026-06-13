@@ -1,0 +1,19 @@
+{
+  "name": "supabase",
+  "description": "Supabase project management: query Postgres, manage tables, branches, edge functions. Requires SUPABASE_ACCESS_TOKEN env var; --read-only recommended.",
+  "author": "Supabase Community",
+  "tags": [
+    "ai-data",
+    "database",
+    "postgres",
+    "official"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@supabase/mcp-server-supabase@latest",
+      "--read-only"
+    ]
+  }
+}

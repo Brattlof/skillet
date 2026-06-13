@@ -1,0 +1,13 @@
+{
+  "name": "systematic-debugging",
+  "description": "Debug failures with a structured hypothesis-and-test methodology instead of guessing.",
+  "repo": "https://github.com/obra/superpowers",
+  "path": "skills/systematic-debugging",
+  "author": "obra",
+  "tags": [
+    "debugging",
+    "workflow",
+    "testing",
+    "methodology"
+  ]
+}

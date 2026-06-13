@@ -1,0 +1,13 @@
+{
+  "name": "writing-plans",
+  "description": "Produce structured implementation plans before writing code.",
+  "repo": "https://github.com/obra/superpowers",
+  "path": "skills/writing-plans",
+  "author": "obra",
+  "tags": [
+    "planning",
+    "workflow",
+    "development",
+    "specs"
+  ]
+}

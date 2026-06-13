@@ -1,0 +1,19 @@
+{
+  "name": "sentry",
+  "description": "Sentry's official MCP server for querying issues, errors, and project data from Sentry.",
+  "author": "Sentry (getsentry)",
+  "tags": [
+    "sentry",
+    "observability",
+    "errors",
+    "official",
+    "dev"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@sentry/mcp-server@latest"
+    ]
+  }
+}

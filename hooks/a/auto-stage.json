@@ -1,0 +1,16 @@
+{
+  "name": "auto-stage",
+  "description": "PostToolUse hook that automatically git-stages files after Claude modifies them via Edit or Write.",
+  "repo": "https://github.com/karanb192/claude-code-hooks",
+  "path": "hook-scripts/post-tool-use/auto-stage.js",
+  "author": "karanb192",
+  "tags": [
+    "git",
+    "automation",
+    "nodejs"
+  ],
+  "hook": {
+    "event": "PostToolUse",
+    "matcher": "Edit|Write"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "stripe",
+  "description": "Stripe API access: customers, payments, invoices, products via function calling. Requires a Stripe secret key (--api-key or STRIPE_SECRET_KEY env).",
+  "author": "Stripe",
+  "tags": [
+    "payments",
+    "fintech",
+    "official"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@stripe/mcp",
+      "--tools=all"
+    ]
+  }
+}

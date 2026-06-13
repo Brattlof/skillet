@@ -1,0 +1,17 @@
+{
+  "name": "tavily",
+  "description": "Tavily web search and content extraction for LLMs. Requires TAVILY_API_KEY env var.",
+  "author": "Tavily AI",
+  "tags": [
+    "web",
+    "search",
+    "official"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "tavily-mcp@latest"
+    ]
+  }
+}

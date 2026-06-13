@@ -1,0 +1,19 @@
+{
+  "name": "neon",
+  "description": "Neon serverless Postgres: create projects/branches, run SQL, manage migrations. Requires a Neon API key passed as argument.",
+  "author": "Neon",
+  "tags": [
+    "ai-data",
+    "database",
+    "postgres",
+    "official"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@neondatabase/mcp-server-neon",
+      "start"
+    ]
+  }
+}

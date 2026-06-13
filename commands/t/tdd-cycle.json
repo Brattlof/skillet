@@ -1,0 +1,12 @@
+{
+  "name": "tdd-cycle",
+  "description": "Drives a red-green-refactor test-driven development cycle for a change.",
+  "repo": "https://github.com/wshobson/commands",
+  "path": "workflows/tdd-cycle.md",
+  "author": "wshobson",
+  "tags": [
+    "tdd",
+    "testing",
+    "workflow"
+  ]
+}

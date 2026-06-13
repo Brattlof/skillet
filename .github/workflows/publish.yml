@@ -36,3 +36,7 @@ jobs:
           publish_dir: ./dist
           publish_branch: gh-pages
           force_orphan: true
+      - name: Purge the jsDelivr cache
+        # jsDelivr edge-caches the @gh-pages index, so without this a published
+        # registry update is invisible to users for hours. Best-effort.
+        run: curl -sf "https://purge.jsdelivr.net/gh/Brattlof/skillet@gh-pages/index.json" >/dev/null || true

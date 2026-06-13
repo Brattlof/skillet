@@ -1,0 +1,35 @@
+name: publish-index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'skills/**'
+      - 'cmd/buildindex/**'
+      - 'internal/registry/**'
+      - '.github/workflows/publish.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-index
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+      - name: Compile index
+        run: go run ./cmd/buildindex -out dist/index.json
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          force_orphan: true

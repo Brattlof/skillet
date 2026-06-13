@@ -11,7 +11,7 @@ than 3,000 dead links.
 ## Add a skill
 
 1. Fork and create a branch.
-2. Add one object to [`registry.json`](registry.json), in alphabetical order by `name`:
+2. Add one file `skills/<name>.json` (one skill per file, so two PRs never conflict):
 
    ```json
    {
@@ -26,8 +26,12 @@ than 3,000 dead links.
 
    - `repo` is the public repository to clone.
    - `path` is the folder *inside* that repo containing the skill (the one with `SKILL.md`).
-3. Run `go test ./...` - the registry must still parse and the example must resolve.
+   - Optional `ref` (a commit SHA or tag) pins installs to an exact version, and optional
+     `cksum` (a `sha256:` tree hash) makes the install tamper-evident.
+3. Run `go run ./cmd/buildindex -check` to validate the shards, then `go test ./...`.
 4. Open a PR. In the description, tell us **how you've used it** (one or two sentences).
+
+A merged skill goes live once CI compiles the index and the CDN cache refreshes.
 
 ## What gets rejected
 

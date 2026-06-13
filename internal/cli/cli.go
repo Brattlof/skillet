@@ -2,6 +2,7 @@
 package cli
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"os"
@@ -11,7 +12,7 @@ import (
 var Version = "0.1.0"
 
 // Run dispatches a command and returns a process exit code.
-func Run(args []string) int {
+func Run(ctx context.Context, args []string) int {
 	if len(args) == 0 {
 		usage(os.Stdout)
 		return 0
@@ -21,17 +22,17 @@ func Run(args []string) int {
 	var err error
 	switch cmd {
 	case "add", "install":
-		err = cmdAdd(rest)
+		err = cmdAdd(ctx, rest)
 	case "remove", "rm":
-		err = cmdRemove(rest)
+		err = cmdRemove(ctx, rest)
 	case "list", "ls":
-		err = cmdList(rest)
+		err = cmdList(ctx, rest)
 	case "search", "find":
-		err = cmdSearch(rest)
+		err = cmdSearch(ctx, rest)
 	case "registry":
-		err = cmdRegistry(rest)
+		err = cmdRegistry(ctx, rest)
 	case "publish":
-		err = cmdPublish(rest)
+		err = cmdPublish(ctx, rest)
 	case "version", "--version", "-v":
 		fmt.Println("skillet", Version)
 	case "help", "--help", "-h":
@@ -67,6 +68,10 @@ Commands:
 
 Flags:
   --dir PATH       Target skills dir (default: ~/.claude/skills or $SKILLET_SKILLS_DIR)
+
+Environment:
+  SKILLET_REGISTRY_URL   Override the registry index URL
+  SKILLET_OFFLINE=1      Use only the cached or embedded index
 
 Examples:
   skillet search research

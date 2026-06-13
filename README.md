@@ -78,10 +78,15 @@ export SKILLET_SKILLS_DIR=~/.config/agent/skills
 
 ## How it works
 
-1. The curated index lives in [`registry.json`](registry.json), embedded into the binary at build time.
-2. `skillet add` shallow-clones the entry's repo, copies just the skill folder into your skills
-   directory, and cleans up. No `.git`, no clutter.
-3. Contributing a skill is a PR that adds one entry to `registry.json` - see below.
+1. Each skill is one file under [`skills/`](skills). CI compiles them into an index published
+   over a CDN. `skillet` fetches that index, caches it locally with ETag revalidation, and falls
+   back to a copy embedded in the binary when it is offline.
+2. `skillet add` clones the entry's repo (pinned to its `ref` when set), copies just the skill
+   folder into your skills directory, verifies its checksum when set, and cleans up. No `.git`.
+3. Contributing a skill is a PR that adds one file to `skills/` - see below.
+
+Point `skillet` at a different index with `SKILLET_REGISTRY_URL`, or force the cached/embedded
+copy with `SKILLET_OFFLINE=1`.
 
 ## Contributing
 

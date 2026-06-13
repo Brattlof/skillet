@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"context"
 	"errors"
 	"flag"
 	"fmt"
@@ -32,7 +33,7 @@ func parseArgs(fs *flag.FlagSet, args []string) ([]string, error) {
 	}
 }
 
-func cmdAdd(args []string) error {
+func cmdAdd(ctx context.Context, args []string) error {
 	fs := flag.NewFlagSet("add", flag.ContinueOnError)
 	dir := fs.String("dir", "", dirUsage)
 	pos, err := parseArgs(fs, args)
@@ -44,7 +45,7 @@ func cmdAdd(args []string) error {
 	}
 
 	name := pos[0]
-	entry, ok, err := registry.Find(name)
+	entry, ok, err := registry.Find(ctx, name)
 	if err != nil {
 		return err
 	}
@@ -57,7 +58,7 @@ func cmdAdd(args []string) error {
 		return err
 	}
 	fmt.Printf("Installing %s from %s ...\n", entry.Name, entry.Repo)
-	dest, err := install.Install(entry, target)
+	dest, err := install.Install(ctx, entry, target)
 	if err != nil {
 		return err
 	}
@@ -65,7 +66,7 @@ func cmdAdd(args []string) error {
 	return nil
 }
 
-func cmdRemove(args []string) error {
+func cmdRemove(_ context.Context, args []string) error {
 	fs := flag.NewFlagSet("remove", flag.ContinueOnError)
 	dir := fs.String("dir", "", dirUsage)
 	pos, err := parseArgs(fs, args)
@@ -88,7 +89,7 @@ func cmdRemove(args []string) error {
 	return nil
 }
 
-func cmdList(args []string) error {
+func cmdList(_ context.Context, args []string) error {
 	fs := flag.NewFlagSet("list", flag.ContinueOnError)
 	dir := fs.String("dir", "", dirUsage)
 	if _, err := parseArgs(fs, args); err != nil {
@@ -114,8 +115,8 @@ func cmdList(args []string) error {
 	return nil
 }
 
-func cmdSearch(args []string) error {
-	results, err := registry.Search(strings.Join(args, " "))
+func cmdSearch(ctx context.Context, args []string) error {
+	results, err := registry.Search(ctx, strings.Join(args, " "))
 	if err != nil {
 		return err
 	}
@@ -127,8 +128,8 @@ func cmdSearch(args []string) error {
 	return nil
 }
 
-func cmdRegistry(args []string) error {
-	entries, err := registry.Load()
+func cmdRegistry(ctx context.Context, _ []string) error {
+	entries, err := registry.Load(ctx)
 	if err != nil {
 		return err
 	}
@@ -136,11 +137,11 @@ func cmdRegistry(args []string) error {
 	return nil
 }
 
-func cmdPublish(args []string) error {
+func cmdPublish(_ context.Context, _ []string) error {
 	fmt.Print(`Publish a skill to the registry:
 
   1. Fork github.com/Brattlof/skillet
-  2. Add an entry to registry.json:
+  2. Add skills/<name>.json:
 
        {
          "name": "your-skill",
@@ -151,7 +152,8 @@ func cmdPublish(args []string) error {
          "tags": ["example"]
        }
 
-  3. Open a PR and tell us how you've used it (the one rule). See CONTRIBUTING.md.
+  3. Run: go run ./cmd/buildindex -check
+  4. Open a PR and tell us how you've used it (the one rule). See CONTRIBUTING.md.
 `)
 	return nil
 }

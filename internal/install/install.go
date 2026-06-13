@@ -2,6 +2,9 @@
 package install
 
 import (
+	"context"
+	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 	"io"
 	"os"
@@ -40,9 +43,11 @@ func expand(p string) (string, error) {
 	return filepath.Abs(p)
 }
 
-// Install shallow-clones the entry's repo and copies its skill folder into
-// dir/<name>, replacing any existing install. It returns the install path.
-func Install(e registry.Entry, dir string) (string, error) {
+// Install fetches the entry's repo (pinned to e.Ref when set), copies its skill
+// folder into dir/<name>, verifies e.Cksum when set, and returns the install path.
+// The entry is assumed already validated by the registry (Repo is an http(s) URL
+// and Ref is a plain git ref), which keeps the git calls below safe.
+func Install(ctx context.Context, e registry.Entry, dir string) (string, error) {
 	if _, err := exec.LookPath("git"); err != nil {
 		return "", fmt.Errorf("git is required to install skills: %w", err)
 	}
@@ -53,10 +58,8 @@ func Install(e registry.Entry, dir string) (string, error) {
 	}
 	defer os.RemoveAll(tmp)
 
-	clone := exec.Command("git", "clone", "--depth", "1", e.Repo, tmp)
-	clone.Stderr = os.Stderr
-	if err := clone.Run(); err != nil {
-		return "", fmt.Errorf("cloning %s: %w", e.Repo, err)
+	if err := fetchRepo(ctx, e, tmp); err != nil {
+		return "", err
 	}
 
 	src := filepath.Join(tmp, filepath.FromSlash(e.Path))
@@ -75,7 +78,45 @@ func Install(e registry.Entry, dir string) (string, error) {
 	if err := copyDir(src, dest); err != nil {
 		return "", err
 	}
+
+	if e.Cksum != "" {
+		got, err := hashTree(dest)
+		if err != nil {
+			os.RemoveAll(dest)
+			return "", err
+		}
+		if got != e.Cksum {
+			os.RemoveAll(dest)
+			return "", fmt.Errorf("checksum mismatch for %s: got %s, want %s", e.Name, got, e.Cksum)
+		}
+	}
 	return dest, nil
+}
+
+// fetchRepo clones e.Repo into tmp. With no ref it shallow-clones the default
+// branch; with a ref (any commit or tag) it does a full clone and checks it out.
+// The "--" and "--end-of-options" separators stop git from parsing a value that
+// begins with a dash as an option.
+func fetchRepo(ctx context.Context, e registry.Entry, tmp string) error {
+	if e.Ref == "" {
+		clone := exec.CommandContext(ctx, "git", "clone", "--depth", "1", "--", e.Repo, tmp)
+		clone.Stderr = os.Stderr
+		if err := clone.Run(); err != nil {
+			return fmt.Errorf("cloning %s: %w", e.Repo, err)
+		}
+		return nil
+	}
+	clone := exec.CommandContext(ctx, "git", "clone", "--quiet", "--", e.Repo, tmp)
+	clone.Stderr = os.Stderr
+	if err := clone.Run(); err != nil {
+		return fmt.Errorf("cloning %s: %w", e.Repo, err)
+	}
+	checkout := exec.CommandContext(ctx, "git", "-C", tmp, "checkout", "--quiet", "--end-of-options", e.Ref)
+	checkout.Stderr = os.Stderr
+	if err := checkout.Run(); err != nil {
+		return fmt.Errorf("checking out %s@%s: %w", e.Repo, e.Ref, err)
+	}
+	return nil
 }
 
 // Remove deletes an installed skill.
@@ -104,6 +145,50 @@ func ListInstalled(dir string) ([]string, error) {
 	}
 	sort.Strings(names)
 	return names, nil
+}
+
+// hashTree returns a deterministic sha256 over the file tree rooted at root.
+// Files are hashed in sorted path order as: relative slash-path, a space, the
+// octal permission bits, a newline, then the streamed file contents. The mode is
+// included so a lost or added executable bit changes the hash.
+func hashTree(root string) (string, error) {
+	var files []string
+	err := filepath.WalkDir(root, func(p string, d os.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if !d.IsDir() {
+			files = append(files, p)
+		}
+		return nil
+	})
+	if err != nil {
+		return "", err
+	}
+	sort.Strings(files)
+
+	h := sha256.New()
+	for _, p := range files {
+		rel, err := filepath.Rel(root, p)
+		if err != nil {
+			return "", err
+		}
+		info, err := os.Lstat(p)
+		if err != nil {
+			return "", err
+		}
+		fmt.Fprintf(h, "%s %o\n", filepath.ToSlash(rel), info.Mode().Perm())
+		f, err := os.Open(p)
+		if err != nil {
+			return "", err
+		}
+		if _, err := io.Copy(h, f); err != nil {
+			f.Close()
+			return "", err
+		}
+		f.Close()
+	}
+	return "sha256:" + hex.EncodeToString(h.Sum(nil)), nil
 }
 
 func copyDir(src, dst string) error {

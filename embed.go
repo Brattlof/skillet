@@ -1,9 +1,9 @@
 package skillet
 
-import _ "embed"
+import "embed"
 
-// RegistryJSON is the curated skill index, embedded at build time so the binary
-// is fully self-contained (zero runtime dependencies).
+// SkillsFS embeds the skill metadata shards so the binary always has a baseline
+// index to fall back on when the remote registry and local cache are unavailable.
 //
-//go:embed registry.json
-var RegistryJSON []byte
+//go:embed skills
+var SkillsFS embed.FS

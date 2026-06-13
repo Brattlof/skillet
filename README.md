@@ -130,13 +130,14 @@ elsewhere with `SKILLET_LOCKFILE`.
 
 ## How it works
 
-1. Each skill is one file under [`skills/`](skills), sharded by first letter
-   (`skills/g/git-commit.json`). CI compiles them into an index published
-   over a CDN. `skillet` fetches that index, caches it locally with ETag revalidation, and falls
-   back to a copy embedded in the binary when it is offline.
-2. `skillet add` clones the entry's repo (pinned to its `ref` when set), copies just the skill
-   folder into your skills directory, verifies its checksum when set, and cleans up. No `.git`.
-3. Contributing a skill is a PR that adds one file `skills/<first-letter>/<name>.json` - see below.
+1. Each entry is one file under the directory for its kind - [`skills/`](skills),
+   [`commands/`](commands), or [`hooks/`](hooks) - sharded by first letter
+   (`commands/c/changelog.json`). The folder sets the kind. CI compiles them into an index
+   published over a CDN. `skillet` fetches that index, caches it locally with ETag
+   revalidation, and falls back to a copy embedded in the binary when it is offline.
+2. `skillet add` clones the entry's repo (pinned to its `ref` when set), copies just that
+   artifact into the right directory, verifies its checksum when set, and cleans up. No `.git`.
+3. Contributing is a PR that adds one file under `skills/`, `commands/`, or `hooks/` - see below.
 
 Point `skillet` at a different index with `SKILLET_REGISTRY_URL`, or force the cached/embedded
 copy with `SKILLET_OFFLINE=1`.

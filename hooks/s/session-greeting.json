@@ -5,6 +5,5 @@
   "path": "examples/hooks/session-greeting.sh",
   "author": "skillet",
   "tags": ["example", "hook"],
-  "kind": "hook",
   "hook": { "event": "SessionStart" }
 }

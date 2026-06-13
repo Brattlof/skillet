@@ -4,6 +4,5 @@
   "repo": "https://github.com/Brattlof/skillet",
   "path": "examples/commands/changelog.md",
   "author": "skillet",
-  "tags": ["example", "command", "git"],
-  "kind": "command"
+  "tags": ["example", "command", "git"]
 }

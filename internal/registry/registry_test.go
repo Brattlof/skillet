@@ -71,8 +71,8 @@ func writeShard(t *testing.T, dir, file, body string) {
 
 func TestBuildIndexSortsAndValidates(t *testing.T) {
 	dir := t.TempDir()
-	writeShard(t, dir, "b/beta.json", `{"name":"beta","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
-	writeShard(t, dir, "a/alpha.json", `{"name":"alpha","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
+	writeShard(t, dir, "skills/b/beta.json", `{"name":"beta","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
+	writeShard(t, dir, "skills/a/alpha.json", `{"name":"alpha","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
 	entries, err := BuildIndex(dir)
 	if err != nil {
 		t.Fatal(err)
@@ -84,8 +84,8 @@ func TestBuildIndexSortsAndValidates(t *testing.T) {
 
 func TestBuildIndexRejectsDuplicate(t *testing.T) {
 	dir := t.TempDir()
-	writeShard(t, dir, "d/Dup.json", `{"name":"Dup","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
-	writeShard(t, dir, "d/dup.json", `{"name":"dup","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
+	writeShard(t, dir, "skills/d/Dup.json", `{"name":"Dup","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
+	writeShard(t, dir, "skills/d/dup.json", `{"name":"dup","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
 	if _, err := BuildIndex(dir); err == nil {
 		t.Fatal("expected duplicate-name error")
 	}
@@ -93,7 +93,7 @@ func TestBuildIndexRejectsDuplicate(t *testing.T) {
 
 func TestBuildIndexRejectsMissingField(t *testing.T) {
 	dir := t.TempDir()
-	writeShard(t, dir, "x/x.json", `{"name":"x","repo":"https://x/y","path":"p","author":"a"}`) // no description
+	writeShard(t, dir, "skills/x/x.json", `{"name":"x","repo":"https://x/y","path":"p","author":"a"}`) // no description
 	if _, err := BuildIndex(dir); err == nil {
 		t.Fatal("expected validation error for missing description")
 	}
@@ -102,9 +102,48 @@ func TestBuildIndexRejectsMissingField(t *testing.T) {
 func TestBuildIndexRejectsMisplacedShard(t *testing.T) {
 	dir := t.TempDir()
 	// "alpha" belongs in a/, not z/
-	writeShard(t, dir, "z/alpha.json", `{"name":"alpha","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
+	writeShard(t, dir, "skills/z/alpha.json", `{"name":"alpha","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
 	if _, err := BuildIndex(dir); err == nil {
 		t.Fatal("expected a placement error for a misfiled shard")
+	}
+}
+
+func TestBuildIndexInfersKindFromDirectory(t *testing.T) {
+	dir := t.TempDir()
+	writeShard(t, dir, "skills/s/sk.json", `{"name":"sk","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
+	writeShard(t, dir, "commands/c/cmd.json", `{"name":"cmd","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
+	writeShard(t, dir, "hooks/h/hk.json", `{"name":"hk","description":"d","repo":"https://x/y","path":"p","author":"a","hook":{"event":"SessionStart"}}`)
+
+	entries, err := BuildIndex(dir)
+	if err != nil {
+		t.Fatalf("build: %v", err)
+	}
+	want := map[string]string{"sk": "skill", "cmd": "command", "hk": "hook"}
+	got := map[string]string{}
+	for _, e := range entries {
+		got[e.Name] = e.KindOrDefault()
+	}
+	for name, k := range want {
+		if got[name] != k {
+			t.Errorf("%s: kind = %q, want %q", name, got[name], k)
+		}
+	}
+}
+
+func TestBuildIndexRejectsHookWithoutEvent(t *testing.T) {
+	dir := t.TempDir()
+	writeShard(t, dir, "hooks/b/bad.json", `{"name":"bad","description":"d","repo":"https://x/y","path":"p","author":"a"}`)
+	if _, err := BuildIndex(dir); err == nil {
+		t.Fatal("a hook shard with no hook.event should be rejected")
+	}
+}
+
+func TestBuildIndexRejectsKindFolderMismatch(t *testing.T) {
+	dir := t.TempDir()
+	// A shard that declares a kind contradicting its directory is an error.
+	writeShard(t, dir, "commands/h/x.json", `{"name":"x","description":"d","repo":"https://x/y","path":"p","author":"a","kind":"hook"}`)
+	if _, err := BuildIndex(dir); err == nil {
+		t.Fatal("a kind/folder mismatch should be rejected")
 	}
 }
 

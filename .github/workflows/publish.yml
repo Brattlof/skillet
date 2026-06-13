@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - 'skills/**'
+      - 'commands/**'
+      - 'hooks/**'
       - 'cmd/buildindex/**'
       - 'internal/registry/**'
       - '.github/workflows/publish.yml'

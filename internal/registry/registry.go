@@ -215,10 +215,11 @@ func fuzzyMatch(s, q string) bool {
 	return i == len(qr)
 }
 
-// BuildIndex reads every *.json shard in dir, validates and de-duplicates them,
-// and returns the sorted index. Used by the cmd/buildindex compiler.
-func BuildIndex(dir string) ([]Entry, error) {
-	return parseShards(os.DirFS(dir))
+// BuildIndex reads every *.json shard under root's per-kind directories (skills,
+// commands, hooks), validates and de-duplicates them, and returns the sorted
+// index. Used by the cmd/buildindex compiler.
+func BuildIndex(root string) ([]Entry, error) {
+	return parseShards(os.DirFS(root))
 }
 
 // ValidateInstall checks the fields skillet needs to install a skill safely: a
@@ -298,21 +299,46 @@ func validRef(s string) bool {
 }
 
 func loadEmbedded() ([]Entry, error) {
-	sub, err := fs.Sub(skillet.SkillsFS, "skills")
+	return parseShards(skillet.SkillsFS)
+}
+
+// kindDirs maps each artifact kind to its top-level shard directory. The kind is
+// inferred from the directory, so a shard file does not repeat it.
+var kindDirs = []struct{ kind, dir string }{
+	{"skill", "skills"},
+	{"command", "commands"},
+	{"hook", "hooks"},
+}
+
+// parseShards reads every *.json shard from the per-kind directories of fsys
+// (skills, commands, hooks), tagging each entry with the kind of its directory.
+// Names are unique across all kinds, every shard must live in its first-letter
+// subdirectory (commands/c/changelog.json), and the result is sorted by name. A
+// kind directory that does not exist is skipped.
+func parseShards(fsys fs.FS) ([]Entry, error) {
+	seen := make(map[string]bool)
+	var out []Entry
+	for _, kd := range kindDirs {
+		es, err := parseKindShards(fsys, kd.dir, kd.kind, seen)
+		if err != nil {
+			return nil, err
+		}
+		out = append(out, es...)
+	}
+	sortEntries(out)
+	return out, nil
+}
+
+func parseKindShards(fsys fs.FS, dir, kind string, seen map[string]bool) ([]Entry, error) {
+	if _, err := fs.Stat(fsys, dir); err != nil {
+		return nil, nil // no shards of this kind
+	}
+	sub, err := fs.Sub(fsys, dir)
 	if err != nil {
 		return nil, err
 	}
-	return parseShards(sub)
-}
-
-// parseShards reads every *.json shard (one Entry per file) from fsys, walking
-// subdirectories, validates each, enforces that it lives in its first-letter
-// shard directory, rejects duplicate names, and returns the entries sorted by
-// name. Shards are sharded by first letter (skills/<letter>/<name>.json) so the
-// source tree stays browsable as the registry grows.
-func parseShards(fsys fs.FS) ([]Entry, error) {
 	var names []string
-	err := fs.WalkDir(fsys, ".", func(p string, d fs.DirEntry, err error) error {
+	err = fs.WalkDir(sub, ".", func(p string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
@@ -325,36 +351,42 @@ func parseShards(fsys fs.FS) ([]Entry, error) {
 		return nil, err
 	}
 	sort.Strings(names)
-	seen := make(map[string]bool, len(names))
 	out := make([]Entry, 0, len(names))
 	for _, n := range names {
-		b, err := fs.ReadFile(fsys, n)
+		b, err := fs.ReadFile(sub, n)
 		if err != nil {
-			return nil, fmt.Errorf("%s: %w", n, err)
+			return nil, fmt.Errorf("%s/%s: %w", dir, n, err)
 		}
 		var e Entry
 		if err := json.Unmarshal(b, &e); err != nil {
-			return nil, fmt.Errorf("%s: %w", n, err)
+			return nil, fmt.Errorf("%s/%s: %w", dir, n, err)
+		}
+		if e.Kind != "" && e.Kind != kind {
+			return nil, fmt.Errorf("%s/%s: kind %q does not match the %s/ directory", dir, n, e.Kind, dir)
+		}
+		// The directory is the source of truth for the kind. Skills keep the
+		// empty default so the compiled index stays free of redundant fields.
+		if kind != "skill" {
+			e.Kind = kind
 		}
 		if err := Validate(e); err != nil {
-			return nil, fmt.Errorf("%s: %w", n, err)
+			return nil, fmt.Errorf("%s/%s: %w", dir, n, err)
 		}
 		if want := shardDir(e.Name); path.Dir(n) != want {
-			return nil, fmt.Errorf("%s: skill %q must live in %s/%s.json", n, e.Name, want, e.Name)
+			return nil, fmt.Errorf("%s/%s: %q must live in %s/%s/%s.json", dir, n, e.Name, dir, want, e.Name)
 		}
 		key := strings.ToLower(e.Name)
 		if seen[key] {
-			return nil, fmt.Errorf("%s: duplicate skill name %q", n, e.Name)
+			return nil, fmt.Errorf("%s/%s: duplicate name %q", dir, n, e.Name)
 		}
 		seen[key] = true
 		out = append(out, e)
 	}
-	sortEntries(out)
 	return out, nil
 }
 
-// shardDir returns the shard subdirectory a skill's shard belongs in: the
-// lowercased first character of its name (for example "git-commit" -> "g").
+// shardDir returns the shard subdirectory an entry belongs in: the lowercased
+// first character of its name (for example "git-commit" -> "g").
 func shardDir(name string) string {
 	if name == "" {
 		return "."

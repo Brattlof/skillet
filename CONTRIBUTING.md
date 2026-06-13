@@ -8,12 +8,17 @@ Thanks for helping keep this the *no-slop* registry. One rule matters; the rest 
 work, and kept it. If that's not true, don't add it yet. We'd rather have 30 hand-tested entries
 than 3,000 dead links.
 
-## Add a skill
+## Add an entry
 
 1. Fork and create a branch.
-2. Add one file `skills/<first-letter>/<name>.json` - the directory is the first
-   character of the skill name (for example `git-commit` goes in `skills/g/git-commit.json`).
-   One skill per file, so two PRs never conflict, and the first-letter shard keeps the
+2. Add one file under the directory for its kind, sharded by the first letter of the
+   name. The directory sets the kind, so the shard never repeats it:
+
+   - a **skill** goes in `skills/<letter>/<name>.json` (e.g. `skills/g/git-commit.json`),
+   - a **slash command** goes in `commands/<letter>/<name>.json`,
+   - a **hook** goes in `hooks/<letter>/<name>.json`.
+
+   One entry per file, so two PRs never conflict, and the first-letter shard keeps each
    directory browsable as the registry grows. CI rejects a shard placed in the wrong folder.
 
    ```json
@@ -28,14 +33,16 @@ than 3,000 dead links.
    ```
 
    - `repo` is the public repository to clone.
-   - `path` is the folder *inside* that repo containing the skill (the one with `SKILL.md`).
-   - Optional `kind` (`skill` by default, or `command` / `hook`) controls where it installs.
+   - `path` is what to install: a folder containing `SKILL.md` for a skill, a single
+     `.md` file for a command, or a script for a hook.
+   - A hook shard adds a `hook` block naming the event it registers for, for example
+     `"hook": { "event": "PreToolUse", "matcher": "Bash" }`.
    - Optional `ref` (a commit SHA or tag) pins installs to an exact version, and optional
-     `cksum` (a `sha256:` tree hash) makes the install tamper-evident.
+     `cksum` (a `sha256:` hash) makes the install tamper-evident.
 3. Run `go run ./cmd/buildindex -check` to validate the shards, then `go test ./...`.
 4. Open a PR. In the description, tell us **how you've used it** (one or two sentences).
 
-A merged skill goes live once CI compiles the index and the CDN cache refreshes.
+A merged entry goes live once CI compiles the index and the CDN cache refreshes.
 
 ## What gets rejected
 

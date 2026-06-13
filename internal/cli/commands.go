@@ -493,10 +493,17 @@ func cmdInfo(ctx context.Context, args []string) error {
 }
 
 func cmdPublish(_ context.Context, _ []string) error {
-	fmt.Print(`Publish a skill to the registry:
+	fmt.Print(`Publish to the registry:
 
   1. Fork github.com/Brattlof/skillet
-  2. Add skills/<first-letter>/<name>.json (e.g. skills/g/git-commit.json):
+  2. Add one shard under the folder for its kind, sharded by first letter.
+     The folder sets the kind, so the shard does not repeat it:
+
+       skills/<letter>/<name>.json    a skill (a folder with a SKILL.md)
+       commands/<letter>/<name>.json  a slash command (a single .md file)
+       hooks/<letter>/<name>.json     a hook (a script, plus a "hook" block)
+
+     A skill shard (skills/g/git-commit.json):
 
        {
          "name": "your-skill",
@@ -506,6 +513,10 @@ func cmdPublish(_ context.Context, _ []string) error {
          "author": "you",
          "tags": ["example"]
        }
+
+     A hook shard also names the event it registers for:
+
+       "hook": { "event": "PreToolUse", "matcher": "Bash" }
 
   3. Run: go run ./cmd/buildindex -check
   4. Open a PR and tell us how you've used it (the one rule). See CONTRIBUTING.md.

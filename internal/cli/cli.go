@@ -98,18 +98,21 @@ Commands:
   help               Show this help
 
 Flags:
-  --dir PATH       Target directory (default: ~/.claude/{skills,commands,hooks})
+  --target NAME    claude (default, ~/.claude) or agents (~/.agents/skills,
+                   read by Cursor, Codex, Gemini, and Copilot)
+  --dir PATH       Exact install directory (overrides --target)
 
 Environment:
   SKILLET_REGISTRY_URL   Override the registry index URL
   SKILLET_OFFLINE=1      Use only the cached or embedded index
+  SKILLET_TARGET         Default target (claude or agents)
   SKILLET_SKILLS_DIR     Override the skills directory (skill kind only)
   SKILLET_CACHE_DIR      Override where the fetched index is cached
   SKILLET_LOCKFILE       Override the lockfile path (default: ./skillet.lock)
 
 Examples:
-  skillet search research --kind command
   skillet add hello-skill
+  skillet add hello-skill --target agents
   skillet install --frozen
 `)
 }

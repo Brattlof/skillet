@@ -70,7 +70,7 @@ func TestRestorePrunesAndFrozenVerifies(t *testing.T) {
 	t.Setenv("SKILLET_LOCKFILE", lockfile)
 
 	// Restore reinstalls "a" and prunes "b" (managed but not in the lock).
-	if err := restoreFromLock(ctx, override); err != nil {
+	if err := restoreFromLock(ctx, "claude", override); err != nil {
 		t.Fatalf("restore: %v", err)
 	}
 	if _, err := os.Stat(filepath.Join(override, "a")); err != nil {
@@ -84,7 +84,7 @@ func TestRestorePrunesAndFrozenVerifies(t *testing.T) {
 	}
 
 	// The install now matches the lock.
-	if err := verifyLock(override); err != nil {
+	if err := verifyLock("claude", override); err != nil {
 		t.Fatalf("frozen verify should pass: %v", err)
 	}
 
@@ -92,7 +92,27 @@ func TestRestorePrunesAndFrozenVerifies(t *testing.T) {
 	if _, err := install.Install(ctx, mk("c"), override); err != nil {
 		t.Fatalf("install c: %v", err)
 	}
-	if err := verifyLock(override); err == nil {
+	if err := verifyLock("claude", override); err == nil {
 		t.Fatal("frozen verify should fail when an install is not in the lock")
+	}
+}
+
+// Under the agents target a command or hook entry is not routable. Restore skips
+// it (non-fatal); frozen verify must agree and skip it too, not report it broken.
+func TestRestoreAndVerifyAgreeUnderAgents(t *testing.T) {
+	t.Setenv("HOME", t.TempDir())
+	lockfile := filepath.Join(t.TempDir(), "skillet.lock")
+	var lf install.Lockfile
+	lf.Upsert(install.LockEntry{Name: "cmd", Kind: "command", Repo: "https://github.com/x/y", Path: "p", Commit: "abcabc"})
+	if err := install.WriteLock(lockfile, lf); err != nil {
+		t.Fatal(err)
+	}
+	t.Setenv("SKILLET_LOCKFILE", lockfile)
+
+	if err := restoreFromLock(context.Background(), "agents", ""); err != nil {
+		t.Fatalf("restore should skip the command entry, not error: %v", err)
+	}
+	if err := verifyLock("agents", ""); err != nil {
+		t.Fatalf("verify should agree and skip the command entry, not fail: %v", err)
 	}
 }

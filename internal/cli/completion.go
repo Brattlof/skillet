@@ -33,9 +33,14 @@ func cmdCompletion(_ context.Context, args []string) error {
 func cmdComplete(_ context.Context, args []string) error {
 	fs := flag.NewFlagSet("__complete", flag.ContinueOnError)
 	dir := fs.String("dir", "", dirUsage)
+	tgtFlag := fs.String("target", "", targetUsage)
 	pos, err := parseArgs(fs, args)
 	if err != nil {
 		return err
+	}
+	tgt, err := resolveTarget(*tgtFlag)
+	if err != nil {
+		return nil // completion is best-effort
 	}
 	what := ""
 	if len(pos) > 0 {
@@ -52,7 +57,7 @@ func cmdComplete(_ context.Context, args []string) error {
 			fmt.Println(e.Name)
 		}
 	case "remove", "rm", "update", "upgrade":
-		dirs, err := install.ScanDirs(*dir)
+		dirs, err := install.ScanDirs(tgt, *dir)
 		if err != nil {
 			return nil
 		}
@@ -98,17 +103,21 @@ const bashCompletion = `_skillet() {
         COMPREPLY=( $(compgen -d -- "$cur") )
         return
     fi
+    if [ "$prev" = "--target" ]; then
+        COMPREPLY=( $(compgen -W "claude agents" -- "$cur") )
+        return
+    fi
 
     sub="${COMP_WORDS[1]}"
     case "$sub" in
         add|install|info|search)
-            COMPREPLY=( $(compgen -W "$(skillet __complete add 2>/dev/null) --dir" -- "$cur") ) ;;
+            COMPREPLY=( $(compgen -W "$(skillet __complete add 2>/dev/null) --dir --target" -- "$cur") ) ;;
         remove|update)
-            COMPREPLY=( $(compgen -W "$(skillet __complete remove 2>/dev/null) --dir" -- "$cur") ) ;;
+            COMPREPLY=( $(compgen -W "$(skillet __complete remove 2>/dev/null) --dir --target" -- "$cur") ) ;;
         completion)
             COMPREPLY=( $(compgen -W "bash zsh fish" -- "$cur") ) ;;
         *)
-            COMPREPLY=( $(compgen -W "--dir" -- "$cur") ) ;;
+            COMPREPLY=( $(compgen -W "--dir --target" -- "$cur") ) ;;
     esac
 }
 complete -F _skillet skillet
@@ -124,13 +133,18 @@ _skillet() {
         return
     fi
 
+    if [[ ${words[CURRENT-1]} == --target ]]; then
+        compadd -- claude agents
+        return
+    fi
+
     local sub=${words[2]}
     case $sub in
         add|install|info|search) compadd -- ${(f)"$(skillet __complete add 2>/dev/null)"} ;;
         remove|update)   compadd -- ${(f)"$(skillet __complete remove 2>/dev/null)"} ;;
         completion)      compadd -- bash zsh fish ;;
     esac
-    compadd -- --dir
+    compadd -- --dir --target
 }
 compdef _skillet skillet
 `
@@ -140,5 +154,6 @@ complete -c skillet -n __fish_use_subcommand -a "add install update doctor remov
 complete -c skillet -n "__fish_seen_subcommand_from add install info search" -a "(skillet __complete add 2>/dev/null)"
 complete -c skillet -n "__fish_seen_subcommand_from remove update" -a "(skillet __complete remove 2>/dev/null)"
 complete -c skillet -n "__fish_seen_subcommand_from completion" -a "bash zsh fish"
-complete -c skillet -l dir -d "Target skills directory"
+complete -c skillet -l dir -d "Exact install directory"
+complete -c skillet -l target -x -a "claude agents" -d "Tool target"
 `

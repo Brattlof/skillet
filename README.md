@@ -4,9 +4,9 @@
 
 # skillet
 
-**A tiny, zero-dependency package manager for AI-agent skills, slash commands, and hooks.**
+**A tiny, zero-dependency package manager for Agent Skills.**
 
-*Search a curated registry and install with one command.*
+*Search a curated registry and install with one command - into Claude Code, Cursor, Codex, Gemini CLI, or Copilot.*
 
 [![CI](https://github.com/Brattlof/skillet/actions/workflows/ci.yml/badge.svg)](https://github.com/Brattlof/skillet/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -29,9 +29,12 @@ $ skillet add hello-skill
 Installing hello-skill from https://github.com/Brattlof/skillet ...
 Installed hello-skill -> ~/.claude/skills/hello-skill
 
+$ skillet add hello-skill --target agents
+Installed hello-skill -> ~/.agents/skills/hello-skill   # Cursor, Codex, Gemini, Copilot
+
 $ skillet list
-Installed skills in ~/.claude/skills:
-  - hello-skill
+NAME         KIND   INSTALLED  SOURCE                       STATUS
+hello-skill  skill  a1b2c3d    github.com/Brattlof/skillet  tracking
 ```
 
 ---
@@ -44,7 +47,16 @@ one command.
 
 - One static binary, no dependencies. The registry ships embedded - no backend, no account.
 - Every entry is hand-reviewed by someone who actually ran it. No slop.
-- Installs into `~/.claude/skills`; point it elsewhere with `--dir`.
+- Skills use the open [Agent Skills](https://agentskills.io) `SKILL.md` format, so they work
+  across tools. Install for Claude Code (default) or for the shared `~/.agents/skills`
+  directory with `--target agents`, which Cursor, Codex, Gemini CLI, and Copilot all read.
+
+## Works with
+
+skillet installs for Claude Code by default (`~/.claude/skills`, plus its slash commands and
+hooks). Add `--target agents` and skills go to the shared `~/.agents/skills` directory that
+Cursor, OpenAI Codex, Gemini CLI, and GitHub Copilot all read. Slash commands and hooks are
+Claude Code specific; skills are the cross-tool part.
 
 ## Install
 
@@ -77,16 +89,23 @@ skillet completion <sh>    Output a bash, zsh, or fish completion script
 skillet self-update        Update the skillet binary to the latest release
 ```
 
+Add `--target agents` to any command to use `~/.agents/skills` instead of
+`~/.claude/skills`, or set `SKILLET_TARGET=agents`.
+
 ### Skills, commands, and hooks
 
 A registry entry has a `kind`: `skill` (the default), `command`, or `hook`. skillet
-installs each into the directory Claude Code reads:
+installs each into the directory the tool reads:
 
-- a **skill** is a folder copied to `~/.claude/skills/<name>/`,
+- a **skill** is a folder copied to `~/.claude/skills/<name>/` (or `~/.agents/skills/<name>/`
+  with `--target agents`, the shared location Cursor, Codex, Gemini CLI, and Copilot read),
 - a **command** is a single `.md` file copied to `~/.claude/commands/<name>.md`,
 - a **hook** is a script copied to `~/.claude/hooks/`, and skillet registers it in
   `~/.claude/settings.json` under the event from the entry's `hook` block (and
   un-registers it on `remove`).
+
+Commands and hooks are Claude Code specific, so they install only under the default
+`claude` target.
 
 ### Shell completion
 
@@ -99,14 +118,15 @@ skillet completion zsh > "${fpath[1]}/_skillet"
 skillet completion fish > ~/.config/fish/completions/skillet.fish
 ```
 
-Completion suggests subcommands, the `--dir` flag, and skill names pulled from the
-local index, so it stays instant and works offline.
+Completion suggests subcommands, the `--target` and `--dir` flags, and skill names pulled
+from the local index, so it stays instant and works offline.
 
-Override the target directory per-command or globally:
+Choose where skills install, per-command or globally:
 
 ```bash
-skillet add hello-skill --dir ~/.config/agent/skills
-export SKILLET_SKILLS_DIR=~/.config/agent/skills
+skillet add hello-skill --target agents          # ~/.agents/skills (cross-tool)
+export SKILLET_TARGET=agents                      # make it the default
+skillet add hello-skill --dir ~/somewhere/else    # an exact directory
 ```
 
 ## Reproducible installs
@@ -124,6 +144,7 @@ elsewhere with `SKILLET_LOCKFILE`.
 
 - `SKILLET_REGISTRY_URL` - override the registry index URL.
 - `SKILLET_OFFLINE=1` - never hit the network; use the cached or embedded index.
+- `SKILLET_TARGET` - default install target (`claude` or `agents`).
 - `SKILLET_SKILLS_DIR` - override the skills directory (skills kind only).
 - `SKILLET_CACHE_DIR` - override where the fetched index is cached.
 - `SKILLET_LOCKFILE` - override the lockfile path (default: `./skillet.lock`).

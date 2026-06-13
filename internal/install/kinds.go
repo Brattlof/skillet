@@ -28,24 +28,75 @@ func kindSubdir(kind string) string {
 	}
 }
 
-// TargetDir resolves where an artifact of the given kind installs. An explicit
-// override (the --dir flag) wins for every kind. Skills keep honoring the legacy
-// SKILLET_SKILLS_DIR via SkillsDir.
-func TargetDir(kind, override string) (string, error) {
+// DefaultTarget is the install target used when none is given.
+const DefaultTarget = "claude"
+
+// ValidTarget reports whether t is a known install target. The empty string means
+// the default.
+func ValidTarget(t string) bool {
+	return t == "" || t == "claude" || t == "agents"
+}
+
+func unknownTarget(t string) error {
+	return fmt.Errorf("unknown target %q (want claude or agents)", t)
+}
+
+// agentHome resolves the config home for a target: ~/.claude for Claude Code, or
+// ~/.agents for the cross-tool Agent Skills standard directory that Cursor, Codex,
+// Gemini CLI, and Copilot read.
+func agentHome(target string) (string, error) {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return "", err
+	}
+	switch target {
+	case "", "claude":
+		return filepath.Join(home, ".claude"), nil
+	case "agents":
+		return filepath.Join(home, ".agents"), nil
+	default:
+		return "", unknownTarget(target)
+	}
+}
+
+// TargetDir resolves where an artifact of the given kind installs for a target. An
+// explicit override (the --dir flag) wins for every kind and target. Under the
+// default claude target, skills keep honoring the legacy SKILLET_SKILLS_DIR via
+// SkillsDir. The agents target installs skills only, since slash commands and
+// hooks are Claude Code specific.
+func TargetDir(kind, target, override string) (string, error) {
 	if override != "" {
 		return expand(override)
 	}
-	switch kind {
-	case "", "skill":
-		return SkillsDir("")
-	case "command", "hook":
-		home, err := os.UserHomeDir()
-		if err != nil {
-			return "", err
+	switch target {
+	case "", "claude":
+		switch kind {
+		case "", "skill":
+			return SkillsDir("")
+		case "command", "hook":
+			home, err := agentHome("claude")
+			if err != nil {
+				return "", err
+			}
+			return filepath.Join(home, kindSubdir(kind)), nil
+		default:
+			return "", fmt.Errorf("unknown kind %q", kind)
 		}
-		return filepath.Join(home, ".claude", kindSubdir(kind)), nil
+	case "agents":
+		switch kind {
+		case "", "skill":
+			home, err := agentHome("agents")
+			if err != nil {
+				return "", err
+			}
+			return filepath.Join(home, "skills"), nil
+		case "command", "hook":
+			return "", fmt.Errorf("the agents target installs skills only; %s is specific to Claude Code", kind)
+		default:
+			return "", fmt.Errorf("unknown kind %q", kind)
+		}
 	default:
-		return "", fmt.Errorf("unknown kind %q", kind)
+		return "", unknownTarget(target)
 	}
 }
 
@@ -55,10 +106,11 @@ type DirKind struct {
 	Dir  string
 }
 
-// ScanDirs returns the directories to inspect for installed artifacts. With an
-// override only that directory is scanned (kind unknown); otherwise the standard
-// per-kind directories are returned.
-func ScanDirs(override string) ([]DirKind, error) {
+// ScanDirs returns the directories to inspect for installed artifacts for a
+// target. With an override only that directory is scanned (kind unknown).
+// Otherwise the per-kind directories for the target are returned: skills,
+// commands, and hooks for claude; skills only for agents.
+func ScanDirs(target, override string) ([]DirKind, error) {
 	if override != "" {
 		d, err := expand(override)
 		if err != nil {
@@ -66,9 +118,18 @@ func ScanDirs(override string) ([]DirKind, error) {
 		}
 		return []DirKind{{Kind: "", Dir: d}}, nil
 	}
-	out := make([]DirKind, 0, len(standardKinds))
-	for _, k := range standardKinds {
-		d, err := TargetDir(k, "")
+	var kinds []string
+	switch target {
+	case "", "claude":
+		kinds = standardKinds
+	case "agents":
+		kinds = []string{"skill"}
+	default:
+		return nil, unknownTarget(target)
+	}
+	out := make([]DirKind, 0, len(kinds))
+	for _, k := range kinds {
+		d, err := TargetDir(k, target, "")
 		if err != nil {
 			return nil, err
 		}
@@ -77,13 +138,14 @@ func ScanDirs(override string) ([]DirKind, error) {
 	return out, nil
 }
 
-// FindInstall returns the directory a named artifact is installed in, searching
-// the scanned directories. It matches either an install dir or a manifest record.
-func FindInstall(name, override string) (string, bool, error) {
+// FindInstall returns the directory a named artifact is installed in for a target,
+// searching the scanned directories. It matches either an install dir or a
+// manifest record.
+func FindInstall(name, target, override string) (string, bool, error) {
 	if !safeName(name) {
 		return "", false, fmt.Errorf("invalid skill name %q", name)
 	}
-	dirs, err := ScanDirs(override)
+	dirs, err := ScanDirs(target, override)
 	if err != nil {
 		return "", false, err
 	}

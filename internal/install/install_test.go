@@ -242,9 +242,9 @@ func TestLockRoundTrip(t *testing.T) {
 func TestTargetDirRouting(t *testing.T) {
 	t.Setenv("SKILLET_SKILLS_DIR", "") // force default skills path
 
-	// an explicit override wins for every kind
+	// an explicit override wins for every kind and target
 	for _, k := range []string{"skill", "command", "hook"} {
-		got, err := TargetDir(k, "/tmp/x")
+		got, err := TargetDir(k, "claude", "/tmp/x")
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -259,7 +259,7 @@ func TestTargetDirRouting(t *testing.T) {
 		"hook":    filepath.Join(".claude", "hooks"),
 	}
 	for kind, suffix := range want {
-		got, err := TargetDir(kind, "")
+		got, err := TargetDir(kind, "claude", "")
 		if err != nil {
 			t.Fatalf("TargetDir(%q): %v", kind, err)
 		}
@@ -268,13 +268,51 @@ func TestTargetDirRouting(t *testing.T) {
 		}
 	}
 
-	if _, err := TargetDir("bogus", ""); err == nil {
+	if _, err := TargetDir("bogus", "claude", ""); err == nil {
 		t.Fatal("expected an unknown kind to error")
+	}
+
+	// the agents target installs skills under ~/.agents/skills and rejects the
+	// Claude-specific kinds.
+	got, err := TargetDir("skill", "agents", "")
+	if err != nil {
+		t.Fatalf("agents skill: %v", err)
+	}
+	if !strings.HasSuffix(got, filepath.Join(".agents", "skills")) {
+		t.Errorf("agents skill dir = %q, want suffix .agents/skills", got)
+	}
+	for _, k := range []string{"command", "hook"} {
+		if _, err := TargetDir(k, "agents", ""); err == nil {
+			t.Errorf("agents target should reject kind %q", k)
+		}
+	}
+	if _, err := TargetDir("skill", "bogus", ""); err == nil {
+		t.Fatal("expected an unknown target to error")
+	}
+}
+
+func TestScanDirsByTarget(t *testing.T) {
+	claude, err := ScanDirs("claude", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(claude) != 3 {
+		t.Fatalf("claude should scan skills, commands, hooks; got %d dirs", len(claude))
+	}
+	agents, err := ScanDirs("agents", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(agents) != 1 || agents[0].Kind != "skill" {
+		t.Fatalf("agents should scan skills only, got %+v", agents)
+	}
+	if _, err := ScanDirs("bogus", ""); err == nil {
+		t.Fatal("an unknown target should error")
 	}
 }
 
 func TestRejectsTraversal(t *testing.T) {
-	if _, _, err := FindInstall("../x", t.TempDir()); err == nil {
+	if _, _, err := FindInstall("../x", "claude", t.TempDir()); err == nil {
 		t.Error("FindInstall should reject a traversal name")
 	}
 	// Install rejects unsafe name/path up front, before touching git or the disk.

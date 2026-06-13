@@ -54,6 +54,7 @@ func upsertLock(rec install.Record) error {
 func cmdInstall(ctx context.Context, args []string) error {
 	fs := flag.NewFlagSet("install", flag.ContinueOnError)
 	dir := fs.String("dir", "", dirUsage)
+	tgtFlag := fs.String("target", "", targetUsage)
 	frozen := fs.Bool("frozen", false, "verify the install matches the lockfile without changing anything")
 	pos, err := parseArgs(fs, args)
 	if err != nil {
@@ -65,13 +66,17 @@ func cmdInstall(ctx context.Context, args []string) error {
 		}
 		return cmdAdd(ctx, args)
 	}
-	if *frozen {
-		return verifyLock(*dir)
+	tgt, err := resolveTarget(*tgtFlag)
+	if err != nil {
+		return err
 	}
-	return restoreFromLock(ctx, *dir)
+	if *frozen {
+		return verifyLock(tgt, *dir)
+	}
+	return restoreFromLock(ctx, tgt, *dir)
 }
 
-func restoreFromLock(ctx context.Context, dirOverride string) error {
+func restoreFromLock(ctx context.Context, target, dirOverride string) error {
 	p := lockPath()
 	if _, err := os.Stat(p); err != nil {
 		return fmt.Errorf("no lockfile at %s (run: skillet lock)", p)
@@ -101,13 +106,13 @@ func restoreFromLock(ctx context.Context, dirOverride string) error {
 			skipped++
 			continue
 		}
-		target, err := install.TargetDir(le.Kind, dirOverride)
+		instDir, err := install.TargetDir(le.Kind, target, dirOverride)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "skipping %s: %v\n", le.Name, err)
 			skipped++
 			continue
 		}
-		dest, err := install.Install(ctx, e, target)
+		dest, err := install.Install(ctx, e, instDir)
 		if err != nil {
 			return fmt.Errorf("installing %s: %w", le.Name, err)
 		}
@@ -118,7 +123,7 @@ func restoreFromLock(ctx context.Context, dirOverride string) error {
 	// Prune so the install matches the lockfile exactly (npm ci style). Only
 	// skillet-managed installs (those with a manifest record) are removed; a
 	// hand-placed skill, command, or hook is left alone.
-	pruned, err := pruneToLock(dirOverride, locked)
+	pruned, err := pruneToLock(target, dirOverride, locked)
 	if err != nil {
 		return err
 	}
@@ -136,8 +141,8 @@ func restoreFromLock(ctx context.Context, dirOverride string) error {
 
 // pruneToLock removes every skillet-managed install whose name is not in locked,
 // across all kind directories, and returns how many it removed.
-func pruneToLock(dirOverride string, locked map[string]bool) (int, error) {
-	dirs, err := install.ScanDirs(dirOverride)
+func pruneToLock(target, dirOverride string, locked map[string]bool) (int, error) {
+	dirs, err := install.ScanDirs(target, dirOverride)
 	if err != nil {
 		return 0, err
 	}
@@ -164,7 +169,7 @@ func pruneToLock(dirOverride string, locked map[string]bool) (int, error) {
 // verifyLock reports whether the installed artifacts match the lockfile, without
 // changing anything. It fails if a locked entry is missing or has drifted, or if a
 // skillet-managed install is not in the lockfile.
-func verifyLock(dirOverride string) error {
+func verifyLock(target, dirOverride string) error {
 	p := lockPath()
 	if _, err := os.Stat(p); err != nil {
 		return fmt.Errorf("no lockfile at %s (run: skillet lock)", p)
@@ -177,14 +182,15 @@ func verifyLock(dirOverride string) error {
 	locked := make(map[string]bool, len(lf.Skills))
 	var problems int
 	for _, le := range lf.Skills {
-		locked[strings.ToLower(le.Name)] = true
-		target, err := install.TargetDir(le.Kind, dirOverride)
+		instDir, err := install.TargetDir(le.Kind, target, dirOverride)
 		if err != nil {
-			fmt.Printf("FAIL  %s: %v\n", le.Name, err)
-			problems++
+			// Not routable for this target (e.g. a command or hook under
+			// --target agents). Restore skips these, so verify must agree.
+			fmt.Printf("skip  %s: not installed under the %s target\n", le.Name, target)
 			continue
 		}
-		sum, ok, err := install.CurrentChecksum(target, le.Name)
+		locked[strings.ToLower(le.Name)] = true
+		sum, ok, err := install.CurrentChecksum(instDir, le.Name)
 		if err != nil {
 			return err
 		}
@@ -200,7 +206,7 @@ func verifyLock(dirOverride string) error {
 		}
 	}
 
-	dirs, err := install.ScanDirs(dirOverride)
+	dirs, err := install.ScanDirs(target, dirOverride)
 	if err != nil {
 		return err
 	}
@@ -229,11 +235,16 @@ func verifyLock(dirOverride string) error {
 func cmdLock(_ context.Context, args []string) error {
 	fs := flag.NewFlagSet("lock", flag.ContinueOnError)
 	dir := fs.String("dir", "", dirUsage)
+	tgtFlag := fs.String("target", "", targetUsage)
 	if _, err := parseArgs(fs, args); err != nil {
 		return err
 	}
+	tgt, err := resolveTarget(*tgtFlag)
+	if err != nil {
+		return err
+	}
 
-	dirs, err := install.ScanDirs(*dir)
+	dirs, err := install.ScanDirs(tgt, *dir)
 	if err != nil {
 		return err
 	}

@@ -14,7 +14,25 @@ import (
 	"github.com/Brattlof/skillet/internal/registry"
 )
 
-const dirUsage = "target skills directory (default: ~/.claude/skills or $SKILLET_SKILLS_DIR)"
+const dirUsage = "exact install directory (overrides --target; default per kind)"
+
+const targetUsage = "tool target: claude (default, ~/.claude) or agents (~/.agents/skills, read by Cursor, Codex, Gemini, Copilot)"
+
+// resolveTarget picks the install target from a flag value, then $SKILLET_TARGET,
+// then the default.
+func resolveTarget(flagVal string) (string, error) {
+	t := flagVal
+	if t == "" {
+		t = os.Getenv("SKILLET_TARGET")
+	}
+	if t == "" {
+		t = install.DefaultTarget
+	}
+	if !install.ValidTarget(t) {
+		return "", fmt.Errorf("unknown target %q (want claude or agents)", t)
+	}
+	return t, nil
+}
 
 // parseArgs parses fs while tolerating flags placed after positional arguments.
 // The stdlib flag package stops at the first non-flag token; this loops so that
@@ -37,12 +55,17 @@ func parseArgs(fs *flag.FlagSet, args []string) ([]string, error) {
 func cmdAdd(ctx context.Context, args []string) error {
 	fs := flag.NewFlagSet("add", flag.ContinueOnError)
 	dir := fs.String("dir", "", dirUsage)
+	tgtFlag := fs.String("target", "", targetUsage)
 	pos, err := parseArgs(fs, args)
 	if err != nil {
 		return err
 	}
 	if len(pos) < 1 {
-		return errors.New("usage: skillet add <name>[@ref] [--dir PATH]")
+		return errors.New("usage: skillet add <name>[@ref] [--target claude|agents] [--dir PATH]")
+	}
+	tgt, err := resolveTarget(*tgtFlag)
+	if err != nil {
+		return err
 	}
 
 	name, ref := splitNameRef(pos[0])
@@ -65,18 +88,18 @@ func cmdAdd(ctx context.Context, args []string) error {
 			entry.Name, entry.Name)
 	}
 
-	target, err := install.TargetDir(entry.KindOrDefault(), *dir)
+	instDir, err := install.TargetDir(entry.KindOrDefault(), tgt, *dir)
 	if err != nil {
 		return err
 	}
 	fmt.Printf("Installing %s from %s ...\n", entry.Name, entry.Repo)
-	dest, err := install.Install(ctx, entry, target)
+	dest, err := install.Install(ctx, entry, instDir)
 	if err != nil {
 		return err
 	}
 	fmt.Printf("Installed %s -> %s\n", entry.Name, dest)
 
-	if rec, recorded, _ := install.ReadRecord(target, entry.Name); recorded {
+	if rec, recorded, _ := install.ReadRecord(instDir, entry.Name); recorded {
 		if err := upsertLock(rec); err != nil {
 			fmt.Fprintln(os.Stderr, "warning: could not update", lockPath()+":", err)
 		}
@@ -87,7 +110,12 @@ func cmdAdd(ctx context.Context, args []string) error {
 func cmdUpdate(ctx context.Context, args []string) error {
 	fs := flag.NewFlagSet("update", flag.ContinueOnError)
 	dir := fs.String("dir", "", dirUsage)
+	tgtFlag := fs.String("target", "", targetUsage)
 	pos, err := parseArgs(fs, args)
+	if err != nil {
+		return err
+	}
+	tgt, err := resolveTarget(*tgtFlag)
 	if err != nil {
 		return err
 	}
@@ -96,16 +124,16 @@ func cmdUpdate(ctx context.Context, args []string) error {
 	var items []item
 	if len(pos) >= 1 {
 		name := pos[0]
-		target, found, err := install.FindInstall(name, *dir)
+		instDir, found, err := install.FindInstall(name, tgt, *dir)
 		if err != nil {
 			return err
 		}
 		if !found {
 			return fmt.Errorf("%q is not installed (use: skillet add %s)", name, name)
 		}
-		items = []item{{name, target}}
+		items = []item{{name, instDir}}
 	} else {
-		dirs, err := install.ScanDirs(*dir)
+		dirs, err := install.ScanDirs(tgt, *dir)
 		if err != nil {
 			return err
 		}
@@ -158,11 +186,16 @@ func cmdUpdate(ctx context.Context, args []string) error {
 func cmdDoctor(ctx context.Context, args []string) error {
 	fs := flag.NewFlagSet("doctor", flag.ContinueOnError)
 	dir := fs.String("dir", "", dirUsage)
+	tgtFlag := fs.String("target", "", targetUsage)
 	if _, err := parseArgs(fs, args); err != nil {
 		return err
 	}
+	tgt, err := resolveTarget(*tgtFlag)
+	if err != nil {
+		return err
+	}
 
-	dirs, err := install.ScanDirs(*dir)
+	dirs, err := install.ScanDirs(tgt, *dir)
 	if err != nil {
 		return err
 	}
@@ -229,23 +262,28 @@ func short(commit string) string {
 func cmdRemove(_ context.Context, args []string) error {
 	fs := flag.NewFlagSet("remove", flag.ContinueOnError)
 	dir := fs.String("dir", "", dirUsage)
+	tgtFlag := fs.String("target", "", targetUsage)
 	pos, err := parseArgs(fs, args)
 	if err != nil {
 		return err
 	}
 	if len(pos) < 1 {
-		return errors.New("usage: skillet remove <name> [--dir PATH]")
+		return errors.New("usage: skillet remove <name> [--target claude|agents] [--dir PATH]")
+	}
+	tgt, err := resolveTarget(*tgtFlag)
+	if err != nil {
+		return err
 	}
 
 	name := pos[0]
-	target, found, err := install.FindInstall(name, *dir)
+	instDir, found, err := install.FindInstall(name, tgt, *dir)
 	if err != nil {
 		return err
 	}
 	if !found {
 		return fmt.Errorf("%q is not installed", name)
 	}
-	if err := install.Remove(name, target); err != nil {
+	if err := install.Remove(name, instDir); err != nil {
 		return err
 	}
 	fmt.Printf("Removed %s\n", name)
@@ -255,11 +293,16 @@ func cmdRemove(_ context.Context, args []string) error {
 func cmdList(ctx context.Context, args []string) error {
 	fs := flag.NewFlagSet("list", flag.ContinueOnError)
 	dir := fs.String("dir", "", dirUsage)
+	tgtFlag := fs.String("target", "", targetUsage)
 	if _, err := parseArgs(fs, args); err != nil {
 		return err
 	}
+	tgt, err := resolveTarget(*tgtFlag)
+	if err != nil {
+		return err
+	}
 
-	dirs, err := install.ScanDirs(*dir)
+	dirs, err := install.ScanDirs(tgt, *dir)
 	if err != nil {
 		return err
 	}
@@ -435,12 +478,17 @@ func cmdRegistry(ctx context.Context, _ []string) error {
 func cmdInfo(ctx context.Context, args []string) error {
 	fs := flag.NewFlagSet("info", flag.ContinueOnError)
 	dir := fs.String("dir", "", dirUsage)
+	tgtFlag := fs.String("target", "", targetUsage)
 	pos, err := parseArgs(fs, args)
 	if err != nil {
 		return err
 	}
 	if len(pos) < 1 {
-		return errors.New("usage: skillet info <name> [--dir PATH]")
+		return errors.New("usage: skillet info <name> [--target claude|agents] [--dir PATH]")
+	}
+	tgt, err := resolveTarget(*tgtFlag)
+	if err != nil {
+		return err
 	}
 	name := pos[0]
 
@@ -476,8 +524,8 @@ func cmdInfo(ctx context.Context, args []string) error {
 		fmt.Fprintf(tw, "  Cksum\t%s\n", entry.Cksum)
 	}
 
-	if target, found, ferr := install.FindInstall(entry.Name, *dir); ferr == nil && found {
-		if rec, recorded, _ := install.ReadRecord(target, entry.Name); recorded {
+	if instDir, found, ferr := install.FindInstall(entry.Name, tgt, *dir); ferr == nil && found {
+		if rec, recorded, _ := install.ReadRecord(instDir, entry.Name); recorded {
 			detail := short(rec.Commit)
 			if !rec.InstalledAt.IsZero() {
 				detail += ", " + rec.InstalledAt.Format("2006-01-02")

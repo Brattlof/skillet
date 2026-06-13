@@ -29,12 +29,3 @@ release:
   github:
     owner: Brattlof
     name: skillet
-
-# Uncomment to also publish a Homebrew formula (create Brattlof/homebrew-tap first):
-# brews:
-#   - repository:
-#       owner: Brattlof
-#       name: homebrew-tap
-#     homepage: "https://github.com/Brattlof/skillet"
-#     description: "A package manager for AI-agent skills"
-#     license: "MIT"

@@ -6,7 +6,7 @@
 
 **A tiny, zero-dependency package manager for AI-agent skills, slash commands, and hooks.**
 
-*`brew` for Claude Code skills.*
+*Search a curated registry and install with one command.*
 
 [![CI](https://github.com/Brattlof/skillet/actions/workflows/ci.yml/badge.svg)](https://github.com/Brattlof/skillet/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)

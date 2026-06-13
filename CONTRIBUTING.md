@@ -16,7 +16,8 @@ than 3,000 dead links.
 
    - a **skill** goes in `skills/<letter>/<name>.json` (e.g. `skills/g/git-commit.json`),
    - a **slash command** goes in `commands/<letter>/<name>.json`,
-   - a **hook** goes in `hooks/<letter>/<name>.json`.
+   - a **hook** goes in `hooks/<letter>/<name>.json`,
+   - an **MCP server** goes in `mcp/<letter>/<name>.json`.
 
    One entry per file, so two PRs never conflict, and the first-letter shard keeps each
    directory browsable as the registry grows. CI rejects a shard placed in the wrong folder.
@@ -34,7 +35,10 @@ than 3,000 dead links.
 
    - `repo` is the public repository to clone.
    - `path` is what to install: a folder containing `SKILL.md` for a skill, a single
-     `.md` file for a command, or a script for a hook.
+     `.md` file for a command, or a script for a hook. An MCP server has no `repo`/`path`;
+     it carries an `mcp` block instead, e.g.
+     `"mcp": { "command": "npx", "args": ["-y", "some-mcp-server"] }` (stdio) or
+     `"mcp": { "url": "https://mcp.example.com/mcp" }` (remote).
    - A hook shard adds a `hook` block naming the event it registers for, for example
      `"hook": { "event": "PreToolUse", "matcher": "Bash" }`.
    - Optional `ref` (a commit SHA or tag) pins installs to an exact version, and optional

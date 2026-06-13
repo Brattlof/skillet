@@ -92,20 +92,30 @@ skillet self-update        Update the skillet binary to the latest release
 Add `--target agents` to any command to use `~/.agents/skills` instead of
 `~/.claude/skills`, or set `SKILLET_TARGET=agents`.
 
-### Skills, commands, and hooks
+### Skills, commands, hooks, and MCP servers
 
-A registry entry has a `kind`: `skill` (the default), `command`, or `hook`. skillet
-installs each into the directory the tool reads:
+A registry entry has a `kind`: `skill` (the default), `command`, `hook`, or `mcp`. skillet
+installs each into the place the tool reads:
 
 - a **skill** is a folder copied to `~/.claude/skills/<name>/` (or `~/.agents/skills/<name>/`
   with `--target agents`, the shared location Cursor, Codex, Gemini CLI, and Copilot read),
 - a **command** is a single `.md` file copied to `~/.claude/commands/<name>.md`,
 - a **hook** is a script copied to `~/.claude/hooks/`, and skillet registers it in
   `~/.claude/settings.json` under the event from the entry's `hook` block (and
-  un-registers it on `remove`).
+  un-registers it on `remove`),
+- an **MCP server** is registered into a client's MCP config; `--target` picks the client.
 
-Commands and hooks are Claude Code specific, so they install only under the default
-`claude` target.
+Commands and hooks are Claude Code specific. MCP servers work across tools:
+
+```bash
+skillet add context7 --target cursor     # -> ~/.cursor/mcp.json
+skillet add context7 --target windsurf   # -> ~/.codeium/windsurf/mcp_config.json
+skillet add context7 --target claude     # -> ./.mcp.json (project scope)
+skillet remove context7 --target cursor
+```
+
+Supported MCP clients: claude, cursor, windsurf, gemini, cline. skillet merges the
+server into the existing config and leaves every other entry untouched.
 
 ### Shell completion
 

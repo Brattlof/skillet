@@ -16,7 +16,7 @@ import (
 
 const dirUsage = "exact install directory (overrides --target; default per kind)"
 
-const targetUsage = "tool target: claude (default, ~/.claude) or agents (~/.agents/skills, read by Cursor, Codex, Gemini, Copilot)"
+const targetUsage = "install target: skills use claude (default) or agents (~/.agents/skills); mcp servers use claude, cursor, windsurf, gemini, or cline"
 
 // resolveTarget picks the install target from a flag value, then $SKILLET_TARGET,
 // then the default.
@@ -61,11 +61,7 @@ func cmdAdd(ctx context.Context, args []string) error {
 		return err
 	}
 	if len(pos) < 1 {
-		return errors.New("usage: skillet add <name>[@ref] [--target claude|agents] [--dir PATH]")
-	}
-	tgt, err := resolveTarget(*tgtFlag)
-	if err != nil {
-		return err
+		return errors.New("usage: skillet add <name>[@ref] [--target NAME] [--dir PATH]")
 	}
 
 	name, ref := splitNameRef(pos[0])
@@ -75,6 +71,17 @@ func cmdAdd(ctx context.Context, args []string) error {
 	}
 	if !ok {
 		return fmt.Errorf("no skill named %q in the registry (try: skillet search %s)", name, name)
+	}
+
+	// An MCP server registers into a client's config file, not a directory, so
+	// --target names the client (cursor, windsurf, gemini, cline, or claude).
+	if entry.KindOrDefault() == "mcp" {
+		return addMCP(entry, *tgtFlag)
+	}
+
+	tgt, err := resolveTarget(*tgtFlag)
+	if err != nil {
+		return err
 	}
 	if ref != "" {
 		entry.Ref = ref
@@ -105,6 +112,51 @@ func cmdAdd(ctx context.Context, args []string) error {
 		}
 	}
 	return nil
+}
+
+// addMCP registers an MCP-kind entry in a client's config. The default client is
+// claude (its project .mcp.json); --target selects another supported client.
+func addMCP(e registry.Entry, targetFlag string) error {
+	client := targetFlag
+	if client == "" {
+		client = "claude"
+	}
+	if !install.ValidMCPClient(client) {
+		return fmt.Errorf("an mcp server installs per client; --target must be one of %s", strings.Join(install.MCPClients(), ", "))
+	}
+	p, err := install.InstallMCP(e, client)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("Registered MCP server %s with %s -> %s\n", e.Name, client, p)
+	fmt.Fprintf(os.Stderr, "note: restart %s (or reload its MCP config) to pick up %s\n", client, e.Name)
+	return nil
+}
+
+// infoMCP prints details for an mcp-kind entry, whose server spec replaces the
+// repo/path shown for file-based kinds.
+func infoMCP(e registry.Entry) error {
+	fmt.Println(e.Name)
+	tw := tabwriter.NewWriter(os.Stdout, 0, 2, 2, ' ', 0)
+	fmt.Fprintf(tw, "  Description\t%s\n", e.Description)
+	fmt.Fprintln(tw, "  Kind\tmcp")
+	if e.MCP != nil {
+		if e.MCP.URL != "" {
+			fmt.Fprintf(tw, "  Server\t%s (remote)\n", e.MCP.URL)
+		} else {
+			cmd := e.MCP.Command
+			if len(e.MCP.Args) > 0 {
+				cmd += " " + strings.Join(e.MCP.Args, " ")
+			}
+			fmt.Fprintf(tw, "  Server\t%s\n", cmd)
+		}
+	}
+	fmt.Fprintf(tw, "  Author\t%s\n", e.Author)
+	if len(e.Tags) > 0 {
+		fmt.Fprintf(tw, "  Tags\t%s\n", strings.Join(e.Tags, ", "))
+	}
+	fmt.Fprintf(tw, "  Install\tskillet add %s --target <%s>\n", e.Name, strings.Join(install.MCPClients(), "|"))
+	return tw.Flush()
 }
 
 func cmdUpdate(ctx context.Context, args []string) error {
@@ -268,25 +320,49 @@ func cmdRemove(_ context.Context, args []string) error {
 		return err
 	}
 	if len(pos) < 1 {
-		return errors.New("usage: skillet remove <name> [--target claude|agents] [--dir PATH]")
+		return errors.New("usage: skillet remove <name> [--target NAME] [--dir PATH]")
 	}
+	name := pos[0]
+
+	// A target that is only an MCP client (not claude) means an MCP server.
+	if install.ValidMCPClient(*tgtFlag) && *tgtFlag != "claude" {
+		return removeMCP(name, *tgtFlag)
+	}
+
 	tgt, err := resolveTarget(*tgtFlag)
 	if err != nil {
 		return err
 	}
-
-	name := pos[0]
 	instDir, found, err := install.FindInstall(name, tgt, *dir)
 	if err != nil {
 		return err
 	}
-	if !found {
-		return fmt.Errorf("%q is not installed", name)
+	if found {
+		if err := install.Remove(name, instDir); err != nil {
+			return err
+		}
+		fmt.Printf("Removed %s\n", name)
+		return nil
 	}
-	if err := install.Remove(name, instDir); err != nil {
+	// Not a file install; it may be an MCP server in claude's project .mcp.json.
+	if *tgtFlag == "" || *tgtFlag == "claude" {
+		if p, removed, merr := install.RemoveMCP(name, "claude"); merr == nil && removed {
+			fmt.Printf("Unregistered MCP server %s from claude -> %s\n", name, p)
+			return nil
+		}
+	}
+	return fmt.Errorf("%q is not installed", name)
+}
+
+func removeMCP(name, client string) error {
+	p, removed, err := install.RemoveMCP(name, client)
+	if err != nil {
 		return err
 	}
-	fmt.Printf("Removed %s\n", name)
+	if !removed {
+		return fmt.Errorf("%q is not registered with %s", name, client)
+	}
+	fmt.Printf("Unregistered MCP server %s from %s -> %s\n", name, client, p)
 	return nil
 }
 
@@ -484,11 +560,7 @@ func cmdInfo(ctx context.Context, args []string) error {
 		return err
 	}
 	if len(pos) < 1 {
-		return errors.New("usage: skillet info <name> [--target claude|agents] [--dir PATH]")
-	}
-	tgt, err := resolveTarget(*tgtFlag)
-	if err != nil {
-		return err
+		return errors.New("usage: skillet info <name> [--target NAME] [--dir PATH]")
 	}
 	name := pos[0]
 
@@ -498,6 +570,15 @@ func cmdInfo(ctx context.Context, args []string) error {
 	}
 	if !ok {
 		return fmt.Errorf("no skill named %q in the registry (try: skillet search %s)", name, name)
+	}
+
+	if entry.KindOrDefault() == "mcp" {
+		return infoMCP(entry)
+	}
+
+	tgt, err := resolveTarget(*tgtFlag)
+	if err != nil {
+		return err
 	}
 
 	fmt.Println(entry.Name)
@@ -550,6 +631,7 @@ func cmdPublish(_ context.Context, _ []string) error {
        skills/<letter>/<name>.json    a skill (a folder with a SKILL.md)
        commands/<letter>/<name>.json  a slash command (a single .md file)
        hooks/<letter>/<name>.json     a hook (a script, plus a "hook" block)
+       mcp/<letter>/<name>.json       an MCP server (an "mcp" spec, no repo)
 
      A skill shard (skills/g/git-commit.json):
 
@@ -565,6 +647,11 @@ func cmdPublish(_ context.Context, _ []string) error {
      A hook shard also names the event it registers for:
 
        "hook": { "event": "PreToolUse", "matcher": "Bash" }
+
+     An MCP shard describes the server instead of a repo:
+
+       "mcp": { "command": "npx", "args": ["-y", "some-mcp-server"] }
+       "mcp": { "url": "https://mcp.example.com/mcp" }
 
   3. Run: go run ./cmd/buildindex -check
   4. Open a PR and tell us how you've used it (the one rule). See CONTRIBUTING.md.

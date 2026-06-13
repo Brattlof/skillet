@@ -7,6 +7,7 @@ on:
       - 'skills/**'
       - 'commands/**'
       - 'hooks/**'
+      - 'mcp/**'
       - 'cmd/buildindex/**'
       - 'internal/registry/**'
       - '.github/workflows/publish.yml'

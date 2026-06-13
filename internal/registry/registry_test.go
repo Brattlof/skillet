@@ -257,6 +257,42 @@ func TestKindValidationAndDefault(t *testing.T) {
 	}
 }
 
+func TestValidateMCP(t *testing.T) {
+	base := Entry{Name: "m", Description: "d", Author: "a", Kind: "mcp"}
+	if err := Validate(base); err == nil {
+		t.Fatal("an mcp entry with no spec should be rejected")
+	}
+
+	stdio := base
+	stdio.MCP = &MCPSpec{Command: "npx", Args: []string{"-y", "pkg"}}
+	if err := Validate(stdio); err != nil {
+		t.Fatalf("valid stdio mcp should pass: %v", err)
+	}
+
+	remote := base
+	remote.MCP = &MCPSpec{URL: "https://x/y"}
+	if err := Validate(remote); err != nil {
+		t.Fatalf("valid remote mcp should pass: %v", err)
+	}
+
+	for name, spec := range map[string]*MCPSpec{
+		"both command and url": {Command: "x", URL: "https://x/y"},
+		"neither":              {},
+		"non-http url":         {URL: "ftp://x/y"},
+	} {
+		bad := base
+		bad.MCP = spec
+		if err := Validate(bad); err == nil {
+			t.Errorf("%s should be rejected", name)
+		}
+	}
+
+	// An mcp entry must not require repo/path (it is a server spec, not a repo).
+	if base.Repo != "" || base.Path != "" {
+		t.Fatal("test setup: mcp base should have no repo/path")
+	}
+}
+
 func TestFuzzyMatch(t *testing.T) {
 	if !fuzzyMatch("hello-skill", "hsk") {
 		t.Error("hsk should fuzzy-match hello-skill")

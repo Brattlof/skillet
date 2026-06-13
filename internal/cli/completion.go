@@ -104,7 +104,7 @@ const bashCompletion = `_skillet() {
         return
     fi
     if [ "$prev" = "--target" ]; then
-        COMPREPLY=( $(compgen -W "claude agents" -- "$cur") )
+        COMPREPLY=( $(compgen -W "claude agents cursor windsurf gemini cline" -- "$cur") )
         return
     fi
 
@@ -134,7 +134,7 @@ _skillet() {
     fi
 
     if [[ ${words[CURRENT-1]} == --target ]]; then
-        compadd -- claude agents
+        compadd -- claude agents cursor windsurf gemini cline
         return
     fi
 
@@ -155,5 +155,5 @@ complete -c skillet -n "__fish_seen_subcommand_from add install info search" -a 
 complete -c skillet -n "__fish_seen_subcommand_from remove update" -a "(skillet __complete remove 2>/dev/null)"
 complete -c skillet -n "__fish_seen_subcommand_from completion" -a "bash zsh fish"
 complete -c skillet -l dir -d "Exact install directory"
-complete -c skillet -l target -x -a "claude agents" -d "Tool target"
+complete -c skillet -l target -x -a "claude agents cursor windsurf gemini cline" -d "Tool target"
 `

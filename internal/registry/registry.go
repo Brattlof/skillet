@@ -32,10 +32,11 @@ type Entry struct {
 	Path        string    `json:"path"`
 	Author      string    `json:"author"`
 	Tags        []string  `json:"tags"`
-	Kind        string    `json:"kind,omitempty"`  // skill (default), command, or hook
+	Kind        string    `json:"kind,omitempty"`  // skill (default), command, hook, or mcp
 	Ref         string    `json:"ref,omitempty"`   // commit SHA or tag to pin the install to
 	Cksum       string    `json:"cksum,omitempty"` // sha256: tree hash, verified on install
 	Hook        *HookSpec `json:"hook,omitempty"`  // required for kind hook: how to register it
+	MCP         *MCPSpec  `json:"mcp,omitempty"`   // required for kind mcp: the server to register
 }
 
 // HookSpec is how a hook registers in ~/.claude/settings.json. The installed
@@ -43,6 +44,16 @@ type Entry struct {
 type HookSpec struct {
 	Event   string `json:"event"`
 	Matcher string `json:"matcher,omitempty"`
+}
+
+// MCPSpec describes an MCP server to register in a tool's MCP config. A stdio
+// server sets Command (with optional Args and Env); a remote server sets URL
+// instead. Exactly one of Command or URL is set.
+type MCPSpec struct {
+	Command string            `json:"command,omitempty"`
+	Args    []string          `json:"args,omitempty"`
+	Env     map[string]string `json:"env,omitempty"`
+	URL     string            `json:"url,omitempty"`
 }
 
 // KindOrDefault returns the entry's kind, defaulting to "skill".
@@ -222,13 +233,18 @@ func BuildIndex(root string) ([]Entry, error) {
 	return parseShards(os.DirFS(root))
 }
 
-// ValidateInstall checks the fields skillet needs to install a skill safely: a
-// safe single-component name, an http(s) repo, a contained path, and a valid
-// kind, ref, and cksum. It does not require descriptive metadata, so it also
-// validates an untrusted lockfile entry before it reaches git or the filesystem.
+// ValidateInstall checks the fields skillet needs to install an entry safely. For
+// a skill, command, or hook that means a safe single-component name, an http(s)
+// repo, a contained path, and a valid kind, ref, and cksum. An mcp entry is a
+// server spec rather than a repo, so it is validated separately. It does not
+// require descriptive metadata, so it also validates an untrusted lockfile entry
+// before it reaches git or the filesystem.
 func ValidateInstall(e Entry) error {
 	if !validName(e.Name) {
 		return fmt.Errorf("invalid name %q (no separators or path traversal)", e.Name)
+	}
+	if e.KindOrDefault() == "mcp" {
+		return validateMCP(e)
 	}
 	switch {
 	case strings.TrimSpace(e.Repo) == "":
@@ -242,7 +258,7 @@ func ValidateInstall(e Entry) error {
 		return fmt.Errorf("invalid path %q (must stay within the repo)", e.Path)
 	}
 	if e.Kind != "" && e.Kind != "skill" && e.Kind != "command" && e.Kind != "hook" {
-		return fmt.Errorf("invalid kind %q (want skill, command, or hook)", e.Kind)
+		return fmt.Errorf("invalid kind %q (want skill, command, hook, or mcp)", e.Kind)
 	}
 	if e.Kind == "hook" {
 		if e.Hook == nil || strings.TrimSpace(e.Hook.Event) == "" {
@@ -259,6 +275,26 @@ func ValidateInstall(e Entry) error {
 	}
 	if e.Cksum != "" && !strings.HasPrefix(e.Cksum, "sha256:") {
 		return fmt.Errorf("invalid cksum %q (want sha256:...)", e.Cksum)
+	}
+	return nil
+}
+
+// validateMCP checks an mcp entry: it carries a server spec with exactly one of a
+// stdio command or a remote http(s) url, and no fields meant for file installs.
+func validateMCP(e Entry) error {
+	if e.MCP == nil {
+		return errors.New("an mcp entry requires an mcp spec")
+	}
+	hasCmd := strings.TrimSpace(e.MCP.Command) != ""
+	hasURL := strings.TrimSpace(e.MCP.URL) != ""
+	if hasCmd == hasURL {
+		return errors.New("an mcp entry needs exactly one of command (stdio) or url (remote)")
+	}
+	if hasURL && !strings.HasPrefix(e.MCP.URL, "http://") && !strings.HasPrefix(e.MCP.URL, "https://") {
+		return fmt.Errorf("mcp url must be an http(s) URL, got %q", e.MCP.URL)
+	}
+	if e.Hook != nil {
+		return errors.New("hook spec is only valid for kind hook")
 	}
 	return nil
 }
@@ -308,6 +344,7 @@ var kindDirs = []struct{ kind, dir string }{
 	{"skill", "skills"},
 	{"command", "commands"},
 	{"hook", "hooks"},
+	{"mcp", "mcp"},
 }
 
 // parseShards reads every *.json shard from the per-kind directories of fsys

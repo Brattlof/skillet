@@ -1,0 +1,7 @@
+{
+  "name": "context7",
+  "description": "Pulls up-to-date, version-specific library docs into your prompts.",
+  "author": "upstash",
+  "tags": ["docs", "reference"],
+  "mcp": { "command": "npx", "args": ["-y", "@upstash/context7-mcp"] }
+}

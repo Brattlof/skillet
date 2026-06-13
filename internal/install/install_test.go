@@ -146,6 +146,69 @@ func TestUpdate(t *testing.T) {
 	}
 }
 
+func TestDiagnose(t *testing.T) {
+	dir := t.TempDir()
+	mkSkill := func(name, body string) string {
+		d := filepath.Join(dir, name)
+		if err := os.MkdirAll(d, 0o755); err != nil {
+			t.Fatal(err)
+		}
+		if body != "" {
+			if err := os.WriteFile(filepath.Join(d, "SKILL.md"), []byte(body), 0o644); err != nil {
+				t.Fatal(err)
+			}
+		}
+		return d
+	}
+
+	// healthy: dir + SKILL.md + record whose cksum matches the content
+	hp := mkSkill("healthy", "# ok\n")
+	sum, err := hashTree(hp)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := writeRecord(dir, Record{Name: "healthy", Repo: "https://x/y", Path: "p", Cksum: sum}); err != nil {
+		t.Fatal(err)
+	}
+	// drift: record cksum no longer matches
+	mkSkill("drifted", "# changed\n")
+	if err := writeRecord(dir, Record{Name: "drifted", Repo: "https://x/y", Path: "p", Cksum: "sha256:stale"}); err != nil {
+		t.Fatal(err)
+	}
+	// missing SKILL.md: dir + record, no SKILL.md
+	mkSkill("nomd", "")
+	if err := writeRecord(dir, Record{Name: "nomd", Repo: "https://x/y", Path: "p"}); err != nil {
+		t.Fatal(err)
+	}
+	// broken: record but no install dir
+	if err := writeRecord(dir, Record{Name: "broken", Repo: "https://x/y", Path: "p"}); err != nil {
+		t.Fatal(err)
+	}
+	// orphan: dir + SKILL.md, no record
+	mkSkill("orphan", "# orphan\n")
+
+	diags, err := Diagnose(dir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := map[string]Status{}
+	for _, d := range diags {
+		got[d.Name] = d.Status
+	}
+	want := map[string]Status{
+		"healthy": StatusOK,
+		"drifted": StatusDrift,
+		"nomd":    StatusMissingSkillMD,
+		"broken":  StatusBroken,
+		"orphan":  StatusNoRecord,
+	}
+	for n, w := range want {
+		if got[n] != w {
+			t.Errorf("%s: got %q, want %q", n, got[n], w)
+		}
+	}
+}
+
 func TestManifestRoundTrip(t *testing.T) {
 	dir := t.TempDir()
 

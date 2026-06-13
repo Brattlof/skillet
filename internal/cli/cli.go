@@ -3,6 +3,7 @@ package cli
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -10,6 +11,10 @@ import (
 
 // Version is overridable at build time via -ldflags "-X ...cli.Version=...".
 var Version = "0.1.0"
+
+// errSilent makes Run exit with status 1 without printing an "error:" line, for
+// commands like doctor that report their own findings.
+var errSilent = errors.New("")
 
 // Run dispatches a command and returns a process exit code.
 func Run(ctx context.Context, args []string) int {
@@ -25,6 +30,8 @@ func Run(ctx context.Context, args []string) int {
 		err = cmdAdd(ctx, rest)
 	case "update", "upgrade":
 		err = cmdUpdate(ctx, rest)
+	case "doctor":
+		err = cmdDoctor(ctx, rest)
 	case "remove", "rm":
 		err = cmdRemove(ctx, rest)
 	case "list", "ls":
@@ -46,6 +53,9 @@ func Run(ctx context.Context, args []string) int {
 	}
 
 	if err != nil {
+		if errors.Is(err, errSilent) {
+			return 1
+		}
 		fmt.Fprintln(os.Stderr, "error:", err)
 		return 1
 	}
@@ -61,6 +71,7 @@ Usage:
 Commands:
   add <name>       Install a skill from the registry
   update [name]    Update an installed skill, or all of them
+  doctor           Check installed skills for problems
   remove <name>    Remove an installed skill
   list             List installed skills
   search <query>   Search the registry

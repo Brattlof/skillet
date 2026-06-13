@@ -131,6 +131,64 @@ func cmdUpdate(ctx context.Context, args []string) error {
 	return nil
 }
 
+func cmdDoctor(ctx context.Context, args []string) error {
+	fs := flag.NewFlagSet("doctor", flag.ContinueOnError)
+	dir := fs.String("dir", "", dirUsage)
+	if _, err := parseArgs(fs, args); err != nil {
+		return err
+	}
+
+	target, err := install.SkillsDir(*dir)
+	if err != nil {
+		return err
+	}
+	diags, err := install.Diagnose(target)
+	if err != nil {
+		return err
+	}
+	if len(diags) == 0 {
+		fmt.Printf("No skills installed in %s\n", target)
+		return nil
+	}
+
+	// Registry membership is a warning, not a hard failure, and is best-effort:
+	// if the index cannot be loaded we simply skip that check.
+	inRegistry := map[string]bool{}
+	registryKnown := false
+	if entries, lerr := registry.Load(ctx); lerr == nil {
+		registryKnown = true
+		for _, e := range entries {
+			inRegistry[strings.ToLower(e.Name)] = true
+		}
+	}
+
+	var ok, warnings, problems int
+	for _, d := range diags {
+		switch d.Status {
+		case install.StatusOK:
+			if registryKnown && !inRegistry[strings.ToLower(d.Name)] {
+				fmt.Printf("warn  %s: not in the registry\n", d.Name)
+				warnings++
+			} else {
+				fmt.Printf("ok    %s\n", d.Name)
+				ok++
+			}
+		case install.StatusNoRecord:
+			fmt.Printf("warn  %s: %s\n", d.Name, d.Status)
+			warnings++
+		default:
+			fmt.Printf("FAIL  %s: %s\n", d.Name, d.Status)
+			problems++
+		}
+	}
+
+	fmt.Printf("\n%d ok, %d warning(s), %d problem(s)\n", ok, warnings, problems)
+	if problems > 0 {
+		return errSilent
+	}
+	return nil
+}
+
 func short(commit string) string {
 	if commit == "" {
 		return "unknown"

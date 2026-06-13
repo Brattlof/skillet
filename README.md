@@ -63,6 +63,7 @@ go install github.com/Brattlof/skillet/cmd/skillet@latest
 ```text
 skillet add <name>       Install a skill from the registry
 skillet update [name]    Update an installed skill, or all of them
+skillet doctor           Check installed skills for problems
 skillet remove <name>    Remove an installed skill
 skillet list             List installed skills
 skillet search <query>   Search the registry
@@ -99,7 +100,7 @@ used the skill you're adding.** See [CONTRIBUTING.md](CONTRIBUTING.md). PRs welc
 - [x] `skillet update` - refresh installed skills
 - [ ] Install hooks and slash commands, not just skills
 - [ ] Version pinning + a lockfile
-- [ ] `skillet doctor` - validate installed skills
+- [x] `skillet doctor` - validate installed skills
 
 ## License
 

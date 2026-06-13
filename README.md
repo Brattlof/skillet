@@ -1,12 +1,12 @@
 <div align="center">
 
-<img src="assets/banner.webp" alt="skillet" width="640">
+<img src="assets/banner.webp" alt="skillet - package manager for MCP servers and Agent Skills for Claude Code, Cursor, Codex, and more" width="640">
 
 # skillet
 
-**A tiny, zero-dependency package manager for Agent Skills.**
+**A tiny, zero-dependency package manager for MCP servers, Agent Skills, and Claude Code commands and hooks.**
 
-*Search a curated registry and install with one command - into Claude Code, Cursor, Codex, Gemini CLI, or Copilot.*
+*Search a curated registry and install MCP servers, skills, slash commands, and hooks with one command - into Claude Code, Cursor, Codex, Gemini CLI, Copilot, and Cline.*
 
 [![CI](https://github.com/Brattlof/skillet/actions/workflows/ci.yml/badge.svg)](https://github.com/Brattlof/skillet/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -16,8 +16,13 @@
 
 </div>
 
+skillet installs **MCP servers** (Model Context Protocol), **Agent Skills** (the open
+`SKILL.md` standard), and Claude Code slash commands and hooks into Claude Code, Cursor,
+OpenAI Codex, Gemini CLI, Copilot, and Cline - from a curated, verified registry of 130+ entries.
+One static Go binary, no Node or npm.
+
 <div align="center">
-  <img src="assets/demo.gif" alt="skillet demo" width="700">
+  <img src="assets/demo.gif" alt="skillet demo: search a registry and install a skill or MCP server into Claude Code with one command" width="700">
 </div>
 
 ```console
@@ -39,7 +44,7 @@ hello-skill  skill  a1b2c3d    github.com/Brattlof/skillet  tracking
 
 ---
 
-## Why
+## Why use skillet?
 
 Copy-pasting skill folders by hand, hunting through random repos, never knowing what's worth
 installing. `skillet` fixes that: search a curated registry and install with one command.
@@ -51,12 +56,13 @@ installing. `skillet` fixes that: search a curated registry and install with one
   across tools. Install for Claude Code (default) or for the shared `~/.agents/skills`
   directory with `--target agents`, which Cursor, Codex, Gemini CLI, and Copilot all read.
 
-## Works with
+## Supported tools
 
 skillet installs for Claude Code by default (`~/.claude/skills`, plus its slash commands and
 hooks). Add `--target agents` and skills go to the shared `~/.agents/skills` directory that
-Cursor, OpenAI Codex, Gemini CLI, and GitHub Copilot all read. Slash commands and hooks are
-Claude Code specific; skills are the cross-tool part.
+Cursor, OpenAI Codex, Gemini CLI, and GitHub Copilot all read. MCP servers install into each
+client's own config (Claude Code, Cursor, Windsurf, Gemini CLI, and Cline). Slash commands and
+hooks are Claude Code specific; skills and MCP servers are the cross-tool part.
 
 ## Install
 

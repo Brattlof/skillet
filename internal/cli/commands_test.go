@@ -5,12 +5,82 @@ import (
 	"flag"
 	"io"
 	"os"
+	"os/exec"
+	"path/filepath"
 	"strings"
 	"testing"
 
 	"github.com/Brattlof/skillet/internal/install"
 	"github.com/Brattlof/skillet/internal/registry"
 )
+
+func TestSplitNameRef(t *testing.T) {
+	cases := []struct{ in, name, ref string }{
+		{"hello", "hello", ""},
+		{"hello@v1.2.3", "hello", "v1.2.3"},
+		{"hello@abc123", "hello", "abc123"},
+		{"@handle", "@handle", ""}, // a leading @ is not a ref split
+	}
+	for _, c := range cases {
+		n, r := splitNameRef(c.in)
+		if n != c.name || r != c.ref {
+			t.Errorf("splitNameRef(%q) = (%q, %q), want (%q, %q)", c.in, n, r, c.name, c.ref)
+		}
+	}
+}
+
+func TestInstallFromLock(t *testing.T) {
+	if _, err := exec.LookPath("git"); err != nil {
+		t.Skip("git not available")
+	}
+
+	src := t.TempDir()
+	sd := filepath.Join(src, "examples", "hello-skill")
+	if err := os.MkdirAll(sd, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(sd, "SKILL.md"), []byte("# hi\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	git := func(a ...string) {
+		c := exec.Command("git", a...)
+		c.Dir = src
+		if o, e := c.CombinedOutput(); e != nil {
+			t.Fatalf("git %v: %v\n%s", a, e, o)
+		}
+	}
+	git("init", "-q")
+	git("-c", "user.email=t@t", "-c", "user.name=t", "add", "-A")
+	git("-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", "x")
+	shaCmd := exec.Command("git", "rev-parse", "HEAD")
+	shaCmd.Dir = src
+	sb, err := shaCmd.Output()
+	if err != nil {
+		t.Fatal(err)
+	}
+	sha := strings.TrimSpace(string(sb))
+
+	lock := filepath.Join(t.TempDir(), "skillet.lock")
+	t.Setenv("SKILLET_LOCKFILE", lock)
+	if err := install.WriteLock(lock, install.Lockfile{Skills: []install.LockEntry{
+		{Name: "hello-skill", Kind: "skill", Repo: src, Path: "examples/hello-skill", Commit: sha},
+	}}); err != nil {
+		t.Fatal(err)
+	}
+
+	skdir := t.TempDir()
+	captureStdout(t, func() {
+		if code := Run(context.Background(), []string{"install", "--dir", skdir}); code != 0 {
+			t.Errorf("install exit = %d", code)
+		}
+	})
+	if _, err := os.Stat(filepath.Join(skdir, "hello-skill", "SKILL.md")); err != nil {
+		t.Fatalf("skill not installed from lock: %v", err)
+	}
+	if _, ok, _ := install.ReadRecord(skdir, "hello-skill"); !ok {
+		t.Fatal("manifest record missing after lock install")
+	}
+}
 
 func captureStdout(t *testing.T, f func()) string {
 	t.Helper()
@@ -91,6 +161,7 @@ func TestListStatus(t *testing.T) {
 		{"not in registry", true, false, install.Record{}, registry.Entry{}, "not in registry"},
 		{"registry added a pin", true, true, install.Record{Ref: ""}, registry.Entry{Ref: "v2"}, "update available"},
 		{"pinned and matching", true, true, install.Record{Ref: "v1"}, registry.Entry{Ref: "v1"}, "up to date"},
+		{"user pinned, registry unpinned", true, true, install.Record{Ref: "abc123"}, registry.Entry{}, "pinned"},
 		{"cksum changed", true, true, install.Record{Cksum: "sha256:a"}, registry.Entry{Cksum: "sha256:b"}, "update available"},
 		{"unpinned tracking", true, true, install.Record{}, registry.Entry{}, "tracking"},
 		{"cksum pinned and matching", true, true, install.Record{Cksum: "sha256:a"}, registry.Entry{Cksum: "sha256:a"}, "up to date"},

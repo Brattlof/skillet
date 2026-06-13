@@ -61,7 +61,9 @@ go install github.com/Brattlof/skillet/cmd/skillet@latest
 ## Usage
 
 ```text
-skillet add <name>       Install a skill from the registry
+skillet add <name>[@ref] Install a skill (optionally pinned to a commit or tag)
+skillet install          Restore skills from skillet.lock
+skillet lock             Write skillet.lock from installed skills
 skillet update [name]    Update an installed skill, or all of them
 skillet doctor           Check installed skills for problems
 skillet remove <name>    Remove an installed skill
@@ -93,6 +95,13 @@ Override the target directory per-command or globally:
 skillet add hello-skill --dir ~/.config/agent/skills
 export SKILLET_SKILLS_DIR=~/.config/agent/skills
 ```
+
+## Reproducible installs
+
+Pin an install to an exact version with `skillet add <name>@<ref>` (a commit SHA or
+tag). `skillet lock` writes a `skillet.lock` capturing every installed skill at its
+resolved commit and checksum, and `skillet install` (no arguments) restores exactly
+that set. Point the lockfile elsewhere with `SKILLET_LOCKFILE`.
 
 ## How it works
 

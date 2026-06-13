@@ -42,16 +42,22 @@ func cmdAdd(ctx context.Context, args []string) error {
 		return err
 	}
 	if len(pos) < 1 {
-		return errors.New("usage: skillet add <name> [--dir PATH]")
+		return errors.New("usage: skillet add <name>[@ref] [--dir PATH]")
 	}
 
-	name := pos[0]
+	name, ref := splitNameRef(pos[0])
 	entry, ok, err := registry.Find(ctx, name)
 	if err != nil {
 		return err
 	}
 	if !ok {
 		return fmt.Errorf("no skill named %q in the registry (try: skillet search %s)", name, name)
+	}
+	if ref != "" {
+		entry.Ref = ref
+		if err := registry.Validate(entry); err != nil {
+			return err
+		}
 	}
 
 	target, err := install.TargetDir(entry.KindOrDefault(), *dir)
@@ -64,6 +70,12 @@ func cmdAdd(ctx context.Context, args []string) error {
 		return err
 	}
 	fmt.Printf("Installed %s -> %s\n", entry.Name, dest)
+
+	if rec, recorded, _ := install.ReadRecord(target, entry.Name); recorded {
+		if err := upsertLock(rec); err != nil {
+			fmt.Fprintln(os.Stderr, "warning: could not update", lockPath()+":", err)
+		}
+	}
 	return nil
 }
 
@@ -331,10 +343,14 @@ func listStatus(hasRec, inReg bool, rec install.Record, e registry.Entry) string
 		return "no record"
 	case !inReg:
 		return "not in registry"
-	case e.Ref != rec.Ref:
-		return "update available"
+	case e.Ref != "" && e.Ref != rec.Ref:
+		return "update available" // registry moved its pin
 	case e.Cksum != "" && e.Cksum != rec.Cksum:
-		return "update available"
+		return "update available" // registry repinned the content
+	case e.Ref != "" && e.Ref == rec.Ref:
+		return "up to date" // registry pin matches the install
+	case rec.Ref != "":
+		return "pinned" // user-pinned install; registry is unpinned, cannot compare offline
 	case e.Ref == "" && e.Cksum == "":
 		return "tracking"
 	default:

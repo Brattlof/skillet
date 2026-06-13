@@ -209,6 +209,36 @@ func TestDiagnose(t *testing.T) {
 	}
 }
 
+func TestLockRoundTrip(t *testing.T) {
+	p := filepath.Join(t.TempDir(), "skillet.lock")
+
+	if lf, err := ReadLock(p); err != nil || len(lf.Skills) != 0 {
+		t.Fatalf("missing lock should be empty: %+v err=%v", lf, err)
+	}
+
+	var lf Lockfile
+	lf.Upsert(LockEntry{Name: "b", Repo: "https://x/b", Path: "p", Commit: "2"})
+	lf.Upsert(LockEntry{Name: "a", Repo: "https://x/a", Path: "p", Commit: "1"})
+	lf.Upsert(LockEntry{Name: "A", Repo: "https://x/a2", Path: "p", Commit: "1b"}) // replaces "a"
+	if len(lf.Skills) != 2 {
+		t.Fatalf("upsert should dedupe case-insensitively: %+v", lf.Skills)
+	}
+
+	if err := WriteLock(p, lf); err != nil {
+		t.Fatal(err)
+	}
+	got, err := ReadLock(p)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(got.Skills) != 2 || got.Skills[0].Name != "A" || got.Skills[1].Name != "b" {
+		t.Fatalf("expected sorted [A b], got %+v", got.Skills)
+	}
+	if got.Skills[0].Commit != "1b" {
+		t.Fatalf("expected replaced commit 1b, got %q", got.Skills[0].Commit)
+	}
+}
+
 func TestTargetDirRouting(t *testing.T) {
 	t.Setenv("SKILLET_SKILLS_DIR", "") // force default skills path
 

@@ -26,8 +26,12 @@ func Run(ctx context.Context, args []string) int {
 	cmd, rest := args[0], args[1:]
 	var err error
 	switch cmd {
-	case "add", "install":
+	case "add":
 		err = cmdAdd(ctx, rest)
+	case "install":
+		err = cmdInstall(ctx, rest)
+	case "lock":
+		err = cmdLock(ctx, rest)
 	case "update", "upgrade":
 		err = cmdUpdate(ctx, rest)
 	case "doctor":
@@ -75,7 +79,9 @@ Usage:
   skillet <command> [args]
 
 Commands:
-  add <name>       Install a skill from the registry
+  add <name>[@ref] Install a skill from the registry (optionally pinned)
+  install          Restore skills from skillet.lock
+  lock             Write skillet.lock from installed skills
   update [name]    Update an installed skill, or all of them
   doctor           Check installed skills for problems
   remove <name>    Remove an installed skill

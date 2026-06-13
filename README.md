@@ -103,6 +103,14 @@ tag). `skillet lock` writes a `skillet.lock` capturing every installed skill at 
 resolved commit and checksum, and `skillet install` (no arguments) restores exactly
 that set. Point the lockfile elsewhere with `SKILLET_LOCKFILE`.
 
+## Environment
+
+- `SKILLET_REGISTRY_URL` - override the registry index URL.
+- `SKILLET_OFFLINE=1` - never hit the network; use the cached or embedded index.
+- `SKILLET_SKILLS_DIR` - override the skills directory (skills kind only).
+- `SKILLET_CACHE_DIR` - override where the fetched index is cached.
+- `SKILLET_LOCKFILE` - override the lockfile path (default: `./skillet.lock`).
+
 ## How it works
 
 1. Each skill is one file under [`skills/`](skills). CI compiles them into an index published

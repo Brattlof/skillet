@@ -209,6 +209,40 @@ func TestDiagnose(t *testing.T) {
 	}
 }
 
+func TestTargetDirRouting(t *testing.T) {
+	t.Setenv("SKILLET_SKILLS_DIR", "") // force default skills path
+
+	// an explicit override wins for every kind
+	for _, k := range []string{"skill", "command", "hook"} {
+		got, err := TargetDir(k, "/tmp/x")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if got != "/tmp/x" {
+			t.Fatalf("override for %q = %q", k, got)
+		}
+	}
+
+	want := map[string]string{
+		"skill":   filepath.Join(".claude", "skills"),
+		"command": filepath.Join(".claude", "commands"),
+		"hook":    filepath.Join(".claude", "hooks"),
+	}
+	for kind, suffix := range want {
+		got, err := TargetDir(kind, "")
+		if err != nil {
+			t.Fatalf("TargetDir(%q): %v", kind, err)
+		}
+		if !strings.HasSuffix(got, suffix) {
+			t.Errorf("TargetDir(%q) = %q, want suffix %q", kind, got, suffix)
+		}
+	}
+
+	if _, err := TargetDir("bogus", ""); err == nil {
+		t.Fatal("expected an unknown kind to error")
+	}
+}
+
 func TestManifestRoundTrip(t *testing.T) {
 	dir := t.TempDir()
 

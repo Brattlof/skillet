@@ -54,7 +54,7 @@ func cmdAdd(ctx context.Context, args []string) error {
 		return fmt.Errorf("no skill named %q in the registry (try: skillet search %s)", name, name)
 	}
 
-	target, err := install.SkillsDir(*dir)
+	target, err := install.TargetDir(entry.KindOrDefault(), *dir)
 	if err != nil {
 		return err
 	}
@@ -75,56 +75,62 @@ func cmdUpdate(ctx context.Context, args []string) error {
 		return err
 	}
 
-	target, err := install.SkillsDir(*dir)
-	if err != nil {
-		return err
-	}
-
-	var names []string
+	type item struct{ name, dir string }
+	var items []item
 	if len(pos) >= 1 {
 		name := pos[0]
-		if _, ok, _ := install.ReadRecord(target, name); !ok {
-			return fmt.Errorf("%q is not installed (use: skillet add %s)", name, name)
-		}
-		names = []string{name}
-	} else {
-		recs, err := install.Records(target)
+		target, found, err := install.FindInstall(name, *dir)
 		if err != nil {
 			return err
 		}
-		for _, r := range recs {
-			names = append(names, r.Name)
+		if !found {
+			return fmt.Errorf("%q is not installed (use: skillet add %s)", name, name)
 		}
-		if len(names) == 0 {
-			fmt.Printf("No skills installed in %s\n", target)
+		items = []item{{name, target}}
+	} else {
+		dirs, err := install.ScanDirs(*dir)
+		if err != nil {
+			return err
+		}
+		for _, dk := range dirs {
+			recs, err := install.Records(dk.Dir)
+			if err != nil {
+				return err
+			}
+			for _, r := range recs {
+				items = append(items, item{r.Name, dk.Dir})
+			}
+		}
+		if len(items) == 0 {
+			fmt.Println("No skills installed")
 			return nil
 		}
 	}
 
 	var updated, unchanged, skipped int
-	for _, name := range names {
-		entry, ok, err := registry.Find(ctx, name)
+	for _, it := range items {
+		entry, ok, err := registry.Find(ctx, it.name)
 		if err != nil {
 			return err
 		}
 		if !ok {
-			fmt.Printf("skipped %s (not in the registry)\n", name)
+			fmt.Printf("skipped %s (not in the registry)\n", it.name)
 			skipped++
 			continue
 		}
-		prev, cur, err := install.Update(ctx, entry, target)
+		prev, cur, err := install.Update(ctx, entry, it.dir)
 		if err != nil {
-			return fmt.Errorf("updating %s: %w", name, err)
+			return fmt.Errorf("updating %s: %w", it.name, err)
 		}
 		switch {
 		case prev.Commit == "":
-			fmt.Printf("installed %s (%s)\n", name, short(cur.Commit))
+			fmt.Printf("installed %s (%s)\n", it.name, short(cur.Commit))
 			updated++
 		case prev.Commit != cur.Commit:
-			fmt.Printf("updated %s %s -> %s\n", name, short(prev.Commit), short(cur.Commit))
+			fmt.Printf("updated %s %s -> %s\n", it.name, short(prev.Commit), short(cur.Commit))
 			updated++
 		default:
-			fmt.Printf("%s already up to date (%s)\n", name, short(cur.Commit))
+			fmt.Printf("%s already up to date (%s)\n", it.name, short(cur.Commit))
 			unchanged++
 		}
 	}
@@ -211,11 +217,14 @@ func cmdRemove(_ context.Context, args []string) error {
 		return errors.New("usage: skillet remove <name> [--dir PATH]")
 	}
 
-	target, err := install.SkillsDir(*dir)
+	name := pos[0]
+	target, found, err := install.FindInstall(name, *dir)
 	if err != nil {
 		return err
 	}
-	name := pos[0]
+	if !found {
+		return fmt.Errorf("%q is not installed", name)
+	}
 	if err := install.Remove(name, target); err != nil {
 		return err
 	}
@@ -230,34 +239,9 @@ func cmdList(ctx context.Context, args []string) error {
 		return err
 	}
 
-	target, err := install.SkillsDir(*dir)
+	dirs, err := install.ScanDirs(*dir)
 	if err != nil {
 		return err
-	}
-
-	recs, err := install.Records(target)
-	if err != nil {
-		return err
-	}
-	installed, err := install.ListInstalled(target)
-	if err != nil {
-		return err
-	}
-
-	// Union of names that have a record and names that have an install dir.
-	display := map[string]string{}
-	recByName := map[string]install.Record{}
-	for _, r := range recs {
-		k := strings.ToLower(r.Name)
-		display[k] = r.Name
-		recByName[k] = r
-	}
-	for _, n := range installed {
-		display[strings.ToLower(n)] = n
-	}
-	if len(display) == 0 {
-		fmt.Printf("No skills installed in %s\n", target)
-		return nil
 	}
 
 	// Best-effort registry lookup (offline uses the cache/embedded index).
@@ -268,33 +252,71 @@ func cmdList(ctx context.Context, args []string) error {
 		}
 	}
 
-	keys := make([]string, 0, len(display))
-	for k := range display {
-		keys = append(keys, k)
-	}
-	sort.Strings(keys)
-
 	tw := tabwriter.NewWriter(os.Stdout, 0, 2, 2, ' ', 0)
-	fmt.Fprintln(tw, "NAME\tINSTALLED\tSOURCE\tSTATUS")
-	for _, k := range keys {
-		rec, hasRec := recByName[k]
-		entry, inReg := entries[k]
-
-		installedCol := "?"
-		source := "?"
-		if hasRec {
-			switch {
-			case rec.Commit != "":
-				installedCol = short(rec.Commit)
-			case rec.Ref != "":
-				installedCol = rec.Ref
-			}
-			source = stripScheme(rec.Repo)
-		} else if inReg {
-			source = stripScheme(entry.Repo)
+	rows := 0
+	for _, dk := range dirs {
+		recs, err := install.Records(dk.Dir)
+		if err != nil {
+			return err
+		}
+		installed, err := install.ListInstalled(dk.Dir)
+		if err != nil {
+			return err
 		}
 
-		fmt.Fprintf(tw, "%s\t%s\t%s\t%s\n", display[k], installedCol, source, listStatus(hasRec, inReg, rec, entry))
+		display := map[string]string{}
+		recByName := map[string]install.Record{}
+		for _, r := range recs {
+			k := strings.ToLower(r.Name)
+			display[k] = r.Name
+			recByName[k] = r
+		}
+		for _, n := range installed {
+			display[strings.ToLower(n)] = n
+		}
+		if len(display) == 0 {
+			continue
+		}
+
+		keys := make([]string, 0, len(display))
+		for k := range display {
+			keys = append(keys, k)
+		}
+		sort.Strings(keys)
+
+		if rows == 0 {
+			fmt.Fprintln(tw, "NAME\tKIND\tINSTALLED\tSOURCE\tSTATUS")
+		}
+		for _, k := range keys {
+			rec, hasRec := recByName[k]
+			entry, inReg := entries[k]
+
+			kind := dk.Kind
+			if hasRec && rec.Kind != "" {
+				kind = rec.Kind
+			}
+			if kind == "" {
+				kind = "?"
+			}
+			installedCol, source := "?", "?"
+			if hasRec {
+				switch {
+				case rec.Commit != "":
+					installedCol = short(rec.Commit)
+				case rec.Ref != "":
+					installedCol = rec.Ref
+				}
+				source = stripScheme(rec.Repo)
+			} else if inReg {
+				source = stripScheme(entry.Repo)
+			}
+			fmt.Fprintf(tw, "%s\t%s\t%s\t%s\t%s\n", display[k], kind, installedCol, source, listStatus(hasRec, inReg, rec, entry))
+			rows++
+		}
+	}
+	if rows == 0 {
+		fmt.Println("No skills installed")
+		return nil
 	}
 	return tw.Flush()
 }
@@ -330,12 +352,29 @@ func stripScheme(repo string) string {
 }
 
 func cmdSearch(ctx context.Context, args []string) error {
-	results, err := registry.Search(ctx, strings.Join(args, " "))
+	fs := flag.NewFlagSet("search", flag.ContinueOnError)
+	kind := fs.String("kind", "", "filter by kind (skill, command, hook)")
+	pos, err := parseArgs(fs, args)
 	if err != nil {
 		return err
 	}
+
+	query := strings.Join(pos, " ")
+	results, err := registry.Search(ctx, query)
+	if err != nil {
+		return err
+	}
+	if *kind != "" {
+		var filtered []registry.Entry
+		for _, e := range results {
+			if e.KindOrDefault() == *kind {
+				filtered = append(filtered, e)
+			}
+		}
+		results = filtered
+	}
 	if len(results) == 0 {
-		fmt.Printf("No skills match %q\n", strings.Join(args, " "))
+		fmt.Printf("No skills match %q\n", query)
 		return nil
 	}
 	printEntries(results)
@@ -424,9 +463,9 @@ func cmdPublish(_ context.Context, _ []string) error {
 
 func printEntries(entries []registry.Entry) {
 	tw := tabwriter.NewWriter(os.Stdout, 0, 2, 2, ' ', 0)
-	fmt.Fprintln(tw, "NAME\tDESCRIPTION\tTAGS")
+	fmt.Fprintln(tw, "NAME\tKIND\tDESCRIPTION\tTAGS")
 	for _, e := range entries {
-		fmt.Fprintf(tw, "%s\t%s\t%s\n", e.Name, truncate(e.Description, 60), strings.Join(e.Tags, ","))
+		fmt.Fprintf(tw, "%s\t%s\t%s\t%s\n", e.Name, e.KindOrDefault(), truncate(e.Description, 56), strings.Join(e.Tags, ","))
 	}
 	_ = tw.Flush()
 }

@@ -116,6 +116,25 @@ func TestValidateRejectsUnsafeRefAndCksum(t *testing.T) {
 	}
 }
 
+func TestKindValidationAndDefault(t *testing.T) {
+	base := Entry{Name: "x", Description: "d", Repo: "https://x/y", Path: "p", Author: "a"}
+	if base.KindOrDefault() != "skill" {
+		t.Fatalf("default kind = %q, want skill", base.KindOrDefault())
+	}
+	for _, k := range []string{"skill", "command", "hook"} {
+		e := base
+		e.Kind = k
+		if err := Validate(e); err != nil {
+			t.Fatalf("kind %q should be valid: %v", k, err)
+		}
+	}
+	bad := base
+	bad.Kind = "plugin"
+	if err := Validate(bad); err == nil {
+		t.Fatal("expected an invalid kind to be rejected")
+	}
+}
+
 func TestLoadFetchesRemoteIndex(t *testing.T) {
 	idx := `[{"name":"remote-skill","description":"d","repo":"https://x/y","path":"p","author":"a"}]`
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

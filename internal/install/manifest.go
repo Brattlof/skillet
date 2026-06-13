@@ -22,6 +22,7 @@ type Record struct {
 	Name        string    `json:"name"`
 	Repo        string    `json:"repo"`
 	Path        string    `json:"path"`
+	Kind        string    `json:"kind,omitempty"`   // skill (default), command, or hook
 	Ref         string    `json:"ref,omitempty"`    // ref requested by the registry entry, if any
 	Commit      string    `json:"commit,omitempty"` // commit actually installed
 	Cksum       string    `json:"cksum,omitempty"`  // sha256 tree hash of the installed content

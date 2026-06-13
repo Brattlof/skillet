@@ -31,8 +31,17 @@ type Entry struct {
 	Path        string   `json:"path"`
 	Author      string   `json:"author"`
 	Tags        []string `json:"tags"`
+	Kind        string   `json:"kind,omitempty"`  // skill (default), command, or hook
 	Ref         string   `json:"ref,omitempty"`   // commit SHA or tag to pin the install to
 	Cksum       string   `json:"cksum,omitempty"` // sha256: tree hash, verified on install
+}
+
+// KindOrDefault returns the entry's kind, defaulting to "skill".
+func (e Entry) KindOrDefault() string {
+	if e.Kind == "" {
+		return "skill"
+	}
+	return e.Kind
 }
 
 // defaultRegistryURL serves the compiled index over a free CDN (jsDelivr fronting
@@ -146,6 +155,9 @@ func Validate(e Entry) error {
 		return errors.New("missing path")
 	case strings.TrimSpace(e.Author) == "":
 		return errors.New("missing author")
+	}
+	if e.Kind != "" && e.Kind != "skill" && e.Kind != "command" && e.Kind != "hook" {
+		return fmt.Errorf("invalid kind %q (want skill, command, or hook)", e.Kind)
 	}
 	if e.Ref != "" && !validRef(e.Ref) {
 		return fmt.Errorf("invalid ref %q", e.Ref)

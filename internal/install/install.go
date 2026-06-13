@@ -97,6 +97,7 @@ func Install(ctx context.Context, e registry.Entry, dir string) (string, error) 
 		Name:        e.Name,
 		Repo:        e.Repo,
 		Path:        e.Path,
+		Kind:        e.KindOrDefault(),
 		Ref:         e.Ref,
 		Commit:      commit,
 		Cksum:       sum,

@@ -26,6 +26,7 @@ than 3,000 dead links.
 
    - `repo` is the public repository to clone.
    - `path` is the folder *inside* that repo containing the skill (the one with `SKILL.md`).
+   - Optional `kind` (`skill` by default, or `command` / `hook`) controls where it installs.
    - Optional `ref` (a commit SHA or tag) pins installs to an exact version, and optional
      `cksum` (a `sha256:` tree hash) makes the install tamper-evident.
 3. Run `go run ./cmd/buildindex -check` to validate the shards, then `go test ./...`.

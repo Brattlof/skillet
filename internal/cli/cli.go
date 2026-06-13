@@ -81,32 +81,35 @@ Usage:
   skillet <command> [args]
 
 Commands:
-  add <name>[@ref] Install a skill from the registry (optionally pinned)
-  install          Restore skills from skillet.lock
-  lock             Write skillet.lock from installed skills
-  update [name]    Update an installed skill, or all of them
-  doctor           Check installed skills for problems
-  remove <name>    Remove an installed skill
-  list             List installed skills
-  search <query>   Search the registry
-  info <name>      Show details of a registry entry
-  registry         Show every registry entry
-  publish          How to publish your own skill
-  completion <sh>  Output a bash, zsh, or fish completion script
-  self-update      Update the skillet binary to the latest release
-  version          Print the version
-  help             Show this help
+  add <name>[@ref]   Install a skill, command, or hook (optionally pinned)
+  install [--frozen] Restore from skillet.lock (--frozen only verifies)
+  lock               Write skillet.lock from what is installed
+  update [name]      Update an installed item, or all of them
+  doctor             Check installed items for problems
+  remove <name>      Remove an installed item
+  list               List installed items
+  search <query>     Search the registry (--kind, --tag to filter)
+  info <name>        Show details of a registry entry
+  registry           Show every registry entry
+  publish            How to publish your own skill
+  completion <sh>    Output a bash, zsh, or fish completion script
+  self-update        Update the skillet binary to the latest release
+  version            Print the version
+  help               Show this help
 
 Flags:
-  --dir PATH       Target skills dir (default: ~/.claude/skills or $SKILLET_SKILLS_DIR)
+  --dir PATH       Target directory (default: ~/.claude/{skills,commands,hooks})
 
 Environment:
   SKILLET_REGISTRY_URL   Override the registry index URL
   SKILLET_OFFLINE=1      Use only the cached or embedded index
+  SKILLET_SKILLS_DIR     Override the skills directory (skill kind only)
+  SKILLET_CACHE_DIR      Override where the fetched index is cached
+  SKILLET_LOCKFILE       Override the lockfile path (default: ./skillet.lock)
 
 Examples:
-  skillet search research
+  skillet search research --kind command
   skillet add hello-skill
-  skillet list
+  skillet install --frozen
 `)
 }

@@ -1,0 +1,10 @@
+{
+  "name": "session-greeting",
+  "description": "Example SessionStart hook that prints a tip when a Claude Code session begins.",
+  "repo": "https://github.com/Brattlof/skillet",
+  "path": "examples/hooks/session-greeting.sh",
+  "author": "skillet",
+  "tags": ["example", "hook"],
+  "kind": "hook",
+  "hook": { "event": "SessionStart" }
+}

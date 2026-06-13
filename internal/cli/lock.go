@@ -2,6 +2,7 @@ package cli
 
 import (
 	"context"
+	"errors"
 	"flag"
 	"fmt"
 	"os"
@@ -42,21 +43,30 @@ func upsertLock(rec install.Record) error {
 		Path:   rec.Path,
 		Commit: rec.Commit,
 		Cksum:  rec.Cksum,
+		Hook:   rec.Hook,
 	})
 	return install.WriteLock(p, lf)
 }
 
 // cmdInstall restores from the lockfile when given no skill name, and otherwise
-// behaves like add (npm-style).
+// behaves like add (npm-style). With --frozen it verifies the install against the
+// lockfile without changing anything.
 func cmdInstall(ctx context.Context, args []string) error {
 	fs := flag.NewFlagSet("install", flag.ContinueOnError)
 	dir := fs.String("dir", "", dirUsage)
+	frozen := fs.Bool("frozen", false, "verify the install matches the lockfile without changing anything")
 	pos, err := parseArgs(fs, args)
 	if err != nil {
 		return err
 	}
 	if len(pos) >= 1 {
+		if *frozen {
+			return errors.New("--frozen restores the whole lockfile; do not pass a skill name")
+		}
 		return cmdAdd(ctx, args)
+	}
+	if *frozen {
+		return verifyLock(*dir)
 	}
 	return restoreFromLock(ctx, *dir)
 }
@@ -75,9 +85,14 @@ func restoreFromLock(ctx context.Context, dirOverride string) error {
 		return nil
 	}
 
+	locked := make(map[string]bool, len(lf.Skills))
+	for _, le := range lf.Skills {
+		locked[strings.ToLower(le.Name)] = true
+	}
+
 	var n, skipped int
 	for _, le := range lf.Skills {
-		e := registry.Entry{Name: le.Name, Kind: le.Kind, Repo: le.Repo, Path: le.Path, Ref: le.Commit, Cksum: le.Cksum}
+		e := registry.Entry{Name: le.Name, Kind: le.Kind, Repo: le.Repo, Path: le.Path, Ref: le.Commit, Cksum: le.Cksum, Hook: le.Hook}
 		// The lockfile is an untrusted, shareable artifact, so validate every
 		// entry before it reaches git or the filesystem. An invalid or unknown
 		// entry is skipped, not fatal, which also keeps restore forward compatible.
@@ -99,11 +114,114 @@ func restoreFromLock(ctx context.Context, dirOverride string) error {
 		fmt.Printf("Installed %s -> %s\n", le.Name, dest)
 		n++
 	}
-	if skipped > 0 {
-		fmt.Printf("\nrestored %d skill(s), skipped %d from %s\n", n, skipped, p)
-	} else {
-		fmt.Printf("\nrestored %d skill(s) from %s\n", n, p)
+
+	// Prune so the install matches the lockfile exactly (npm ci style). Only
+	// skillet-managed installs (those with a manifest record) are removed; a
+	// hand-placed skill, command, or hook is left alone.
+	pruned, err := pruneToLock(dirOverride, locked)
+	if err != nil {
+		return err
 	}
+
+	summary := fmt.Sprintf("\nrestored %d skill(s)", n)
+	if skipped > 0 {
+		summary += fmt.Sprintf(", skipped %d", skipped)
+	}
+	if pruned > 0 {
+		summary += fmt.Sprintf(", pruned %d", pruned)
+	}
+	fmt.Printf("%s from %s\n", summary, p)
+	return nil
+}
+
+// pruneToLock removes every skillet-managed install whose name is not in locked,
+// across all kind directories, and returns how many it removed.
+func pruneToLock(dirOverride string, locked map[string]bool) (int, error) {
+	dirs, err := install.ScanDirs(dirOverride)
+	if err != nil {
+		return 0, err
+	}
+	pruned := 0
+	for _, dk := range dirs {
+		recs, err := install.Records(dk.Dir)
+		if err != nil {
+			return pruned, err
+		}
+		for _, r := range recs {
+			if locked[strings.ToLower(r.Name)] {
+				continue
+			}
+			if err := install.Remove(r.Name, dk.Dir); err != nil {
+				return pruned, fmt.Errorf("pruning %s: %w", r.Name, err)
+			}
+			fmt.Printf("Removed %s (not in %s)\n", r.Name, lockPath())
+			pruned++
+		}
+	}
+	return pruned, nil
+}
+
+// verifyLock reports whether the installed artifacts match the lockfile, without
+// changing anything. It fails if a locked entry is missing or has drifted, or if a
+// skillet-managed install is not in the lockfile.
+func verifyLock(dirOverride string) error {
+	p := lockPath()
+	if _, err := os.Stat(p); err != nil {
+		return fmt.Errorf("no lockfile at %s (run: skillet lock)", p)
+	}
+	lf, err := install.ReadLock(p)
+	if err != nil {
+		return err
+	}
+
+	locked := make(map[string]bool, len(lf.Skills))
+	var problems int
+	for _, le := range lf.Skills {
+		locked[strings.ToLower(le.Name)] = true
+		target, err := install.TargetDir(le.Kind, dirOverride)
+		if err != nil {
+			fmt.Printf("FAIL  %s: %v\n", le.Name, err)
+			problems++
+			continue
+		}
+		sum, ok, err := install.CurrentChecksum(target, le.Name)
+		if err != nil {
+			return err
+		}
+		switch {
+		case !ok:
+			fmt.Printf("FAIL  %s: not installed\n", le.Name)
+			problems++
+		case le.Cksum != "" && sum != le.Cksum:
+			fmt.Printf("FAIL  %s: content differs from the lockfile\n", le.Name)
+			problems++
+		default:
+			fmt.Printf("ok    %s\n", le.Name)
+		}
+	}
+
+	dirs, err := install.ScanDirs(dirOverride)
+	if err != nil {
+		return err
+	}
+	for _, dk := range dirs {
+		recs, err := install.Records(dk.Dir)
+		if err != nil {
+			return err
+		}
+		for _, r := range recs {
+			if !locked[strings.ToLower(r.Name)] {
+				fmt.Printf("FAIL  %s: installed but not in the lockfile\n", r.Name)
+				problems++
+			}
+		}
+	}
+
+	if problems > 0 {
+		fmt.Printf("\n%d problem(s); install does not match %s\n", problems, p)
+		return errSilent
+	}
+	fmt.Printf("\ninstall matches %s\n", p)
 	return nil
 }
 
@@ -133,6 +251,7 @@ func cmdLock(_ context.Context, args []string) error {
 				Path:   r.Path,
 				Commit: r.Commit,
 				Cksum:  r.Cksum,
+				Hook:   r.Hook,
 			})
 		}
 	}

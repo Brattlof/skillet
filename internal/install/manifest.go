@@ -7,6 +7,8 @@ import (
 	"sort"
 	"strings"
 	"time"
+
+	"github.com/Brattlof/skillet/internal/registry"
 )
 
 // metaDirName is the folder, inside a skills directory, that holds one provenance
@@ -19,14 +21,25 @@ const metaDirName = ".skillet"
 // Fields added later MUST stay omitempty so an older skillet can read a record
 // written by a newer one and vice versa.
 type Record struct {
-	Name        string    `json:"name"`
-	Repo        string    `json:"repo"`
-	Path        string    `json:"path"`
-	Kind        string    `json:"kind,omitempty"`   // skill (default), command, or hook
-	Ref         string    `json:"ref,omitempty"`    // ref requested by the registry entry, if any
-	Commit      string    `json:"commit,omitempty"` // commit actually installed
-	Cksum       string    `json:"cksum,omitempty"`  // sha256 tree hash of the installed content
-	InstalledAt time.Time `json:"installed_at"`
+	Name        string             `json:"name"`
+	Repo        string             `json:"repo"`
+	Path        string             `json:"path"`
+	Kind        string             `json:"kind,omitempty"`     // skill (default), command, or hook
+	Artifact    string             `json:"artifact,omitempty"` // installed basename (dir for a skill, file for a command/hook)
+	Ref         string             `json:"ref,omitempty"`      // ref requested by the registry entry, if any
+	Commit      string             `json:"commit,omitempty"`   // commit actually installed
+	Cksum       string             `json:"cksum,omitempty"`    // sha256 hash of the installed content
+	Hook        *registry.HookSpec `json:"hook,omitempty"`     // hook registration, for un-registering on remove
+	InstalledAt time.Time          `json:"installed_at"`
+}
+
+// ArtifactName returns the installed basename, falling back to the skill name for
+// records written before the field existed (those were always skill directories).
+func (r Record) ArtifactName() string {
+	if r.Artifact != "" {
+		return r.Artifact
+	}
+	return r.Name
 }
 
 func metaDir(dir string) string        { return filepath.Join(dir, metaDirName) }

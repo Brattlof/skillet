@@ -1,0 +1,9 @@
+{
+  "name": "changelog",
+  "description": "Slash command that drafts a Keep a Changelog entry from your staged diff.",
+  "repo": "https://github.com/Brattlof/skillet",
+  "path": "examples/commands/changelog.md",
+  "author": "skillet",
+  "tags": ["example", "command", "git"],
+  "kind": "command"
+}

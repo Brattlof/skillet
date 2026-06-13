@@ -162,17 +162,9 @@ func cmdDoctor(ctx context.Context, args []string) error {
 		return err
 	}
 
-	target, err := install.SkillsDir(*dir)
+	dirs, err := install.ScanDirs(*dir)
 	if err != nil {
 		return err
-	}
-	diags, err := install.Diagnose(target)
-	if err != nil {
-		return err
-	}
-	if len(diags) == 0 {
-		fmt.Printf("No skills installed in %s\n", target)
-		return nil
 	}
 
 	// Registry membership is a warning, not a hard failure, and is best-effort:
@@ -186,24 +178,35 @@ func cmdDoctor(ctx context.Context, args []string) error {
 		}
 	}
 
-	var ok, warnings, problems int
-	for _, d := range diags {
-		switch d.Status {
-		case install.StatusOK:
-			if registryKnown && !inRegistry[strings.ToLower(d.Name)] {
-				fmt.Printf("warn  %s: not in the registry\n", d.Name)
-				warnings++
-			} else {
-				fmt.Printf("ok    %s\n", d.Name)
-				ok++
-			}
-		case install.StatusNoRecord:
-			fmt.Printf("warn  %s: %s\n", d.Name, d.Status)
-			warnings++
-		default:
-			fmt.Printf("FAIL  %s: %s\n", d.Name, d.Status)
-			problems++
+	var ok, warnings, problems, total int
+	for _, dk := range dirs {
+		diags, err := install.Diagnose(dk.Dir, dk.Kind)
+		if err != nil {
+			return err
 		}
+		for _, d := range diags {
+			total++
+			switch d.Status {
+			case install.StatusOK:
+				if registryKnown && !inRegistry[strings.ToLower(d.Name)] {
+					fmt.Printf("warn  %s: not in the registry\n", d.Name)
+					warnings++
+				} else {
+					fmt.Printf("ok    %s\n", d.Name)
+					ok++
+				}
+			case install.StatusNoRecord:
+				fmt.Printf("warn  %s: %s\n", d.Name, d.Status)
+				warnings++
+			default:
+				fmt.Printf("FAIL  %s: %s\n", d.Name, d.Status)
+				problems++
+			}
+		}
+	}
+	if total == 0 {
+		fmt.Println("No skills installed")
+		return nil
 	}
 
 	fmt.Printf("\n%d ok, %d warning(s), %d problem(s)\n", ok, warnings, problems)
@@ -276,7 +279,7 @@ func cmdList(ctx context.Context, args []string) error {
 		if err != nil {
 			return err
 		}
-		installed, err := install.ListInstalled(dk.Dir)
+		installed, err := install.ListInstalled(dk.Dir, dk.Kind)
 		if err != nil {
 			return err
 		}
@@ -447,11 +450,19 @@ func cmdInfo(ctx context.Context, args []string) error {
 	fmt.Println(entry.Name)
 	tw := tabwriter.NewWriter(os.Stdout, 0, 2, 2, ' ', 0)
 	fmt.Fprintf(tw, "  Description\t%s\n", entry.Description)
+	fmt.Fprintf(tw, "  Kind\t%s\n", entry.KindOrDefault())
 	fmt.Fprintf(tw, "  Source\t%s\n", entry.Repo)
 	fmt.Fprintf(tw, "  Path\t%s\n", entry.Path)
 	fmt.Fprintf(tw, "  Author\t%s\n", entry.Author)
 	if len(entry.Tags) > 0 {
 		fmt.Fprintf(tw, "  Tags\t%s\n", strings.Join(entry.Tags, ", "))
+	}
+	if entry.Hook != nil {
+		event := entry.Hook.Event
+		if entry.Hook.Matcher != "" {
+			event += " (matcher: " + entry.Hook.Matcher + ")"
+		}
+		fmt.Fprintf(tw, "  Hook\t%s\n", event)
 	}
 	if entry.Ref != "" {
 		fmt.Fprintf(tw, "  Ref\t%s\n", entry.Ref)
@@ -460,16 +471,18 @@ func cmdInfo(ctx context.Context, args []string) error {
 		fmt.Fprintf(tw, "  Cksum\t%s\n", entry.Cksum)
 	}
 
-	if target, derr := install.SkillsDir(*dir); derr == nil {
-		if rec, installed, _ := install.ReadRecord(target, entry.Name); installed {
+	if target, found, ferr := install.FindInstall(entry.Name, *dir); ferr == nil && found {
+		if rec, recorded, _ := install.ReadRecord(target, entry.Name); recorded {
 			detail := short(rec.Commit)
 			if !rec.InstalledAt.IsZero() {
 				detail += ", " + rec.InstalledAt.Format("2006-01-02")
 			}
 			fmt.Fprintf(tw, "  Installed\tyes (%s)\n", detail)
 		} else {
-			fmt.Fprintf(tw, "  Installed\tno\n")
+			fmt.Fprintf(tw, "  Installed\tyes\n")
 		}
+	} else {
+		fmt.Fprintf(tw, "  Installed\tno\n")
 	}
 	return tw.Flush()
 }

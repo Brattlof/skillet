@@ -110,6 +110,22 @@ func TestCompleteListsNames(t *testing.T) {
 	}
 }
 
+func TestCompleteListsRecordlessSkill(t *testing.T) {
+	home := t.TempDir()
+	t.Setenv("HOME", home)
+	skill := filepath.Join(home, ".claude", "skills", "manual-skill")
+	if err := os.MkdirAll(skill, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(skill, "SKILL.md"), []byte("x"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	out := captureStdout(t, func() { Run(context.Background(), []string{"__complete", "remove"}) })
+	if !strings.Contains(out, "manual-skill") {
+		t.Errorf("__complete remove should list a hand-placed skill, got:\n%s", out)
+	}
+}
+
 func TestListStatus(t *testing.T) {
 	cases := []struct {
 		name   string

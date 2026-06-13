@@ -44,8 +44,10 @@ func expand(p string) (string, error) {
 	return filepath.Abs(p)
 }
 
-// Install fetches the entry's repo (pinned to e.Ref when set), copies its skill
-// folder into dir/<name>, verifies e.Cksum when set, and returns the install path.
+// Install fetches the entry's repo (pinned to e.Ref when set), installs it into
+// dir, verifies e.Cksum when set, and returns the install path. A skill is copied
+// as a directory tree into dir/<name>; a command or hook is a single file copied
+// to dir/<name><ext>, and a hook is also registered in the adjacent settings.json.
 // The entry is assumed already validated by the registry (Repo is an http(s) URL
 // and Ref is a plain git ref), which keeps the git calls below safe.
 func Install(ctx context.Context, e registry.Entry, dir string) (string, error) {
@@ -60,6 +62,10 @@ func Install(ctx context.Context, e registry.Entry, dir string) (string, error) 
 	if _, err := exec.LookPath("git"); err != nil {
 		return "", fmt.Errorf("git is required to install skills: %w", err)
 	}
+	kind := e.KindOrDefault()
+	if kind == "hook" && e.Hook == nil {
+		return "", fmt.Errorf("hook %s has no registration spec", e.Name)
+	}
 
 	tmp, err := os.MkdirTemp("", "skillet-*")
 	if err != nil {
@@ -73,24 +79,66 @@ func Install(ctx context.Context, e registry.Entry, dir string) (string, error) 
 
 	src := filepath.Join(tmp, filepath.FromSlash(e.Path))
 	info, err := os.Stat(src)
-	if err != nil || !info.IsDir() {
-		return "", fmt.Errorf("skill path %q not found in %s", e.Path, e.Repo)
+	if err != nil {
+		return "", fmt.Errorf("path %q not found in %s", e.Path, e.Repo)
 	}
 
+	artifact := artifactName(kind, e.Name, src)
 	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return "", err
 	}
-	dest := filepath.Join(dir, e.Name)
+	dest := filepath.Join(dir, artifact)
+	// If a previous install of this name used a different artifact (a hook whose
+	// script extension changed, or a switch to another kind), remove it first so
+	// the reinstall does not orphan a file or a stale settings.json registration.
+	if prev, ok, rerr := ReadRecord(dir, e.Name); rerr == nil && ok {
+		if old := filepath.Join(dir, prev.ArtifactName()); old != dest {
+			if prev.Kind == "hook" && prev.Hook != nil {
+				abs, aerr := filepath.Abs(old)
+				if aerr != nil {
+					abs = old
+				}
+				if uerr := unregisterHook(settingsPath(dir), prev.Hook.Event, prev.Hook.Matcher, abs); uerr != nil {
+					return "", fmt.Errorf("clearing the previous hook registration for %s: %w", e.Name, uerr)
+				}
+			}
+			if rerr := os.RemoveAll(old); rerr != nil {
+				return "", rerr
+			}
+		}
+	}
 	if err := os.RemoveAll(dest); err != nil {
 		return "", err
 	}
-	if err := copyDir(src, dest); err != nil {
-		return "", err
+
+	switch kind {
+	case "skill":
+		if !info.IsDir() {
+			return "", fmt.Errorf("skill path %q must be a directory in %s", e.Path, e.Repo)
+		}
+		if err := copyDir(src, dest); err != nil {
+			return "", err
+		}
+	case "command", "hook":
+		if info.IsDir() {
+			return "", fmt.Errorf("%s path %q must be a single file in %s", kind, e.Path, e.Repo)
+		}
+		if err := copyFile(src, dest); err != nil {
+			return "", err
+		}
+		if kind == "hook" {
+			if err := os.Chmod(dest, 0o755); err != nil {
+				os.Remove(dest)
+				return "", err
+			}
+		}
+	default:
+		return "", fmt.Errorf("unknown kind %q", kind)
 	}
 
-	// Always hash the installed tree: it verifies a pinned cksum and is recorded
-	// for drift detection by doctor and update.
-	sum, err := hashTree(dest)
+	// Always hash the installed artifact: it verifies a pinned cksum and is
+	// recorded for drift detection by doctor and update.
+	sum, err := hashArtifact(dest)
 	if err != nil {
 		os.RemoveAll(dest)
 		return "", err
@@ -105,17 +153,45 @@ func Install(ctx context.Context, e registry.Entry, dir string) (string, error) 
 		Name:        e.Name,
 		Repo:        e.Repo,
 		Path:        e.Path,
-		Kind:        e.KindOrDefault(),
+		Kind:        kind,
+		Artifact:    artifact,
 		Ref:         e.Ref,
 		Commit:      commit,
 		Cksum:       sum,
+		Hook:        e.Hook,
 		InstalledAt: time.Now(),
 	}
 	if err := writeRecord(dir, rec); err != nil {
 		os.RemoveAll(dest)
 		return "", fmt.Errorf("recording install of %s: %w", e.Name, err)
 	}
+
+	if kind == "hook" {
+		abs, err := filepath.Abs(dest)
+		if err != nil {
+			abs = dest
+		}
+		if err := registerHook(settingsPath(dir), e.Hook.Event, e.Hook.Matcher, abs); err != nil {
+			os.RemoveAll(dest)
+			removeRecord(dir, e.Name)
+			return "", fmt.Errorf("registering hook %s: %w", e.Name, err)
+		}
+	}
 	return dest, nil
+}
+
+// artifactName is the installed basename for an entry. A skill keeps its name as a
+// directory; a command is forced to a .md file (the only shape Claude Code reads);
+// a hook keeps the source script's extension.
+func artifactName(kind, name, src string) string {
+	switch kind {
+	case "command":
+		return name + ".md"
+	case "hook":
+		return name + filepath.Ext(src)
+	default:
+		return name
+	}
 }
 
 // resolveCommit returns the commit currently checked out in repoDir.
@@ -165,11 +241,31 @@ func fetchRepo(ctx context.Context, e registry.Entry, tmp string) error {
 	return nil
 }
 
-// Remove deletes an installed skill.
+// Remove deletes an installed artifact and its provenance record. A hook is
+// un-registered from settings.json before its script is deleted, so the settings
+// never point at a missing file.
 func Remove(name, dir string) error {
-	dest := filepath.Join(dir, name)
-	if _, err := os.Stat(dest); os.IsNotExist(err) {
+	rec, hasRec, err := ReadRecord(dir, name)
+	if err != nil {
+		return err
+	}
+	artifact := name
+	if hasRec {
+		artifact = rec.ArtifactName()
+	}
+	dest := filepath.Join(dir, artifact)
+	if _, serr := os.Stat(dest); os.IsNotExist(serr) && !hasRec {
 		return fmt.Errorf("%q is not installed in %s", name, dir)
+	}
+
+	if hasRec && rec.Kind == "hook" && rec.Hook != nil {
+		abs, aerr := filepath.Abs(dest)
+		if aerr != nil {
+			abs = dest
+		}
+		if uerr := unregisterHook(settingsPath(dir), rec.Hook.Event, rec.Hook.Matcher, abs); uerr != nil {
+			return fmt.Errorf("unregistering hook %s: %w", name, uerr)
+		}
 	}
 	if err := os.RemoveAll(dest); err != nil {
 		return err
@@ -177,8 +273,11 @@ func Remove(name, dir string) error {
 	return removeRecord(dir, name)
 }
 
-// ListInstalled returns the names of installed skills (top-level directories).
-func ListInstalled(dir string) ([]string, error) {
+// ListInstalled returns the installed artifact names in dir for the given kind:
+// directories for a skill, files for a command or hook. An empty kind (a --dir
+// override, where the kind is unknown) lists every visible entry. The .skillet
+// metadata directory and other hidden entries are always skipped.
+func ListInstalled(dir, kind string) ([]string, error) {
 	entries, err := os.ReadDir(dir)
 	if os.IsNotExist(err) {
 		return nil, nil
@@ -188,13 +287,80 @@ func ListInstalled(dir string) ([]string, error) {
 	}
 	var names []string
 	for _, e := range entries {
-		// Skip the .skillet metadata dir and any other hidden entries.
-		if e.IsDir() && !strings.HasPrefix(e.Name(), ".") {
+		if strings.HasPrefix(e.Name(), ".") {
+			continue
+		}
+		switch kind {
+		case "skill":
+			if e.IsDir() {
+				names = append(names, e.Name())
+			}
+		case "command", "hook":
+			if !e.IsDir() {
+				names = append(names, e.Name())
+			}
+		default:
 			names = append(names, e.Name())
 		}
 	}
 	sort.Strings(names)
 	return names, nil
+}
+
+// CurrentChecksum returns the on-disk checksum of an installed artifact, resolving
+// its path from the manifest record. ok is false if nothing is installed for name.
+func CurrentChecksum(dir, name string) (sum string, ok bool, err error) {
+	rec, hasRec, err := ReadRecord(dir, name)
+	if err != nil {
+		return "", false, err
+	}
+	artifact := name
+	if hasRec {
+		artifact = rec.ArtifactName()
+	}
+	dest := filepath.Join(dir, artifact)
+	if _, serr := os.Stat(dest); serr != nil {
+		return "", false, nil
+	}
+	sum, err = hashArtifact(dest)
+	if err != nil {
+		return "", false, err
+	}
+	return sum, true, nil
+}
+
+// hashArtifact hashes an installed artifact: a tree hash for a skill directory, a
+// single-file hash for a command or hook.
+func hashArtifact(path string) (string, error) {
+	info, err := os.Stat(path)
+	if err != nil {
+		return "", err
+	}
+	if info.IsDir() {
+		return hashTree(path)
+	}
+	return hashFile(path)
+}
+
+// hashFile returns a sha256 over a single file's permission bits and contents, in
+// the same "sha256:" form as hashTree. The mode is included so a lost executable
+// bit (which matters for a hook script) changes the hash.
+func hashFile(path string) (string, error) {
+	info, err := os.Lstat(path)
+	if err != nil {
+		return "", err
+	}
+	f, err := os.Open(path)
+	if err != nil {
+		return "", err
+	}
+	defer f.Close()
+	h := sha256.New()
+	fmt.Fprintf(h, "%o\n", info.Mode().Perm())
+	if _, err := io.Copy(h, f); err != nil {
+		return "", err
+	}
+	return "sha256:" + hex.EncodeToString(h.Sum(nil)), nil
 }
 
 // hashTree returns a deterministic sha256 over the file tree rooted at root.

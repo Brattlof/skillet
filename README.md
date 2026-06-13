@@ -61,20 +61,32 @@ go install github.com/Brattlof/skillet/cmd/skillet@latest
 ## Usage
 
 ```text
-skillet add <name>[@ref] Install a skill (optionally pinned to a commit or tag)
-skillet install          Restore skills from skillet.lock
-skillet lock             Write skillet.lock from installed skills
-skillet update [name]    Update an installed skill, or all of them
-skillet doctor           Check installed skills for problems
-skillet remove <name>    Remove an installed skill
-skillet list             List installed skills
-skillet search <query>   Search the registry (ranked + fuzzy; --kind, --tag)
-skillet info <name>      Show details of a registry entry
-skillet registry         Show every registry entry
-skillet publish          How to publish your own skill
-skillet completion <sh>  Output a bash, zsh, or fish completion script
-skillet self-update      Update the skillet binary to the latest release
+skillet add <name>[@ref]   Install a skill, command, or hook (optionally pinned)
+skillet install            Restore everything from skillet.lock
+skillet install --frozen   Verify the install matches skillet.lock (no changes)
+skillet lock               Write skillet.lock from what is installed
+skillet update [name]      Update an installed item, or all of them
+skillet doctor             Check installed items for problems
+skillet remove <name>      Remove an installed item
+skillet list               List installed items
+skillet search <query>     Search the registry (ranked + fuzzy; --kind, --tag)
+skillet info <name>        Show details of a registry entry
+skillet registry           Show every registry entry
+skillet publish            How to publish your own skill
+skillet completion <sh>    Output a bash, zsh, or fish completion script
+skillet self-update        Update the skillet binary to the latest release
 ```
+
+### Skills, commands, and hooks
+
+A registry entry has a `kind`: `skill` (the default), `command`, or `hook`. skillet
+installs each into the directory Claude Code reads:
+
+- a **skill** is a folder copied to `~/.claude/skills/<name>/`,
+- a **command** is a single `.md` file copied to `~/.claude/commands/<name>.md`,
+- a **hook** is a script copied to `~/.claude/hooks/`, and skillet registers it in
+  `~/.claude/settings.json` under the event from the entry's `hook` block (and
+  un-registers it on `remove`).
 
 ### Shell completion
 
@@ -100,9 +112,13 @@ export SKILLET_SKILLS_DIR=~/.config/agent/skills
 ## Reproducible installs
 
 Pin an install to an exact version with `skillet add <name>@<ref>` (a commit SHA or
-tag). `skillet lock` writes a `skillet.lock` capturing every installed skill at its
+tag). `skillet lock` writes a `skillet.lock` capturing every installed item at its
 resolved commit and checksum, and `skillet install` (no arguments) restores exactly
-that set. Point the lockfile elsewhere with `SKILLET_LOCKFILE`.
+that set. Restore prunes anything skillet installed that is no longer in the
+lockfile, so the result matches the lock; a hand-placed file is left alone.
+`skillet install --frozen` reports whether the install already matches the lockfile
+without changing anything, which is what you want in CI. Point the lockfile
+elsewhere with `SKILLET_LOCKFILE`.
 
 ## Environment
 
@@ -145,8 +161,8 @@ used the skill you're adding.** See [CONTRIBUTING.md](CONTRIBUTING.md). PRs welc
 ## Roadmap
 
 - [x] `skillet update` - refresh installed skills
-- [ ] Install hooks and slash commands, not just skills
-- [ ] Version pinning + a lockfile
+- [x] Install slash commands and hooks, not just skills
+- [x] Version pinning + a lockfile (`skillet install --frozen`)
 - [x] `skillet doctor` - validate installed skills
 
 ## License

@@ -181,7 +181,7 @@ func TestKindValidationAndDefault(t *testing.T) {
 	if base.KindOrDefault() != "skill" {
 		t.Fatalf("default kind = %q, want skill", base.KindOrDefault())
 	}
-	for _, k := range []string{"skill", "command", "hook"} {
+	for _, k := range []string{"skill", "command"} {
 		e := base
 		e.Kind = k
 		if err := Validate(e); err != nil {
@@ -192,6 +192,29 @@ func TestKindValidationAndDefault(t *testing.T) {
 	bad.Kind = "plugin"
 	if err := Validate(bad); err == nil {
 		t.Fatal("expected an invalid kind to be rejected")
+	}
+
+	// A hook needs a valid event; without one it is rejected.
+	hook := base
+	hook.Kind = "hook"
+	if err := Validate(hook); err == nil {
+		t.Fatal("a hook with no event should be rejected")
+	}
+	hook.Hook = &HookSpec{Event: "PreToolUse", Matcher: "Bash"}
+	if err := Validate(hook); err != nil {
+		t.Fatalf("a valid hook should pass: %v", err)
+	}
+	hook.Hook = &HookSpec{Event: "NotAnEvent"}
+	if err := Validate(hook); err == nil {
+		t.Fatal("an unknown hook event should be rejected")
+	}
+
+	// A hook spec on a non-hook kind is rejected.
+	misplaced := base
+	misplaced.Kind = "command"
+	misplaced.Hook = &HookSpec{Event: "PreToolUse"}
+	if err := Validate(misplaced); err == nil {
+		t.Fatal("a hook spec on a command should be rejected")
 	}
 }
 

@@ -5,17 +5,20 @@ import (
 	"os"
 	"sort"
 	"strings"
+
+	"github.com/Brattlof/skillet/internal/registry"
 )
 
 // LockEntry is a fully resolved install spec: enough to reproduce an install
 // without consulting the registry.
 type LockEntry struct {
-	Name   string `json:"name"`
-	Kind   string `json:"kind,omitempty"`
-	Repo   string `json:"repo"`
-	Path   string `json:"path"`
-	Commit string `json:"commit,omitempty"`
-	Cksum  string `json:"cksum,omitempty"`
+	Name   string             `json:"name"`
+	Kind   string             `json:"kind,omitempty"`
+	Repo   string             `json:"repo"`
+	Path   string             `json:"path"`
+	Commit string             `json:"commit,omitempty"`
+	Cksum  string             `json:"cksum,omitempty"`
+	Hook   *registry.HookSpec `json:"hook,omitempty"` // hook registration, so restore can re-register it
 }
 
 // Lockfile pins an exact set of skills for reproducible installs.

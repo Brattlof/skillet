@@ -35,7 +35,7 @@ func TestSkillsDirPriority(t *testing.T) {
 func TestListRemoveRoundTrip(t *testing.T) {
 	dir := t.TempDir()
 
-	names, err := ListInstalled(dir)
+	names, err := ListInstalled(dir, "skill")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -51,7 +51,7 @@ func TestListRemoveRoundTrip(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	names, _ = ListInstalled(dir)
+	names, _ = ListInstalled(dir, "skill")
 	if len(names) != 1 || names[0] != "demo" {
 		t.Fatalf("expected [demo], got %v", names)
 	}
@@ -60,7 +60,7 @@ func TestListRemoveRoundTrip(t *testing.T) {
 	if err := os.MkdirAll(filepath.Join(dir, ".skillet"), 0o755); err != nil {
 		t.Fatal(err)
 	}
-	names, _ = ListInstalled(dir)
+	names, _ = ListInstalled(dir, "skill")
 	if len(names) != 1 || names[0] != "demo" {
 		t.Fatalf("expected [demo] (no .skillet), got %v", names)
 	}
@@ -68,7 +68,7 @@ func TestListRemoveRoundTrip(t *testing.T) {
 	if err := Remove("demo", dir); err != nil {
 		t.Fatalf("Remove: %v", err)
 	}
-	names, _ = ListInstalled(dir)
+	names, _ = ListInstalled(dir, "skill")
 	if len(names) != 0 {
 		t.Fatalf("expected empty after remove, got %v", names)
 	}
@@ -187,7 +187,7 @@ func TestDiagnose(t *testing.T) {
 	// orphan: dir + SKILL.md, no record
 	mkSkill("orphan", "# orphan\n")
 
-	diags, err := Diagnose(dir)
+	diags, err := Diagnose(dir, "skill")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -446,5 +446,174 @@ func TestInstallPinnedAndChecksum(t *testing.T) {
 	pinned.Ref = strings.TrimSpace(string(shaOut))
 	if _, err := Install(context.Background(), pinned, t.TempDir()); err != nil {
 		t.Fatalf("pinned-ref install: %v", err)
+	}
+}
+
+// gitRepoWith builds a one-commit git repo containing files (keyed by slash path),
+// for the command and hook install tests. Files ending in .sh are made executable.
+func gitRepoWith(t *testing.T, files map[string]string) string {
+	t.Helper()
+	if _, err := exec.LookPath("git"); err != nil {
+		t.Skip("git not available")
+	}
+	src := t.TempDir()
+	for rel, content := range files {
+		p := filepath.Join(src, filepath.FromSlash(rel))
+		if err := os.MkdirAll(filepath.Dir(p), 0o755); err != nil {
+			t.Fatal(err)
+		}
+		mode := os.FileMode(0o644)
+		if strings.HasSuffix(rel, ".sh") {
+			mode = 0o755
+		}
+		if err := os.WriteFile(p, []byte(content), mode); err != nil {
+			t.Fatal(err)
+		}
+	}
+	git := func(args ...string) {
+		c := exec.Command("git", args...)
+		c.Dir = src
+		if out, err := c.CombinedOutput(); err != nil {
+			t.Fatalf("git %v: %v\n%s", args, err, out)
+		}
+	}
+	git("init", "-q")
+	git("-c", "user.email=t@t", "-c", "user.name=t", "add", "-A")
+	git("-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", "init")
+	return src
+}
+
+func TestInstallCommand(t *testing.T) {
+	src := gitRepoWith(t, map[string]string{"commands/foo.md": "# foo command\n"})
+	dir := t.TempDir()
+	e := registry.Entry{Name: "foo", Description: "d", Author: "t", Repo: src, Path: "commands/foo.md", Kind: "command"}
+
+	dest, err := Install(context.Background(), e, dir)
+	if err != nil {
+		t.Fatalf("install command: %v", err)
+	}
+	if want := filepath.Join(dir, "foo.md"); dest != want {
+		t.Fatalf("dest = %s, want %s", dest, want)
+	}
+	if info, err := os.Stat(dest); err != nil || info.IsDir() {
+		t.Fatalf("expected a single file at %s", dest)
+	}
+	rec, ok, _ := ReadRecord(dir, "foo")
+	if !ok || rec.Kind != "command" || rec.Artifact != "foo.md" || rec.Cksum == "" {
+		t.Fatalf("record = %+v", rec)
+	}
+	if names, _ := ListInstalled(dir, "command"); len(names) != 1 || names[0] != "foo.md" {
+		t.Fatalf("ListInstalled = %v, want [foo.md]", names)
+	}
+	if err := Remove("foo", dir); err != nil {
+		t.Fatalf("remove: %v", err)
+	}
+	if _, err := os.Stat(dest); !os.IsNotExist(err) {
+		t.Fatal("command file not removed")
+	}
+
+	// A command whose path is a directory is rejected.
+	src2 := gitRepoWith(t, map[string]string{"commands/sub/x.md": "y\n"})
+	bad := registry.Entry{Name: "sub", Description: "d", Author: "t", Repo: src2, Path: "commands/sub", Kind: "command"}
+	if _, err := Install(context.Background(), bad, t.TempDir()); err == nil {
+		t.Fatal("a directory command path should be rejected")
+	}
+}
+
+func TestInstallHookRegistersAndUnregisters(t *testing.T) {
+	src := gitRepoWith(t, map[string]string{"hooks/greet.sh": "#!/usr/bin/env bash\necho hi\n"})
+	base := t.TempDir()
+	dir := filepath.Join(base, "hooks")
+	e := registry.Entry{
+		Name: "greet", Description: "d", Author: "t", Repo: src,
+		Path: "hooks/greet.sh", Kind: "hook",
+		Hook: &registry.HookSpec{Event: "SessionStart"},
+	}
+
+	dest, err := Install(context.Background(), e, dir)
+	if err != nil {
+		t.Fatalf("install hook: %v", err)
+	}
+	info, err := os.Stat(dest)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if info.Mode().Perm()&0o111 == 0 {
+		t.Fatalf("hook script is not executable: %v", info.Mode())
+	}
+
+	settings := filepath.Join(base, "settings.json")
+	abs, _ := filepath.Abs(dest)
+	if cmds := commandsIn(t, settings, "SessionStart", ""); len(cmds) != 1 || cmds[0] != abs {
+		t.Fatalf("registration = %v, want [%s]", cmds, abs)
+	}
+	rec, ok, _ := ReadRecord(dir, "greet")
+	if !ok || rec.Kind != "hook" || rec.Artifact != "greet.sh" || rec.Hook == nil || rec.Hook.Event != "SessionStart" {
+		t.Fatalf("record = %+v", rec)
+	}
+
+	if err := Remove("greet", dir); err != nil {
+		t.Fatalf("remove: %v", err)
+	}
+	if _, err := os.Stat(dest); !os.IsNotExist(err) {
+		t.Fatal("hook script not removed")
+	}
+	if cmds := commandsIn(t, settings, "SessionStart", ""); len(cmds) != 0 {
+		t.Fatalf("hook still registered after remove: %v", cmds)
+	}
+
+	// A hook entry with no spec is rejected before anything is written.
+	noSpec := e
+	noSpec.Hook = nil
+	if _, err := Install(context.Background(), noSpec, t.TempDir()); err == nil {
+		t.Fatal("a hook with no spec should be rejected")
+	}
+}
+
+func TestInstallHookExtensionChangeCleansUp(t *testing.T) {
+	base := t.TempDir()
+	dir := filepath.Join(base, "hooks")
+	settings := filepath.Join(base, "settings.json")
+
+	src1 := gitRepoWith(t, map[string]string{"hooks/greet.sh": "#!/usr/bin/env bash\necho hi\n"})
+	e1 := registry.Entry{Name: "greet", Description: "d", Author: "t", Repo: src1, Path: "hooks/greet.sh", Kind: "hook", Hook: &registry.HookSpec{Event: "SessionStart"}}
+	if _, err := Install(context.Background(), e1, dir); err != nil {
+		t.Fatalf("install .sh: %v", err)
+	}
+
+	// Reinstalling the same hook from a .py source must drop the old .sh file and
+	// its settings.json registration, not orphan them.
+	src2 := gitRepoWith(t, map[string]string{"hooks/greet.py": "#!/usr/bin/env python3\nprint('hi')\n"})
+	e2 := registry.Entry{Name: "greet", Description: "d", Author: "t", Repo: src2, Path: "hooks/greet.py", Kind: "hook", Hook: &registry.HookSpec{Event: "SessionStart"}}
+	if _, err := Install(context.Background(), e2, dir); err != nil {
+		t.Fatalf("install .py: %v", err)
+	}
+
+	if _, err := os.Stat(filepath.Join(dir, "greet.sh")); !os.IsNotExist(err) {
+		t.Fatal("old greet.sh should have been removed")
+	}
+	if _, err := os.Stat(filepath.Join(dir, "greet.py")); err != nil {
+		t.Fatalf("new greet.py should exist: %v", err)
+	}
+	newAbs, _ := filepath.Abs(filepath.Join(dir, "greet.py"))
+	cmds := commandsIn(t, settings, "SessionStart", "")
+	if len(cmds) != 1 || cmds[0] != newAbs {
+		t.Fatalf("registration = %v, want only [%s]", cmds, newAbs)
+	}
+}
+
+func TestDiagnoseRecordlessFileNotBroken(t *testing.T) {
+	dir := t.TempDir()
+	if err := os.WriteFile(filepath.Join(dir, "loose.md"), []byte("x"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	// Under a --dir override the kind is unknown (""); a present file with no
+	// record is "no record" (a warning), not "recorded but not installed".
+	diags, err := Diagnose(dir, "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(diags) != 1 || diags[0].Status != StatusNoRecord {
+		t.Fatalf("record-less file diagnosed as %+v, want StatusNoRecord", diags)
 	}
 }

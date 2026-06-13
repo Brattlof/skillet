@@ -26,15 +26,23 @@ import (
 
 // Entry is a single curated skill in the registry.
 type Entry struct {
-	Name        string   `json:"name"`
-	Description string   `json:"description"`
-	Repo        string   `json:"repo"`
-	Path        string   `json:"path"`
-	Author      string   `json:"author"`
-	Tags        []string `json:"tags"`
-	Kind        string   `json:"kind,omitempty"`  // skill (default), command, or hook
-	Ref         string   `json:"ref,omitempty"`   // commit SHA or tag to pin the install to
-	Cksum       string   `json:"cksum,omitempty"` // sha256: tree hash, verified on install
+	Name        string    `json:"name"`
+	Description string    `json:"description"`
+	Repo        string    `json:"repo"`
+	Path        string    `json:"path"`
+	Author      string    `json:"author"`
+	Tags        []string  `json:"tags"`
+	Kind        string    `json:"kind,omitempty"`  // skill (default), command, or hook
+	Ref         string    `json:"ref,omitempty"`   // commit SHA or tag to pin the install to
+	Cksum       string    `json:"cksum,omitempty"` // sha256: tree hash, verified on install
+	Hook        *HookSpec `json:"hook,omitempty"`  // required for kind hook: how to register it
+}
+
+// HookSpec is how a hook registers in ~/.claude/settings.json. The installed
+// script is added under the named event; an empty matcher matches everything.
+type HookSpec struct {
+	Event   string `json:"event"`
+	Matcher string `json:"matcher,omitempty"`
 }
 
 // KindOrDefault returns the entry's kind, defaulting to "skill".
@@ -43,6 +51,16 @@ func (e Entry) KindOrDefault() string {
 		return "skill"
 	}
 	return e.Kind
+}
+
+// hookEvents are the Claude Code hook events a hook entry may register for.
+var hookEvents = map[string]bool{
+	"PreToolUse": true, "PostToolUse": true, "PostToolBatch": true,
+	"UserPromptSubmit": true, "UserPromptExpansion": true,
+	"SessionStart": true, "SessionEnd": true,
+	"Stop": true, "StopFailure": true, "SubagentStop": true,
+	"Notification": true, "FileChanged": true, "PermissionRequest": true,
+	"WorktreeCreate": true, "Elicitation": true, "PreCompact": true,
 }
 
 // defaultRegistryURL serves the compiled index over a free CDN (jsDelivr fronting
@@ -224,6 +242,16 @@ func ValidateInstall(e Entry) error {
 	}
 	if e.Kind != "" && e.Kind != "skill" && e.Kind != "command" && e.Kind != "hook" {
 		return fmt.Errorf("invalid kind %q (want skill, command, or hook)", e.Kind)
+	}
+	if e.Kind == "hook" {
+		if e.Hook == nil || strings.TrimSpace(e.Hook.Event) == "" {
+			return errors.New("a hook entry requires hook.event")
+		}
+		if !hookEvents[e.Hook.Event] {
+			return fmt.Errorf("invalid hook event %q", e.Hook.Event)
+		}
+	} else if e.Hook != nil {
+		return fmt.Errorf("hook spec is only valid for kind hook, not %q", e.KindOrDefault())
 	}
 	if e.Ref != "" && !validRef(e.Ref) {
 		return fmt.Errorf("invalid ref %q", e.Ref)

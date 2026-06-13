@@ -1,0 +1,8 @@
+{
+  "name": "explain-error",
+  "description": "Explain a stack trace or error message and suggest concrete fixes.",
+  "repo": "https://github.com/Brattlof/skillet",
+  "path": "examples/explain-error",
+  "author": "skillet",
+  "tags": ["debugging", "errors", "workflow"]
+}

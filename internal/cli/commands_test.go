@@ -3,7 +3,34 @@ package cli
 import (
 	"flag"
 	"testing"
+
+	"github.com/Brattlof/skillet/internal/install"
+	"github.com/Brattlof/skillet/internal/registry"
 )
+
+func TestListStatus(t *testing.T) {
+	cases := []struct {
+		name   string
+		hasRec bool
+		inReg  bool
+		rec    install.Record
+		entry  registry.Entry
+		want   string
+	}{
+		{"no record", false, true, install.Record{}, registry.Entry{}, "no record"},
+		{"not in registry", true, false, install.Record{}, registry.Entry{}, "not in registry"},
+		{"registry added a pin", true, true, install.Record{Ref: ""}, registry.Entry{Ref: "v2"}, "update available"},
+		{"pinned and matching", true, true, install.Record{Ref: "v1"}, registry.Entry{Ref: "v1"}, "up to date"},
+		{"cksum changed", true, true, install.Record{Cksum: "sha256:a"}, registry.Entry{Cksum: "sha256:b"}, "update available"},
+		{"unpinned tracking", true, true, install.Record{}, registry.Entry{}, "tracking"},
+		{"cksum pinned and matching", true, true, install.Record{Cksum: "sha256:a"}, registry.Entry{Cksum: "sha256:a"}, "up to date"},
+	}
+	for _, tc := range cases {
+		if got := listStatus(tc.hasRec, tc.inReg, tc.rec, tc.entry); got != tc.want {
+			t.Errorf("%s: got %q, want %q", tc.name, got, tc.want)
+		}
+	}
+}
 
 // parseArgs must accept flags before, after, or interspersed with positionals.
 func TestParseArgsFlagPositions(t *testing.T) {

@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"sort"
 	"strings"
 	"text/tabwriter"
 
@@ -222,7 +223,7 @@ func cmdRemove(_ context.Context, args []string) error {
 	return nil
 }
 
-func cmdList(_ context.Context, args []string) error {
+func cmdList(ctx context.Context, args []string) error {
 	fs := flag.NewFlagSet("list", flag.ContinueOnError)
 	dir := fs.String("dir", "", dirUsage)
 	if _, err := parseArgs(fs, args); err != nil {
@@ -233,19 +234,99 @@ func cmdList(_ context.Context, args []string) error {
 	if err != nil {
 		return err
 	}
-	names, err := install.ListInstalled(target)
+
+	recs, err := install.Records(target)
 	if err != nil {
 		return err
 	}
-	if len(names) == 0 {
+	installed, err := install.ListInstalled(target)
+	if err != nil {
+		return err
+	}
+
+	// Union of names that have a record and names that have an install dir.
+	display := map[string]string{}
+	recByName := map[string]install.Record{}
+	for _, r := range recs {
+		k := strings.ToLower(r.Name)
+		display[k] = r.Name
+		recByName[k] = r
+	}
+	for _, n := range installed {
+		display[strings.ToLower(n)] = n
+	}
+	if len(display) == 0 {
 		fmt.Printf("No skills installed in %s\n", target)
 		return nil
 	}
-	fmt.Printf("Installed skills in %s:\n", target)
-	for _, n := range names {
-		fmt.Println("  -", n)
+
+	// Best-effort registry lookup (offline uses the cache/embedded index).
+	entries := map[string]registry.Entry{}
+	if loaded, lerr := registry.Load(ctx); lerr == nil {
+		for _, e := range loaded {
+			entries[strings.ToLower(e.Name)] = e
+		}
 	}
-	return nil
+
+	keys := make([]string, 0, len(display))
+	for k := range display {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
+	tw := tabwriter.NewWriter(os.Stdout, 0, 2, 2, ' ', 0)
+	fmt.Fprintln(tw, "NAME\tINSTALLED\tSOURCE\tSTATUS")
+	for _, k := range keys {
+		rec, hasRec := recByName[k]
+		entry, inReg := entries[k]
+
+		installedCol := "?"
+		source := "?"
+		if hasRec {
+			switch {
+			case rec.Commit != "":
+				installedCol = short(rec.Commit)
+			case rec.Ref != "":
+				installedCol = rec.Ref
+			}
+			source = stripScheme(rec.Repo)
+		} else if inReg {
+			source = stripScheme(entry.Repo)
+		}
+
+		fmt.Fprintf(tw, "%s\t%s\t%s\t%s\n", display[k], installedCol, source, listStatus(hasRec, inReg, rec, entry))
+	}
+	return tw.Flush()
+}
+
+// listStatus reports how an installed skill compares to the registry. It uses the
+// requested ref recorded at install time (not the resolved commit) so a pinned
+// tag is compared like-for-like. It cannot detect upstream drift for an unpinned
+// entry without a network fetch, so those are reported as "tracking".
+func listStatus(hasRec, inReg bool, rec install.Record, e registry.Entry) string {
+	switch {
+	case !hasRec:
+		return "no record"
+	case !inReg:
+		return "not in registry"
+	case e.Ref != rec.Ref:
+		return "update available"
+	case e.Cksum != "" && e.Cksum != rec.Cksum:
+		return "update available"
+	case e.Ref == "" && e.Cksum == "":
+		return "tracking"
+	default:
+		return "up to date"
+	}
+}
+
+func stripScheme(repo string) string {
+	repo = strings.TrimPrefix(repo, "https://")
+	repo = strings.TrimPrefix(repo, "http://")
+	if repo == "" {
+		return "?"
+	}
+	return repo
 }
 
 func cmdSearch(ctx context.Context, args []string) error {

@@ -68,7 +68,7 @@ skillet update [name]    Update an installed skill, or all of them
 skillet doctor           Check installed skills for problems
 skillet remove <name>    Remove an installed skill
 skillet list             List installed skills
-skillet search <query>   Search the registry
+skillet search <query>   Search the registry (ranked + fuzzy; --kind, --tag)
 skillet info <name>      Show details of a registry entry
 skillet registry         Show every registry entry
 skillet publish          How to publish your own skill

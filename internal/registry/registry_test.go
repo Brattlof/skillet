@@ -135,6 +135,61 @@ func TestKindValidationAndDefault(t *testing.T) {
 	}
 }
 
+func TestFuzzyMatch(t *testing.T) {
+	if !fuzzyMatch("hello-skill", "hsk") {
+		t.Error("hsk should fuzzy-match hello-skill")
+	}
+	if !fuzzyMatch("hello", "") {
+		t.Error("empty query should match")
+	}
+	if fuzzyMatch("hello", "xyz") {
+		t.Error("xyz should not match hello")
+	}
+}
+
+func TestScoreEntryOrdering(t *testing.T) {
+	nameExact := scoreEntry(Entry{Name: "abc"}, "abc")
+	namePrefix := scoreEntry(Entry{Name: "abcdef"}, "abc")
+	tagExact := scoreEntry(Entry{Name: "x", Tags: []string{"abc"}}, "abc")
+	descHit := scoreEntry(Entry{Name: "x", Description: "abc"}, "abc")
+	none := scoreEntry(Entry{Name: "x", Description: "y"}, "abc")
+
+	if !(nameExact > namePrefix && namePrefix > tagExact && tagExact > descHit) {
+		t.Fatalf("bad ordering: exact=%d prefix=%d tag=%d desc=%d", nameExact, namePrefix, tagExact, descHit)
+	}
+	if none != 0 {
+		t.Fatalf("no match should score 0, got %d", none)
+	}
+}
+
+func TestSearchRanksResults(t *testing.T) {
+	dir := t.TempDir()
+	idx := `[
+	  {"name":"json","description":"d","repo":"https://x/1","path":"p","author":"a","tags":["fmt"]},
+	  {"name":"yaml","description":"convert to json","repo":"https://x/2","path":"p","author":"a","tags":["json"]},
+	  {"name":"zzz","description":"d","repo":"https://x/3","path":"p","author":"a","tags":["jsonish"]}
+	]`
+	if err := os.WriteFile(filepath.Join(dir, "index.json"), []byte(idx), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(dir, "index.meta"), []byte(`{"etag":"","fetched":"2030-01-01T00:00:00Z"}`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	t.Setenv("SKILLET_OFFLINE", "1")
+	t.Setenv("SKILLET_CACHE_DIR", dir)
+
+	res, err := Search(context.Background(), "json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(res) != 3 {
+		t.Fatalf("expected 3 hits, got %d", len(res))
+	}
+	if res[0].Name != "json" || res[2].Name != "zzz" {
+		t.Fatalf("expected json first and zzz last, got %s ... %s", res[0].Name, res[2].Name)
+	}
+}
+
 func TestLoadFetchesRemoteIndex(t *testing.T) {
 	idx := `[{"name":"remote-skill","description":"d","repo":"https://x/y","path":"p","author":"a"}]`
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

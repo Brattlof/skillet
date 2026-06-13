@@ -370,6 +370,7 @@ func stripScheme(repo string) string {
 func cmdSearch(ctx context.Context, args []string) error {
 	fs := flag.NewFlagSet("search", flag.ContinueOnError)
 	kind := fs.String("kind", "", "filter by kind (skill, command, hook)")
+	tag := fs.String("tag", "", "filter by tag")
 	pos, err := parseArgs(fs, args)
 	if err != nil {
 		return err
@@ -385,6 +386,18 @@ func cmdSearch(ctx context.Context, args []string) error {
 		for _, e := range results {
 			if e.KindOrDefault() == *kind {
 				filtered = append(filtered, e)
+			}
+		}
+		results = filtered
+	}
+	if *tag != "" {
+		var filtered []registry.Entry
+		for _, e := range results {
+			for _, t := range e.Tags {
+				if strings.EqualFold(t, *tag) {
+					filtered = append(filtered, e)
+					break
+				}
 			}
 		}
 		results = filtered

@@ -111,8 +111,10 @@ func Find(ctx context.Context, name string) (Entry, bool, error) {
 	return Entry{}, false, nil
 }
 
-// Search returns entries matching query in name, description, or tags.
-// An empty query returns every entry.
+// Search returns entries matching query, ranked by relevance: an exact or prefix
+// name match beats a name substring, which beats a tag, which beats the
+// description, which beats a fuzzy (subsequence) name match. An empty query
+// returns every entry sorted by name.
 func Search(ctx context.Context, query string) ([]Entry, error) {
 	entries, err := Load(ctx)
 	if err != nil {
@@ -122,14 +124,76 @@ func Search(ctx context.Context, query string) ([]Entry, error) {
 	if q == "" {
 		return entries, nil
 	}
-	var out []Entry
+
+	type scored struct {
+		e Entry
+		s int
+	}
+	var hits []scored
 	for _, e := range entries {
-		hay := strings.ToLower(e.Name + " " + e.Description + " " + strings.Join(e.Tags, " "))
-		if strings.Contains(hay, q) {
-			out = append(out, e)
+		if s := scoreEntry(e, q); s > 0 {
+			hits = append(hits, scored{e, s})
 		}
 	}
+	sort.SliceStable(hits, func(i, j int) bool {
+		if hits[i].s != hits[j].s {
+			return hits[i].s > hits[j].s
+		}
+		return hits[i].e.Name < hits[j].e.Name
+	})
+
+	out := make([]Entry, len(hits))
+	for i, h := range hits {
+		out[i] = h.e
+	}
 	return out, nil
+}
+
+// scoreEntry rates an entry against a lowercased query. Higher is more relevant;
+// zero means no match.
+func scoreEntry(e Entry, q string) int {
+	name := strings.ToLower(e.Name)
+	score := 0
+	upd := func(s int) {
+		if s > score {
+			score = s
+		}
+	}
+	switch {
+	case name == q:
+		upd(100)
+	case strings.HasPrefix(name, q):
+		upd(80)
+	case strings.Contains(name, q):
+		upd(60)
+	}
+	for _, t := range e.Tags {
+		tl := strings.ToLower(t)
+		if tl == q {
+			upd(50)
+		} else if strings.Contains(tl, q) {
+			upd(30)
+		}
+	}
+	if strings.Contains(strings.ToLower(e.Description), q) {
+		upd(40)
+	}
+	if score == 0 && fuzzyMatch(name, q) {
+		upd(20)
+	}
+	return score
+}
+
+// fuzzyMatch reports whether the runes of q appear in order within s.
+func fuzzyMatch(s, q string) bool {
+	qr := []rune(q)
+	i := 0
+	for _, c := range s {
+		if i < len(qr) && qr[i] == c {
+			i++
+		}
+	}
+	return i == len(qr)
 }
 
 // BuildIndex reads every *.json shard in dir, validates and de-duplicates them,

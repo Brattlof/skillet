@@ -198,10 +198,9 @@ used the skill you're adding.** See [CONTRIBUTING.md](CONTRIBUTING.md). PRs welc
 
 ## Roadmap
 
-- [x] `skillet update` - refresh installed skills
-- [x] Install slash commands and hooks, not just skills
-- [x] Version pinning + a lockfile (`skillet install --frozen`)
-- [x] `skillet doctor` - validate installed skills
+- [ ] MCP servers for more clients (OpenAI Codex, VS Code, Continue)
+- [ ] A browsable web registry
+- [ ] Statusline support
 
 ## License
 

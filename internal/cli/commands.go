@@ -59,6 +59,11 @@ func cmdAdd(ctx context.Context, args []string) error {
 			return err
 		}
 	}
+	if entry.Ref == "" && entry.Cksum == "" {
+		fmt.Fprintf(os.Stderr,
+			"warning: %s is not pinned (no ref or checksum); its content can change after review - pin it with 'skillet add %s@<ref>'\n",
+			entry.Name, entry.Name)
+	}
 
 	target, err := install.TargetDir(entry.KindOrDefault(), *dir)
 	if err != nil {

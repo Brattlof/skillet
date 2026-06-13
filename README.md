@@ -115,6 +115,18 @@ that set. Point the lockfile elsewhere with `SKILLET_LOCKFILE`.
 Point `skillet` at a different index with `SKILLET_REGISTRY_URL`, or force the cached/embedded
 copy with `SKILLET_OFFLINE=1`.
 
+## Security
+
+A skill runs with your agent's privileges, so only install skills you trust. skillet warns
+when you install an unpinned skill; pin to an exact version with `skillet add <name>@<ref>`
+and audit installs with `skillet doctor`. See [SECURITY.md](SECURITY.md) for the full trust
+model and how to report a vulnerability.
+
+## Compatibility
+
+skillet follows semantic versioning; see [COMPATIBILITY.md](COMPATIBILITY.md) for what stays
+stable across the 1.x series.
+
 ## Contributing
 
 The registry is only as good as the people keeping it honest. The one rule: **you've actually

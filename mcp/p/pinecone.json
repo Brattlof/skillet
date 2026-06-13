@@ -1,0 +1,18 @@
+{
+  "name": "pinecone",
+  "description": "Pinecone vector database access: search indexes, upsert and query records and search Pinecone documentation. Requires PINECONE_API_KEY env var.",
+  "author": "Pinecone (pinecone-io)",
+  "tags": [
+    "database",
+    "vector",
+    "pinecone",
+    "official"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@pinecone-database/mcp"
+    ]
+  }
+}

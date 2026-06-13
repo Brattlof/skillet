@@ -1,0 +1,13 @@
+{
+  "name": "vercel-react-best-practices",
+  "description": "React and Next.js performance optimization guidelines from Vercel Engineering for writing, reviewing, or refactoring code.",
+  "repo": "https://github.com/vercel-labs/agent-skills",
+  "path": "skills/react-best-practices",
+  "author": "vercel-labs",
+  "tags": [
+    "react",
+    "nextjs",
+    "performance",
+    "vercel"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "telegram",
+  "description": "Telegram access via MTProto: read, send and manage messages, chats and contacts on a user account. Requires Telegram API credentials.",
+  "author": "Yeabsira Driba (dryeab)",
+  "tags": [
+    "chat",
+    "telegram",
+    "messaging"
+  ],
+  "mcp": {
+    "command": "uvx",
+    "args": [
+      "mcp-telegram"
+    ]
+  }
+}

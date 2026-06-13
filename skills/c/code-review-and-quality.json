@@ -1,0 +1,12 @@
+{
+  "name": "code-review-and-quality",
+  "description": "Conduct multi-axis code review across multiple quality dimensions before merging a change.",
+  "repo": "https://github.com/addyosmani/agent-skills",
+  "path": "skills/code-review-and-quality",
+  "author": "addyosmani",
+  "tags": [
+    "code-review",
+    "quality",
+    "engineering"
+  ]
+}

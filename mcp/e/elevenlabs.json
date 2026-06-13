@@ -1,0 +1,17 @@
+{
+  "name": "elevenlabs",
+  "description": "ElevenLabs text-to-speech, voice cloning, audio transcription and voice agents. Requires ELEVENLABS_API_KEY env var.",
+  "author": "ElevenLabs",
+  "tags": [
+    "audio",
+    "tts",
+    "voice",
+    "official"
+  ],
+  "mcp": {
+    "command": "uvx",
+    "args": [
+      "elevenlabs-mcp"
+    ]
+  }
+}

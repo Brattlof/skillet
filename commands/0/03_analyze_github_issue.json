@@ -1,0 +1,12 @@
+{
+  "name": "03_analyze_github_issue",
+  "description": "Reviews a GitHub issue with gh issue view, examines the relevant codebase, and produces a plan to address the issue.",
+  "repo": "https://github.com/EveryInc/claude_commands",
+  "path": "03_analyze_github_issue.md",
+  "author": "EveryInc",
+  "tags": [
+    "github",
+    "issue",
+    "planning"
+  ]
+}

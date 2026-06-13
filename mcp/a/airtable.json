@@ -1,0 +1,17 @@
+{
+  "name": "airtable",
+  "description": "Airtable read and write access: inspect base schemas, read and write records. Requires AIRTABLE_API_KEY env var.",
+  "author": "Adam Jones (domdomegg)",
+  "tags": [
+    "database",
+    "airtable",
+    "productivity"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "airtable-mcp-server"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "lw",
+  "description": "Uses the gh CLI to find pull requests merged into main from the previous Monday through Sunday and summarizes each in one bullet.",
+  "repo": "https://github.com/robzolkos/claude-commands",
+  "path": "lw.md",
+  "author": "robzolkos",
+  "tags": [
+    "github",
+    "pr",
+    "summary"
+  ]
+}

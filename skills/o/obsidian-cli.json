@@ -1,0 +1,13 @@
+{
+  "name": "obsidian-cli",
+  "description": "Interact with Obsidian vaults via the Obsidian CLI to read, create, search, and manage notes, tasks, and properties, and to develop and debug plugins and themes.",
+  "repo": "https://github.com/kepano/obsidian-skills",
+  "path": "skills/obsidian-cli",
+  "author": "kepano",
+  "tags": [
+    "obsidian",
+    "cli",
+    "notes",
+    "productivity"
+  ]
+}

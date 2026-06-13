@@ -1,0 +1,19 @@
+{
+  "name": "duckdb",
+  "description": "DuckDB database access: run SQL queries against a local DuckDB file. Set the database path with the --db-path argument.",
+  "author": "ktanaka101",
+  "tags": [
+    "database",
+    "duckdb",
+    "analytics",
+    "sql"
+  ],
+  "mcp": {
+    "command": "uvx",
+    "args": [
+      "mcp-server-duckdb",
+      "--db-path",
+      "~/duckdb-mcp/data.db"
+    ]
+  }
+}

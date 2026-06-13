@@ -1,0 +1,13 @@
+{
+  "name": "obsidian-bases",
+  "description": "Create and edit Obsidian Bases (.base files) with views, filters, formulas, and summaries for database-like views of notes.",
+  "repo": "https://github.com/kepano/obsidian-skills",
+  "path": "skills/obsidian-bases",
+  "author": "kepano",
+  "tags": [
+    "obsidian",
+    "bases",
+    "database",
+    "notes"
+  ]
+}

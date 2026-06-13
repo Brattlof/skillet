@@ -1,0 +1,17 @@
+{
+  "name": "heroku",
+  "description": "Heroku Platform management: manage apps, dynos, add-ons, config vars and deployments. Requires Heroku CLI authentication.",
+  "author": "Heroku",
+  "tags": [
+    "devops",
+    "deployment",
+    "official"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@heroku/mcp-server"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "browserbase",
+  "description": "Cloud browser automation via Browserbase and Stagehand: navigate, act, extract and screenshot web pages. Requires BROWSERBASE_API_KEY and BROWSERBASE_PROJECT_ID env vars.",
+  "author": "Browserbase",
+  "tags": [
+    "browser",
+    "automation",
+    "web",
+    "official"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@browserbasehq/mcp"
+    ]
+  }
+}

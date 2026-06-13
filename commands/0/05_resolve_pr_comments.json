@@ -1,0 +1,12 @@
+{
+  "name": "05_resolve_pr_comments",
+  "description": "Detects the current branch and PR, reads all PR comments and review threads, and resolves the to-dos by editing files and committing.",
+  "repo": "https://github.com/EveryInc/claude_commands",
+  "path": "05_resolve_pr_comments.md",
+  "author": "EveryInc",
+  "tags": [
+    "github",
+    "pr",
+    "review"
+  ]
+}

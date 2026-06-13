@@ -1,0 +1,12 @@
+{
+  "name": "publish",
+  "description": "Checks git status, updates gitignore, builds the package, bumps the patch version, commits, tags, pushes, and runs npm publish.",
+  "repo": "https://github.com/badlogic/claude-commands",
+  "path": "publish.md",
+  "author": "badlogic",
+  "tags": [
+    "release",
+    "npm",
+    "git"
+  ]
+}

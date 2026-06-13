@@ -1,0 +1,12 @@
+{
+  "name": "01_experiment_driven_development",
+  "description": "Logs goal, learnings, and a surgical plan to an experiments markdown file before making changes, then records the attempted solution.",
+  "repo": "https://github.com/EveryInc/claude_commands",
+  "path": "01_experiment_driven_development.md",
+  "author": "EveryInc",
+  "tags": [
+    "workflow",
+    "planning",
+    "experiment"
+  ]
+}

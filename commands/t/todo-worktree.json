@@ -1,0 +1,12 @@
+{
+  "name": "todo-worktree",
+  "description": "Phased workflow that turns vague todos into features using git worktrees with INIT, SELECT, REFINE, IMPLEMENT, and COMMIT stops.",
+  "repo": "https://github.com/badlogic/claude-commands",
+  "path": "todo-worktree.md",
+  "author": "badlogic",
+  "tags": [
+    "workflow",
+    "git",
+    "worktree"
+  ]
+}

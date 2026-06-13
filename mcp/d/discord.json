@@ -1,0 +1,17 @@
+{
+  "name": "discord",
+  "description": "Discord bot integration: send and read messages, manage channels, roles and reactions. Requires a Discord bot token env var.",
+  "author": "barryyip0625",
+  "tags": [
+    "chat",
+    "discord",
+    "messaging"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "mcp-discord"
+    ]
+  }
+}

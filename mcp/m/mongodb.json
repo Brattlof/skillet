@@ -1,0 +1,17 @@
+{
+  "name": "mongodb",
+  "description": "MongoDB and Atlas access: query, aggregate, inspect schemas and manage collections. Requires MDB_MCP_CONNECTION_STRING env var.",
+  "author": "MongoDB (mongodb-js)",
+  "tags": [
+    "database",
+    "mongodb",
+    "official"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "mongodb-mcp-server@latest"
+    ]
+  }
+}

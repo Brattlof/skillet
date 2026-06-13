@@ -1,0 +1,12 @@
+{
+  "name": "debugging-and-error-recovery",
+  "description": "Guide systematic root-cause debugging when tests fail, builds break, or behavior does not match expectations.",
+  "repo": "https://github.com/addyosmani/agent-skills",
+  "path": "skills/debugging-and-error-recovery",
+  "author": "addyosmani",
+  "tags": [
+    "debugging",
+    "errors",
+    "engineering"
+  ]
+}

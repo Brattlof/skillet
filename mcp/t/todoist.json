@@ -1,0 +1,17 @@
+{
+  "name": "todoist",
+  "description": "Todoist task management: create, find, update and complete tasks and projects. Requires a Todoist API token env var.",
+  "author": "Doist",
+  "tags": [
+    "productivity",
+    "tasks",
+    "official"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@doist/todoist-mcp"
+    ]
+  }
+}

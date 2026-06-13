@@ -1,0 +1,12 @@
+{
+  "name": "02_generate_codebase_context",
+  "description": "Generates a top-level llms.txt summarizing each file, its functions with params and types, and an ASCII map of file connections.",
+  "repo": "https://github.com/EveryInc/claude_commands",
+  "path": "02_generate_codebase_context.md",
+  "author": "EveryInc",
+  "tags": [
+    "docs",
+    "context",
+    "codebase"
+  ]
+}

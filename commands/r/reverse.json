@@ -1,0 +1,12 @@
+{
+  "name": "reverse",
+  "description": "Acts as a senior engineer that asks focused questions over several turns to pressure-test a proposed solution before coding.",
+  "repo": "https://github.com/robzolkos/claude-commands",
+  "path": "reverse.md",
+  "author": "robzolkos",
+  "tags": [
+    "planning",
+    "review",
+    "questions"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "improve-codebase-architecture",
+  "description": "Find architectural deepening and refactoring opportunities in a codebase to improve testability and navigability.",
+  "repo": "https://github.com/mattpocock/skills",
+  "path": "skills/engineering/improve-codebase-architecture",
+  "author": "mattpocock",
+  "tags": [
+    "architecture",
+    "refactoring",
+    "engineering"
+  ]
+}

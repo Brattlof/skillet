@@ -1,0 +1,17 @@
+{
+  "name": "redis",
+  "description": "Redis data access: store, query and manage strings, hashes, lists, sets, streams and vector data. Requires REDIS_URL env var or connection flags.",
+  "author": "Redis",
+  "tags": [
+    "database",
+    "redis",
+    "cache",
+    "official"
+  ],
+  "mcp": {
+    "command": "uvx",
+    "args": [
+      "redis-mcp-server"
+    ]
+  }
+}

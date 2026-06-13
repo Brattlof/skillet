@@ -1,0 +1,14 @@
+{
+  "name": "huggingface",
+  "description": "Hugging Face Hub access: search models, datasets, Spaces and papers and run Gradio app tools. Remote server; optional HF_TOKEN for authenticated access.",
+  "author": "Hugging Face",
+  "tags": [
+    "ml",
+    "models",
+    "official",
+    "remote"
+  ],
+  "mcp": {
+    "url": "https://huggingface.co/mcp"
+  }
+}

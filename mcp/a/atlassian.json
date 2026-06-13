@@ -1,0 +1,15 @@
+{
+  "name": "atlassian",
+  "description": "Atlassian Jira and Confluence access via Rovo: search and manage issues, pages and projects. Remote server with OAuth.",
+  "author": "Atlassian",
+  "tags": [
+    "productivity",
+    "issues",
+    "jira",
+    "official",
+    "remote"
+  ],
+  "mcp": {
+    "url": "https://mcp.atlassian.com/v1/sse"
+  }
+}

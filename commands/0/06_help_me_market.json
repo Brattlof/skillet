@@ -1,0 +1,12 @@
+{
+  "name": "06_help_me_market",
+  "description": "Studies recent commits and docs to identify user-facing changes and drafts marketing copy about them from the given arguments.",
+  "repo": "https://github.com/EveryInc/claude_commands",
+  "path": "06_help_me_market.md",
+  "author": "EveryInc",
+  "tags": [
+    "marketing",
+    "docs",
+    "writing"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "transformers-js",
+  "description": "Use Transformers.js to run machine learning models in JavaScript/TypeScript for NLP, vision, audio, and multimodal tasks in browsers and server runtimes.",
+  "repo": "https://github.com/huggingface/skills",
+  "path": "skills/transformers-js",
+  "author": "huggingface",
+  "tags": [
+    "transformers",
+    "javascript",
+    "machine-learning",
+    "webgpu"
+  ]
+}

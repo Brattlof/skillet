@@ -1,0 +1,13 @@
+{
+  "name": "hf-cli",
+  "description": "Use the Hugging Face Hub CLI (hf) to download, upload, and manage models, datasets, spaces, repos, jobs, and inference endpoints.",
+  "repo": "https://github.com/huggingface/skills",
+  "path": "skills/hf-cli",
+  "author": "huggingface",
+  "tags": [
+    "huggingface",
+    "cli",
+    "machine-learning",
+    "models"
+  ]
+}

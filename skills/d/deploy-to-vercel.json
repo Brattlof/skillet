@@ -1,0 +1,13 @@
+{
+  "name": "deploy-to-vercel",
+  "description": "Deploy applications and websites to Vercel, defaulting to preview deployments unless production is requested.",
+  "repo": "https://github.com/vercel-labs/agent-skills",
+  "path": "skills/deploy-to-vercel",
+  "author": "vercel-labs",
+  "tags": [
+    "vercel",
+    "deployment",
+    "hosting",
+    "devops"
+  ]
+}

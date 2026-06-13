@@ -1,0 +1,13 @@
+{
+  "name": "huggingface-gradio",
+  "description": "Build Gradio web UIs and ML demos in Python, covering components, event listeners, layouts, and chatbots.",
+  "repo": "https://github.com/huggingface/skills",
+  "path": "skills/huggingface-gradio",
+  "author": "huggingface",
+  "tags": [
+    "gradio",
+    "python",
+    "ui",
+    "machine-learning"
+  ]
+}

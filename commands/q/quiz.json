@@ -1,0 +1,12 @@
+{
+  "name": "quiz",
+  "description": "Reads the code changed in the session and quizzes the user on two non-obvious techniques to reinforce learning.",
+  "repo": "https://github.com/robzolkos/claude-commands",
+  "path": "quiz.md",
+  "author": "robzolkos",
+  "tags": [
+    "learning",
+    "quiz",
+    "teaching"
+  ]
+}

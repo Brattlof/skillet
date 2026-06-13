@@ -1,0 +1,13 @@
+{
+  "name": "vercel-optimize",
+  "description": "Run an observability-first Vercel cost and performance audit on deployed projects, producing ranked recommendations grounded in metrics and config.",
+  "repo": "https://github.com/vercel-labs/agent-skills",
+  "path": "skills/vercel-optimize",
+  "author": "vercel-labs",
+  "tags": [
+    "vercel",
+    "performance",
+    "cost",
+    "optimization"
+  ]
+}

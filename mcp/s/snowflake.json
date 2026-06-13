@@ -1,0 +1,19 @@
+{
+  "name": "snowflake",
+  "description": "Snowflake access: run Cortex AI services, query data and manage objects via a service config file. Pass --service-config-file and set Snowflake auth env vars.",
+  "author": "Snowflake (Snowflake-Labs)",
+  "tags": [
+    "database",
+    "snowflake",
+    "analytics",
+    "official"
+  ],
+  "mcp": {
+    "command": "uvx",
+    "args": [
+      "snowflake-labs-mcp",
+      "--service-config-file",
+      "config.yaml"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "agent-platform-inference",
+  "description": "Connect to and run inference with Google Cloud Agent Platform GenAI models, including Gemini and third-party OpenMaaS models.",
+  "repo": "https://github.com/google/skills",
+  "path": "skills/cloud/agent-platform-inference",
+  "author": "google",
+  "tags": [
+    "google-cloud",
+    "inference",
+    "gemini",
+    "genai"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "defuddle",
+  "description": "Extract clean markdown content from web pages using the Defuddle CLI, removing navigation and clutter to reduce token usage.",
+  "repo": "https://github.com/kepano/obsidian-skills",
+  "path": "skills/defuddle",
+  "author": "kepano",
+  "tags": [
+    "web",
+    "scraping",
+    "markdown",
+    "cli"
+  ]
+}

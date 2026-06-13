@@ -1,0 +1,13 @@
+{
+  "name": "json-canvas",
+  "description": "Create and edit JSON Canvas files (.canvas) with nodes, edges, groups, and connections for visual canvases, mind maps, and flowcharts.",
+  "repo": "https://github.com/kepano/obsidian-skills",
+  "path": "skills/json-canvas",
+  "author": "kepano",
+  "tags": [
+    "obsidian",
+    "json-canvas",
+    "diagrams",
+    "notes"
+  ]
+}

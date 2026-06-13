@@ -1,0 +1,12 @@
+{
+  "name": "reflect",
+  "description": "Summarizes general learnings from the current session into bullet points and offers to save them to CLAUDE.md.",
+  "repo": "https://github.com/robzolkos/claude-commands",
+  "path": "reflect.md",
+  "author": "robzolkos",
+  "tags": [
+    "reflection",
+    "learning",
+    "memory"
+  ]
+}

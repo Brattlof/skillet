@@ -1,0 +1,18 @@
+{
+  "name": "apify",
+  "description": "Run Apify Actors for web scraping and data extraction and access scraped datasets. Requires APIFY_TOKEN env var.",
+  "author": "Apify",
+  "tags": [
+    "web",
+    "scraping",
+    "data",
+    "official"
+  ],
+  "mcp": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@apify/actors-mcp-server"
+    ]
+  }
+}

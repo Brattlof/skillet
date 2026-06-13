@@ -1,0 +1,14 @@
+{
+  "name": "vercel",
+  "description": "Vercel platform access: manage projects and deployments and search Vercel documentation. Remote server with OAuth.",
+  "author": "Vercel",
+  "tags": [
+    "devops",
+    "deployment",
+    "official",
+    "remote"
+  ],
+  "mcp": {
+    "url": "https://mcp.vercel.com"
+  }
+}

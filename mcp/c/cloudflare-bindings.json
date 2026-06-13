@@ -1,0 +1,15 @@
+{
+  "name": "cloudflare-bindings",
+  "description": "Build Cloudflare Workers applications with access to Workers, KV, R2, D1 and other bindings. Remote server with OAuth.",
+  "author": "Cloudflare",
+  "tags": [
+    "devops",
+    "cloudflare",
+    "workers",
+    "official",
+    "remote"
+  ],
+  "mcp": {
+    "url": "https://bindings.mcp.cloudflare.com/mcp"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "agent-platform-deploy",
+  "description": "Deploy open models or custom weights from Model Garden to Google Cloud Agent Platform endpoints, check status, and clean up resources.",
+  "repo": "https://github.com/google/skills",
+  "path": "skills/cloud/agent-platform-deploy",
+  "author": "google",
+  "tags": [
+    "google-cloud",
+    "deployment",
+    "models",
+    "vertex"
+  ]
+}

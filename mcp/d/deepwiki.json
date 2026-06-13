@@ -1,0 +1,14 @@
+{
+  "name": "deepwiki",
+  "description": "AI-generated documentation for public GitHub repositories: read wiki structure, read docs and ask questions about a repo. Remote server, no authentication required.",
+  "author": "Devin (Cognition)",
+  "tags": [
+    "docs",
+    "github",
+    "reference",
+    "remote"
+  ],
+  "mcp": {
+    "url": "https://mcp.deepwiki.com/mcp"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "web-design-guidelines",
+  "description": "Review UI code for Web Interface Guidelines compliance, including accessibility and UX audits.",
+  "repo": "https://github.com/vercel-labs/agent-skills",
+  "path": "skills/web-design-guidelines",
+  "author": "vercel-labs",
+  "tags": [
+    "ui",
+    "accessibility",
+    "design",
+    "review"
+  ]
+}

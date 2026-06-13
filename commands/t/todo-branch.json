@@ -1,0 +1,12 @@
+{
+  "name": "todo-branch",
+  "description": "Phased workflow that turns vague todos into features on the current branch with a single commit at completion.",
+  "repo": "https://github.com/badlogic/claude-commands",
+  "path": "todo-branch.md",
+  "author": "badlogic",
+  "tags": [
+    "workflow",
+    "git",
+    "todo"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "clickhouse",
+  "description": "ClickHouse database access: run read-only SQL queries and list databases and tables. Requires CLICKHOUSE_HOST, CLICKHOUSE_USER and CLICKHOUSE_PASSWORD env vars.",
+  "author": "ClickHouse",
+  "tags": [
+    "database",
+    "clickhouse",
+    "analytics",
+    "official"
+  ],
+  "mcp": {
+    "command": "uvx",
+    "args": [
+      "mcp-clickhouse"
+    ]
+  }
+}

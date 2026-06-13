@@ -1,0 +1,15 @@
+{
+  "name": "cloudflare-observability",
+  "description": "Debug and analyze Cloudflare Workers using logs, analytics and account insights. Remote server with OAuth.",
+  "author": "Cloudflare",
+  "tags": [
+    "observability",
+    "cloudflare",
+    "workers",
+    "official",
+    "remote"
+  ],
+  "mcp": {
+    "url": "https://observability.mcp.cloudflare.com/mcp"
+  }
+}

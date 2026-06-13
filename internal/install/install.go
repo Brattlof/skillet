@@ -133,8 +133,8 @@ func Update(ctx context.Context, e registry.Entry, dir string) (prev Record, cur
 
 // fetchRepo clones e.Repo into tmp. With no ref it shallow-clones the default
 // branch; with a ref (any commit or tag) it does a full clone and checks it out.
-// The "--" and "--end-of-options" separators stop git from parsing a value that
-// begins with a dash as an option.
+// Validate rejects refs that begin with a dash, so checkout stays compatible
+// with Git builds that do not support newer end-of-options flags.
 func fetchRepo(ctx context.Context, e registry.Entry, tmp string) error {
 	if e.Ref == "" {
 		clone := exec.CommandContext(ctx, "git", "clone", "--depth", "1", "--", e.Repo, tmp)
@@ -149,7 +149,7 @@ func fetchRepo(ctx context.Context, e registry.Entry, tmp string) error {
 	if err := clone.Run(); err != nil {
 		return fmt.Errorf("cloning %s: %w", e.Repo, err)
 	}
-	checkout := exec.CommandContext(ctx, "git", "-C", tmp, "checkout", "--quiet", "--end-of-options", e.Ref)
+	checkout := exec.CommandContext(ctx, "git", "-C", tmp, "checkout", "--quiet", "--detach", e.Ref)
 	checkout.Stderr = os.Stderr
 	if err := checkout.Run(); err != nil {
 		return fmt.Errorf("checking out %s@%s: %w", e.Repo, e.Ref, err)

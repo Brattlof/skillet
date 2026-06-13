@@ -1,0 +1,9 @@
+{
+  "name": "x-twitter-scraper",
+  "description": "Xquik guide for X/Twitter data workflows, MCP setup, webhooks, extraction jobs, and confirmation-gated actions.",
+  "repo": "https://github.com/Xquik-dev/x-twitter-scraper",
+  "path": "skills/x-twitter-scraper",
+  "author": "Xquik",
+  "tags": ["x", "twitter", "mcp", "api", "webhooks"],
+  "ref": "179402853cba795accbe62416d5dffa257b9b7db"
+}

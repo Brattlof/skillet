@@ -118,6 +118,18 @@ func resolveCommit(ctx context.Context, repoDir string) (string, error) {
 	return strings.TrimSpace(string(out)), nil
 }
 
+// Update reinstalls e into dir and returns the previous and current provenance
+// records, so the caller can report what changed. The previous record is zero if
+// the skill was not installed before.
+func Update(ctx context.Context, e registry.Entry, dir string) (prev Record, cur Record, err error) {
+	prev, _, _ = ReadRecord(dir, e.Name)
+	if _, ierr := Install(ctx, e, dir); ierr != nil {
+		return Record{}, Record{}, ierr
+	}
+	cur, _, err = ReadRecord(dir, e.Name)
+	return prev, cur, err
+}
+
 // fetchRepo clones e.Repo into tmp. With no ref it shallow-clones the default
 // branch; with a ref (any commit or tag) it does a full clone and checks it out.
 // The "--" and "--end-of-options" separators stop git from parsing a value that

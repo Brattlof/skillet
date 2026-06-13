@@ -66,6 +66,81 @@ func cmdAdd(ctx context.Context, args []string) error {
 	return nil
 }
 
+func cmdUpdate(ctx context.Context, args []string) error {
+	fs := flag.NewFlagSet("update", flag.ContinueOnError)
+	dir := fs.String("dir", "", dirUsage)
+	pos, err := parseArgs(fs, args)
+	if err != nil {
+		return err
+	}
+
+	target, err := install.SkillsDir(*dir)
+	if err != nil {
+		return err
+	}
+
+	var names []string
+	if len(pos) >= 1 {
+		name := pos[0]
+		if _, ok, _ := install.ReadRecord(target, name); !ok {
+			return fmt.Errorf("%q is not installed (use: skillet add %s)", name, name)
+		}
+		names = []string{name}
+	} else {
+		recs, err := install.Records(target)
+		if err != nil {
+			return err
+		}
+		for _, r := range recs {
+			names = append(names, r.Name)
+		}
+		if len(names) == 0 {
+			fmt.Printf("No skills installed in %s\n", target)
+			return nil
+		}
+	}
+
+	var updated, unchanged, skipped int
+	for _, name := range names {
+		entry, ok, err := registry.Find(ctx, name)
+		if err != nil {
+			return err
+		}
+		if !ok {
+			fmt.Printf("skipped %s (not in the registry)\n", name)
+			skipped++
+			continue
+		}
+		prev, cur, err := install.Update(ctx, entry, target)
+		if err != nil {
+			return fmt.Errorf("updating %s: %w", name, err)
+		}
+		switch {
+		case prev.Commit == "":
+			fmt.Printf("installed %s (%s)\n", name, short(cur.Commit))
+			updated++
+		case prev.Commit != cur.Commit:
+			fmt.Printf("updated %s %s -> %s\n", name, short(prev.Commit), short(cur.Commit))
+			updated++
+		default:
+			fmt.Printf("%s already up to date (%s)\n", name, short(cur.Commit))
+			unchanged++
+		}
+	}
+	fmt.Printf("\n%d updated, %d unchanged, %d skipped\n", updated, unchanged, skipped)
+	return nil
+}
+
+func short(commit string) string {
+	if commit == "" {
+		return "unknown"
+	}
+	if len(commit) > 7 {
+		return commit[:7]
+	}
+	return commit
+}
+
 func cmdRemove(_ context.Context, args []string) error {
 	fs := flag.NewFlagSet("remove", flag.ContinueOnError)
 	dir := fs.String("dir", "", dirUsage)

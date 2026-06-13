@@ -23,6 +23,8 @@ func Run(ctx context.Context, args []string) int {
 	switch cmd {
 	case "add", "install":
 		err = cmdAdd(ctx, rest)
+	case "update", "upgrade":
+		err = cmdUpdate(ctx, rest)
 	case "remove", "rm":
 		err = cmdRemove(ctx, rest)
 	case "list", "ls":
@@ -58,6 +60,7 @@ Usage:
 
 Commands:
   add <name>       Install a skill from the registry
+  update [name]    Update an installed skill, or all of them
   remove <name>    Remove an installed skill
   list             List installed skills
   search <query>   Search the registry

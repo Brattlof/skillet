@@ -78,6 +78,74 @@ func TestListRemoveRoundTrip(t *testing.T) {
 	}
 }
 
+func TestUpdate(t *testing.T) {
+	if _, err := exec.LookPath("git"); err != nil {
+		t.Skip("git not available")
+	}
+
+	src := t.TempDir()
+	skillDir := filepath.Join(src, "examples", "hello-skill")
+	if err := os.MkdirAll(skillDir, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	skillFile := filepath.Join(skillDir, "SKILL.md")
+	if err := os.WriteFile(skillFile, []byte("# hello v1\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	git := func(args ...string) string {
+		c := exec.Command("git", args...)
+		c.Dir = src
+		out, err := c.CombinedOutput()
+		if err != nil {
+			t.Fatalf("git %v: %v\n%s", args, err, out)
+		}
+		return strings.TrimSpace(string(out))
+	}
+	git("init", "-q")
+	git("-c", "user.email=t@t", "-c", "user.name=t", "add", "-A")
+	git("-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", "v1")
+	sha1 := git("rev-parse", "HEAD")
+
+	dir := t.TempDir()
+	e := registry.Entry{Name: "hello-skill", Description: "d", Author: "t", Repo: src, Path: "examples/hello-skill"}
+
+	// first update installs the current HEAD
+	prev, cur, err := Update(context.Background(), e, dir)
+	if err != nil {
+		t.Fatalf("first update: %v", err)
+	}
+	if prev.Commit != "" {
+		t.Fatalf("expected no previous record, got %q", prev.Commit)
+	}
+	if cur.Commit != sha1 {
+		t.Fatalf("expected commit %s, got %s", sha1, cur.Commit)
+	}
+
+	// move the upstream forward
+	if err := os.WriteFile(skillFile, []byte("# hello v2\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	git("-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qam", "v2")
+	sha2 := git("rev-parse", "HEAD")
+
+	prev, cur, err = Update(context.Background(), e, dir)
+	if err != nil {
+		t.Fatalf("second update: %v", err)
+	}
+	if prev.Commit != sha1 || cur.Commit != sha2 {
+		t.Fatalf("expected %s -> %s, got %s -> %s", sha1, sha2, prev.Commit, cur.Commit)
+	}
+
+	// updating again with no upstream change is a no-op
+	prev, cur, err = Update(context.Background(), e, dir)
+	if err != nil {
+		t.Fatalf("third update: %v", err)
+	}
+	if prev.Commit != cur.Commit || cur.Commit != sha2 {
+		t.Fatalf("expected unchanged at %s, got %s -> %s", sha2, prev.Commit, cur.Commit)
+	}
+}
+
 func TestManifestRoundTrip(t *testing.T) {
 	dir := t.TempDir()
 

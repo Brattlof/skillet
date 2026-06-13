@@ -78,6 +78,16 @@ func Load(ctx context.Context) ([]Entry, error) {
 	return loadEmbedded()
 }
 
+// Cached returns the index from the local cache, or the embedded baseline if no
+// cache exists. It never touches the network, so it is safe for latency-sensitive
+// paths like shell completion.
+func Cached() ([]Entry, error) {
+	if entries, _, ok := readCache(); ok {
+		return entries, nil
+	}
+	return loadEmbedded()
+}
+
 // Find returns the entry whose name matches (case-insensitively).
 func Find(ctx context.Context, name string) (Entry, bool, error) {
 	entries, err := Load(ctx)

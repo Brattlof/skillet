@@ -70,7 +70,22 @@ skillet search <query>   Search the registry
 skillet info <name>      Show details of a registry entry
 skillet registry         Show every registry entry
 skillet publish          How to publish your own skill
+skillet completion <sh>  Output a bash, zsh, or fish completion script
 ```
+
+### Shell completion
+
+```bash
+# bash (current shell)
+source <(skillet completion bash)
+# zsh
+skillet completion zsh > "${fpath[1]}/_skillet"
+# fish
+skillet completion fish > ~/.config/fish/completions/skillet.fish
+```
+
+Completion suggests subcommands, the `--dir` flag, and skill names pulled from the
+local index, so it stays instant and works offline.
 
 Override the target directory per-command or globally:
 

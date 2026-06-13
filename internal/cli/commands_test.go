@@ -54,6 +54,30 @@ func TestInfoUnknownExitsNonZero(t *testing.T) {
 	}
 }
 
+func TestCompletionScripts(t *testing.T) {
+	for _, sh := range []string{"bash", "zsh", "fish"} {
+		var code int
+		out := captureStdout(t, func() { code = Run(context.Background(), []string{"completion", sh}) })
+		if code != 0 {
+			t.Fatalf("completion %s exit = %d", sh, code)
+		}
+		if !strings.Contains(out, "skillet") {
+			t.Errorf("completion %s output looks empty:\n%s", sh, out)
+		}
+	}
+	if code := Run(context.Background(), []string{"completion", "tcsh"}); code == 0 {
+		t.Fatal("expected non-zero exit for an unsupported shell")
+	}
+}
+
+func TestCompleteListsNames(t *testing.T) {
+	t.Setenv("SKILLET_CACHE_DIR", t.TempDir()) // empty cache -> embedded baseline
+	out := captureStdout(t, func() { Run(context.Background(), []string{"__complete", "add"}) })
+	if !strings.Contains(out, "hello-skill") {
+		t.Errorf("__complete add should list hello-skill, got:\n%s", out)
+	}
+}
+
 func TestListStatus(t *testing.T) {
 	cases := []struct {
 		name   string

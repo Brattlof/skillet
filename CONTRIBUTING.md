@@ -48,7 +48,7 @@ than 3,000 dead links.
 3. Run `go run ./cmd/buildindex -check` to validate the shards, then `go test ./...`.
 4. Open a PR. In the description, tell us **how you've used it** (one or two sentences).
 
-A merged entry goes live once CI compiles the index and the CDN cache refreshes.
+A merged entry goes live once CI compiles the index and publishes it to the gh-pages branch.
 
 ## What gets rejected
 

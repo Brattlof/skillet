@@ -1,9 +1,9 @@
 // Package registry loads and queries the skill index.
 //
 // The source of truth is one JSON shard per skill under skills/. CI compiles the
-// shards into a single index published over a CDN. At runtime Load prefers a fresh
-// local cache, revalidates with the remote index, and falls back to the cache and
-// finally to the shards embedded in the binary, so it works offline.
+// shards into a single index published on the gh-pages branch. At runtime Load
+// prefers a fresh local cache, revalidates with the remote index, and falls back
+// to the cache and finally to the shards embedded in the binary, so it works offline.
 package registry
 
 import (
@@ -74,9 +74,11 @@ var hookEvents = map[string]bool{
 	"WorktreeCreate": true, "Elicitation": true, "PreCompact": true,
 }
 
-// defaultRegistryURL serves the compiled index over a free CDN (jsDelivr fronting
-// the gh-pages branch). Override with SKILLET_REGISTRY_URL.
-const defaultRegistryURL = "https://cdn.jsdelivr.net/gh/Brattlof/skillet@gh-pages/index.json"
+// defaultRegistryURL serves the compiled index straight from the gh-pages
+// branch. raw.githubusercontent.com reflects a push within a few minutes,
+// where a CDN in front of the branch can lag a registry update by hours.
+// Override with SKILLET_REGISTRY_URL.
+const defaultRegistryURL = "https://raw.githubusercontent.com/Brattlof/skillet/gh-pages/index.json"
 
 // cacheTTL is how long a cached index is trusted before revalidating.
 const cacheTTL = time.Hour

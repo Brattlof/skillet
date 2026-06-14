@@ -172,8 +172,8 @@ elsewhere with `SKILLET_LOCKFILE`.
 1. Each entry is one file under the directory for its kind - [`skills/`](skills),
    [`commands/`](commands), or [`hooks/`](hooks) - sharded by first letter
    (`commands/c/changelog.json`). The folder sets the kind. CI compiles them into an index
-   published over a CDN. `skillet` fetches that index, caches it locally with ETag
-   revalidation, and falls back to a copy embedded in the binary when it is offline.
+   published on the `gh-pages` branch. `skillet` fetches that index, caches it locally with
+   ETag revalidation, and falls back to a copy embedded in the binary when it is offline.
 2. `skillet add` clones the entry's repo (pinned to its `ref` when set), copies just that
    artifact into the right directory, verifies its checksum when set, and cleans up. No `.git`.
 3. Contributing is a PR that adds one file under `skills/`, `commands/`, or `hooks/` - see below.

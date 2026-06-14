@@ -1,0 +1,12 @@
+{
+  "name": "full-page-screenshot",
+  "description": "Capture a full-page screenshot of an open tab or URL as one PNG via the Chrome DevTools protocol.",
+  "repo": "https://github.com/LewisLiu007/full-page-screenshot",
+  "path": ".",
+  "author": "LewisLiu007",
+  "tags": [
+    "browser",
+    "screenshots",
+    "web"
+  ]
+}

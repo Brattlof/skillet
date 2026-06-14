@@ -1,0 +1,12 @@
+{
+  "name": "d3-viz",
+  "description": "Build interactive d3.js visualizations: custom charts, network diagrams, and geographic and SVG-based visuals.",
+  "repo": "https://github.com/chrisvoncsefalvay/claude-d3js-skill",
+  "path": ".",
+  "author": "chrisvoncsefalvay",
+  "tags": [
+    "data",
+    "frontend",
+    "javascript"
+  ]
+}

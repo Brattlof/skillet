@@ -1,0 +1,12 @@
+{
+  "name": "master-claude-for-legal",
+  "description": "Set up Claude for legal teams: NDA triage, redline diffs, citation checks, privilege, and meeting briefs.",
+  "repo": "https://github.com/sboghossian/master-claude-for-legal",
+  "path": ".",
+  "author": "sboghossian",
+  "tags": [
+    "legal",
+    "documents",
+    "workflow"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "move-code-quality",
+  "description": "Review Move language packages against the Move Book quality checklist for Move 2024 Edition.",
+  "repo": "https://github.com/1NickPappas/move-code-quality-skill",
+  "path": ".",
+  "author": "1NickPappas",
+  "tags": [
+    "code-review",
+    "quality",
+    "engineering"
+  ]
+}

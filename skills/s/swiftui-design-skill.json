@@ -1,0 +1,12 @@
+{
+  "name": "swiftui-design-skill",
+  "description": "Design distinctive SwiftUI iOS and macOS interfaces and review UI quality, avoiding generic patterns.",
+  "repo": "https://github.com/wholiver/swiftui-design-skill",
+  "path": ".",
+  "author": "wholiver",
+  "tags": [
+    "design",
+    "ui",
+    "ios"
+  ]
+}

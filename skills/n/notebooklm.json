@@ -1,0 +1,12 @@
+{
+  "name": "notebooklm",
+  "description": "Query Google NotebookLM notebooks from Claude Code for source-grounded, citation-backed answers.",
+  "repo": "https://github.com/PleasePrompto/notebooklm-skill",
+  "path": ".",
+  "author": "PleasePrompto",
+  "tags": [
+    "research",
+    "browser",
+    "automation"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "anydesign",
+  "description": "Extract a design system from an image, website, or Figma file and generate a design.md.",
+  "repo": "https://github.com/uxKero/anydesign",
+  "path": ".",
+  "author": "uxKero",
+  "tags": [
+    "design",
+    "ui",
+    "extraction"
+  ]
+}

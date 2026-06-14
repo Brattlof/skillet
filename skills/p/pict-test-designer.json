@@ -1,0 +1,12 @@
+{
+  "name": "pict-test-designer",
+  "description": "Design pairwise combinatorial test cases with PICT: models, parameters, constraints, and expected results.",
+  "repo": "https://github.com/omkamal/pypict-claude-skill",
+  "path": ".",
+  "author": "omkamal",
+  "tags": [
+    "testing",
+    "qa",
+    "quality"
+  ]
+}

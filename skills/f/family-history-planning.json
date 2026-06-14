@@ -1,0 +1,12 @@
+{
+  "name": "family-history-planning",
+  "description": "Plan family history and genealogy research projects step by step.",
+  "repo": "https://github.com/emaynard/claude-family-history-research-skill",
+  "path": ".",
+  "author": "emaynard",
+  "tags": [
+    "research",
+    "planning",
+    "personal"
+  ]
+}

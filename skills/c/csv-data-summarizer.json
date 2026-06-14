@@ -1,0 +1,12 @@
+{
+  "name": "csv-data-summarizer",
+  "description": "Summarize CSV files with pandas: summary statistics and quick plots.",
+  "repo": "https://github.com/coffeefuelbump/csv-data-summarizer-claude-skill",
+  "path": ".",
+  "author": "coffeefuelbump",
+  "tags": [
+    "data",
+    "python",
+    "analysis"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "gmail",
+  "description": "Search, read, send, and draft Gmail emails and manage labels.",
+  "repo": "https://github.com/sanjay3290/ai-skills",
+  "path": "skills/gmail",
+  "author": "sanjay3290",
+  "tags": [
+    "gmail",
+    "email",
+    "google-workspace",
+    "communication"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "google-docs",
+  "description": "Create, search, read, and edit documents in Google Docs.",
+  "repo": "https://github.com/sanjay3290/ai-skills",
+  "path": "skills/google-docs",
+  "author": "sanjay3290",
+  "tags": [
+    "docs",
+    "google-workspace",
+    "documents",
+    "writing"
+  ]
+}

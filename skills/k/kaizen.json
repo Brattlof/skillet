@@ -1,0 +1,13 @@
+{
+  "name": "kaizen",
+  "description": "Apply continuous improvement with iterative changes and error-proofing to avoid over-engineering.",
+  "repo": "https://github.com/NeoLabHQ/context-engineering-kit",
+  "path": "plugins/kaizen/skills/kaizen",
+  "author": "NeoLabHQ",
+  "tags": [
+    "kaizen",
+    "improvement",
+    "workflow",
+    "quality"
+  ]
+}

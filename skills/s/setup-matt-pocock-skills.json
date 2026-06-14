@@ -1,0 +1,10 @@
+{
+  "name": "setup-matt-pocock-skills",
+  "description": "Set up an Agent skills block in AGENTS.md/CLAUDE.md and docs/agents/ so engineering skills know the repo conventions.",
+  "repo": "https://github.com/mattpocock/skills",
+  "path": "skills/engineering/setup-matt-pocock-skills",
+  "author": "mattpocock",
+  "tags": [
+    "engineering"
+  ]
+}

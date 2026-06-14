@@ -1,0 +1,10 @@
+{
+  "name": "prototype",
+  "description": "Build a throwaway prototype to flesh out a design before committing, as a terminal app or toggleable UI variations.",
+  "repo": "https://github.com/mattpocock/skills",
+  "path": "skills/engineering/prototype",
+  "author": "mattpocock",
+  "tags": [
+    "engineering"
+  ]
+}

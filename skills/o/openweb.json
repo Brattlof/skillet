@@ -1,0 +1,13 @@
+{
+  "name": "openweb",
+  "description": "Typed JSON access to 90+ real websites across search, shopping, travel, finance, social, news, and dev tools to read, search, post, comment, or message.",
+  "repo": "https://github.com/openweb-org/openweb",
+  "path": "skills/openweb",
+  "author": "openweb-org",
+  "tags": [
+    "development",
+    "web",
+    "automation",
+    "api"
+  ]
+}

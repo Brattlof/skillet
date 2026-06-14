@@ -1,0 +1,13 @@
+{
+  "name": "competitive-ads-extractor",
+  "description": "Extract and analyze competitors' ads from ad libraries such as Facebook and LinkedIn to understand messaging and creative approaches that work.",
+  "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+  "path": "competitive-ads-extractor",
+  "author": "ComposioHQ",
+  "tags": [
+    "business",
+    "marketing",
+    "ads",
+    "competitive-analysis"
+  ]
+}

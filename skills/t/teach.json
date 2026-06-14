@@ -1,0 +1,10 @@
+{
+  "name": "teach",
+  "description": "Teach the user a new skill or concept within this workspace.",
+  "repo": "https://github.com/mattpocock/skills",
+  "path": "skills/productivity/teach",
+  "author": "mattpocock",
+  "tags": [
+    "productivity"
+  ]
+}

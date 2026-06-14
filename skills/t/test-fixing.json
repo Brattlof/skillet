@@ -1,0 +1,13 @@
+{
+  "name": "test-fixing",
+  "description": "Run tests and systematically fix failing tests using smart error grouping.",
+  "repo": "https://github.com/mhattingpete/claude-skills-marketplace",
+  "path": "engineering-workflow-plugin/skills/test-fixing",
+  "author": "mhattingpete",
+  "tags": [
+    "testing",
+    "debugging",
+    "workflow",
+    "collaboration"
+  ]
+}

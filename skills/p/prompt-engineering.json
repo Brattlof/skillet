@@ -1,0 +1,13 @@
+{
+  "name": "prompt-engineering",
+  "description": "Teach prompt engineering techniques and patterns for commands, hooks, skills, and sub-agents, including Anthropic best practices and production templates.",
+  "repo": "https://github.com/NeoLabHQ/context-engineering-kit",
+  "path": "plugins/customaize-agent/skills/prompt-engineering",
+  "author": "NeoLabHQ",
+  "tags": [
+    "development",
+    "prompt-engineering",
+    "llm",
+    "prompts"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "handoff",
+  "description": "Compact the current conversation into a handoff document for another agent to pick up.",
+  "repo": "https://github.com/mattpocock/skills",
+  "path": "skills/productivity/handoff",
+  "author": "mattpocock",
+  "tags": [
+    "productivity"
+  ]
+}

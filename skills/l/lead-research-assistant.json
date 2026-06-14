@@ -1,0 +1,13 @@
+{
+  "name": "lead-research-assistant",
+  "description": "Identify high-quality leads by analyzing your business, searching for target companies, and providing actionable contact strategies for sales and marketing.",
+  "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+  "path": "lead-research-assistant",
+  "author": "ComposioHQ",
+  "tags": [
+    "business",
+    "sales",
+    "leads",
+    "marketing"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "git-guardrails-claude-code",
+  "description": "Set up Claude Code hooks to block dangerous git commands (push, reset --hard, clean, branch -D) before they execute.",
+  "repo": "https://github.com/mattpocock/skills",
+  "path": "skills/misc/git-guardrails-claude-code",
+  "author": "mattpocock",
+  "tags": [
+    "tooling"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "deep-research",
+  "description": "Execute autonomous multi-step research using the Google Gemini Deep Research Agent for market analysis, competitive landscaping, and literature reviews.",
+  "repo": "https://github.com/sanjay3290/ai-skills",
+  "path": "skills/deep-research",
+  "author": "sanjay3290",
+  "tags": [
+    "data",
+    "research",
+    "gemini",
+    "analysis"
+  ]
+}

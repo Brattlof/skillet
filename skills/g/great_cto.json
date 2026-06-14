@@ -1,0 +1,13 @@
+{
+  "name": "great_cto",
+  "description": "Orchestrate a full SDLC pipeline from a feature, task, or project goal, mapping natural language requests to the correct pipeline stage and agent.",
+  "repo": "https://github.com/avelikiy/great_cto",
+  "path": "skills/great_cto",
+  "author": "avelikiy",
+  "tags": [
+    "development",
+    "sdlc",
+    "orchestration",
+    "agents"
+  ]
+}

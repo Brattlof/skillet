@@ -1,0 +1,13 @@
+{
+  "name": "git-pushing",
+  "description": "Stage, commit, and push git changes with conventional commit messages.",
+  "repo": "https://github.com/mhattingpete/claude-skills-marketplace",
+  "path": "engineering-workflow-plugin/skills/git-pushing",
+  "author": "mhattingpete",
+  "tags": [
+    "git",
+    "commit",
+    "workflow",
+    "collaboration"
+  ]
+}

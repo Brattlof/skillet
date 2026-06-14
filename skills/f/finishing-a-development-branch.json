@@ -1,0 +1,13 @@
+{
+  "name": "finishing-a-development-branch",
+  "description": "Guide completion of development work when tests pass by presenting structured options for merge, PR, or cleanup.",
+  "repo": "https://github.com/obra/superpowers",
+  "path": "skills/finishing-a-development-branch",
+  "author": "obra",
+  "tags": [
+    "development",
+    "git",
+    "workflow",
+    "branch"
+  ]
+}

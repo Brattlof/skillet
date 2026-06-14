@@ -1,0 +1,13 @@
+{
+  "name": "connect",
+  "description": "Connect Claude to apps to send emails, create issues, post messages, and update databases across Gmail, Slack, GitHub, Notion, and other services.",
+  "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+  "path": "connect",
+  "author": "ComposioHQ",
+  "tags": [
+    "development",
+    "integration",
+    "automation",
+    "apps"
+  ]
+}

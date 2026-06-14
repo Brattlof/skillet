@@ -1,0 +1,13 @@
+{
+  "name": "reddit-fetch",
+  "description": "Fetch content from Reddit using the curl JSON API when accessing Reddit URLs, researching topics, or when Reddit returns 403 or blocked errors.",
+  "repo": "https://github.com/ykdojo/claude-code-tips",
+  "path": "skills/reddit-fetch",
+  "author": "ykdojo",
+  "tags": [
+    "development",
+    "reddit",
+    "fetch",
+    "web"
+  ]
+}

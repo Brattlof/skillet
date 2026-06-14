@@ -1,0 +1,13 @@
+{
+  "name": "langsmith-fetch",
+  "description": "Debug LangChain and LangGraph agents by fetching and analyzing execution traces from LangSmith Studio, including tool calls and memory operations.",
+  "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+  "path": "langsmith-fetch",
+  "author": "ComposioHQ",
+  "tags": [
+    "development",
+    "langchain",
+    "observability",
+    "debugging"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "bug-from-user",
+  "description": "Convert a vague user complaint into a reproducible bug report a solo dev can act on.",
+  "repo": "https://github.com/rockscy/solo-skills",
+  "path": "skills/bug-from-user",
+  "author": "rockscy",
+  "tags": [
+    "bugs",
+    "triage",
+    "solo-dev",
+    "productivity"
+  ]
+}

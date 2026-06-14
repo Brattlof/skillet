@@ -1,0 +1,14 @@
+{
+  "name": "building-blog",
+  "description": "Add an SEO-first, i18n-ready blog to a Next.js plus Sanity site via an intake, a plan, and a spec, with AI hero image generation.",
+  "repo": "https://github.com/BuildShipGrowRepeat/nextjs-sanity-blog-skill",
+  "path": "skills/building-blog",
+  "author": "BuildShipGrowRepeat",
+  "tags": [
+    "development",
+    "nextjs",
+    "sanity",
+    "blog",
+    "seo"
+  ]
+}

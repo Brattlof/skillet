@@ -1,0 +1,13 @@
+{
+  "name": "pixelbin",
+  "description": "Generate and edit images and videos and build media pipelines using PixelBin's APIs and transformations.",
+  "repo": "https://github.com/anandpareek-hub/pixelbin-claude-skill",
+  "path": "skills/pixelbin",
+  "author": "anandpareek-hub",
+  "tags": [
+    "media",
+    "image-generation",
+    "video",
+    "cdn"
+  ]
+}

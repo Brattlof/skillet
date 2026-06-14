@@ -1,0 +1,13 @@
+{
+  "name": "meeting-insights-analyzer",
+  "description": "Analyze meeting transcripts for behavioral patterns, speaking ratios, filler words, and leadership style.",
+  "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+  "path": "meeting-insights-analyzer",
+  "author": "ComposioHQ",
+  "tags": [
+    "meetings",
+    "analysis",
+    "communication",
+    "transcript"
+  ]
+}

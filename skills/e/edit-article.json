@@ -1,0 +1,11 @@
+{
+  "name": "edit-article",
+  "description": "Edit and improve articles by restructuring sections, improving clarity, and tightening prose.",
+  "repo": "https://github.com/mattpocock/skills",
+  "path": "skills/personal/edit-article",
+  "author": "mattpocock",
+  "tags": [
+    "writing",
+    "personal"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "playwright-skill",
+  "description": "Browser automation with Playwright that auto-detects dev servers and writes test scripts to test pages, fill forms, take screenshots, and validate UX.",
+  "repo": "https://github.com/lackeyjb/playwright-skill",
+  "path": "skills/playwright-skill",
+  "author": "lackeyjb",
+  "tags": [
+    "development",
+    "playwright",
+    "browser",
+    "testing"
+  ]
+}

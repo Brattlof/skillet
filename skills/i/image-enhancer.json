@@ -1,0 +1,13 @@
+{
+  "name": "image-enhancer",
+  "description": "Enhance image and screenshot quality by improving resolution, sharpness, and clarity.",
+  "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+  "path": "image-enhancer",
+  "author": "ComposioHQ",
+  "tags": [
+    "image",
+    "enhancement",
+    "media",
+    "screenshots"
+  ]
+}

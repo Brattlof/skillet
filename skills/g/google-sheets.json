@@ -1,0 +1,13 @@
+{
+  "name": "google-sheets",
+  "description": "Read and write Google Sheets cells, ranges, and rows and view metadata.",
+  "repo": "https://github.com/sanjay3290/ai-skills",
+  "path": "skills/google-sheets",
+  "author": "sanjay3290",
+  "tags": [
+    "sheets",
+    "google-workspace",
+    "spreadsheets",
+    "data"
+  ]
+}

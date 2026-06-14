@@ -1,0 +1,13 @@
+{
+  "name": "google-slides",
+  "description": "Read and write Google Slides presentations, add slides, and replace text.",
+  "repo": "https://github.com/sanjay3290/ai-skills",
+  "path": "skills/google-slides",
+  "author": "sanjay3290",
+  "tags": [
+    "slides",
+    "google-workspace",
+    "presentations",
+    "media"
+  ]
+}

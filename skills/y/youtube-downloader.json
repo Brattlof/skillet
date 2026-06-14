@@ -1,0 +1,13 @@
+{
+  "name": "youtube-downloader",
+  "description": "Download YouTube videos with selectable quality and format, including audio-only MP3.",
+  "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+  "path": "video-downloader",
+  "author": "ComposioHQ",
+  "tags": [
+    "youtube",
+    "video",
+    "download",
+    "media"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "google-calendar",
+  "description": "List calendars, view and manage events, and find free time in Google Calendar.",
+  "repo": "https://github.com/sanjay3290/ai-skills",
+  "path": "skills/google-calendar",
+  "author": "sanjay3290",
+  "tags": [
+    "calendar",
+    "google-workspace",
+    "scheduling",
+    "productivity"
+  ]
+}

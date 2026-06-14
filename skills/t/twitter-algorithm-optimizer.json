@@ -1,0 +1,13 @@
+{
+  "name": "twitter-algorithm-optimizer",
+  "description": "Rewrite and optimize tweets for reach using Twitter's open-source algorithm insights.",
+  "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+  "path": "twitter-algorithm-optimizer",
+  "author": "ComposioHQ",
+  "tags": [
+    "twitter",
+    "social",
+    "optimization",
+    "writing"
+  ]
+}

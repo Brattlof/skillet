@@ -1,0 +1,13 @@
+{
+  "name": "jules",
+  "description": "Delegate coding tasks to the Google Jules AI agent for asynchronous bug fixes, documentation, tests, features, refactoring, and code reviews on GitHub repos.",
+  "repo": "https://github.com/sanjay3290/ai-skills",
+  "path": "skills/jules",
+  "author": "sanjay3290",
+  "tags": [
+    "development",
+    "ai-agent",
+    "github",
+    "automation"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "imagen",
+  "description": "Generate images using Google Gemini's image generation API for mockups, icons, and illustrations.",
+  "repo": "https://github.com/sanjay3290/ai-skills",
+  "path": "skills/imagen",
+  "author": "sanjay3290",
+  "tags": [
+    "image-generation",
+    "gemini",
+    "media",
+    "design"
+  ]
+}

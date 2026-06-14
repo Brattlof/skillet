@@ -1,0 +1,13 @@
+{
+  "name": "domain-name-brainstormer",
+  "description": "Generate creative domain name ideas and check availability across multiple TLDs including .com, .io, .dev, and .ai.",
+  "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+  "path": "domain-name-brainstormer",
+  "author": "ComposioHQ",
+  "tags": [
+    "business",
+    "domains",
+    "branding",
+    "marketing"
+  ]
+}

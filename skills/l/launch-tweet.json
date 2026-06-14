@@ -1,0 +1,13 @@
+{
+  "name": "launch-tweet",
+  "description": "Draft a launch tweet or short thread for a solo product launch on X.",
+  "repo": "https://github.com/rockscy/solo-skills",
+  "path": "skills/launch-tweet",
+  "author": "rockscy",
+  "tags": [
+    "twitter",
+    "launch",
+    "marketing",
+    "writing"
+  ]
+}

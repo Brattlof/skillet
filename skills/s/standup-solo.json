@@ -1,0 +1,13 @@
+{
+  "name": "standup-solo",
+  "description": "Run a five-minute personal standup for a solo dev covering shipped, blocked, and next.",
+  "repo": "https://github.com/rockscy/solo-skills",
+  "path": "skills/standup-solo",
+  "author": "rockscy",
+  "tags": [
+    "standup",
+    "productivity",
+    "solo-dev",
+    "workflow"
+  ]
+}

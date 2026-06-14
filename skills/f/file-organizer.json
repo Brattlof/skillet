@@ -1,0 +1,13 @@
+{
+  "name": "file-organizer",
+  "description": "Organize files and folders by context, find duplicates, and suggest better structures.",
+  "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+  "path": "file-organizer",
+  "author": "ComposioHQ",
+  "tags": [
+    "files",
+    "organization",
+    "productivity",
+    "cleanup"
+  ]
+}

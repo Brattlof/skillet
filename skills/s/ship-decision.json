@@ -1,0 +1,13 @@
+{
+  "name": "ship-decision",
+  "description": "Force a fast regret-minimizing product decision when a solo founder is stuck between options.",
+  "repo": "https://github.com/rockscy/solo-skills",
+  "path": "skills/ship-decision",
+  "author": "rockscy",
+  "tags": [
+    "decision",
+    "product",
+    "founder",
+    "productivity"
+  ]
+}

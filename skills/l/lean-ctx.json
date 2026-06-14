@@ -1,0 +1,13 @@
+{
+  "name": "lean-ctx",
+  "description": "Context runtime for AI agents with MCP tools, multiple read modes, shell patterns, and tree-sitter AST support to compress LLM context usage.",
+  "repo": "https://github.com/yvgude/lean-ctx",
+  "path": "skills/lean-ctx",
+  "author": "yvgude",
+  "tags": [
+    "development",
+    "context",
+    "mcp",
+    "tokens"
+  ]
+}

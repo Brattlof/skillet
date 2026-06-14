@@ -1,0 +1,10 @@
+{
+  "name": "scaffold-exercises",
+  "description": "Create exercise directory structures with sections, problems, solutions, and explainers that pass linting.",
+  "repo": "https://github.com/mattpocock/skills",
+  "path": "skills/misc/scaffold-exercises",
+  "author": "mattpocock",
+  "tags": [
+    "tooling"
+  ]
+}

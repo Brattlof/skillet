@@ -1,0 +1,13 @@
+{
+  "name": "pda-reframing",
+  "description": "Reframe tasks and requests to reduce Persistent Demand Avoidance triggers for PDA autism and ADHD.",
+  "repo": "https://github.com/emory/ASD-AuDHD-PAI-Skills",
+  "path": "Skills/pda-reframing",
+  "author": "emory",
+  "tags": [
+    "accessibility",
+    "neurodiversity",
+    "reframing",
+    "assistive"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "google-drive",
+  "description": "Search, upload, download, share, and organize files in Google Drive.",
+  "repo": "https://github.com/sanjay3290/ai-skills",
+  "path": "skills/google-drive",
+  "author": "sanjay3290",
+  "tags": [
+    "drive",
+    "google-workspace",
+    "files",
+    "storage"
+  ]
+}

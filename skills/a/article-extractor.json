@@ -1,0 +1,13 @@
+{
+  "name": "article-extractor",
+  "description": "Extract clean article text and metadata from a URL, stripping ads and navigation.",
+  "repo": "https://github.com/michalparkola/tapestry-skills-for-claude-code",
+  "path": "article-extractor",
+  "author": "michalparkola",
+  "tags": [
+    "content",
+    "extraction",
+    "web",
+    "writing"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "email-customer",
+  "description": "Draft a polite-but-firm reply to a tricky customer email like refunds or scope creep.",
+  "repo": "https://github.com/rockscy/solo-skills",
+  "path": "skills/email-customer",
+  "author": "rockscy",
+  "tags": [
+    "email",
+    "customer",
+    "communication",
+    "writing"
+  ]
+}

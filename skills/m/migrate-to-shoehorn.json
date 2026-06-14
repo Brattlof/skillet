@@ -1,0 +1,10 @@
+{
+  "name": "migrate-to-shoehorn",
+  "description": "Migrate test files from as type assertions to @total-typescript/shoehorn for partial test data.",
+  "repo": "https://github.com/mattpocock/skills",
+  "path": "skills/misc/migrate-to-shoehorn",
+  "author": "mattpocock",
+  "tags": [
+    "tooling"
+  ]
+}

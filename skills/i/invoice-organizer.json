@@ -1,0 +1,13 @@
+{
+  "name": "invoice-organizer",
+  "description": "Organize invoices and receipts for tax prep by extracting info and renaming files consistently.",
+  "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+  "path": "invoice-organizer",
+  "author": "ComposioHQ",
+  "tags": [
+    "invoices",
+    "organization",
+    "tax",
+    "productivity"
+  ]
+}

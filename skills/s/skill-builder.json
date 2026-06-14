@@ -1,0 +1,13 @@
+{
+  "name": "skill-builder",
+  "description": "Detect source types and build AI skills using Skill Seekers from documentation, repos, PDFs, videos, or other knowledge sources.",
+  "repo": "https://github.com/yusufkaraaslan/Skill_Seekers",
+  "path": "skills/skill-seekers",
+  "author": "yusufkaraaslan",
+  "tags": [
+    "development",
+    "skills",
+    "authoring",
+    "documentation"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "review-implementing",
+  "description": "Process and implement code review feedback and PR comments systematically.",
+  "repo": "https://github.com/mhattingpete/claude-skills-marketplace",
+  "path": "engineering-workflow-plugin/skills/review-implementing",
+  "author": "mhattingpete",
+  "tags": [
+    "code-review",
+    "pr",
+    "workflow",
+    "collaboration"
+  ]
+}

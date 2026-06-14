@@ -1,0 +1,13 @@
+{
+  "name": "ship-learn-next",
+  "description": "Turn learning content like transcripts and articles into actionable implementation plans.",
+  "repo": "https://github.com/michalparkola/tapestry-skills-for-claude-code",
+  "path": "ship-learn-next",
+  "author": "michalparkola",
+  "tags": [
+    "productivity",
+    "learning",
+    "planning",
+    "workflow"
+  ]
+}

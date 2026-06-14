@@ -1,0 +1,13 @@
+{
+  "name": "outline",
+  "description": "Search, read, create, and manage documents in Outline wiki instances, cloud or self-hosted.",
+  "repo": "https://github.com/sanjay3290/ai-skills",
+  "path": "skills/outline",
+  "author": "sanjay3290",
+  "tags": [
+    "outline",
+    "wiki",
+    "documentation",
+    "collaboration"
+  ]
+}

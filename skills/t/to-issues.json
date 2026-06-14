@@ -1,0 +1,10 @@
+{
+  "name": "to-issues",
+  "description": "Break a plan, spec, or PRD into independently-grabbable issues using tracer-bullet vertical slices.",
+  "repo": "https://github.com/mattpocock/skills",
+  "path": "skills/engineering/to-issues",
+  "author": "mattpocock",
+  "tags": [
+    "engineering"
+  ]
+}

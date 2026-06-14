@@ -1,0 +1,13 @@
+{
+  "name": "youtube-transcript",
+  "description": "Download YouTube video transcripts via yt-dlp and prepare summaries.",
+  "repo": "https://github.com/michalparkola/tapestry-skills-for-claude-code",
+  "path": "youtube-transcript",
+  "author": "michalparkola",
+  "tags": [
+    "youtube",
+    "transcript",
+    "video",
+    "writing"
+  ]
+}

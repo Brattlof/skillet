@@ -1,0 +1,13 @@
+{
+  "name": "tailored-resume-generator",
+  "description": "Analyze job descriptions and generate tailored resumes highlighting relevant experience.",
+  "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+  "path": "tailored-resume-generator",
+  "author": "ComposioHQ",
+  "tags": [
+    "resume",
+    "jobs",
+    "writing",
+    "productivity"
+  ]
+}

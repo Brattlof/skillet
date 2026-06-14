@@ -1,0 +1,13 @@
+{
+  "name": "recursive-research",
+  "description": "Deep self-regulating recursive research up to PhD level across any domain, with source tiering, autonomous decision frameworks, and disk checkpointing.",
+  "repo": "https://github.com/Anjos2/recursive-research",
+  "path": "plugins/recursive-research/skills/recursive-research",
+  "author": "Anjos2",
+  "tags": [
+    "data",
+    "research",
+    "analysis",
+    "autonomous"
+  ]
+}

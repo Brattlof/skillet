@@ -1,0 +1,13 @@
+{
+  "name": "content-research-writer",
+  "description": "Write high-quality content with research, citations, hook improvement, and section feedback.",
+  "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+  "path": "content-research-writer",
+  "author": "ComposioHQ",
+  "tags": [
+    "writing",
+    "content",
+    "research",
+    "editing"
+  ]
+}

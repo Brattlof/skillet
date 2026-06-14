@@ -1,0 +1,13 @@
+{
+  "name": "google-chat",
+  "description": "List spaces, send messages, read conversations, and manage DMs in Google Chat.",
+  "repo": "https://github.com/sanjay3290/ai-skills",
+  "path": "skills/google-chat",
+  "author": "sanjay3290",
+  "tags": [
+    "chat",
+    "google-workspace",
+    "communication",
+    "messaging"
+  ]
+}

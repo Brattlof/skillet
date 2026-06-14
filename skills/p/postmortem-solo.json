@@ -1,0 +1,13 @@
+{
+  "name": "postmortem-solo",
+  "description": "Run a lightweight blame-free postmortem after an incident, failed launch, or missed deadline.",
+  "repo": "https://github.com/rockscy/solo-skills",
+  "path": "skills/postmortem-solo",
+  "author": "rockscy",
+  "tags": [
+    "postmortem",
+    "incident",
+    "retrospective",
+    "productivity"
+  ]
+}

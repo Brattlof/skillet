@@ -1,0 +1,13 @@
+{
+  "name": "raffle-winner-picker",
+  "description": "Pick random winners from lists, spreadsheets, or Google Sheets for giveaways and contests.",
+  "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+  "path": "raffle-winner-picker",
+  "author": "ComposioHQ",
+  "tags": [
+    "raffle",
+    "random",
+    "productivity",
+    "contests"
+  ]
+}

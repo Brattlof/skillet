@@ -1,0 +1,13 @@
+{
+  "name": "changelog-generator",
+  "description": "Create user-facing changelogs from git commit history by categorizing changes and turning technical commits into customer-friendly release notes.",
+  "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+  "path": "changelog-generator",
+  "author": "ComposioHQ",
+  "tags": [
+    "development",
+    "git",
+    "changelog",
+    "release-notes"
+  ]
+}

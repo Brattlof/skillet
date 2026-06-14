@@ -1,0 +1,13 @@
+{
+  "name": "overkill",
+  "description": "Propose advanced maximalist alternatives to a solution, ranking advanced data structures, algorithms, frameworks, and tooling on a calibrated complexity scale.",
+  "repo": "https://github.com/santiago-vargas-de-kruijf/claude-overkill",
+  "path": "plugins/overkill/skills/overkill",
+  "author": "santiago-vargas-de-kruijf",
+  "tags": [
+    "development",
+    "architecture",
+    "learning",
+    "patterns"
+  ]
+}

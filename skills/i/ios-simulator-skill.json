@@ -1,0 +1,13 @@
+{
+  "name": "ios-simulator-skill",
+  "description": "Interact with the iOS Simulator for app testing, building, and automation with semantic UI navigation, build automation, and accessibility testing.",
+  "repo": "https://github.com/conorluddy/ios-simulator-skill",
+  "path": "ios-simulator-skill/skills/ios-simulator-skill",
+  "author": "conorluddy",
+  "tags": [
+    "development",
+    "ios",
+    "simulator",
+    "testing"
+  ]
+}

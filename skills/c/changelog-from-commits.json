@@ -1,0 +1,13 @@
+{
+  "name": "changelog-from-commits",
+  "description": "Generate a user-facing CHANGELOG entry from raw git log output.",
+  "repo": "https://github.com/rockscy/solo-skills",
+  "path": "skills/changelog-from-commits",
+  "author": "rockscy",
+  "tags": [
+    "changelog",
+    "git",
+    "release",
+    "writing"
+  ]
+}

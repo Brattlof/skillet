@@ -1,0 +1,10 @@
+{
+  "name": "grill-with-docs",
+  "description": "Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates docs.",
+  "repo": "https://github.com/mattpocock/skills",
+  "path": "skills/engineering/grill-with-docs",
+  "author": "mattpocock",
+  "tags": [
+    "engineering"
+  ]
+}

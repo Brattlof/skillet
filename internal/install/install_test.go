@@ -566,6 +566,89 @@ func TestCopyDirSkipsGitAndSymlinks(t *testing.T) {
 	}
 }
 
+func TestInstallRejectsSymlinkEscape(t *testing.T) {
+	if _, err := exec.LookPath("git"); err != nil {
+		t.Skip("git not available")
+	}
+	// A secret that lives outside any repo.
+	outside := t.TempDir()
+	secret := filepath.Join(outside, "secret.md")
+	if err := os.WriteFile(secret, []byte("# token\n"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+
+	// Build a repo with two escaping symlinks committed: a file symlink and a
+	// directory symlink, both pointing at the host filesystem outside the repo.
+	src := t.TempDir()
+	if err := os.WriteFile(filepath.Join(src, "real.md"), []byte("# real\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.Symlink(secret, filepath.Join(src, "leak.md")); err != nil {
+		t.Skipf("symlinks unsupported: %v", err)
+	}
+	if err := os.Symlink(outside, filepath.Join(src, "linkdir")); err != nil {
+		t.Skipf("symlinks unsupported: %v", err)
+	}
+	git := func(args ...string) {
+		c := exec.Command("git", args...)
+		c.Dir = src
+		if out, err := c.CombinedOutput(); err != nil {
+			t.Fatalf("git %v: %v\n%s", args, err, out)
+		}
+	}
+	git("init", "-q")
+	git("-c", "core.symlinks=true", "-c", "user.email=t@t", "-c", "user.name=t", "add", "-A")
+	git("-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", "init")
+
+	cases := []struct {
+		name string
+		e    registry.Entry
+	}{
+		{"file symlink", registry.Entry{Name: "leak", Description: "d", Author: "t", Repo: src, Path: "leak.md", Kind: "command"}},
+		{"dir component symlink", registry.Entry{Name: "leak", Description: "d", Author: "t", Repo: src, Path: "linkdir/secret.md", Kind: "command"}},
+		{"symlinked skill dir", registry.Entry{Name: "leak", Description: "d", Author: "t", Repo: src, Path: "linkdir", Kind: "skill"}},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			dir := t.TempDir()
+			if _, err := Install(context.Background(), tc.e, dir); err == nil {
+				t.Fatal("expected a symlink that escapes the repo to be rejected")
+			}
+			if _, err := os.Lstat(filepath.Join(dir, "leak")); !os.IsNotExist(err) {
+				t.Errorf("nothing should be installed, lstat err = %v", err)
+			}
+		})
+	}
+
+	// A legitimate in-tree file at the same repo still installs.
+	dir := t.TempDir()
+	ok := registry.Entry{Name: "real", Description: "d", Author: "t", Repo: src, Path: "real.md", Kind: "command"}
+	if _, err := Install(context.Background(), ok, dir); err != nil {
+		t.Fatalf("in-tree install should succeed: %v", err)
+	}
+}
+
+func TestInstallCleanupRejectsEscapingRecord(t *testing.T) {
+	src := gitRepoWith(t, map[string]string{"skills/x/SKILL.md": "# x\n"})
+	dir := t.TempDir()
+	// A file just outside the install dir that a tampered record must not reach.
+	victim := filepath.Join(filepath.Dir(dir), "victim")
+	if err := os.WriteFile(victim, []byte("keep"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	// A corrupt prior record whose artifact name escapes dir via "..".
+	if err := writeRecord(dir, Record{Name: "x", Repo: "https://x/y", Path: "p", Artifact: "../victim", Kind: "skill"}); err != nil {
+		t.Fatal(err)
+	}
+	e := registry.Entry{Name: "x", Description: "d", Author: "t", Repo: src, Path: "skills/x", Kind: "skill"}
+	if _, err := Install(context.Background(), e, dir); err != nil {
+		t.Fatalf("install: %v", err)
+	}
+	if _, err := os.Stat(victim); err != nil {
+		t.Errorf("reinstall cleanup deleted a file outside dir: %v", err)
+	}
+}
+
 func TestInstallRootLevelSkill(t *testing.T) {
 	src := gitRepoWith(t, map[string]string{
 		"SKILL.md":         "# root skill\n",

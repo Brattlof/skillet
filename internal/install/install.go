@@ -82,6 +82,22 @@ func Install(ctx context.Context, e registry.Entry, dir string) (string, error) 
 	if err != nil {
 		return "", fmt.Errorf("path %q not found in %s", e.Path, e.Repo)
 	}
+	// IsLocal checks the path only lexically and cannot see symlinks. A repo
+	// could commit a symlink, or a symlinked directory along the path, that
+	// points outside the clone; os.Stat and copyFile would then follow it and
+	// copy an unrelated host file into the artifact. Resolve the path and
+	// require it to stay inside the clone.
+	realRoot, err := filepath.EvalSymlinks(tmp)
+	if err != nil {
+		return "", err
+	}
+	realSrc, err := filepath.EvalSymlinks(src)
+	if err != nil {
+		return "", fmt.Errorf("cannot resolve path %q in %s: %w", e.Path, e.Repo, err)
+	}
+	if rel, rerr := filepath.Rel(realRoot, realSrc); rerr != nil || rel == ".." || strings.HasPrefix(rel, ".."+string(os.PathSeparator)) {
+		return "", fmt.Errorf("path %q resolves outside the repo (symlink escape)", e.Path)
+	}
 
 	artifact := artifactName(kind, e.Name, src)
 	if err := os.MkdirAll(dir, 0o755); err != nil {
@@ -92,7 +108,10 @@ func Install(ctx context.Context, e registry.Entry, dir string) (string, error) 
 	// script extension changed, or a switch to another kind), remove it first so
 	// the reinstall does not orphan a file or a stale settings.json registration.
 	if prev, ok, rerr := ReadRecord(dir, e.Name); rerr == nil && ok {
-		if old := filepath.Join(dir, prev.ArtifactName()); old != dest {
+		// The artifact name is read back from a stored record. Guard against a
+		// tampered or corrupt record steering the cleanup RemoveAll outside dir.
+		art := prev.ArtifactName()
+		if old := filepath.Join(dir, art); old != dest && filepath.IsLocal(filepath.FromSlash(art)) {
 			if prev.Kind == "hook" && prev.Hook != nil {
 				abs, aerr := filepath.Abs(old)
 				if aerr != nil {
@@ -435,6 +454,9 @@ func copyDir(src, dst string) error {
 	})
 }
 
+// copyFile copies the file at src to dst, following src if it is a symlink. Its
+// callers (Install after the containment check, and copyDir which skips symlink
+// entries) guarantee src cannot point outside the cloned repo.
 func copyFile(src, dst string) error {
 	in, err := os.Open(src)
 	if err != nil {

@@ -523,6 +523,80 @@ func gitRepoWith(t *testing.T, files map[string]string) string {
 	return src
 }
 
+func TestCopyDirSkipsGitAndSymlinks(t *testing.T) {
+	src := t.TempDir()
+	write := func(rel, content string) {
+		p := filepath.Join(src, filepath.FromSlash(rel))
+		if err := os.MkdirAll(filepath.Dir(p), 0o755); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(p, []byte(content), 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	write("SKILL.md", "# skill\n")
+	write(".git/config", "[core]\n")           // version control: excluded
+	write(".github/workflows/ci.yml", "on:\n") // not version control: kept
+	write(".gitignore", "node_modules\n")      // not version control: kept
+
+	// A symlink pointing at a secret outside the source tree must not be followed.
+	secret := filepath.Join(t.TempDir(), "secret")
+	if err := os.WriteFile(secret, []byte("token"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.Symlink(secret, filepath.Join(src, "leak")); err != nil {
+		t.Skipf("symlinks unsupported: %v", err)
+	}
+
+	dst := t.TempDir()
+	if err := copyDir(src, dst); err != nil {
+		t.Fatalf("copyDir: %v", err)
+	}
+	kept := []string{"SKILL.md", ".github/workflows/ci.yml", ".gitignore"}
+	for _, rel := range kept {
+		if _, err := os.Stat(filepath.Join(dst, filepath.FromSlash(rel))); err != nil {
+			t.Errorf("expected %q to be copied: %v", rel, err)
+		}
+	}
+	gone := []string{".git", ".git/config", "leak"}
+	for _, rel := range gone {
+		if _, err := os.Lstat(filepath.Join(dst, filepath.FromSlash(rel))); !os.IsNotExist(err) {
+			t.Errorf("%q should not be copied, lstat err = %v", rel, err)
+		}
+	}
+}
+
+func TestInstallRootLevelSkill(t *testing.T) {
+	src := gitRepoWith(t, map[string]string{
+		"SKILL.md":         "# root skill\n",
+		"reference/api.md": "# api\n",
+		"README.md":        "# repo\n",
+	})
+	dir := t.TempDir()
+	e := registry.Entry{Name: "root-skill", Description: "d", Author: "t", Repo: src, Path: ".", Kind: "skill"}
+	dest, err := Install(context.Background(), e, dir)
+	if err != nil {
+		t.Fatalf("install: %v", err)
+	}
+	// The whole repo becomes the skill directory, with SKILL.md at its root.
+	for _, rel := range []string{"SKILL.md", "reference/api.md", "README.md"} {
+		if _, err := os.Stat(filepath.Join(dest, filepath.FromSlash(rel))); err != nil {
+			t.Errorf("expected %q in the installed skill: %v", rel, err)
+		}
+	}
+	// Version-control metadata never ships.
+	if _, err := os.Stat(filepath.Join(dest, ".git")); !os.IsNotExist(err) {
+		t.Errorf(".git should not be copied into the skill, stat err = %v", err)
+	}
+	rec, ok, err := ReadRecord(dir, "root-skill")
+	if err != nil || !ok {
+		t.Fatalf("expected a manifest record, ok=%v err=%v", ok, err)
+	}
+	if rec.Path != "." {
+		t.Errorf("record path = %q, want %q", rec.Path, ".")
+	}
+}
+
 func TestInstallCommand(t *testing.T) {
 	src := gitRepoWith(t, map[string]string{"commands/foo.md": "# foo command\n"})
 	dir := t.TempDir()

@@ -194,6 +194,25 @@ func TestValidateInstall(t *testing.T) {
 	}
 }
 
+func TestValidateRootLevelSkill(t *testing.T) {
+	// A skill whose SKILL.md is at the repo root carries the path ".".
+	root := Entry{Name: "x", Description: "d", Repo: "https://x/y", Path: ".", Author: "a"}
+	if err := Validate(root); err != nil {
+		t.Fatalf("root-level skill rejected: %v", err)
+	}
+	if err := ValidateInstall(Entry{Name: "x", Repo: "https://x/y", Path: "."}); err != nil {
+		t.Fatalf("root-level skill (lock-shaped) rejected: %v", err)
+	}
+	// "." only makes sense for a skill; the single-file kinds must point at a file.
+	for _, k := range []string{"command", "hook", "agent", "output-style"} {
+		e := root
+		e.Kind = k
+		if err := ValidateInstall(e); err == nil {
+			t.Errorf("path %q should be rejected for kind %q", e.Path, k)
+		}
+	}
+}
+
 func TestValidateRejectsTraversal(t *testing.T) {
 	base := Entry{Name: "ok", Description: "d", Repo: "https://x/y", Path: "p", Author: "a"}
 	if err := Validate(base); err != nil {

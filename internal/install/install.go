@@ -408,13 +408,20 @@ func hashTree(root string) (string, error) {
 }
 
 func copyDir(src, dst string) error {
-	gitDir := string(os.PathSeparator) + ".git" + string(os.PathSeparator)
 	return filepath.WalkDir(src, func(path string, d os.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
-		if strings.Contains(path, gitDir) {
-			return nil // never copy version-control metadata
+		if d.Name() == ".git" {
+			if d.IsDir() {
+				return filepath.SkipDir // never copy version-control metadata
+			}
+			return nil // a gitlink file for a submodule
+		}
+		// Skip symlinks rather than follow them: a repo could point one at a
+		// file outside the clone and have its contents copied into the skill.
+		if d.Type()&os.ModeSymlink != 0 {
+			return nil
 		}
 		rel, err := filepath.Rel(src, path)
 		if err != nil {

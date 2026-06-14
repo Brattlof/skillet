@@ -256,7 +256,14 @@ func ValidateInstall(e Entry) error {
 	case strings.TrimSpace(e.Path) == "":
 		return errors.New("missing path")
 	}
-	if !filepath.IsLocal(filepath.FromSlash(e.Path)) {
+	// A skill can be the whole repository, with SKILL.md at the root and the
+	// path set to ".". IsLocal already permits ".", but it denotes a directory,
+	// which only fits a skill; the single-file kinds must point at a file.
+	if e.Path == "." {
+		if e.KindOrDefault() != "skill" {
+			return fmt.Errorf("path %q (the repo root) is only valid for a skill", e.Path)
+		}
+	} else if !filepath.IsLocal(filepath.FromSlash(e.Path)) {
 		return fmt.Errorf("invalid path %q (must stay within the repo)", e.Path)
 	}
 	if e.Kind != "" && e.Kind != "skill" && e.Kind != "command" && e.Kind != "hook" &&

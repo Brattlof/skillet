@@ -1,0 +1,12 @@
+{
+  "name": "database-optimizer",
+  "description": "Analyzes slow queries, optimizes database performance across systems, and implements indexing strategies.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/05-data-ai/database-optimizer.md",
+  "author": "VoltAgent",
+  "tags": [
+    "database",
+    "optimization",
+    "sql"
+  ]
+}

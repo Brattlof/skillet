@@ -220,7 +220,7 @@ func TestKindValidationAndDefault(t *testing.T) {
 	if base.KindOrDefault() != "skill" {
 		t.Fatalf("default kind = %q, want skill", base.KindOrDefault())
 	}
-	for _, k := range []string{"skill", "command"} {
+	for _, k := range []string{"skill", "command", "agent", "output-style"} {
 		e := base
 		e.Kind = k
 		if err := Validate(e); err != nil {

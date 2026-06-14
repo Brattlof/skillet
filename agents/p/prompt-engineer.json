@@ -1,0 +1,12 @@
+{
+  "name": "prompt-engineer",
+  "description": "Designs, optimizes, tests, and evaluates prompts for large language models in production systems.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/05-data-ai/prompt-engineer.md",
+  "author": "VoltAgent",
+  "tags": [
+    "prompt-engineering",
+    "llm",
+    "ai"
+  ]
+}

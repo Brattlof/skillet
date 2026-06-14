@@ -91,7 +91,7 @@ func diagnoseOne(dir, dirKind, artifact string, rec Record, hasRec bool) (Status
 		if !fileExists(filepath.Join(dest, "SKILL.md")) {
 			return StatusMissingSkillMD, nil
 		}
-	case "command", "hook":
+	case "command", "hook", "agent", "output-style":
 		if !exists || info.IsDir() {
 			return StatusBroken, nil
 		}

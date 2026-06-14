@@ -1,0 +1,12 @@
+{
+  "name": "python-pro",
+  "description": "Builds type-safe, production-ready Python code with modern async patterns and extensive type coverage.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/02-language-specialists/python-pro.md",
+  "author": "VoltAgent",
+  "tags": [
+    "python",
+    "async",
+    "typing"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "qa-expert",
+  "description": "Provides quality assurance strategy, test planning across the development cycle, and quality metrics analysis.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/04-quality-security/qa-expert.md",
+  "author": "VoltAgent",
+  "tags": [
+    "qa",
+    "testing",
+    "quality"
+  ]
+}

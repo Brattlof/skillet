@@ -1,0 +1,12 @@
+{
+  "name": "security-auditor",
+  "description": "Conducts security audits, compliance assessments, and systematic vulnerability analysis with evidence-based findings.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/04-quality-security/security-auditor.md",
+  "author": "VoltAgent",
+  "tags": [
+    "security",
+    "audit",
+    "compliance"
+  ]
+}

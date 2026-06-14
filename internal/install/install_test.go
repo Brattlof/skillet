@@ -254,9 +254,11 @@ func TestTargetDirRouting(t *testing.T) {
 	}
 
 	want := map[string]string{
-		"skill":   filepath.Join(".claude", "skills"),
-		"command": filepath.Join(".claude", "commands"),
-		"hook":    filepath.Join(".claude", "hooks"),
+		"skill":        filepath.Join(".claude", "skills"),
+		"command":      filepath.Join(".claude", "commands"),
+		"hook":         filepath.Join(".claude", "hooks"),
+		"agent":        filepath.Join(".claude", "agents"),
+		"output-style": filepath.Join(".claude", "output-styles"),
 	}
 	for kind, suffix := range want {
 		got, err := TargetDir(kind, "claude", "")
@@ -281,7 +283,7 @@ func TestTargetDirRouting(t *testing.T) {
 	if !strings.HasSuffix(got, filepath.Join(".agents", "skills")) {
 		t.Errorf("agents skill dir = %q, want suffix .agents/skills", got)
 	}
-	for _, k := range []string{"command", "hook"} {
+	for _, k := range []string{"command", "hook", "agent", "output-style"} {
 		if _, err := TargetDir(k, "agents", ""); err == nil {
 			t.Errorf("agents target should reject kind %q", k)
 		}
@@ -296,8 +298,8 @@ func TestScanDirsByTarget(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(claude) != 3 {
-		t.Fatalf("claude should scan skills, commands, hooks; got %d dirs", len(claude))
+	if len(claude) != 5 {
+		t.Fatalf("claude should scan skills, commands, hooks, agents, output-styles; got %d dirs", len(claude))
 	}
 	agents, err := ScanDirs("agents", "")
 	if err != nil {
@@ -555,6 +557,43 @@ func TestInstallCommand(t *testing.T) {
 	bad := registry.Entry{Name: "sub", Description: "d", Author: "t", Repo: src2, Path: "commands/sub", Kind: "command"}
 	if _, err := Install(context.Background(), bad, t.TempDir()); err == nil {
 		t.Fatal("a directory command path should be rejected")
+	}
+}
+
+func TestInstallAgentAndOutputStyle(t *testing.T) {
+	src := gitRepoWith(t, map[string]string{
+		"agents/reviewer.md": "---\nname: reviewer\ndescription: reviews code\n---\nbody\n",
+		"styles/terse.md":    "---\nname: terse\n---\nbe terse\n",
+	})
+	for _, tc := range []struct{ kind, path, name string }{
+		{"agent", "agents/reviewer.md", "reviewer"},
+		{"output-style", "styles/terse.md", "terse"},
+	} {
+		dir := t.TempDir()
+		e := registry.Entry{Name: tc.name, Description: "d", Author: "t", Repo: src, Path: tc.path, Kind: tc.kind}
+		dest, err := Install(context.Background(), e, dir)
+		if err != nil {
+			t.Fatalf("install %s: %v", tc.kind, err)
+		}
+		if want := filepath.Join(dir, tc.name+".md"); dest != want {
+			t.Fatalf("%s dest = %s, want %s", tc.kind, dest, want)
+		}
+		if info, err := os.Stat(dest); err != nil || info.IsDir() {
+			t.Fatalf("%s should be a single .md file", tc.kind)
+		}
+		rec, ok, _ := ReadRecord(dir, tc.name)
+		if !ok || rec.Kind != tc.kind || rec.Artifact != tc.name+".md" {
+			t.Fatalf("%s record = %+v", tc.kind, rec)
+		}
+		if names, _ := ListInstalled(dir, tc.kind); len(names) != 1 || names[0] != tc.name+".md" {
+			t.Fatalf("%s ListInstalled = %v", tc.kind, names)
+		}
+		if err := Remove(tc.name, dir); err != nil {
+			t.Fatalf("remove %s: %v", tc.kind, err)
+		}
+		if _, err := os.Stat(dest); !os.IsNotExist(err) {
+			t.Fatalf("%s not removed", tc.kind)
+		}
 	}
 }
 

@@ -257,8 +257,9 @@ func ValidateInstall(e Entry) error {
 	if !filepath.IsLocal(filepath.FromSlash(e.Path)) {
 		return fmt.Errorf("invalid path %q (must stay within the repo)", e.Path)
 	}
-	if e.Kind != "" && e.Kind != "skill" && e.Kind != "command" && e.Kind != "hook" {
-		return fmt.Errorf("invalid kind %q (want skill, command, hook, or mcp)", e.Kind)
+	if e.Kind != "" && e.Kind != "skill" && e.Kind != "command" && e.Kind != "hook" &&
+		e.Kind != "agent" && e.Kind != "output-style" {
+		return fmt.Errorf("invalid kind %q (want skill, command, hook, agent, output-style, or mcp)", e.Kind)
 	}
 	if e.Kind == "hook" {
 		if e.Hook == nil || strings.TrimSpace(e.Hook.Event) == "" {
@@ -345,6 +346,8 @@ var kindDirs = []struct{ kind, dir string }{
 	{"command", "commands"},
 	{"hook", "hooks"},
 	{"mcp", "mcp"},
+	{"agent", "agents"},
+	{"output-style", "output-styles"},
 }
 
 // parseShards reads every *.json shard from the per-kind directories of fsys

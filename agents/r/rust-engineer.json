@@ -1,0 +1,12 @@
+{
+  "name": "rust-engineer",
+  "description": "Builds Rust systems with memory safety, ownership patterns, zero-cost abstractions, and performance optimization.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/02-language-specialists/rust-engineer.md",
+  "author": "VoltAgent",
+  "tags": [
+    "rust",
+    "systems",
+    "performance"
+  ]
+}

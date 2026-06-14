@@ -1,0 +1,13 @@
+{
+  "name": "Socratic",
+  "description": "Guides you to the answer through questions instead of giving it directly.",
+  "repo": "https://github.com/nattergabriel/claude-code-output-styles",
+  "path": "output-styles/socratic.md",
+  "author": "nattergabriel",
+  "tags": [
+    "output-style",
+    "teaching",
+    "socratic",
+    "learning"
+  ]
+}

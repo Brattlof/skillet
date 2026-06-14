@@ -501,7 +501,7 @@ func stripScheme(repo string) string {
 
 func cmdSearch(ctx context.Context, args []string) error {
 	fs := flag.NewFlagSet("search", flag.ContinueOnError)
-	kind := fs.String("kind", "", "filter by kind (skill, command, hook)")
+	kind := fs.String("kind", "", "filter by kind (skill, command, hook, agent, output-style, mcp)")
 	tag := fs.String("tag", "", "filter by tag")
 	pos, err := parseArgs(fs, args)
 	if err != nil {
@@ -628,10 +628,12 @@ func cmdPublish(_ context.Context, _ []string) error {
   2. Add one shard under the folder for its kind, sharded by first letter.
      The folder sets the kind, so the shard does not repeat it:
 
-       skills/<letter>/<name>.json    a skill (a folder with a SKILL.md)
-       commands/<letter>/<name>.json  a slash command (a single .md file)
-       hooks/<letter>/<name>.json     a hook (a script, plus a "hook" block)
-       mcp/<letter>/<name>.json       an MCP server (an "mcp" spec, no repo)
+       skills/<letter>/<name>.json         a skill (a folder with a SKILL.md)
+       commands/<letter>/<name>.json       a slash command (a single .md file)
+       hooks/<letter>/<name>.json          a hook (a script, plus a "hook" block)
+       agents/<letter>/<name>.json         a subagent (a single .md file)
+       output-styles/<letter>/<name>.json  an output style (a single .md file)
+       mcp/<letter>/<name>.json            an MCP server (an "mcp" spec, no repo)
 
      A skill shard (skills/g/git-commit.json):
 

@@ -1,0 +1,12 @@
+{
+  "name": "architect-reviewer",
+  "description": "Evaluates system design decisions, architectural patterns, and technology choices at the macro level.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/04-quality-security/architect-reviewer.md",
+  "author": "VoltAgent",
+  "tags": [
+    "architecture",
+    "review",
+    "design"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "backend-developer",
+  "description": "Builds server-side APIs, microservices, and backend systems with scalable architecture and production-ready implementation.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/01-core-development/backend-developer.md",
+  "author": "VoltAgent",
+  "tags": [
+    "backend",
+    "api",
+    "microservices"
+  ]
+}

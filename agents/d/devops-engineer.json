@@ -1,0 +1,12 @@
+{
+  "name": "devops-engineer",
+  "description": "Builds infrastructure automation, CI/CD pipelines, containerization strategies, and deployment workflows.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/03-infrastructure/devops-engineer.md",
+  "author": "VoltAgent",
+  "tags": [
+    "devops",
+    "ci-cd",
+    "automation"
+  ]
+}

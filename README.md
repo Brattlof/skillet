@@ -98,10 +98,10 @@ skillet self-update        Update the skillet binary to the latest release
 Add `--target agents` to any command to use `~/.agents/skills` instead of
 `~/.claude/skills`, or set `SKILLET_TARGET=agents`.
 
-### Skills, commands, hooks, and MCP servers
+### Skills, commands, hooks, agents, output styles, and MCP servers
 
-A registry entry has a `kind`: `skill` (the default), `command`, `hook`, or `mcp`. skillet
-installs each into the place the tool reads:
+A registry entry has a `kind`: `skill` (the default), `command`, `hook`, `agent`,
+`output-style`, or `mcp`. skillet installs each into the place the tool reads:
 
 - a **skill** is a folder copied to `~/.claude/skills/<name>/` (or `~/.agents/skills/<name>/`
   with `--target agents`, the shared location Cursor, Codex, Gemini CLI, and Copilot read),
@@ -109,9 +109,11 @@ installs each into the place the tool reads:
 - a **hook** is a script copied to `~/.claude/hooks/`, and skillet registers it in
   `~/.claude/settings.json` under the event from the entry's `hook` block (and
   un-registers it on `remove`),
+- an **agent** (subagent) is a single `.md` file copied to `~/.claude/agents/<name>.md`,
+- an **output style** is a single `.md` file copied to `~/.claude/output-styles/<name>.md`,
 - an **MCP server** is registered into a client's MCP config; `--target` picks the client.
 
-Commands and hooks are Claude Code specific. MCP servers work across tools:
+Commands, hooks, agents, and output styles are Claude Code specific. Skills and MCP servers work across tools:
 
 ```bash
 skillet add context7 --target cursor     # -> ~/.cursor/mcp.json

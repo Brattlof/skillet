@@ -13,8 +13,9 @@ func safeName(name string) bool {
 	return name != "" && !strings.ContainsAny(name, `/\`) && filepath.IsLocal(name)
 }
 
-// standardKinds are the artifact kinds skillet installs, in display order.
-var standardKinds = []string{"skill", "command", "hook"}
+// standardKinds are the file-based artifact kinds skillet installs into per-kind
+// directories, in display order. (mcp is config-based and handled separately.)
+var standardKinds = []string{"skill", "command", "hook", "agent", "output-style"}
 
 // kindSubdir maps a kind to its directory under the agent config home (~/.claude).
 func kindSubdir(kind string) string {
@@ -23,6 +24,10 @@ func kindSubdir(kind string) string {
 		return "commands"
 	case "hook":
 		return "hooks"
+	case "agent":
+		return "agents"
+	case "output-style":
+		return "output-styles"
 	default:
 		return "skills"
 	}
@@ -73,7 +78,7 @@ func TargetDir(kind, target, override string) (string, error) {
 		switch kind {
 		case "", "skill":
 			return SkillsDir("")
-		case "command", "hook":
+		case "command", "hook", "agent", "output-style":
 			home, err := agentHome("claude")
 			if err != nil {
 				return "", err
@@ -90,7 +95,7 @@ func TargetDir(kind, target, override string) (string, error) {
 				return "", err
 			}
 			return filepath.Join(home, "skills"), nil
-		case "command", "hook":
+		case "command", "hook", "agent", "output-style":
 			return "", fmt.Errorf("the agents target installs skills only; %s is specific to Claude Code", kind)
 		default:
 			return "", fmt.Errorf("unknown kind %q", kind)

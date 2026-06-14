@@ -1,0 +1,12 @@
+{
+  "name": "golang-pro",
+  "description": "Builds Go applications with concurrent programming, high-performance systems, and cloud-native architectures.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/02-language-specialists/golang-pro.md",
+  "author": "VoltAgent",
+  "tags": [
+    "go",
+    "concurrency",
+    "cloud-native"
+  ]
+}

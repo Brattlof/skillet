@@ -1,0 +1,12 @@
+{
+  "name": "frontend-developer",
+  "description": "Builds frontend applications across React, Vue, and Angular with multi-framework expertise and full-stack integration.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/01-core-development/frontend-developer.md",
+  "author": "VoltAgent",
+  "tags": [
+    "frontend",
+    "react",
+    "vue"
+  ]
+}

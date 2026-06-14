@@ -1,0 +1,12 @@
+{
+  "name": "refactoring-specialist",
+  "description": "Transforms poorly structured, complex, or duplicated code into clean, maintainable systems while preserving behavior.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/06-developer-experience/refactoring-specialist.md",
+  "author": "VoltAgent",
+  "tags": [
+    "refactoring",
+    "code-quality",
+    "maintainability"
+  ]
+}

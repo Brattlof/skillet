@@ -1,0 +1,13 @@
+{
+  "name": "critical-code-reviewer",
+  "description": "Uncompromising technical reviewer focused on correctness, maintainability and engineering truth over comfort.",
+  "repo": "https://github.com/viveknair/ccoutputstyles",
+  "path": "templates/critical-code-reviewer.md",
+  "author": "viveknair",
+  "tags": [
+    "output-style",
+    "code-review",
+    "engineering",
+    "critical"
+  ]
+}

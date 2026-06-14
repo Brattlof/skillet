@@ -119,7 +119,7 @@ func Install(ctx context.Context, e registry.Entry, dir string) (string, error) 
 		if err := copyDir(src, dest); err != nil {
 			return "", err
 		}
-	case "command", "hook":
+	case "command", "hook", "agent", "output-style":
 		if info.IsDir() {
 			return "", fmt.Errorf("%s path %q must be a single file in %s", kind, e.Path, e.Repo)
 		}
@@ -181,11 +181,11 @@ func Install(ctx context.Context, e registry.Entry, dir string) (string, error) 
 }
 
 // artifactName is the installed basename for an entry. A skill keeps its name as a
-// directory; a command is forced to a .md file (the only shape Claude Code reads);
-// a hook keeps the source script's extension.
+// directory; a command, agent, or output style is a .md file (the shape Claude Code
+// reads); a hook keeps the source script's extension.
 func artifactName(kind, name, src string) string {
 	switch kind {
-	case "command":
+	case "command", "agent", "output-style":
 		return name + ".md"
 	case "hook":
 		return name + filepath.Ext(src)
@@ -295,7 +295,7 @@ func ListInstalled(dir, kind string) ([]string, error) {
 			if e.IsDir() {
 				names = append(names, e.Name())
 			}
-		case "command", "hook":
+		case "command", "hook", "agent", "output-style":
 			if !e.IsDir() {
 				names = append(names, e.Name())
 			}

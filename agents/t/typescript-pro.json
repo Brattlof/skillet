@@ -1,0 +1,12 @@
+{
+  "name": "typescript-pro",
+  "description": "Implements TypeScript with advanced type system patterns, complex generics, and end-to-end type safety.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/02-language-specialists/typescript-pro.md",
+  "author": "VoltAgent",
+  "tags": [
+    "typescript",
+    "types",
+    "generics"
+  ]
+}

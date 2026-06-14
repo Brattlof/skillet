@@ -1,0 +1,12 @@
+{
+  "name": "penetration-tester",
+  "description": "Conducts authorized security penetration tests to identify vulnerabilities through active exploitation and validation.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/04-quality-security/penetration-tester.md",
+  "author": "VoltAgent",
+  "tags": [
+    "security",
+    "pentest",
+    "offensive-security"
+  ]
+}

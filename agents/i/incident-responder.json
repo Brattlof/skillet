@@ -1,0 +1,12 @@
+{
+  "name": "incident-responder",
+  "description": "SRE incident responder for rapid problem resolution, observability, incident command, and blameless post-mortems.",
+  "repo": "https://github.com/wshobson/agents",
+  "path": "plugins/incident-response/agents/incident-responder.md",
+  "author": "wshobson",
+  "tags": [
+    "sre",
+    "incident-response",
+    "observability"
+  ]
+}

@@ -17,6 +17,8 @@ than 3,000 dead links.
    - a **skill** goes in `skills/<letter>/<name>.json` (e.g. `skills/g/git-commit.json`),
    - a **slash command** goes in `commands/<letter>/<name>.json`,
    - a **hook** goes in `hooks/<letter>/<name>.json`,
+   - an **agent** (subagent) goes in `agents/<letter>/<name>.json`,
+   - an **output style** goes in `output-styles/<letter>/<name>.json`,
    - an **MCP server** goes in `mcp/<letter>/<name>.json`.
 
    One entry per file, so two PRs never conflict, and the first-letter shard keeps each

@@ -1,0 +1,12 @@
+{
+  "name": "performance-engineer",
+  "description": "Identifies and eliminates performance bottlenecks in applications, databases, and infrastructure systems.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/04-quality-security/performance-engineer.md",
+  "author": "VoltAgent",
+  "tags": [
+    "performance",
+    "optimization",
+    "profiling"
+  ]
+}

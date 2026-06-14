@@ -1,0 +1,12 @@
+{
+  "name": "test-automator",
+  "description": "Builds and enhances automated test frameworks, creates test scripts, and integrates testing into CI/CD pipelines.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/04-quality-security/test-automator.md",
+  "author": "VoltAgent",
+  "tags": [
+    "testing",
+    "automation",
+    "ci-cd"
+  ]
+}

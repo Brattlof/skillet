@@ -1,0 +1,12 @@
+{
+  "name": "debugger",
+  "description": "Diagnoses and fixes bugs, identifies root causes of failures, and analyzes error logs and stack traces.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/04-quality-security/debugger.md",
+  "author": "VoltAgent",
+  "tags": [
+    "debugging",
+    "errors",
+    "troubleshooting"
+  ]
+}

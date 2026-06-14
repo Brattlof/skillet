@@ -1,0 +1,12 @@
+{
+  "name": "cloud-architect",
+  "description": "Designs and optimizes cloud infrastructure, multi-cloud strategies, migrations, disaster recovery, and cost optimization.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/03-infrastructure/cloud-architect.md",
+  "author": "VoltAgent",
+  "tags": [
+    "cloud",
+    "architecture",
+    "infrastructure"
+  ]
+}

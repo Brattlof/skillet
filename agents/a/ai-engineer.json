@@ -1,0 +1,12 @@
+{
+  "name": "ai-engineer",
+  "description": "Architects and optimizes end-to-end AI systems from model selection and training pipelines to production deployment.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/05-data-ai/ai-engineer.md",
+  "author": "VoltAgent",
+  "tags": [
+    "ai",
+    "ml",
+    "deployment"
+  ]
+}

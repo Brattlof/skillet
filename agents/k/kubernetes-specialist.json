@@ -1,0 +1,12 @@
+{
+  "name": "kubernetes-specialist",
+  "description": "Designs, deploys, configures, and troubleshoots Kubernetes clusters and workloads in production environments.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/03-infrastructure/kubernetes-specialist.md",
+  "author": "VoltAgent",
+  "tags": [
+    "kubernetes",
+    "containers",
+    "infrastructure"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "error-detective",
+  "description": "Searches logs and codebases for error patterns and stack traces, correlating errors across systems to find root causes.",
+  "repo": "https://github.com/wshobson/agents",
+  "path": "plugins/distributed-debugging/agents/error-detective.md",
+  "author": "wshobson",
+  "tags": [
+    "debugging",
+    "logs",
+    "errors"
+  ]
+}

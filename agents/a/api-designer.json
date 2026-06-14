@@ -1,0 +1,12 @@
+{
+  "name": "api-designer",
+  "description": "Designs REST and GraphQL APIs, OpenAPI specifications, authentication patterns, and versioning strategies.",
+  "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "path": "categories/01-core-development/api-designer.md",
+  "author": "VoltAgent",
+  "tags": [
+    "api",
+    "rest",
+    "graphql"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "capture",
+  "description": "Capture and organize chaotic brain dumps into a structured, actionable system with zero information loss.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "productivity/capture/skills/capture",
+  "author": "alirezarezvani",
+  "tags": [
+    "productivity"
+  ]
+}

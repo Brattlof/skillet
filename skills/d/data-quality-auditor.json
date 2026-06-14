@@ -1,0 +1,10 @@
+{
+  "name": "data-quality-auditor",
+  "description": "Audit datasets for completeness, consistency, and accuracy, detect anomalies, and plan remediation.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "engineering/data-quality-auditor/skills/data-quality-auditor",
+  "author": "alirezarezvani",
+  "tags": [
+    "engineering"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "product-discovery",
+  "description": "Validate product opportunities, map assumptions, and test problem-solution fit before delivery.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "product-team/skills/product-discovery",
+  "author": "alirezarezvani",
+  "tags": [
+    "product"
+  ]
+}

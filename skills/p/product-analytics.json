@@ -1,0 +1,10 @@
+{
+  "name": "product-analytics",
+  "description": "Define product KPIs, build dashboards, run cohort or retention analysis, and read adoption trends.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "product-team/skills/product-analytics",
+  "author": "alirezarezvani",
+  "tags": [
+    "product"
+  ]
+}

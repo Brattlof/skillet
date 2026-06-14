@@ -1,0 +1,10 @@
+{
+  "name": "observability-designer",
+  "description": "Design observability strategies combining metrics, logs, and traces with SLI/SLO design.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "engineering/skills/observability-designer",
+  "author": "alirezarezvani",
+  "tags": [
+    "engineering"
+  ]
+}

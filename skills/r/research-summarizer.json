@@ -1,0 +1,10 @@
+{
+  "name": "research-summarizer",
+  "description": "Structured research summarization for papers, articles, and reports with comparative analyses.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "product-team/research-summarizer/skills/research-summarizer",
+  "author": "alirezarezvani",
+  "tags": [
+    "product"
+  ]
+}

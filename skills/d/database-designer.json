@@ -1,0 +1,10 @@
+{
+  "name": "database-designer",
+  "description": "Design database schemas, plan migrations, optimize queries, or choose between SQL and NoSQL.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "engineering/skills/database-designer",
+  "author": "alirezarezvani",
+  "tags": [
+    "engineering"
+  ]
+}

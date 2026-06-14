@@ -1,0 +1,10 @@
+{
+  "name": "ai-security",
+  "description": "Assess AI/ML systems for prompt injection, jailbreak, model inversion, data poisoning, or agent tool abuse.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "engineering-team/skills/ai-security",
+  "author": "alirezarezvani",
+  "tags": [
+    "engineering"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "ci-cd-pipeline-builder",
+  "description": "Generate pragmatic CI/CD pipelines from detected stack signals with environment-aware deploy stages.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "engineering/skills/ci-cd-pipeline-builder",
+  "author": "alirezarezvani",
+  "tags": [
+    "engineering"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "content-strategy",
+  "description": "Plan a content strategy, decide what content to create, or figure out what topics to cover.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "marketing-skill/skills/content-strategy",
+  "author": "alirezarezvani",
+  "tags": [
+    "marketing"
+  ]
+}

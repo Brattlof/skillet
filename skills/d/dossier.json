@@ -1,0 +1,10 @@
+{
+  "name": "dossier",
+  "description": "Decision-grade entity research that produces a hypothesis-tested dossier on a company or person.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "research/dossier/skills/dossier",
+  "author": "alirezarezvani",
+  "tags": [
+    "research"
+  ]
+}

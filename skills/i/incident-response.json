@@ -1,0 +1,10 @@
+{
+  "name": "incident-response",
+  "description": "Classify, triage, escalate, and collect forensic evidence for a detected security incident.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "engineering-team/skills/incident-response",
+  "author": "alirezarezvani",
+  "tags": [
+    "engineering"
+  ]
+}

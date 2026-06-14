@@ -1,0 +1,10 @@
+{
+  "name": "tech-debt-tracker",
+  "description": "Scan codebases for technical debt, score severity, and generate prioritized remediation plans.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "engineering/skills/tech-debt-tracker",
+  "author": "alirezarezvani",
+  "tags": [
+    "engineering"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "contract-and-proposal-writer",
+  "description": "Generate jurisdiction-aware business documents: contracts, proposals, SOWs, NDAs, and MSAs.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "business-growth/skills/contract-and-proposal-writer",
+  "author": "alirezarezvani",
+  "tags": [
+    "business",
+    "growth"
+  ]
+}

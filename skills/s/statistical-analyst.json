@@ -1,0 +1,10 @@
+{
+  "name": "statistical-analyst",
+  "description": "Run hypothesis tests, analyze A/B results, calculate sample sizes, and interpret significance.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "engineering/statistical-analyst/skills/statistical-analyst",
+  "author": "alirezarezvani",
+  "tags": [
+    "engineering"
+  ]
+}

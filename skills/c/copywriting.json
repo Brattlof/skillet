@@ -1,0 +1,10 @@
+{
+  "name": "copywriting",
+  "description": "Write, rewrite, or improve marketing copy for homepage, landing, pricing, feature, or product pages.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "marketing-skill/skills/copywriting",
+  "author": "alirezarezvani",
+  "tags": [
+    "marketing"
+  ]
+}

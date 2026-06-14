@@ -1,0 +1,10 @@
+{
+  "name": "senior-data-engineer",
+  "description": "Data engineering for scalable pipelines and ETL/ELT - Python, SQL, Spark, Airflow, dbt, and Kafka.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "engineering-team/skills/senior-data-engineer",
+  "author": "alirezarezvani",
+  "tags": [
+    "engineering"
+  ]
+}

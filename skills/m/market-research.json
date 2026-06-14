@@ -1,0 +1,10 @@
+{
+  "name": "market-research",
+  "description": "Upstream market-research methodology - TAM/SAM/SOM sizing and survey sample-size planning.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "research-ops/skills/market-research",
+  "author": "alirezarezvani",
+  "tags": [
+    "research"
+  ]
+}

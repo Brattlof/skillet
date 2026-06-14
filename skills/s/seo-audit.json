@@ -1,0 +1,10 @@
+{
+  "name": "seo-audit",
+  "description": "Audit, review, or diagnose technical and on-page SEO issues on a site.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "marketing-skill/skills/seo-audit",
+  "author": "alirezarezvani",
+  "tags": [
+    "marketing"
+  ]
+}

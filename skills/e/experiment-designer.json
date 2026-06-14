@@ -1,0 +1,10 @@
+{
+  "name": "experiment-designer",
+  "description": "Plan product experiments, write testable hypotheses, estimate sample size, and interpret A/B outcomes.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "product-team/skills/experiment-designer",
+  "author": "alirezarezvani",
+  "tags": [
+    "product"
+  ]
+}

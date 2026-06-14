@@ -1,0 +1,11 @@
+{
+  "name": "soc2-compliance",
+  "description": "Prepare for SOC 2 audits - map Trust Service Criteria, build control matrices, and collect evidence.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "ra-qm-team/skills/soc2-compliance",
+  "author": "alirezarezvani",
+  "tags": [
+    "regulatory",
+    "quality"
+  ]
+}

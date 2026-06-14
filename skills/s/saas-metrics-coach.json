@@ -1,0 +1,10 @@
+{
+  "name": "saas-metrics-coach",
+  "description": "SaaS financial health advisor for ARR, MRR, churn, LTV, CAC, and NRR.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "finance/skills/saas-metrics-coach",
+  "author": "alirezarezvani",
+  "tags": [
+    "finance"
+  ]
+}

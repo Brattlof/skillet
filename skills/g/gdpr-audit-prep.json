@@ -1,0 +1,11 @@
+{
+  "name": "gdpr-audit-prep",
+  "description": "GDPR audit forcing interrogation with Article citations for internal review or breach readiness.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "compliance-os/skills/gdpr-audit-prep",
+  "author": "alirezarezvani",
+  "tags": [
+    "compliance",
+    "audit"
+  ]
+}

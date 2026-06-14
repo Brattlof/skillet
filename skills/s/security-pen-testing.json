@@ -1,0 +1,10 @@
+{
+  "name": "security-pen-testing",
+  "description": "Perform security audits, penetration testing, vulnerability scanning, and OWASP Top 10 checks.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "engineering-team/skills/security-pen-testing",
+  "author": "alirezarezvani",
+  "tags": [
+    "engineering"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "docker-development",
+  "description": "Docker development skill for Dockerfile optimization, compose orchestration, and security hardening.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "engineering/docker-development/skills/docker-development",
+  "author": "alirezarezvani",
+  "tags": [
+    "engineering"
+  ]
+}

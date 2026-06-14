@@ -1,0 +1,10 @@
+{
+  "name": "financial-analyst",
+  "description": "Financial ratio analysis, DCF valuation, budget variance, and rolling forecast construction.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "finance/skills/financial-analyst",
+  "author": "alirezarezvani",
+  "tags": [
+    "finance"
+  ]
+}

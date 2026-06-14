@@ -1,0 +1,10 @@
+{
+  "name": "inbox-triage",
+  "description": "Run a full inbox triage using the knowledge base created by the inbox-setup skill.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "productivity/email/skills/inbox-triage",
+  "author": "alirezarezvani",
+  "tags": [
+    "productivity"
+  ]
+}

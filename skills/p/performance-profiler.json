@@ -1,0 +1,10 @@
+{
+  "name": "performance-profiler",
+  "description": "Profile Node.js, Python, and Go apps for CPU, memory, and I/O bottlenecks with flamegraphs.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "engineering/skills/performance-profiler",
+  "author": "alirezarezvani",
+  "tags": [
+    "engineering"
+  ]
+}

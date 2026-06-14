@@ -1,0 +1,11 @@
+{
+  "name": "pricing-strategist",
+  "description": "Design or revisit product pricing - model selection, Van Westendorp analysis, and packaging.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "commercial/skills/pricing-strategist",
+  "author": "alirezarezvani",
+  "tags": [
+    "sales",
+    "commercial"
+  ]
+}

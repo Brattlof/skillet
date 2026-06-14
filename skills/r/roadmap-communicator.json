@@ -1,0 +1,10 @@
+{
+  "name": "roadmap-communicator",
+  "description": "Prepare roadmap narratives, release notes, changelogs, and stakeholder updates by audience.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "product-team/skills/roadmap-communicator",
+  "author": "alirezarezvani",
+  "tags": [
+    "product"
+  ]
+}

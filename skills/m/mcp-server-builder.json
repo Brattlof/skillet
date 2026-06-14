@@ -1,0 +1,10 @@
+{
+  "name": "mcp-server-builder",
+  "description": "Design and ship production-ready MCP servers from OpenAPI contracts in Python or TypeScript.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "engineering/skills/mcp-server-builder",
+  "author": "alirezarezvani",
+  "tags": [
+    "engineering"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "pr-review-expert",
+  "description": "Review pull requests, analyze code changes, check for security issues, or assess diff quality.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "engineering/skills/pr-review-expert",
+  "author": "alirezarezvani",
+  "tags": [
+    "engineering"
+  ]
+}

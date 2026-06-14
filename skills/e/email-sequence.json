@@ -1,0 +1,10 @@
+{
+  "name": "email-sequence",
+  "description": "Create or optimize an email sequence, drip campaign, automated flow, or lifecycle email program.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "marketing-skill/skills/email-sequence",
+  "author": "alirezarezvani",
+  "tags": [
+    "marketing"
+  ]
+}

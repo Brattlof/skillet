@@ -1,0 +1,10 @@
+{
+  "name": "product-manager-toolkit",
+  "description": "PM toolkit with RICE prioritization, interview analysis, PRD templates, and GTM strategies.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "product-team/skills/product-manager-toolkit",
+  "author": "alirezarezvani",
+  "tags": [
+    "product"
+  ]
+}

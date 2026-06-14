@@ -1,0 +1,10 @@
+{
+  "name": "dependency-auditor",
+  "description": "Audit dependencies across multi-language projects for vulnerabilities, license conflicts, and upgrades.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "engineering/skills/dependency-auditor",
+  "author": "alirezarezvani",
+  "tags": [
+    "engineering"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "cloud-security",
+  "description": "Assess cloud infrastructure for misconfigurations, IAM escalation paths, S3 exposure, and IaC gaps.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "engineering-team/skills/cloud-security",
+  "author": "alirezarezvani",
+  "tags": [
+    "engineering"
+  ]
+}

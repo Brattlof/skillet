@@ -1,0 +1,10 @@
+{
+  "name": "code-reviewer",
+  "description": "Code review automation for TypeScript, Python, Go, Java, Rust, C#, Ruby, PHP, and more languages.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "engineering-team/skills/code-reviewer",
+  "author": "alirezarezvani",
+  "tags": [
+    "engineering"
+  ]
+}

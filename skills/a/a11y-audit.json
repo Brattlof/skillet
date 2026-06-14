@@ -1,0 +1,10 @@
+{
+  "name": "a11y-audit",
+  "description": "Accessibility audit for WCAG 2.2 A/AA compliance across React, Next.js, Vue, Angular, Svelte, and plain HTML.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "engineering-team/a11y-audit/skills/a11y-audit",
+  "author": "alirezarezvani",
+  "tags": [
+    "engineering"
+  ]
+}

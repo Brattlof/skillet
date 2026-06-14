@@ -1,0 +1,10 @@
+{
+  "name": "tdd-guide",
+  "description": "Test-driven development for unit tests, fixtures, mocks, and coverage across Jest, Pytest, and JUnit.",
+  "repo": "https://github.com/alirezarezvani/claude-skills",
+  "path": "engineering-team/skills/tdd-guide",
+  "author": "alirezarezvani",
+  "tags": [
+    "engineering"
+  ]
+}

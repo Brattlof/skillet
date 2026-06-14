@@ -46,8 +46,9 @@ func expand(p string) (string, error) {
 
 // Install fetches the entry's repo (pinned to e.Ref when set), installs it into
 // dir, verifies e.Cksum when set, and returns the install path. A skill is copied
-// as a directory tree into dir/<name>; a command or hook is a single file copied
-// to dir/<name><ext>, and a hook is also registered in the adjacent settings.json.
+// as a directory tree into dir/<name>; a command, hook, agent, or output-style is
+// a single file copied to dir/<name><ext>, and a hook is also registered in the
+// adjacent settings.json.
 // The entry is assumed already validated by the registry (Repo is an http(s) URL
 // and Ref is a plain git ref), which keeps the git calls below safe.
 func Install(ctx context.Context, e registry.Entry, dir string) (string, error) {
@@ -293,7 +294,7 @@ func Remove(name, dir string) error {
 }
 
 // ListInstalled returns the installed artifact names in dir for the given kind:
-// directories for a skill, files for a command or hook. An empty kind (a --dir
+// directories for a skill, files for the single-file kinds. An empty kind (a --dir
 // override, where the kind is unknown) lists every visible entry. The .skillet
 // metadata directory and other hidden entries are always skipped.
 func ListInstalled(dir, kind string) ([]string, error) {
@@ -349,7 +350,7 @@ func CurrentChecksum(dir, name string) (sum string, ok bool, err error) {
 }
 
 // hashArtifact hashes an installed artifact: a tree hash for a skill directory, a
-// single-file hash for a command or hook.
+// single-file hash otherwise.
 func hashArtifact(path string) (string, error) {
 	info, err := os.Stat(path)
 	if err != nil {

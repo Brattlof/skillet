@@ -4,9 +4,9 @@
 
 # skillet
 
-**A tiny, zero-dependency package manager for MCP servers, Agent Skills, and Claude Code commands and hooks.**
+**A tiny, zero-dependency package manager for MCP servers, Agent Skills, and Claude Code commands, hooks, subagents, and output styles.**
 
-*Search a curated registry and install MCP servers, skills, slash commands, and hooks with one command - into Claude Code, Cursor, Codex, Gemini CLI, Copilot, and Cline.*
+*Search a curated registry and install MCP servers, skills, slash commands, hooks, subagents, and output styles with one command - into Claude Code, Cursor, Codex, Gemini CLI, Copilot, and Cline.*
 
 [![CI](https://github.com/Brattlof/skillet/actions/workflows/ci.yml/badge.svg)](https://github.com/Brattlof/skillet/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -17,9 +17,9 @@
 </div>
 
 skillet installs **MCP servers** (Model Context Protocol), **Agent Skills** (the open
-`SKILL.md` standard), and Claude Code slash commands and hooks into Claude Code, Cursor,
-OpenAI Codex, Gemini CLI, Copilot, and Cline - from a curated, verified registry of 130+ entries.
-One static Go binary, no Node or npm.
+`SKILL.md` standard), and Claude Code slash commands, hooks, subagents, and output styles into
+Claude Code, Cursor, OpenAI Codex, Gemini CLI, Copilot, and Cline - from a curated, verified
+registry of 290+ entries. One static Go binary, no Node or npm.
 
 <div align="center">
   <img src="assets/demo.gif" alt="skillet demo: search a registry and install a skill or MCP server into Claude Code with one command" width="700">
@@ -58,11 +58,12 @@ installing. `skillet` fixes that: search a curated registry and install with one
 
 ## Supported tools
 
-skillet installs for Claude Code by default (`~/.claude/skills`, plus its slash commands and
-hooks). Add `--target agents` and skills go to the shared `~/.agents/skills` directory that
-Cursor, OpenAI Codex, Gemini CLI, and GitHub Copilot all read. MCP servers install into each
-client's own config (Claude Code, Cursor, Windsurf, Gemini CLI, and Cline). Slash commands and
-hooks are Claude Code specific; skills and MCP servers are the cross-tool part.
+skillet installs for Claude Code by default (`~/.claude/skills`, plus its commands, hooks,
+subagents, and output styles). Add `--target agents` and skills go to the shared
+`~/.agents/skills` directory that Cursor, OpenAI Codex, Gemini CLI, and GitHub Copilot all read.
+MCP servers install into each client's own config (Claude Code, Cursor, Windsurf, Gemini CLI,
+and Cline). Commands, hooks, subagents, and output styles are Claude Code specific; skills and
+MCP servers are the cross-tool part.
 
 ## Install
 
@@ -79,7 +80,7 @@ go install github.com/Brattlof/skillet/cmd/skillet@latest
 ## Usage
 
 ```text
-skillet add <name>[@ref]   Install a skill, command, or hook (optionally pinned)
+skillet add <name>[@ref]   Install any registry entry (optionally pinned)
 skillet install            Restore everything from skillet.lock
 skillet install --frozen   Verify the install matches skillet.lock (no changes)
 skillet lock               Write skillet.lock from what is installed
@@ -170,13 +171,14 @@ elsewhere with `SKILLET_LOCKFILE`.
 ## How it works
 
 1. Each entry is one file under the directory for its kind - [`skills/`](skills),
-   [`commands/`](commands), or [`hooks/`](hooks) - sharded by first letter
+   [`commands/`](commands), [`hooks/`](hooks), [`agents/`](agents),
+   [`output-styles/`](output-styles), or [`mcp/`](mcp) - sharded by first letter
    (`commands/c/changelog.json`). The folder sets the kind. CI compiles them into an index
    published on the `gh-pages` branch. `skillet` fetches that index, caches it locally with
    ETag revalidation, and falls back to a copy embedded in the binary when it is offline.
 2. `skillet add` clones the entry's repo (pinned to its `ref` when set), copies just that
    artifact into the right directory, verifies its checksum when set, and cleans up. No `.git`.
-3. Contributing is a PR that adds one file under `skills/`, `commands/`, or `hooks/` - see below.
+3. Contributing is a PR that adds one file under the kind's directory - see below.
 
 Point `skillet` at a different index with `SKILLET_REGISTRY_URL`, or force the cached/embedded
 copy with `SKILLET_OFFLINE=1`.

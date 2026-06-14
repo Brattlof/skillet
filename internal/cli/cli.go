@@ -81,7 +81,7 @@ Usage:
   skillet <command> [args]
 
 Commands:
-  add <name>[@ref]   Install a skill, command, or hook (optionally pinned)
+  add <name>[@ref]   Install any registry entry (optionally pinned)
   install [--frozen] Restore from skillet.lock (--frozen only verifies)
   lock               Write skillet.lock from what is installed
   update [name]      Update an installed item, or all of them

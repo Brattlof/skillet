@@ -75,8 +75,8 @@ func cmdComplete(_ context.Context, args []string) error {
 				}
 			}
 			// Also offer hand-placed skill directories, whose directory name is
-			// the removable name. Command and hook files are not added, since
-			// their filename is not the name skillet removes them by.
+			// the removable name. Single-file kinds are not added, since their
+			// filename is not the name skillet removes them by.
 			if dk.Kind == "skill" {
 				if names, err := install.ListInstalled(dk.Dir, dk.Kind); err == nil {
 					for _, n := range names {

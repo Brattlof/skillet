@@ -1,4 +1,4 @@
-// Command buildindex compiles the per-kind shards (skills, commands, hooks) into
+// Command buildindex compiles the per-kind shards (one directory per kind) into
 // a single index.json. CI runs it with -check on pull requests and writes the
 // index on merge to main.
 package main
@@ -15,7 +15,7 @@ import (
 
 func main() {
 	check := flag.Bool("check", false, "validate the shards without writing the index")
-	root := flag.String("root", ".", "repository root holding the skills, commands, and hooks shard directories")
+	root := flag.String("root", ".", "repository root holding the per-kind shard directories")
 	out := flag.String("out", "dist/index.json", "output index path")
 	flag.Parse()
 

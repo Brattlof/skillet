@@ -236,9 +236,9 @@ func BuildIndex(root string) ([]Entry, error) {
 }
 
 // ValidateInstall checks the fields skillet needs to install an entry safely. For
-// a skill, command, or hook that means a safe single-component name, an http(s)
-// repo, a contained path, and a valid kind, ref, and cksum. An mcp entry is a
-// server spec rather than a repo, so it is validated separately. It does not
+// a repo-backed kind (everything but mcp) that means a safe single-component name,
+// an http(s) repo, a contained path, and a valid kind, ref, and cksum. An mcp
+// entry is a server spec rather than a repo, so it is validated separately. It does not
 // require descriptive metadata, so it also validates an untrusted lockfile entry
 // before it reaches git or the filesystem.
 func ValidateInstall(e Entry) error {

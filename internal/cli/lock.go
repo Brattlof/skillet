@@ -122,7 +122,7 @@ func restoreFromLock(ctx context.Context, target, dirOverride string) error {
 
 	// Prune so the install matches the lockfile exactly (npm ci style). Only
 	// skillet-managed installs (those with a manifest record) are removed; a
-	// hand-placed skill, command, or hook is left alone.
+	// hand-placed file is left alone.
 	pruned, err := pruneToLock(target, dirOverride, locked)
 	if err != nil {
 		return err
@@ -184,7 +184,7 @@ func verifyLock(target, dirOverride string) error {
 	for _, le := range lf.Skills {
 		instDir, err := install.TargetDir(le.Kind, target, dirOverride)
 		if err != nil {
-			// Not routable for this target (e.g. a command or hook under
+			// Not routable for this target (e.g. a Claude-only kind under
 			// --target agents). Restore skips these, so verify must agree.
 			fmt.Printf("skip  %s: not installed under the %s target\n", le.Name, target)
 			continue

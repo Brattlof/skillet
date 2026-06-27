@@ -1,3 +1,6 @@
+// Package skillet embeds the registry metadata shards so the compiled binary
+// always has a baseline index to fall back on when the remote registry and the
+// local cache are both unavailable.
 package skillet
 
 import "embed"

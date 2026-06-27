@@ -28,7 +28,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/setup-go@v6
         with:
-          go-version: '1.23'
+          go-version-file: go.mod
       - name: Compile index
         run: go run ./cmd/buildindex -out dist/index.json
       - name: Publish to gh-pages

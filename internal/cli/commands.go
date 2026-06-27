@@ -454,7 +454,16 @@ func cmdList(ctx context.Context, args []string) error {
 			} else if inReg {
 				source = stripScheme(entry.Repo)
 			}
-			fmt.Fprintf(tw, "%s\t%s\t%s\t%s\t%s\n", display[k], kind, installedCol, source, listStatus(hasRec, inReg, rec, entry))
+			// Compare the registry's published checksum against the installed
+			// artifact in the pin's own format, so a legacy v1 pin is not reported
+			// as an update for content that actually matches a v2 record.
+			cksumStale := false
+			if hasRec && inReg && entry.Cksum != "" {
+				if match, ok, verr := install.VerifyChecksum(dk.Dir, rec.Name, entry.Cksum); verr == nil && ok && !match {
+					cksumStale = true
+				}
+			}
+			fmt.Fprintf(tw, "%s\t%s\t%s\t%s\t%s\n", display[k], kind, installedCol, source, listStatus(hasRec, inReg, rec, entry, cksumStale))
 			rows++
 		}
 	}
@@ -469,7 +478,7 @@ func cmdList(ctx context.Context, args []string) error {
 // requested ref recorded at install time (not the resolved commit) so a pinned
 // tag is compared like-for-like. It cannot detect upstream drift for an unpinned
 // entry without a network fetch, so those are reported as "tracking".
-func listStatus(hasRec, inReg bool, rec install.Record, e registry.Entry) string {
+func listStatus(hasRec, inReg bool, rec install.Record, e registry.Entry, cksumStale bool) string {
 	switch {
 	case !hasRec:
 		return "no record"
@@ -477,7 +486,7 @@ func listStatus(hasRec, inReg bool, rec install.Record, e registry.Entry) string
 		return "not in registry"
 	case e.Ref != "" && e.Ref != rec.Ref:
 		return "update available" // registry moved its pin
-	case e.Cksum != "" && e.Cksum != rec.Cksum:
+	case cksumStale:
 		return "update available" // registry repinned the content
 	case e.Ref != "" && e.Ref == rec.Ref:
 		return "up to date" // registry pin matches the install

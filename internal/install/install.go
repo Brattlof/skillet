@@ -156,16 +156,25 @@ func Install(ctx context.Context, e registry.Entry, dir string) (string, error) 
 		return "", fmt.Errorf("unknown kind %q", kind)
 	}
 
-	// Always hash the installed artifact: it verifies a pinned cksum and is
-	// recorded for drift detection by doctor and update.
+	// Record the artifact's checksum in the current (v2) format for drift
+	// detection by doctor and update.
 	sum, err := hashArtifact(dest)
 	if err != nil {
 		os.RemoveAll(dest)
 		return "", err
 	}
-	if e.Cksum != "" && sum != e.Cksum {
-		os.RemoveAll(dest)
-		return "", fmt.Errorf("checksum mismatch for %s: got %s, want %s", e.Name, sum, e.Cksum)
+	// Verify a pinned cksum in whatever format the registry published it in, so a
+	// legacy v1 pin still validates against the artifact.
+	if e.Cksum != "" {
+		got, verr := hashArtifactAs(dest, cksumPrefix(e.Cksum))
+		if verr != nil {
+			os.RemoveAll(dest)
+			return "", verr
+		}
+		if got != e.Cksum {
+			os.RemoveAll(dest)
+			return "", fmt.Errorf("checksum mismatch for %s: got %s, want %s", e.Name, got, e.Cksum)
+		}
 	}
 
 	commit, _ := resolveCommit(ctx, tmp) // best-effort; empty if git cannot report it
@@ -327,12 +336,15 @@ func ListInstalled(dir, kind string) ([]string, error) {
 	return names, nil
 }
 
-// CurrentChecksum returns the on-disk checksum of an installed artifact, resolving
-// its path from the manifest record. ok is false if nothing is installed for name.
-func CurrentChecksum(dir, name string) (sum string, ok bool, err error) {
+// VerifyChecksum reports whether the installed artifact for name in dir still
+// matches want, recomputed in want's own format. A legacy (v1) checksum is
+// verified with the v1 algorithm, so a record or lockfile written before the
+// format change is not falsely reported as drift. ok is false if nothing is
+// installed for name.
+func VerifyChecksum(dir, name, want string) (match bool, ok bool, err error) {
 	rec, hasRec, err := ReadRecord(dir, name)
 	if err != nil {
-		return "", false, err
+		return false, false, err
 	}
 	artifact := name
 	if hasRec {
@@ -340,32 +352,91 @@ func CurrentChecksum(dir, name string) (sum string, ok bool, err error) {
 	}
 	dest := filepath.Join(dir, artifact)
 	if _, serr := os.Stat(dest); serr != nil {
-		return "", false, nil
+		return false, false, nil
 	}
-	sum, err = hashArtifact(dest)
+	got, err := hashArtifactAs(dest, cksumPrefix(want))
 	if err != nil {
-		return "", false, err
+		return false, false, err
 	}
-	return sum, true, nil
+	return got == want, true, nil
 }
 
-// hashArtifact hashes an installed artifact: a tree hash for a skill directory, a
-// single-file hash otherwise.
+// hashArtifact hashes an installed artifact in the current (v2) format: a tree
+// hash for a skill directory, a single-file hash otherwise.
 func hashArtifact(path string) (string, error) {
+	return hashArtifactAs(path, cksumPrefixV2)
+}
+
+// HashArtifactAs computes the checksum of the artifact at path in a specific
+// format: pass the legacy "sha256:" or the current "sha256.v2:" prefix. Normal
+// installs always record the current format; this exists so tests and migration
+// tooling can produce a checksum in either one.
+func HashArtifactAs(path, prefix string) (string, error) {
+	return hashArtifactAs(path, prefix)
+}
+
+// hashArtifactAs hashes an artifact in the format named by prefix, so a stored
+// checksum can be re-verified in the same format it was written.
+func hashArtifactAs(path, prefix string) (string, error) {
 	info, err := os.Stat(path)
 	if err != nil {
 		return "", err
 	}
 	if info.IsDir() {
-		return hashTree(path)
+		return hashTree(path, prefix)
 	}
-	return hashFile(path)
+	return hashFile(path, prefix)
 }
 
-// hashFile returns a sha256 over a single file's permission bits and contents, in
-// the same "sha256:" form as hashTree. The mode is included so a lost executable
-// bit (which matters for a hook script) changes the hash.
-func hashFile(path string) (string, error) {
+// Checksum format versions, encoded as the cksum's prefix. v1 hashed the full
+// permission bits, which Go reports differently across platforms (a regular file
+// is 0644 on Unix but 0666, or 0444 when read-only, on Windows), so an identical
+// artifact hashed differently per OS and broke cross-OS lockfile verification. v2
+// hashes only the OS-independent executable bit. New checksums are written as v2;
+// v1 checksums are still recognized and verified in their own format, so records
+// and lockfiles written before the change are not falsely reported as drift.
+const (
+	cksumPrefixV1 = "sha256:"
+	cksumPrefixV2 = "sha256.v2:"
+)
+
+// execBit reduces a file mode to an OS-independent executable flag: 1 when the
+// owner-execute bit is set, else 0. It is the only mode bit a v2 checksum keeps;
+// hooks are chmod 0755, so a lost executable bit still changes the hash.
+func execBit(m os.FileMode) int {
+	if m&0o100 != 0 {
+		return 1
+	}
+	return 0
+}
+
+// modeField renders the permission component a checksum hashes: the full octal
+// bits for the legacy v1 format, or the OS-independent executable bit for v2.
+func modeField(m os.FileMode, prefix string) string {
+	if prefix == cksumPrefixV1 {
+		return fmt.Sprintf("%o", m.Perm())
+	}
+	return fmt.Sprintf("%d", execBit(m))
+}
+
+// cksumPrefix returns the format prefix carried by a stored checksum, so it can
+// be recomputed and compared in the same format it was written. An empty or
+// unrecognized value defaults to the current v2 format.
+func cksumPrefix(c string) string {
+	if strings.HasPrefix(c, cksumPrefixV2) {
+		return cksumPrefixV2
+	}
+	if strings.HasPrefix(c, cksumPrefixV1) {
+		return cksumPrefixV1
+	}
+	return cksumPrefixV2
+}
+
+// hashFile returns a sha256 over a single file's permission field and contents,
+// prefixed by the format named by prefix (see modeField). The permission field is
+// included so a lost executable bit (which matters for a hook script) changes the
+// hash.
+func hashFile(path, prefix string) (string, error) {
 	info, err := os.Lstat(path)
 	if err != nil {
 		return "", err
@@ -376,18 +447,18 @@ func hashFile(path string) (string, error) {
 	}
 	defer f.Close()
 	h := sha256.New()
-	fmt.Fprintf(h, "%o\n", info.Mode().Perm())
+	fmt.Fprintf(h, "%s\n", modeField(info.Mode(), prefix))
 	if _, err := io.Copy(h, f); err != nil {
 		return "", err
 	}
-	return "sha256:" + hex.EncodeToString(h.Sum(nil)), nil
+	return prefix + hex.EncodeToString(h.Sum(nil)), nil
 }
 
-// hashTree returns a deterministic sha256 over the file tree rooted at root.
-// Files are hashed in sorted path order as: relative slash-path, a space, the
-// octal permission bits, a newline, then the streamed file contents. The mode is
-// included so a lost or added executable bit changes the hash.
-func hashTree(root string) (string, error) {
+// hashTree returns a deterministic sha256 over the file tree rooted at root,
+// prefixed by the format named by prefix (see modeField). Files are hashed in
+// sorted path order as: relative slash-path, a space, the permission field, a
+// newline, then the streamed file contents.
+func hashTree(root, prefix string) (string, error) {
 	var files []string
 	err := filepath.WalkDir(root, func(p string, d os.DirEntry, err error) error {
 		if err != nil {
@@ -413,7 +484,7 @@ func hashTree(root string) (string, error) {
 		if err != nil {
 			return "", err
 		}
-		fmt.Fprintf(h, "%s %o\n", filepath.ToSlash(rel), info.Mode().Perm())
+		fmt.Fprintf(h, "%s %s\n", filepath.ToSlash(rel), modeField(info.Mode(), prefix))
 		f, err := os.Open(p)
 		if err != nil {
 			return "", err
@@ -424,7 +495,7 @@ func hashTree(root string) (string, error) {
 		}
 		f.Close()
 	}
-	return "sha256:" + hex.EncodeToString(h.Sum(nil)), nil
+	return prefix + hex.EncodeToString(h.Sum(nil)), nil
 }
 
 func copyDir(src, dst string) error {

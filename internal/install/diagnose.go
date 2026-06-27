@@ -104,7 +104,9 @@ func diagnoseOne(dir, dirKind, artifact string, rec Record, hasRec bool) (Status
 	}
 
 	if hasRec && rec.Cksum != "" {
-		sum, err := hashArtifact(dest)
+		// Recompute in the record's own format so a record written before the
+		// checksum format change is not falsely reported as drift.
+		sum, err := hashArtifactAs(dest, cksumPrefix(rec.Cksum))
 		if err != nil {
 			return "", err
 		}

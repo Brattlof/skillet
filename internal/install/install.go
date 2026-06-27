@@ -458,7 +458,7 @@ func copyDir(src, dst string) error {
 // copyFile copies the file at src to dst, following src if it is a symlink. Its
 // callers (Install after the containment check, and copyDir which skips symlink
 // entries) guarantee src cannot point outside the cloned repo.
-func copyFile(src, dst string) error {
+func copyFile(src, dst string) (err error) {
 	in, err := os.Open(src)
 	if err != nil {
 		return err
@@ -472,7 +472,14 @@ func copyFile(src, dst string) error {
 	if err != nil {
 		return err
 	}
-	defer out.Close()
+	defer func() {
+		// Close can be where a buffered write finally fails, so surface that error
+		// when the copy otherwise succeeded; ignoring it could install a truncated
+		// file that then passes as complete.
+		if cerr := out.Close(); cerr != nil && err == nil {
+			err = cerr
+		}
+	}()
 
 	if _, err := io.Copy(out, in); err != nil {
 		return err

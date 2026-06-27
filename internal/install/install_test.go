@@ -163,7 +163,7 @@ func TestDiagnose(t *testing.T) {
 
 	// healthy: dir + SKILL.md + record whose cksum matches the content
 	hp := mkSkill("healthy", "# ok\n")
-	sum, err := hashTree(hp)
+	sum, err := hashTree(hp, cksumPrefixV2)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -377,18 +377,18 @@ func TestHashTreeDeterministicAndSensitive(t *testing.T) {
 		return d
 	}
 
-	h1, err := hashTree(mk())
+	h1, err := hashTree(mk(), cksumPrefixV2)
 	if err != nil {
 		t.Fatal(err)
 	}
-	h2, err := hashTree(mk())
+	h2, err := hashTree(mk(), cksumPrefixV2)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if h1 != h2 {
 		t.Fatalf("hash not deterministic: %s vs %s", h1, h2)
 	}
-	if !strings.HasPrefix(h1, "sha256:") {
+	if !strings.HasPrefix(h1, cksumPrefixV2) {
 		t.Fatalf("unexpected hash format: %s", h1)
 	}
 
@@ -396,12 +396,118 @@ func TestHashTreeDeterministicAndSensitive(t *testing.T) {
 	if err := os.WriteFile(filepath.Join(changed, "a.txt"), []byte("different"), 0o644); err != nil {
 		t.Fatal(err)
 	}
-	h3, err := hashTree(changed)
+	h3, err := hashTree(changed, cksumPrefixV2)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if h3 == h1 {
 		t.Fatal("hash should change when content changes")
+	}
+}
+
+func TestHashFileIgnoresNonExecPermBits(t *testing.T) {
+	dir := t.TempDir()
+	hashAt := func(name string, mode os.FileMode) string {
+		p := filepath.Join(dir, name)
+		if err := os.WriteFile(p, []byte("same content"), 0o644); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.Chmod(p, mode); err != nil { // WriteFile is subject to umask; force the exact mode
+			t.Fatal(err)
+		}
+		h, err := hashFile(p, cksumPrefixV2)
+		if err != nil {
+			t.Fatal(err)
+		}
+		return h
+	}
+
+	// Non-executable permission differences must not change the hash, so an
+	// identical file hashes the same on Unix (0644) and Windows (0666).
+	if a, b := hashAt("a", 0o644), hashAt("b", 0o664); a != b {
+		t.Errorf("non-exec perm bits changed the hash: %s vs %s", a, b)
+	}
+	// The executable bit must change the hash: a hook losing +x is meaningful.
+	if plain, exec := hashAt("c", 0o644), hashAt("d", 0o755); plain == exec {
+		t.Errorf("executable bit did not change the hash: %s", plain)
+	}
+}
+
+func TestChecksumFormatVersions(t *testing.T) {
+	dir := t.TempDir()
+	p := filepath.Join(dir, "a.txt")
+	if err := os.WriteFile(p, []byte("content"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	v2, err := hashFile(p, cksumPrefixV2)
+	if err != nil {
+		t.Fatal(err)
+	}
+	v1, err := hashFile(p, cksumPrefixV1)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.HasPrefix(v2, cksumPrefixV2) {
+		t.Errorf("v2 hash missing the v2 prefix: %s", v2)
+	}
+	if !strings.HasPrefix(v1, cksumPrefixV1) || strings.HasPrefix(v1, cksumPrefixV2) {
+		t.Errorf("v1 hash has the wrong prefix: %s", v1)
+	}
+	if v1 == v2 {
+		t.Fatal("the two formats must produce different checksums for the same file")
+	}
+
+	// cksumPrefix classifies each stored form and defaults to v2.
+	for in, want := range map[string]string{
+		v1: cksumPrefixV1, v2: cksumPrefixV2, "": cksumPrefixV2, "md5:x": cksumPrefixV2,
+	} {
+		if got := cksumPrefix(in); got != want {
+			t.Errorf("cksumPrefix(%q) = %q, want %q", in, got, want)
+		}
+	}
+}
+
+// A record or lockfile written before the format change carries a v1 checksum.
+// Verification must recompute in that format so an unchanged artifact is not
+// falsely reported as drift after an upgrade.
+func TestLegacyChecksumNotDrift(t *testing.T) {
+	dir := t.TempDir()
+	sk := filepath.Join(dir, "legacy")
+	if err := os.MkdirAll(sk, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(sk, "SKILL.md"), []byte("# ok\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	v1, err := hashTree(sk, cksumPrefixV1)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := writeRecord(dir, Record{Name: "legacy", Repo: "https://x/y", Path: "p", Cksum: v1}); err != nil {
+		t.Fatal(err)
+	}
+
+	match, ok, err := VerifyChecksum(dir, "legacy", v1)
+	if err != nil || !ok {
+		t.Fatalf("VerifyChecksum ok=%v err=%v", ok, err)
+	}
+	if !match {
+		t.Error("a legacy v1 checksum should still verify after the format change")
+	}
+	// A different v1 checksum (a genuine repin) must not match.
+	if m, _, _ := VerifyChecksum(dir, "legacy", "sha256:deadbeef"); m {
+		t.Error("a mismatched v1 checksum should not verify")
+	}
+
+	diags, err := Diagnose(dir, "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, d := range diags {
+		if d.Name == "legacy" && d.Status == StatusDrift {
+			t.Errorf("legacy v1 checksum falsely reported as drift: %+v", d)
+		}
 	}
 }
 
@@ -439,7 +545,7 @@ func TestInstallPinnedAndChecksum(t *testing.T) {
 	if err != nil {
 		t.Fatalf("install: %v", err)
 	}
-	sum, err := hashTree(got)
+	sum, err := hashTree(got, cksumPrefixV2)
 	if err != nil {
 		t.Fatal(err)
 	}

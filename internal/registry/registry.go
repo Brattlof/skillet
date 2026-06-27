@@ -34,7 +34,7 @@ type Entry struct {
 	Tags        []string  `json:"tags"`
 	Kind        string    `json:"kind,omitempty"`  // skill (default), command, hook, or mcp
 	Ref         string    `json:"ref,omitempty"`   // commit SHA or tag to pin the install to
-	Cksum       string    `json:"cksum,omitempty"` // sha256: tree hash, verified on install
+	Cksum       string    `json:"cksum,omitempty"` // sha256[.v2]: artifact hash, verified on install
 	Hook        *HookSpec `json:"hook,omitempty"`  // required for kind hook: how to register it
 	MCP         *MCPSpec  `json:"mcp,omitempty"`   // required for kind mcp: the server to register
 }
@@ -283,8 +283,8 @@ func ValidateInstall(e Entry) error {
 	if e.Ref != "" && !validRef(e.Ref) {
 		return fmt.Errorf("invalid ref %q", e.Ref)
 	}
-	if e.Cksum != "" && !strings.HasPrefix(e.Cksum, "sha256:") {
-		return fmt.Errorf("invalid cksum %q (want sha256:...)", e.Cksum)
+	if e.Cksum != "" && !strings.HasPrefix(e.Cksum, "sha256:") && !strings.HasPrefix(e.Cksum, "sha256.v2:") {
+		return fmt.Errorf("invalid cksum %q (want sha256:... or sha256.v2:...)", e.Cksum)
 	}
 	return nil
 }

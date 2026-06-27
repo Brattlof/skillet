@@ -2,8 +2,11 @@ package cli
 
 import (
 	"context"
+	"encoding/json"
 	"flag"
 	"io"
+	"net/http"
+	"net/http/httptest"
 	"os"
 	"path/filepath"
 	"strings"
@@ -150,26 +153,109 @@ func TestListDeduplicatesCommandArtifacts(t *testing.T) {
 
 func TestListStatus(t *testing.T) {
 	cases := []struct {
-		name   string
-		hasRec bool
-		inReg  bool
-		rec    install.Record
-		entry  registry.Entry
-		want   string
+		name       string
+		hasRec     bool
+		inReg      bool
+		rec        install.Record
+		entry      registry.Entry
+		cksumStale bool
+		want       string
 	}{
-		{"no record", false, true, install.Record{}, registry.Entry{}, "no record"},
-		{"not in registry", true, false, install.Record{}, registry.Entry{}, "not in registry"},
-		{"registry added a pin", true, true, install.Record{Ref: ""}, registry.Entry{Ref: "v2"}, "update available"},
-		{"pinned and matching", true, true, install.Record{Ref: "v1"}, registry.Entry{Ref: "v1"}, "up to date"},
-		{"user pinned, registry unpinned", true, true, install.Record{Ref: "abc123"}, registry.Entry{}, "pinned"},
-		{"cksum changed", true, true, install.Record{Cksum: "sha256:a"}, registry.Entry{Cksum: "sha256:b"}, "update available"},
-		{"unpinned tracking", true, true, install.Record{}, registry.Entry{}, "tracking"},
-		{"cksum pinned and matching", true, true, install.Record{Cksum: "sha256:a"}, registry.Entry{Cksum: "sha256:a"}, "up to date"},
+		{"no record", false, true, install.Record{}, registry.Entry{}, false, "no record"},
+		{"not in registry", true, false, install.Record{}, registry.Entry{}, false, "not in registry"},
+		{"registry added a pin", true, true, install.Record{Ref: ""}, registry.Entry{Ref: "v2"}, false, "update available"},
+		{"pinned and matching", true, true, install.Record{Ref: "v1"}, registry.Entry{Ref: "v1"}, false, "up to date"},
+		{"user pinned, registry unpinned", true, true, install.Record{Ref: "abc123"}, registry.Entry{}, false, "pinned"},
+		{"cksum stale", true, true, install.Record{Cksum: "sha256.v2:a"}, registry.Entry{Cksum: "sha256:b"}, true, "update available"},
+		{"unpinned tracking", true, true, install.Record{}, registry.Entry{}, false, "tracking"},
+		{"cksum pinned and matching", true, true, install.Record{Cksum: "sha256.v2:a"}, registry.Entry{Cksum: "sha256:a"}, false, "up to date"},
 	}
 	for _, tc := range cases {
-		if got := listStatus(tc.hasRec, tc.inReg, tc.rec, tc.entry); got != tc.want {
+		if got := listStatus(tc.hasRec, tc.inReg, tc.rec, tc.entry, tc.cksumStale); got != tc.want {
 			t.Errorf("%s: got %q, want %q", tc.name, got, tc.want)
 		}
+	}
+}
+
+// list must compare the registry's published checksum against the installed
+// artifact in the pin's own format, so a matching pin is not reported as an
+// update. Cross-format matching (a v1 pin against a v2 record) is exercised in
+// the install package's VerifyChecksum tests, which this path delegates to.
+func TestListReportsRegistryRepin(t *testing.T) {
+	home := t.TempDir()
+	t.Setenv("HOME", home)
+	t.Setenv("SKILLET_CACHE_DIR", filepath.Join(home, "cache"))
+
+	src := makeGitRepo(t, map[string]string{"commands/foo.md": "# foo\n"})
+	target := filepath.Join(home, ".claude", "commands")
+	base := registry.Entry{Name: "foo", Description: "d", Author: "t", Repo: src, Path: "commands/foo.md", Kind: "command"}
+	if _, err := install.Install(context.Background(), base, target); err != nil {
+		t.Fatalf("install: %v", err)
+	}
+	rec, ok, err := install.ReadRecord(target, "foo")
+	if err != nil || !ok {
+		t.Fatalf("read record ok=%v err=%v", ok, err)
+	}
+
+	serveIndex := func(cksum string) {
+		// The registry entry is matched to the install by name; its repo only has
+		// to pass index validation, so it need not be the local clone path.
+		e := registry.Entry{
+			Name: "foo", Description: "d", Author: "t",
+			Repo: "https://example.com/foo", Path: "commands/foo.md",
+			Kind: "command", Cksum: cksum,
+		}
+		idx, merr := json.Marshal([]registry.Entry{e})
+		if merr != nil {
+			t.Fatal(merr)
+		}
+		srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+			_, _ = w.Write(idx)
+		}))
+		t.Cleanup(srv.Close)
+		t.Setenv("SKILLET_REGISTRY_URL", srv.URL)
+		t.Setenv("SKILLET_CACHE_DIR", t.TempDir()) // force a fresh fetch each call
+	}
+
+	statusOf := func() string {
+		out := captureStdout(t, func() { Run(context.Background(), []string{"list"}) })
+		for _, line := range strings.Split(out, "\n") {
+			if strings.HasPrefix(line, "foo") {
+				return line
+			}
+		}
+		t.Fatalf("list output has no foo row:\n%s", out)
+		return ""
+	}
+
+	dest := filepath.Join(target, "foo.md")
+
+	// A pin matching the installed content reads up to date even when the pin is
+	// in the legacy v1 format and the record is v2. This is the case that fails if
+	// the status uses a raw cross-format string compare instead of recomputing the
+	// artifact in the pin's format.
+	v1pin, err := install.HashArtifactAs(dest, "sha256:") // legacy format
+	if err != nil {
+		t.Fatal(err)
+	}
+	if v1pin == rec.Cksum {
+		t.Fatal("test setup: the v1 pin must differ from the v2 record string")
+	}
+	serveIndex(v1pin)
+	if line := statusOf(); strings.Contains(line, "update available") {
+		t.Errorf("a v1 pin matching the content must read up to date: %q", line)
+	}
+
+	// A matching v2 pin reads up to date too.
+	serveIndex(rec.Cksum)
+	if line := statusOf(); strings.Contains(line, "update available") {
+		t.Errorf("a matching v2 pin must read up to date: %q", line)
+	}
+
+	// A different pin (a genuine repin) is reported as an update.
+	serveIndex("sha256:deadbeef")
+	if line := statusOf(); !strings.Contains(line, "update available") {
+		t.Errorf("a repinned cksum must report an update: %q", line)
 	}
 }
 

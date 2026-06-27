@@ -182,6 +182,7 @@ func TestValidateInstall(t *testing.T) {
 	bad := []Entry{
 		{Name: "x", Repo: "file:///etc", Path: "p"},                       // non-http transport
 		{Name: "x", Repo: "git@h:r", Path: "p"},                           // ssh transport
+		{Name: "x", Repo: "http://x/y", Path: "p"},                        // plaintext http repo
 		{Name: "../x", Repo: "https://x/y", Path: "p"},                    // traversal name
 		{Name: "x", Repo: "https://x/y", Path: "../e"},                    // traversal path
 		{Name: "x", Path: "p"},                                            // missing repo
@@ -294,10 +295,25 @@ func TestValidateMCP(t *testing.T) {
 		t.Fatalf("valid remote mcp should pass: %v", err)
 	}
 
+	// Plaintext http is allowed only for a loopback host (local MCP dev).
+	for _, raw := range []string{
+		"http://localhost:3000/mcp",
+		"http://LocalHost:3000/mcp", // host matching is case-insensitive
+		"http://127.0.0.1:3000/mcp",
+		"http://[::1]:3000/mcp",
+	} {
+		local := base
+		local.MCP = &MCPSpec{URL: raw}
+		if err := Validate(local); err != nil {
+			t.Fatalf("loopback http mcp %q should pass: %v", raw, err)
+		}
+	}
+
 	for name, spec := range map[string]*MCPSpec{
 		"both command and url": {Command: "x", URL: "https://x/y"},
 		"neither":              {},
 		"non-http url":         {URL: "ftp://x/y"},
+		"plaintext http url":   {URL: "http://example.com/mcp"},
 	} {
 		bad := base
 		bad.MCP = spec

@@ -13,7 +13,9 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
+	"net"
 	"net/http"
+	"net/url"
 	"os"
 	"path"
 	"path/filepath"
@@ -237,7 +239,7 @@ func BuildIndex(root string) ([]Entry, error) {
 
 // ValidateInstall checks the fields skillet needs to install an entry safely. For
 // a repo-backed kind (everything but mcp) that means a safe single-component name,
-// an http(s) repo, a contained path, and a valid kind, ref, and cksum. An mcp
+// an https repo, a contained path, and a valid kind, ref, and cksum. An mcp
 // entry is a server spec rather than a repo, so it is validated separately. It does not
 // require descriptive metadata, so it also validates an untrusted lockfile entry
 // before it reaches git or the filesystem.
@@ -251,8 +253,8 @@ func ValidateInstall(e Entry) error {
 	switch {
 	case strings.TrimSpace(e.Repo) == "":
 		return errors.New("missing repo")
-	case !strings.HasPrefix(e.Repo, "http://") && !strings.HasPrefix(e.Repo, "https://"):
-		return errors.New("repo must be an http(s) URL")
+	case !strings.HasPrefix(e.Repo, "https://"):
+		return errors.New("repo must be an https URL")
 	case strings.TrimSpace(e.Path) == "":
 		return errors.New("missing path")
 	}
@@ -290,7 +292,8 @@ func ValidateInstall(e Entry) error {
 }
 
 // validateMCP checks an mcp entry: it carries a server spec with exactly one of a
-// stdio command or a remote http(s) url, and no fields meant for file installs.
+// stdio command or a remote https url (loopback http excepted), and no fields meant
+// for file installs.
 func validateMCP(e Entry) error {
 	if e.MCP == nil {
 		return errors.New("an mcp entry requires an mcp spec")
@@ -300,13 +303,48 @@ func validateMCP(e Entry) error {
 	if hasCmd == hasURL {
 		return errors.New("an mcp entry needs exactly one of command (stdio) or url (remote)")
 	}
-	if hasURL && !strings.HasPrefix(e.MCP.URL, "http://") && !strings.HasPrefix(e.MCP.URL, "https://") {
-		return fmt.Errorf("mcp url must be an http(s) URL, got %q", e.MCP.URL)
+	if hasURL {
+		if err := validateRemoteURL(e.MCP.URL); err != nil {
+			return err
+		}
 	}
 	if e.Hook != nil {
 		return errors.New("hook spec is only valid for kind hook")
 	}
 	return nil
+}
+
+// validateRemoteURL requires a remote MCP url to use https. Plaintext http is
+// allowed only for a loopback host so local MCP development still works; a remote
+// server speaks for the session, so a public http endpoint is exposed to an
+// on-path attacker.
+func validateRemoteURL(raw string) error {
+	u, err := url.Parse(raw)
+	if err != nil {
+		return fmt.Errorf("invalid mcp url %q: %w", raw, err)
+	}
+	switch u.Scheme {
+	case "https":
+		return nil
+	case "http":
+		if isLoopbackHost(u.Hostname()) {
+			return nil
+		}
+		return fmt.Errorf("mcp url must use https; plaintext http is allowed only for a loopback host, got %q", raw)
+	default:
+		return fmt.Errorf("mcp url must be an https URL, got %q", raw)
+	}
+}
+
+// isLoopbackHost reports whether host is localhost or a loopback IP literal.
+func isLoopbackHost(host string) bool {
+	if strings.EqualFold(host, "localhost") {
+		return true
+	}
+	if ip := net.ParseIP(host); ip != nil {
+		return ip.IsLoopback()
+	}
+	return false
 }
 
 // Validate is the full registry-entry check: descriptive metadata plus everything

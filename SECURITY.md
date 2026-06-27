@@ -24,8 +24,9 @@ into your skills directory. Know the trust boundary:
   entries that set a `cksum`, which skillet verifies on install.
 - Pinning prevents silent changes but not repository deletion or force-push: the content
   lives in the author's repo, outside skillet's control. There is no transparency log.
-- The registry index is validated when it loads, and skillet refuses repo URLs and refs
-  that could be smuggled into git as command-line options.
+- The registry index is validated when it loads. skillet requires repo and remote MCP URLs
+  to use https (plaintext http is allowed only for a loopback host, for local development),
+  and refuses URLs and refs that could be smuggled into git as command-line options.
 
 Treat skills like any other dependency: review what you install, pin versions, keep them
 current with `skillet update`, and audit them with `skillet doctor`.

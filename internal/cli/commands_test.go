@@ -44,6 +44,24 @@ func TestSplitNameRef(t *testing.T) {
 	}
 }
 
+func TestMCPRunSummary(t *testing.T) {
+	cases := []struct {
+		name string
+		spec *registry.MCPSpec
+		want string
+	}{
+		{"stdio with args", &registry.MCPSpec{Command: "npx", Args: []string{"-y", "pkg"}}, "run npx -y pkg"},
+		{"stdio no args", &registry.MCPSpec{Command: "server"}, "run server"},
+		{"remote", &registry.MCPSpec{URL: "https://example.com/mcp"}, "connect to https://example.com/mcp"},
+		{"nil", nil, "load"},
+	}
+	for _, c := range cases {
+		if got := mcpRunSummary(c.spec); got != c.want {
+			t.Errorf("mcpRunSummary(%s) = %q, want %q", c.name, got, c.want)
+		}
+	}
+}
+
 func captureStdout(t *testing.T, f func()) string {
 	t.Helper()
 	old := os.Stdout
@@ -57,6 +75,47 @@ func captureStdout(t *testing.T, f func()) string {
 	os.Stdout = old
 	b, _ := io.ReadAll(r)
 	return string(b)
+}
+
+func captureStderr(t *testing.T, f func()) string {
+	t.Helper()
+	old := os.Stderr
+	r, w, err := os.Pipe()
+	if err != nil {
+		t.Fatal(err)
+	}
+	os.Stderr = w
+	f()
+	w.Close()
+	os.Stderr = old
+	b, _ := io.ReadAll(r)
+	return string(b)
+}
+
+// addMCP must print the trust warning naming what the server will do before it
+// touches the client config, so the user can judge it.
+func TestAddMCPWarnsBeforeInstall(t *testing.T) {
+	t.Setenv("HOME", t.TempDir()) // cursor writes ~/.cursor/mcp.json
+	e := registry.Entry{
+		Name: "demo",
+		Kind: "mcp",
+		MCP:  &registry.MCPSpec{Command: "npx", Args: []string{"-y", "demo-server"}},
+	}
+	var err error
+	stderr := captureStderr(t, func() {
+		captureStdout(t, func() { err = addMCP(e, "cursor") })
+	})
+	if err != nil {
+		t.Fatalf("addMCP: %v", err)
+	}
+	for _, want := range []string{
+		"only add ones you trust",
+		"demo will run npx -y demo-server on every cursor startup",
+	} {
+		if !strings.Contains(stderr, want) {
+			t.Errorf("addMCP stderr missing %q:\n%s", want, stderr)
+		}
+	}
 }
 
 func TestInfoCommand(t *testing.T) {

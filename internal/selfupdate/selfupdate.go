@@ -35,6 +35,8 @@ const defaultAPIURL = "https://api.github.com/repos/Brattlof/skillet/releases/la
 var (
 	apiURL     = defaultAPIURL
 	httpClient = &http.Client{Timeout: 30 * time.Second}
+	rename     = os.Rename
+	replace    = replaceExecutable
 )
 
 // Asset is one downloadable file attached to a release.
@@ -128,7 +130,7 @@ func Update(ctx context.Context, current string) (tag string, updated bool, err 
 	if err != nil {
 		return "", false, err
 	}
-	if err := replaceExecutable(bin); err != nil {
+	if err := replace(bin); err != nil {
 		return "", false, err
 	}
 	return r.Tag, true, nil
@@ -291,10 +293,8 @@ func extractBinary(archive []byte, assetName string) ([]byte, error) {
 	return nil, fmt.Errorf("%s not found in archive", target)
 }
 
-// replaceExecutable swaps the running binary for newBin. It writes to a temp file
-// in the same directory, then renames the current binary aside and the new one
-// into place, restoring the original on failure so a crash never leaves a partial
-// or missing binary.
+// replaceExecutable swaps the running binary for newBin, resolving the real path
+// through any symlink before handing off to replaceAt.
 func replaceExecutable(newBin []byte) error {
 	exe, err := os.Executable()
 	if err != nil {
@@ -303,6 +303,14 @@ func replaceExecutable(newBin []byte) error {
 	if resolved, err := filepath.EvalSymlinks(exe); err == nil {
 		exe = resolved
 	}
+	return replaceAt(exe, newBin)
+}
+
+// replaceAt swaps the binary at exe for newBin. It writes to a temp file in the
+// same directory, then renames the current binary aside and the new one into
+// place, restoring the original on failure so a crash never leaves a partial or
+// missing binary.
+func replaceAt(exe string, newBin []byte) error {
 	dir := filepath.Dir(exe)
 
 	tmp, err := os.CreateTemp(dir, ".skillet-update-*")
@@ -325,11 +333,11 @@ func replaceExecutable(newBin []byte) error {
 
 	old := exe + ".old"
 	os.Remove(old) // clear any leftover from a previous interrupted update; absence is fine
-	if err := os.Rename(exe, old); err != nil {
+	if err := rename(exe, old); err != nil {
 		return fmt.Errorf("cannot replace %s (reinstall manually or check permissions): %w", exe, err)
 	}
-	if err := os.Rename(tmpName, exe); err != nil {
-		if rerr := os.Rename(old, exe); rerr != nil {
+	if err := rename(tmpName, exe); err != nil {
+		if rerr := rename(old, exe); rerr != nil {
 			return fmt.Errorf("install failed (%w) and the original could not be restored; it is at %s: %v", err, old, rerr)
 		}
 		return fmt.Errorf("cannot install the new binary: %w", err)

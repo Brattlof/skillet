@@ -49,7 +49,7 @@ func expand(p string) (string, error) {
 // as a directory tree into dir/<name>; a command, hook, agent, or output-style is
 // a single file copied to dir/<name><ext>, and a hook is also registered in the
 // adjacent settings.json.
-// The entry is assumed already validated by the registry (Repo is an http(s) URL
+// The entry is assumed already validated by the registry (Repo is an https URL
 // and Ref is a plain git ref), which keeps the git calls below safe.
 func Install(ctx context.Context, e registry.Entry, dir string) (string, error) {
 	// Defense in depth: never let a name or path escape the install directory,

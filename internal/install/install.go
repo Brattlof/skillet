@@ -193,7 +193,7 @@ func Install(ctx context.Context, e registry.Entry, dir string) (string, error) 
 		}
 		if err := registerHook(settingsPath(dir), e.Hook.Event, e.Hook.Matcher, abs); err != nil {
 			os.RemoveAll(dest)
-			removeRecord(dir, e.Name)
+			_ = removeRecord(dir, e.Name)
 			return "", fmt.Errorf("registering hook %s: %w", e.Name, err)
 		}
 	}

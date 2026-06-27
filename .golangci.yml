@@ -1,0 +1,40 @@
+version: "2"
+
+# The enterprise standards in this repo require golangci-lint in CI. Keep the set
+# small and high-signal: the default vet/staticcheck/unused checks plus errcheck
+# and ineffassign. Formatting is enforced by the gofmt formatter below and by the
+# standalone gofmt step in CI.
+linters:
+  default: none
+  enable:
+    - errcheck
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+  settings:
+    errcheck:
+      # CLI/tabwriter output, best-effort cleanup, and Close on read-only handles
+      # are intentionally unchecked across the codebase. Excluding these
+      # conventional sinks keeps errcheck focused on genuinely forgotten checks
+      # (open, parse, network) rather than churn on lines that cannot meaningfully
+      # fail or are already on an error-return path.
+      exclude-functions:
+        - fmt.Fprint
+        - fmt.Fprintf
+        - fmt.Fprintln
+        - os.Remove
+        - os.RemoveAll
+        - (*os.File).Close
+        - (io.ReadCloser).Close
+        - (*compress/gzip.Reader).Close
+    staticcheck:
+      # QF* are editor quickfix suggestions, not bug checks. An ordering assertion
+      # written as !(a > b && b > c) reads clearer than its De Morgan expansion.
+      checks:
+        - all
+        - -QF1001
+
+formatters:
+  enable:
+    - gofmt

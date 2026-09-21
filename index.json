@@ -1,0 +1,4008 @@
+[
+  {
+    "name": "01_experiment_driven_development",
+    "description": "Logs goal, learnings, and a surgical plan to an experiments markdown file before making changes, then records the attempted solution.",
+    "repo": "https://github.com/EveryInc/claude_commands",
+    "path": "01_experiment_driven_development.md",
+    "author": "EveryInc",
+    "tags": [
+      "workflow",
+      "planning",
+      "experiment"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "02_generate_codebase_context",
+    "description": "Generates a top-level llms.txt summarizing each file, its functions with params and types, and an ASCII map of file connections.",
+    "repo": "https://github.com/EveryInc/claude_commands",
+    "path": "02_generate_codebase_context.md",
+    "author": "EveryInc",
+    "tags": [
+      "docs",
+      "context",
+      "codebase"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "03_analyze_github_issue",
+    "description": "Reviews a GitHub issue with gh issue view, examines the relevant codebase, and produces a plan to address the issue.",
+    "repo": "https://github.com/EveryInc/claude_commands",
+    "path": "03_analyze_github_issue.md",
+    "author": "EveryInc",
+    "tags": [
+      "github",
+      "issue",
+      "planning"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "05_resolve_pr_comments",
+    "description": "Detects the current branch and PR, reads all PR comments and review threads, and resolves the to-dos by editing files and committing.",
+    "repo": "https://github.com/EveryInc/claude_commands",
+    "path": "05_resolve_pr_comments.md",
+    "author": "EveryInc",
+    "tags": [
+      "github",
+      "pr",
+      "review"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "06_help_me_market",
+    "description": "Studies recent commits and docs to identify user-facing changes and drafts marketing copy about them from the given arguments.",
+    "repo": "https://github.com/EveryInc/claude_commands",
+    "path": "06_help_me_market.md",
+    "author": "EveryInc",
+    "tags": [
+      "marketing",
+      "docs",
+      "writing"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "Socratic",
+    "description": "Guides you to the answer through questions instead of giving it directly.",
+    "repo": "https://github.com/nattergabriel/claude-code-output-styles",
+    "path": "output-styles/socratic.md",
+    "author": "nattergabriel",
+    "tags": [
+      "output-style",
+      "teaching",
+      "socratic",
+      "learning"
+    ],
+    "kind": "output-style"
+  },
+  {
+    "name": "a11y-audit",
+    "description": "Accessibility audit for WCAG 2.2 A/AA compliance across React, Next.js, Vue, Angular, Svelte, and plain HTML.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering-team/a11y-audit/skills/a11y-audit",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "agent-platform-deploy",
+    "description": "Deploy open models or custom weights from Model Garden to Google Cloud Agent Platform endpoints, check status, and clean up resources.",
+    "repo": "https://github.com/google/skills",
+    "path": "skills/cloud/agent-platform-deploy",
+    "author": "google",
+    "tags": [
+      "google-cloud",
+      "deployment",
+      "models",
+      "vertex"
+    ]
+  },
+  {
+    "name": "agent-platform-inference",
+    "description": "Connect to and run inference with Google Cloud Agent Platform GenAI models, including Gemini and third-party OpenMaaS models.",
+    "repo": "https://github.com/google/skills",
+    "path": "skills/cloud/agent-platform-inference",
+    "author": "google",
+    "tags": [
+      "google-cloud",
+      "inference",
+      "gemini",
+      "genai"
+    ]
+  },
+  {
+    "name": "ai-engineer",
+    "description": "Architects and optimizes end-to-end AI systems from model selection and training pipelines to production deployment.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/05-data-ai/ai-engineer.md",
+    "author": "VoltAgent",
+    "tags": [
+      "ai",
+      "ml",
+      "deployment"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "ai-security",
+    "description": "Assess AI/ML systems for prompt injection, jailbreak, model inversion, data poisoning, or agent tool abuse.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering-team/skills/ai-security",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "airtable",
+    "description": "Airtable read and write access: inspect base schemas, read and write records. Requires AIRTABLE_API_KEY env var.",
+    "repo": "",
+    "path": "",
+    "author": "Adam Jones (domdomegg)",
+    "tags": [
+      "database",
+      "airtable",
+      "productivity"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "airtable-mcp-server"
+      ]
+    }
+  },
+  {
+    "name": "algorithmic-art",
+    "description": "Create generative and algorithmic art using code.",
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/algorithmic-art",
+    "author": "anthropics",
+    "tags": [
+      "art",
+      "generative",
+      "creative",
+      "code"
+    ]
+  },
+  {
+    "name": "anydesign",
+    "description": "Extract a design system from an image, website, or Figma file and generate a design.md.",
+    "repo": "https://github.com/uxKero/anydesign",
+    "path": ".",
+    "author": "uxKero",
+    "tags": [
+      "design",
+      "ui",
+      "extraction"
+    ]
+  },
+  {
+    "name": "api-designer",
+    "description": "Designs REST and GraphQL APIs, OpenAPI specifications, authentication patterns, and versioning strategies.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/01-core-development/api-designer.md",
+    "author": "VoltAgent",
+    "tags": [
+      "api",
+      "rest",
+      "graphql"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "api-scaffold",
+    "description": "Generates a production-ready API endpoint with routing, validation, and tests.",
+    "repo": "https://github.com/wshobson/commands",
+    "path": "tools/api-scaffold.md",
+    "author": "wshobson",
+    "tags": [
+      "api",
+      "scaffold",
+      "codegen"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "apify",
+    "description": "Run Apify Actors for web scraping and data extraction and access scraped datasets. Requires APIFY_TOKEN env var.",
+    "repo": "",
+    "path": "",
+    "author": "Apify",
+    "tags": [
+      "web",
+      "scraping",
+      "data",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@apify/actors-mcp-server"
+      ]
+    }
+  },
+  {
+    "name": "architect-reviewer",
+    "description": "Evaluates system design decisions, architectural patterns, and technology choices at the macro level.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/04-quality-security/architect-reviewer.md",
+    "author": "VoltAgent",
+    "tags": [
+      "architecture",
+      "review",
+      "design"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "article-extractor",
+    "description": "Extract clean article text and metadata from a URL, stripping ads and navigation.",
+    "repo": "https://github.com/michalparkola/tapestry-skills-for-claude-code",
+    "path": "article-extractor",
+    "author": "michalparkola",
+    "tags": [
+      "content",
+      "extraction",
+      "web",
+      "writing"
+    ]
+  },
+  {
+    "name": "atlassian",
+    "description": "Atlassian Jira and Confluence access via Rovo: search and manage issues, pages and projects. Remote server with OAuth.",
+    "repo": "",
+    "path": "",
+    "author": "Atlassian",
+    "tags": [
+      "productivity",
+      "issues",
+      "jira",
+      "official",
+      "remote"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "url": "https://mcp.atlassian.com/v1/sse"
+    }
+  },
+  {
+    "name": "auto-stage",
+    "description": "PostToolUse hook that automatically git-stages files after Claude modifies them via Edit or Write.",
+    "repo": "https://github.com/karanb192/claude-code-hooks",
+    "path": "hook-scripts/post-tool-use/auto-stage.js",
+    "author": "karanb192",
+    "tags": [
+      "git",
+      "automation",
+      "nodejs"
+    ],
+    "kind": "hook",
+    "hook": {
+      "event": "PostToolUse",
+      "matcher": "Edit|Write"
+    }
+  },
+  {
+    "name": "aws-core",
+    "description": "AWS Labs core MCP server: orchestration and entry point for the AWS MCP server suite. Configure via AWS credentials env.",
+    "repo": "",
+    "path": "",
+    "author": "AWS Labs",
+    "tags": [
+      "aws",
+      "cloud",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "uvx",
+      "args": [
+        "awslabs.core-mcp-server@latest"
+      ]
+    }
+  },
+  {
+    "name": "backend-developer",
+    "description": "Builds server-side APIs, microservices, and backend systems with scalable architecture and production-ready implementation.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/01-core-development/backend-developer.md",
+    "author": "VoltAgent",
+    "tags": [
+      "backend",
+      "api",
+      "microservices"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "block-dangerous-commands",
+    "description": "PreToolUse hook for Bash that blocks destructive shell commands such as rm -rf and disk overwrites before they run.",
+    "repo": "https://github.com/karanb192/claude-code-hooks",
+    "path": "hook-scripts/pre-tool-use/block-dangerous-commands.js",
+    "author": "karanb192",
+    "tags": [
+      "security",
+      "safety",
+      "bash",
+      "nodejs"
+    ],
+    "kind": "hook",
+    "hook": {
+      "event": "PreToolUse",
+      "matcher": "Bash"
+    }
+  },
+  {
+    "name": "brainstorming",
+    "description": "Refine a rough idea into a design and spec through one-question-at-a-time dialogue before coding.",
+    "repo": "https://github.com/obra/superpowers",
+    "path": "skills/brainstorming",
+    "author": "obra",
+    "tags": [
+      "planning",
+      "brainstorming",
+      "design",
+      "workflow"
+    ]
+  },
+  {
+    "name": "brand-guidelines",
+    "description": "Apply organizational brand guidelines such as colors, typography, and tone to generated content.",
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/brand-guidelines",
+    "author": "anthropics",
+    "tags": [
+      "brand",
+      "design",
+      "style",
+      "content"
+    ]
+  },
+  {
+    "name": "brandkit",
+    "description": "Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist,...",
+    "repo": "https://github.com/Leonxlnx/taste-skill",
+    "path": "skills/brandkit",
+    "author": "Leonxlnx",
+    "tags": [
+      "design",
+      "branding",
+      "image-generation"
+    ]
+  },
+  {
+    "name": "brave-search",
+    "description": "Brave Search API access (web, news, image, video, local search). Requires BRAVE_API_KEY env var.",
+    "repo": "",
+    "path": "",
+    "author": "Brave",
+    "tags": [
+      "web",
+      "search",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@brave/brave-search-mcp-server",
+        "--transport",
+        "stdio"
+      ]
+    }
+  },
+  {
+    "name": "browserbase",
+    "description": "Cloud browser automation via Browserbase and Stagehand: navigate, act, extract and screenshot web pages. Requires BROWSERBASE_API_KEY and BROWSERBASE_PROJECT_ID env vars.",
+    "repo": "",
+    "path": "",
+    "author": "Browserbase",
+    "tags": [
+      "browser",
+      "automation",
+      "web",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@browserbasehq/mcp"
+      ]
+    }
+  },
+  {
+    "name": "bug-from-user",
+    "description": "Convert a vague user complaint into a reproducible bug report a solo dev can act on.",
+    "repo": "https://github.com/rockscy/solo-skills",
+    "path": "skills/bug-from-user",
+    "author": "rockscy",
+    "tags": [
+      "bugs",
+      "triage",
+      "solo-dev",
+      "productivity"
+    ]
+  },
+  {
+    "name": "building-blog",
+    "description": "Add an SEO-first, i18n-ready blog to a Next.js plus Sanity site via an intake, a plan, and a spec, with AI hero image generation.",
+    "repo": "https://github.com/BuildShipGrowRepeat/nextjs-sanity-blog-skill",
+    "path": "skills/building-blog",
+    "author": "BuildShipGrowRepeat",
+    "tags": [
+      "development",
+      "nextjs",
+      "sanity",
+      "blog",
+      "seo"
+    ]
+  },
+  {
+    "name": "canvas-design",
+    "description": "Produce canvas-based visual designs and graphics.",
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/canvas-design",
+    "author": "anthropics",
+    "tags": [
+      "design",
+      "canvas",
+      "graphics",
+      "creative"
+    ]
+  },
+  {
+    "name": "capture",
+    "description": "Capture and organize chaotic brain dumps into a structured, actionable system with zero information loss.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "productivity/capture/skills/capture",
+    "author": "alirezarezvani",
+    "tags": [
+      "productivity"
+    ]
+  },
+  {
+    "name": "caveman",
+    "description": "Ultra-compressed communication mode that cuts token usage about 75 percent while keeping full technical accuracy.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/productivity/caveman",
+    "author": "mattpocock",
+    "tags": [
+      "productivity"
+    ]
+  },
+  {
+    "name": "changelog-from-commits",
+    "description": "Generate a user-facing CHANGELOG entry from raw git log output.",
+    "repo": "https://github.com/rockscy/solo-skills",
+    "path": "skills/changelog-from-commits",
+    "author": "rockscy",
+    "tags": [
+      "changelog",
+      "git",
+      "release",
+      "writing"
+    ]
+  },
+  {
+    "name": "changelog-generator",
+    "description": "Create user-facing changelogs from git commit history by categorizing changes and turning technical commits into customer-friendly release notes.",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "path": "changelog-generator",
+    "author": "ComposioHQ",
+    "tags": [
+      "development",
+      "git",
+      "changelog",
+      "release-notes"
+    ]
+  },
+  {
+    "name": "chroma",
+    "description": "Chroma vector database for embeddings storage and semantic retrieval. Configure with --client-type and env vars.",
+    "repo": "",
+    "path": "",
+    "author": "Chroma",
+    "tags": [
+      "ai-data",
+      "vector-db",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "uvx",
+      "args": [
+        "chroma-mcp"
+      ]
+    }
+  },
+  {
+    "name": "ci-cd-pipeline-builder",
+    "description": "Generate pragmatic CI/CD pipelines from detected stack signals with environment-aware deploy stages.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering/skills/ci-cd-pipeline-builder",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "claude-api",
+    "description": "Reference and patterns for building with the Claude API and Anthropic SDK.",
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/claude-api",
+    "author": "anthropics",
+    "tags": [
+      "api",
+      "sdk",
+      "claude",
+      "reference"
+    ]
+  },
+  {
+    "name": "clickhouse",
+    "description": "ClickHouse database access: run read-only SQL queries and list databases and tables. Requires CLICKHOUSE_HOST, CLICKHOUSE_USER and CLICKHOUSE_PASSWORD env vars.",
+    "repo": "",
+    "path": "",
+    "author": "ClickHouse",
+    "tags": [
+      "database",
+      "clickhouse",
+      "analytics",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "uvx",
+      "args": [
+        "mcp-clickhouse"
+      ]
+    }
+  },
+  {
+    "name": "cloud-architect",
+    "description": "Designs and optimizes cloud infrastructure, multi-cloud strategies, migrations, disaster recovery, and cost optimization.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/03-infrastructure/cloud-architect.md",
+    "author": "VoltAgent",
+    "tags": [
+      "cloud",
+      "architecture",
+      "infrastructure"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "cloud-security",
+    "description": "Assess cloud infrastructure for misconfigurations, IAM escalation paths, S3 exposure, and IaC gaps.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering-team/skills/cloud-security",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "cloudflare-bindings",
+    "description": "Build Cloudflare Workers applications with access to Workers, KV, R2, D1 and other bindings. Remote server with OAuth.",
+    "repo": "",
+    "path": "",
+    "author": "Cloudflare",
+    "tags": [
+      "devops",
+      "cloudflare",
+      "workers",
+      "official",
+      "remote"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "url": "https://bindings.mcp.cloudflare.com/mcp"
+    }
+  },
+  {
+    "name": "cloudflare-deploy",
+    "description": "Deploy applications and infrastructure to Cloudflare using Workers, Pages, and related platform services.",
+    "repo": "https://github.com/openai/skills",
+    "path": "skills/.curated/cloudflare-deploy",
+    "author": "openai",
+    "tags": [
+      "cloudflare",
+      "deployment",
+      "workers",
+      "devops"
+    ]
+  },
+  {
+    "name": "cloudflare-docs",
+    "description": "Up-to-date Cloudflare documentation reference search. Remote server, no authentication required.",
+    "repo": "",
+    "path": "",
+    "author": "Cloudflare",
+    "tags": [
+      "docs",
+      "reference",
+      "official",
+      "remote"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "url": "https://docs.mcp.cloudflare.com/mcp"
+    }
+  },
+  {
+    "name": "cloudflare-observability",
+    "description": "Debug and analyze Cloudflare Workers using logs, analytics and account insights. Remote server with OAuth.",
+    "repo": "",
+    "path": "",
+    "author": "Cloudflare",
+    "tags": [
+      "observability",
+      "cloudflare",
+      "workers",
+      "official",
+      "remote"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "url": "https://observability.mcp.cloudflare.com/mcp"
+    }
+  },
+  {
+    "name": "code-review",
+    "description": "Reviews the current changes for bugs, style issues, and improvements.",
+    "repo": "https://github.com/qdhenry/Claude-Command-Suite",
+    "path": ".claude/commands/dev/code-review.md",
+    "author": "qdhenry",
+    "tags": [
+      "review",
+      "quality",
+      "dev"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "code-review-and-quality",
+    "description": "Conduct multi-axis code review across multiple quality dimensions before merging a change.",
+    "repo": "https://github.com/addyosmani/agent-skills",
+    "path": "skills/code-review-and-quality",
+    "author": "addyosmani",
+    "tags": [
+      "code-review",
+      "quality",
+      "engineering"
+    ]
+  },
+  {
+    "name": "code-reviewer",
+    "description": "Code review automation for TypeScript, Python, Go, Java, Rust, C#, Ruby, PHP, and more languages.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering-team/skills/code-reviewer",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "competitive-ads-extractor",
+    "description": "Extract and analyze competitors' ads from ad libraries such as Facebook and LinkedIn to understand messaging and creative approaches that work.",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "path": "competitive-ads-extractor",
+    "author": "ComposioHQ",
+    "tags": [
+      "business",
+      "marketing",
+      "ads",
+      "competitive-analysis"
+    ]
+  },
+  {
+    "name": "connect",
+    "description": "Connect Claude to apps to send emails, create issues, post messages, and update databases across Gmail, Slack, GitHub, Notion, and other services.",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "path": "connect",
+    "author": "ComposioHQ",
+    "tags": [
+      "development",
+      "integration",
+      "automation",
+      "apps"
+    ]
+  },
+  {
+    "name": "content-research-writer",
+    "description": "Write high-quality content with research, citations, hook improvement, and section feedback.",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "path": "content-research-writer",
+    "author": "ComposioHQ",
+    "tags": [
+      "writing",
+      "content",
+      "research",
+      "editing"
+    ]
+  },
+  {
+    "name": "content-strategy",
+    "description": "Plan a content strategy, decide what content to create, or figure out what topics to cover.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "marketing-skill/skills/content-strategy",
+    "author": "alirezarezvani",
+    "tags": [
+      "marketing"
+    ]
+  },
+  {
+    "name": "context7",
+    "description": "Pulls up-to-date, version-specific library docs into your prompts.",
+    "repo": "",
+    "path": "",
+    "author": "upstash",
+    "tags": [
+      "docs",
+      "reference"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ]
+    }
+  },
+  {
+    "name": "contract-and-proposal-writer",
+    "description": "Generate jurisdiction-aware business documents: contracts, proposals, SOWs, NDAs, and MSAs.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "business-growth/skills/contract-and-proposal-writer",
+    "author": "alirezarezvani",
+    "tags": [
+      "business",
+      "growth"
+    ]
+  },
+  {
+    "name": "copywriting",
+    "description": "Write, rewrite, or improve marketing copy for homepage, landing, pricing, feature, or product pages.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "marketing-skill/skills/copywriting",
+    "author": "alirezarezvani",
+    "tags": [
+      "marketing"
+    ]
+  },
+  {
+    "name": "critical-code-reviewer",
+    "description": "Uncompromising technical reviewer focused on correctness, maintainability and engineering truth over comfort.",
+    "repo": "https://github.com/viveknair/ccoutputstyles",
+    "path": "templates/critical-code-reviewer.md",
+    "author": "viveknair",
+    "tags": [
+      "output-style",
+      "code-review",
+      "engineering",
+      "critical"
+    ],
+    "kind": "output-style"
+  },
+  {
+    "name": "csv-data-summarizer",
+    "description": "Summarize CSV files with pandas: summary statistics and quick plots.",
+    "repo": "https://github.com/coffeefuelbump/csv-data-summarizer-claude-skill",
+    "path": ".",
+    "author": "coffeefuelbump",
+    "tags": [
+      "data",
+      "python",
+      "analysis"
+    ]
+  },
+  {
+    "name": "d3-viz",
+    "description": "Build interactive d3.js visualizations: custom charts, network diagrams, and geographic and SVG-based visuals.",
+    "repo": "https://github.com/chrisvoncsefalvay/claude-d3js-skill",
+    "path": ".",
+    "author": "chrisvoncsefalvay",
+    "tags": [
+      "data",
+      "frontend",
+      "javascript"
+    ]
+  },
+  {
+    "name": "data-quality-auditor",
+    "description": "Audit datasets for completeness, consistency, and accuracy, detect anomalies, and plan remediation.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering/data-quality-auditor/skills/data-quality-auditor",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "database-designer",
+    "description": "Design database schemas, plan migrations, optimize queries, or choose between SQL and NoSQL.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering/skills/database-designer",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "database-optimizer",
+    "description": "Analyzes slow queries, optimizes database performance across systems, and implements indexing strategies.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/05-data-ai/database-optimizer.md",
+    "author": "VoltAgent",
+    "tags": [
+      "database",
+      "optimization",
+      "sql"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "debugger",
+    "description": "Diagnoses and fixes bugs, identifies root causes of failures, and analyzes error logs and stack traces.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/04-quality-security/debugger.md",
+    "author": "VoltAgent",
+    "tags": [
+      "debugging",
+      "errors",
+      "troubleshooting"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "debugging-and-error-recovery",
+    "description": "Guide systematic root-cause debugging when tests fail, builds break, or behavior does not match expectations.",
+    "repo": "https://github.com/addyosmani/agent-skills",
+    "path": "skills/debugging-and-error-recovery",
+    "author": "addyosmani",
+    "tags": [
+      "debugging",
+      "errors",
+      "engineering"
+    ]
+  },
+  {
+    "name": "deep-research",
+    "description": "Execute autonomous multi-step research using the Google Gemini Deep Research Agent for market analysis, competitive landscaping, and literature reviews.",
+    "repo": "https://github.com/sanjay3290/ai-skills",
+    "path": "skills/deep-research",
+    "author": "sanjay3290",
+    "tags": [
+      "data",
+      "research",
+      "gemini",
+      "analysis"
+    ]
+  },
+  {
+    "name": "deepwiki",
+    "description": "AI-generated documentation for public GitHub repositories: read wiki structure, read docs and ask questions about a repo. Remote server, no authentication required.",
+    "repo": "",
+    "path": "",
+    "author": "Devin (Cognition)",
+    "tags": [
+      "docs",
+      "github",
+      "reference",
+      "remote"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "url": "https://mcp.deepwiki.com/mcp"
+    }
+  },
+  {
+    "name": "defuddle",
+    "description": "Extract clean markdown content from web pages using the Defuddle CLI, removing navigation and clutter to reduce token usage.",
+    "repo": "https://github.com/kepano/obsidian-skills",
+    "path": "skills/defuddle",
+    "author": "kepano",
+    "tags": [
+      "web",
+      "scraping",
+      "markdown",
+      "cli"
+    ]
+  },
+  {
+    "name": "dependency-auditor",
+    "description": "Audit dependencies across multi-language projects for vulnerabilities, license conflicts, and upgrades.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering/skills/dependency-auditor",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "deploy-to-vercel",
+    "description": "Deploy applications and websites to Vercel, defaulting to preview deployments unless production is requested.",
+    "repo": "https://github.com/vercel-labs/agent-skills",
+    "path": "skills/deploy-to-vercel",
+    "author": "vercel-labs",
+    "tags": [
+      "vercel",
+      "deployment",
+      "hosting",
+      "devops"
+    ]
+  },
+  {
+    "name": "deps-audit",
+    "description": "Audits project dependencies for outdated, deprecated, or vulnerable packages.",
+    "repo": "https://github.com/wshobson/commands",
+    "path": "tools/deps-audit.md",
+    "author": "wshobson",
+    "tags": [
+      "dependencies",
+      "audit",
+      "security"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "design-taste-frontend",
+    "description": "Anti-slop frontend skill for landing pages, portfolios, and redesigns. The agent reads the brief, infers the right design direction, and ships interfaces that do not look templated. Real...",
+    "repo": "https://github.com/Leonxlnx/taste-skill",
+    "path": "skills/taste-skill",
+    "author": "Leonxlnx",
+    "tags": [
+      "design",
+      "taste",
+      "frontend",
+      "ui"
+    ]
+  },
+  {
+    "name": "design-taste-frontend-v1",
+    "description": "The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is 'design-taste-frontend' (v2 experimental), which is a substantial rewrite. Use...",
+    "repo": "https://github.com/Leonxlnx/taste-skill",
+    "path": "skills/taste-skill-v1",
+    "author": "Leonxlnx",
+    "tags": [
+      "design",
+      "taste",
+      "frontend",
+      "ui"
+    ]
+  },
+  {
+    "name": "devops-engineer",
+    "description": "Builds infrastructure automation, CI/CD pipelines, containerization strategies, and deployment workflows.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/03-infrastructure/devops-engineer.md",
+    "author": "VoltAgent",
+    "tags": [
+      "devops",
+      "ci-cd",
+      "automation"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "diagnose",
+    "description": "Disciplined diagnosis loop for hard bugs and performance regressions: reproduce, minimise, hypothesise, instrument, fix, regression-test.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/engineering/diagnose",
+    "author": "mattpocock",
+    "tags": [
+      "debugging",
+      "performance",
+      "engineering"
+    ]
+  },
+  {
+    "name": "discord",
+    "description": "Discord bot integration: send and read messages, manage channels, roles and reactions. Requires a Discord bot token env var.",
+    "repo": "",
+    "path": "",
+    "author": "barryyip0625",
+    "tags": [
+      "chat",
+      "discord",
+      "messaging"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-discord"
+      ]
+    }
+  },
+  {
+    "name": "doc-coauthoring",
+    "description": "Co-author long-form documents with structured drafting and revision workflows.",
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/doc-coauthoring",
+    "author": "anthropics",
+    "tags": [
+      "documents",
+      "writing",
+      "collaboration",
+      "drafting"
+    ]
+  },
+  {
+    "name": "docker-development",
+    "description": "Docker development skill for Dockerfile optimization, compose orchestration, and security hardening.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering/docker-development/skills/docker-development",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "docx",
+    "description": "Create, edit, and analyze Microsoft Word .docx documents with formatting and tracked changes.",
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/docx",
+    "author": "anthropics",
+    "tags": [
+      "docx",
+      "word",
+      "documents",
+      "office"
+    ]
+  },
+  {
+    "name": "domain-name-brainstormer",
+    "description": "Generate creative domain name ideas and check availability across multiple TLDs including .com, .io, .dev, and .ai.",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "path": "domain-name-brainstormer",
+    "author": "ComposioHQ",
+    "tags": [
+      "business",
+      "domains",
+      "branding",
+      "marketing"
+    ]
+  },
+  {
+    "name": "dossier",
+    "description": "Decision-grade entity research that produces a hypothesis-tested dossier on a company or person.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "research/dossier/skills/dossier",
+    "author": "alirezarezvani",
+    "tags": [
+      "research"
+    ]
+  },
+  {
+    "name": "duckdb",
+    "description": "DuckDB database access: run SQL queries against a local DuckDB file. Set the database path with the --db-path argument.",
+    "repo": "",
+    "path": "",
+    "author": "ktanaka101",
+    "tags": [
+      "database",
+      "duckdb",
+      "analytics",
+      "sql"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-duckdb",
+        "--db-path",
+        "~/duckdb-mcp/data.db"
+      ]
+    }
+  },
+  {
+    "name": "e2b",
+    "description": "Run code in secure E2B cloud sandboxes. Requires E2B_API_KEY env var.",
+    "repo": "",
+    "path": "",
+    "author": "E2B (e2b-dev)",
+    "tags": [
+      "code",
+      "sandbox",
+      "execution",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@e2b/mcp-server"
+      ]
+    }
+  },
+  {
+    "name": "edit-article",
+    "description": "Edit and improve articles by restructuring sections, improving clarity, and tightening prose.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/personal/edit-article",
+    "author": "mattpocock",
+    "tags": [
+      "writing",
+      "personal"
+    ]
+  },
+  {
+    "name": "elevenlabs",
+    "description": "ElevenLabs text-to-speech, voice cloning, audio transcription and voice agents. Requires ELEVENLABS_API_KEY env var.",
+    "repo": "",
+    "path": "",
+    "author": "ElevenLabs",
+    "tags": [
+      "audio",
+      "tts",
+      "voice",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "uvx",
+      "args": [
+        "elevenlabs-mcp"
+      ]
+    }
+  },
+  {
+    "name": "email-customer",
+    "description": "Draft a polite-but-firm reply to a tricky customer email like refunds or scope creep.",
+    "repo": "https://github.com/rockscy/solo-skills",
+    "path": "skills/email-customer",
+    "author": "rockscy",
+    "tags": [
+      "email",
+      "customer",
+      "communication",
+      "writing"
+    ]
+  },
+  {
+    "name": "email-sequence",
+    "description": "Create or optimize an email sequence, drip campaign, automated flow, or lifecycle email program.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "marketing-skill/skills/email-sequence",
+    "author": "alirezarezvani",
+    "tags": [
+      "marketing"
+    ]
+  },
+  {
+    "name": "error-detective",
+    "description": "Searches logs and codebases for error patterns and stack traces, correlating errors across systems to find root causes.",
+    "repo": "https://github.com/wshobson/agents",
+    "path": "plugins/distributed-debugging/agents/error-detective.md",
+    "author": "wshobson",
+    "tags": [
+      "debugging",
+      "logs",
+      "errors"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "evaluate-repository",
+    "description": "Evaluates a repository against the awesome-claude-code submission criteria.",
+    "repo": "https://github.com/hesreallyhim/awesome-claude-code",
+    "path": ".claude/commands/evaluate-repository.md",
+    "author": "hesreallyhim",
+    "tags": [
+      "repository",
+      "evaluation",
+      "meta"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "everything",
+    "description": "Official MCP reference/test server exercising prompts, resources, and tools for client testing.",
+    "repo": "",
+    "path": "",
+    "author": "Anthropic / Model Context Protocol",
+    "tags": [
+      "official",
+      "reference",
+      "testing",
+      "demo"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-everything"
+      ]
+    }
+  },
+  {
+    "name": "exa",
+    "description": "Exa neural/semantic web search and crawling. Requires EXA_API_KEY env var.",
+    "repo": "",
+    "path": "",
+    "author": "Exa Labs",
+    "tags": [
+      "web",
+      "search",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "exa-mcp-server"
+      ]
+    }
+  },
+  {
+    "name": "experiment-designer",
+    "description": "Plan product experiments, write testable hypotheses, estimate sample size, and interpret A/B outcomes.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "product-team/skills/experiment-designer",
+    "author": "alirezarezvani",
+    "tags": [
+      "product"
+    ]
+  },
+  {
+    "name": "family-history-planning",
+    "description": "Plan family history and genealogy research projects step by step.",
+    "repo": "https://github.com/emaynard/claude-family-history-research-skill",
+    "path": ".",
+    "author": "emaynard",
+    "tags": [
+      "research",
+      "planning",
+      "personal"
+    ]
+  },
+  {
+    "name": "feature-development",
+    "description": "Multi-agent workflow that plans, implements, and tests a new feature end to end.",
+    "repo": "https://github.com/wshobson/commands",
+    "path": "workflows/feature-development.md",
+    "author": "wshobson",
+    "tags": [
+      "workflow",
+      "feature",
+      "multi-agent"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "fetch",
+    "description": "Fetch a URL and convert its HTML to markdown for the model. No API key required.",
+    "repo": "",
+    "path": "",
+    "author": "Model Context Protocol (Anthropic)",
+    "tags": [
+      "web",
+      "fetch",
+      "reference"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-fetch"
+      ]
+    }
+  },
+  {
+    "name": "ffuf-web-fuzzing",
+    "description": "Expert guidance for ffuf web fuzzing during penetration testing, including authenticated fuzzing with raw requests, auto-calibration, and result analysis.",
+    "repo": "https://github.com/jthack/ffuf_claude_skill",
+    "path": "ffuf-skill",
+    "author": "jthack",
+    "tags": [
+      "development",
+      "security",
+      "fuzzing",
+      "pentest"
+    ]
+  },
+  {
+    "name": "figma",
+    "description": "Provides Figma layout and design data to coding agents for design-to-code. Requires a Figma API key (--figma-api-key).",
+    "repo": "",
+    "path": "",
+    "author": "GLips",
+    "tags": [
+      "design",
+      "figma",
+      "frontend"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "figma-developer-mcp",
+        "--stdio"
+      ]
+    }
+  },
+  {
+    "name": "file-organizer",
+    "description": "Organize files and folders by context, find duplicates, and suggest better structures.",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "path": "file-organizer",
+    "author": "ComposioHQ",
+    "tags": [
+      "files",
+      "organization",
+      "productivity",
+      "cleanup"
+    ]
+  },
+  {
+    "name": "filesystem",
+    "description": "Official MCP reference server for secure local file operations within allowed directories.",
+    "repo": "",
+    "path": "",
+    "author": "Anthropic / Model Context Protocol",
+    "tags": [
+      "official",
+      "filesystem",
+      "files",
+      "reference"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/path/to/allowed/dir"
+      ]
+    }
+  },
+  {
+    "name": "financial-analyst",
+    "description": "Financial ratio analysis, DCF valuation, budget variance, and rolling forecast construction.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "finance/skills/financial-analyst",
+    "author": "alirezarezvani",
+    "tags": [
+      "finance"
+    ]
+  },
+  {
+    "name": "finishing-a-development-branch",
+    "description": "Guide completion of development work when tests pass by presenting structured options for merge, PR, or cleanup.",
+    "repo": "https://github.com/obra/superpowers",
+    "path": "skills/finishing-a-development-branch",
+    "author": "obra",
+    "tags": [
+      "development",
+      "git",
+      "workflow",
+      "branch"
+    ]
+  },
+  {
+    "name": "firecrawl",
+    "description": "Firecrawl web scraping, crawling and search returning clean markdown. Requires FIRECRAWL_API_KEY env var.",
+    "repo": "",
+    "path": "",
+    "author": "Firecrawl (Mendable)",
+    "tags": [
+      "web",
+      "scraping",
+      "crawl",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "firecrawl-mcp"
+      ]
+    }
+  },
+  {
+    "name": "fix-issue",
+    "description": "Reads a GitHub issue and implements a fix for the described problem.",
+    "repo": "https://github.com/qdhenry/Claude-Command-Suite",
+    "path": ".claude/commands/dev/fix-issue.md",
+    "author": "qdhenry",
+    "tags": [
+      "github",
+      "issue",
+      "dev"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "frontend-design",
+    "description": "Generate frontend UI designs and layouts following design best practices.",
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/frontend-design",
+    "author": "anthropics",
+    "tags": [
+      "frontend",
+      "design",
+      "ui",
+      "web"
+    ]
+  },
+  {
+    "name": "frontend-developer",
+    "description": "Builds frontend applications across React, Vue, and Angular with multi-framework expertise and full-stack integration.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/01-core-development/frontend-developer.md",
+    "author": "VoltAgent",
+    "tags": [
+      "frontend",
+      "react",
+      "vue"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "full-output-enforcement",
+    "description": "Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring...",
+    "repo": "https://github.com/Leonxlnx/taste-skill",
+    "path": "skills/output-skill",
+    "author": "Leonxlnx",
+    "tags": [
+      "coding",
+      "output",
+      "quality"
+    ]
+  },
+  {
+    "name": "full-page-screenshot",
+    "description": "Capture a full-page screenshot of an open tab or URL as one PNG via the Chrome DevTools protocol.",
+    "repo": "https://github.com/LewisLiu007/full-page-screenshot",
+    "path": ".",
+    "author": "LewisLiu007",
+    "tags": [
+      "browser",
+      "screenshots",
+      "web"
+    ]
+  },
+  {
+    "name": "full-review",
+    "description": "Runs a multi-agent code review covering correctness, security, and performance.",
+    "repo": "https://github.com/wshobson/commands",
+    "path": "workflows/full-review.md",
+    "author": "wshobson",
+    "tags": [
+      "review",
+      "workflow",
+      "multi-agent"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "gdpr-audit-prep",
+    "description": "GDPR audit forcing interrogation with Article citations for internal review or breach readiness.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "compliance-os/skills/gdpr-audit-prep",
+    "author": "alirezarezvani",
+    "tags": [
+      "compliance",
+      "audit"
+    ]
+  },
+  {
+    "name": "git",
+    "description": "Official MCP reference server to read, search, and manipulate a local Git repository.",
+    "repo": "",
+    "path": "",
+    "author": "Anthropic / Model Context Protocol",
+    "tags": [
+      "official",
+      "git",
+      "vcs",
+      "reference"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-git",
+        "--repository",
+        "/path/to/repo"
+      ]
+    }
+  },
+  {
+    "name": "git-guardrails-claude-code",
+    "description": "Set up Claude Code hooks to block dangerous git commands (push, reset --hard, clean, branch -D) before they execute.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/misc/git-guardrails-claude-code",
+    "author": "mattpocock",
+    "tags": [
+      "tooling"
+    ]
+  },
+  {
+    "name": "git-pushing",
+    "description": "Stage, commit, and push git changes with conventional commit messages.",
+    "repo": "https://github.com/mhattingpete/claude-skills-marketplace",
+    "path": "engineering-workflow-plugin/skills/git-pushing",
+    "author": "mhattingpete",
+    "tags": [
+      "git",
+      "commit",
+      "workflow",
+      "collaboration"
+    ]
+  },
+  {
+    "name": "github",
+    "description": "GitHub's official hosted MCP server for repos, issues, PRs, and code search over GitHub.",
+    "repo": "",
+    "path": "",
+    "author": "GitHub",
+    "tags": [
+      "github",
+      "official",
+      "git",
+      "remote",
+      "dev"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "url": "https://api.githubcopilot.com/mcp/"
+    }
+  },
+  {
+    "name": "gitlab",
+    "description": "MCP server for GitLab projects, issues, and merge requests.",
+    "repo": "",
+    "path": "",
+    "author": "Model Context Protocol (archived reference)",
+    "tags": [
+      "gitlab",
+      "git",
+      "dev",
+      "vcs"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-gitlab"
+      ]
+    }
+  },
+  {
+    "name": "gmail",
+    "description": "Search, read, send, and draft Gmail emails and manage labels.",
+    "repo": "https://github.com/sanjay3290/ai-skills",
+    "path": "skills/gmail",
+    "author": "sanjay3290",
+    "tags": [
+      "gmail",
+      "email",
+      "google-workspace",
+      "communication"
+    ]
+  },
+  {
+    "name": "golang-pro",
+    "description": "Builds Go applications with concurrent programming, high-performance systems, and cloud-native architectures.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/02-language-specialists/golang-pro.md",
+    "author": "VoltAgent",
+    "tags": [
+      "go",
+      "concurrency",
+      "cloud-native"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "google-calendar",
+    "description": "List calendars, view and manage events, and find free time in Google Calendar.",
+    "repo": "https://github.com/sanjay3290/ai-skills",
+    "path": "skills/google-calendar",
+    "author": "sanjay3290",
+    "tags": [
+      "calendar",
+      "google-workspace",
+      "scheduling",
+      "productivity"
+    ]
+  },
+  {
+    "name": "google-chat",
+    "description": "List spaces, send messages, read conversations, and manage DMs in Google Chat.",
+    "repo": "https://github.com/sanjay3290/ai-skills",
+    "path": "skills/google-chat",
+    "author": "sanjay3290",
+    "tags": [
+      "chat",
+      "google-workspace",
+      "communication",
+      "messaging"
+    ]
+  },
+  {
+    "name": "google-docs",
+    "description": "Create, search, read, and edit documents in Google Docs.",
+    "repo": "https://github.com/sanjay3290/ai-skills",
+    "path": "skills/google-docs",
+    "author": "sanjay3290",
+    "tags": [
+      "docs",
+      "google-workspace",
+      "documents",
+      "writing"
+    ]
+  },
+  {
+    "name": "google-drive",
+    "description": "Search, upload, download, share, and organize files in Google Drive.",
+    "repo": "https://github.com/sanjay3290/ai-skills",
+    "path": "skills/google-drive",
+    "author": "sanjay3290",
+    "tags": [
+      "drive",
+      "google-workspace",
+      "files",
+      "storage"
+    ]
+  },
+  {
+    "name": "google-maps",
+    "description": "Google Maps geocoding, places search, directions and distance matrix. Requires GOOGLE_MAPS_API_KEY env var.",
+    "repo": "",
+    "path": "",
+    "author": "Model Context Protocol",
+    "tags": [
+      "productivity",
+      "maps",
+      "geo",
+      "reference"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-google-maps"
+      ]
+    }
+  },
+  {
+    "name": "google-sheets",
+    "description": "Read and write Google Sheets cells, ranges, and rows and view metadata.",
+    "repo": "https://github.com/sanjay3290/ai-skills",
+    "path": "skills/google-sheets",
+    "author": "sanjay3290",
+    "tags": [
+      "sheets",
+      "google-workspace",
+      "spreadsheets",
+      "data"
+    ]
+  },
+  {
+    "name": "google-slides",
+    "description": "Read and write Google Slides presentations, add slides, and replace text.",
+    "repo": "https://github.com/sanjay3290/ai-skills",
+    "path": "skills/google-slides",
+    "author": "sanjay3290",
+    "tags": [
+      "slides",
+      "google-workspace",
+      "presentations",
+      "media"
+    ]
+  },
+  {
+    "name": "gpt-taste",
+    "description": "Elite UX/UI \u0026 Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line...",
+    "repo": "https://github.com/Leonxlnx/taste-skill",
+    "path": "skills/gpt-tasteskill",
+    "author": "Leonxlnx",
+    "tags": [
+      "design",
+      "ui",
+      "motion",
+      "frontend"
+    ]
+  },
+  {
+    "name": "grafana",
+    "description": "Grafana's official MCP server for dashboards, datasources, and querying Prometheus/Loki.",
+    "repo": "",
+    "path": "",
+    "author": "Grafana Labs",
+    "tags": [
+      "grafana",
+      "observability",
+      "metrics",
+      "official",
+      "data"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "-e",
+        "GRAFANA_URL",
+        "-e",
+        "GRAFANA_API_KEY",
+        "mcp/grafana",
+        "-t",
+        "stdio"
+      ]
+    }
+  },
+  {
+    "name": "great_cto",
+    "description": "Orchestrate a full SDLC pipeline from a feature, task, or project goal, mapping natural language requests to the correct pipeline stage and agent.",
+    "repo": "https://github.com/avelikiy/great_cto",
+    "path": "skills/great_cto",
+    "author": "avelikiy",
+    "tags": [
+      "development",
+      "sdlc",
+      "orchestration",
+      "agents"
+    ]
+  },
+  {
+    "name": "grill-me",
+    "description": "Interview the user relentlessly about a plan or design until reaching shared understanding.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/productivity/grill-me",
+    "author": "mattpocock",
+    "tags": [
+      "productivity"
+    ]
+  },
+  {
+    "name": "grill-with-docs",
+    "description": "Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates docs.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/engineering/grill-with-docs",
+    "author": "mattpocock",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "handoff",
+    "description": "Compact the current conversation into a handoff document for another agent to pick up.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/productivity/handoff",
+    "author": "mattpocock",
+    "tags": [
+      "productivity"
+    ]
+  },
+  {
+    "name": "hello-skill",
+    "description": "Minimal example skill that ships with skillet - install it to learn the SKILL.md format.",
+    "repo": "https://github.com/Brattlof/skillet",
+    "path": "examples/hello-skill",
+    "author": "skillet",
+    "tags": [
+      "example",
+      "starter",
+      "docs"
+    ]
+  },
+  {
+    "name": "heroku",
+    "description": "Heroku Platform management: manage apps, dynos, add-ons, config vars and deployments. Requires Heroku CLI authentication.",
+    "repo": "",
+    "path": "",
+    "author": "Heroku",
+    "tags": [
+      "devops",
+      "deployment",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@heroku/mcp-server"
+      ]
+    }
+  },
+  {
+    "name": "hf-cli",
+    "description": "Use the Hugging Face Hub CLI (hf) to download, upload, and manage models, datasets, spaces, repos, jobs, and inference endpoints.",
+    "repo": "https://github.com/huggingface/skills",
+    "path": "skills/hf-cli",
+    "author": "huggingface",
+    "tags": [
+      "huggingface",
+      "cli",
+      "machine-learning",
+      "models"
+    ]
+  },
+  {
+    "name": "high-end-visual-design",
+    "description": "Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the...",
+    "repo": "https://github.com/Leonxlnx/taste-skill",
+    "path": "skills/soft-skill",
+    "author": "Leonxlnx",
+    "tags": [
+      "design",
+      "ui",
+      "frontend"
+    ]
+  },
+  {
+    "name": "huggingface",
+    "description": "Hugging Face Hub access: search models, datasets, Spaces and papers and run Gradio app tools. Remote server; optional HF_TOKEN for authenticated access.",
+    "repo": "",
+    "path": "",
+    "author": "Hugging Face",
+    "tags": [
+      "ml",
+      "models",
+      "official",
+      "remote"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "url": "https://huggingface.co/mcp"
+    }
+  },
+  {
+    "name": "huggingface-gradio",
+    "description": "Build Gradio web UIs and ML demos in Python, covering components, event listeners, layouts, and chatbots.",
+    "repo": "https://github.com/huggingface/skills",
+    "path": "skills/huggingface-gradio",
+    "author": "huggingface",
+    "tags": [
+      "gradio",
+      "python",
+      "ui",
+      "machine-learning"
+    ]
+  },
+  {
+    "name": "image-enhancer",
+    "description": "Enhance image and screenshot quality by improving resolution, sharpness, and clarity.",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "path": "image-enhancer",
+    "author": "ComposioHQ",
+    "tags": [
+      "image",
+      "enhancement",
+      "media",
+      "screenshots"
+    ]
+  },
+  {
+    "name": "image-to-code",
+    "description": "Elite website image-to-code skill for Codex. For visually important web tasks, it must first generate the design image(s) itself, deeply analyze them, then implement the website...",
+    "repo": "https://github.com/Leonxlnx/taste-skill",
+    "path": "skills/image-to-code-skill",
+    "author": "Leonxlnx",
+    "tags": [
+      "frontend",
+      "design",
+      "codex"
+    ]
+  },
+  {
+    "name": "imagegen-frontend-mobile",
+    "description": "Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes...",
+    "repo": "https://github.com/Leonxlnx/taste-skill",
+    "path": "skills/imagegen-frontend-mobile",
+    "author": "Leonxlnx",
+    "tags": [
+      "design",
+      "mobile",
+      "image-generation"
+    ]
+  },
+  {
+    "name": "imagegen-frontend-web",
+    "description": "Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE - generate ONE separate horizontal image FOR EVERY...",
+    "repo": "https://github.com/Leonxlnx/taste-skill",
+    "path": "skills/imagegen-frontend-web",
+    "author": "Leonxlnx",
+    "tags": [
+      "design",
+      "web",
+      "image-generation"
+    ]
+  },
+  {
+    "name": "imagen",
+    "description": "Generate images using Google Gemini's image generation API for mockups, icons, and illustrations.",
+    "repo": "https://github.com/sanjay3290/ai-skills",
+    "path": "skills/imagen",
+    "author": "sanjay3290",
+    "tags": [
+      "image-generation",
+      "gemini",
+      "media",
+      "design"
+    ]
+  },
+  {
+    "name": "improve-codebase-architecture",
+    "description": "Find architectural deepening and refactoring opportunities in a codebase to improve testability and navigability.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/engineering/improve-codebase-architecture",
+    "author": "mattpocock",
+    "tags": [
+      "architecture",
+      "refactoring",
+      "engineering"
+    ]
+  },
+  {
+    "name": "inbox-triage",
+    "description": "Run a full inbox triage using the knowledge base created by the inbox-setup skill.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "productivity/email/skills/inbox-triage",
+    "author": "alirezarezvani",
+    "tags": [
+      "productivity"
+    ]
+  },
+  {
+    "name": "incident-responder",
+    "description": "SRE incident responder for rapid problem resolution, observability, incident command, and blameless post-mortems.",
+    "repo": "https://github.com/wshobson/agents",
+    "path": "plugins/incident-response/agents/incident-responder.md",
+    "author": "wshobson",
+    "tags": [
+      "sre",
+      "incident-response",
+      "observability"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "incident-response",
+    "description": "Classify, triage, escalate, and collect forensic evidence for a detected security incident.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering-team/skills/incident-response",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "industrial-brutalist-ui",
+    "description": "Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation...",
+    "repo": "https://github.com/Leonxlnx/taste-skill",
+    "path": "skills/brutalist-skill",
+    "author": "Leonxlnx",
+    "tags": [
+      "design",
+      "ui",
+      "frontend"
+    ]
+  },
+  {
+    "name": "internal-comms",
+    "description": "Help write internal communications such as status reports, leadership updates, 3P updates, newsletters, FAQs, and incident reports in company formats.",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "path": "internal-comms",
+    "author": "ComposioHQ",
+    "tags": [
+      "business",
+      "communications",
+      "writing",
+      "internal"
+    ]
+  },
+  {
+    "name": "invoice-organizer",
+    "description": "Organize invoices and receipts for tax prep by extracting info and renaming files consistently.",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "path": "invoice-organizer",
+    "author": "ComposioHQ",
+    "tags": [
+      "invoices",
+      "organization",
+      "tax",
+      "productivity"
+    ]
+  },
+  {
+    "name": "ios-simulator-skill",
+    "description": "Interact with the iOS Simulator for app testing, building, and automation with semantic UI navigation, build automation, and accessibility testing.",
+    "repo": "https://github.com/conorluddy/ios-simulator-skill",
+    "path": "ios-simulator-skill/skills/ios-simulator-skill",
+    "author": "conorluddy",
+    "tags": [
+      "development",
+      "ios",
+      "simulator",
+      "testing"
+    ]
+  },
+  {
+    "name": "json-canvas",
+    "description": "Create and edit JSON Canvas files (.canvas) with nodes, edges, groups, and connections for visual canvases, mind maps, and flowcharts.",
+    "repo": "https://github.com/kepano/obsidian-skills",
+    "path": "skills/json-canvas",
+    "author": "kepano",
+    "tags": [
+      "obsidian",
+      "json-canvas",
+      "diagrams",
+      "notes"
+    ]
+  },
+  {
+    "name": "jules",
+    "description": "Delegate coding tasks to the Google Jules AI agent for asynchronous bug fixes, documentation, tests, features, refactoring, and code reviews on GitHub repos.",
+    "repo": "https://github.com/sanjay3290/ai-skills",
+    "path": "skills/jules",
+    "author": "sanjay3290",
+    "tags": [
+      "development",
+      "ai-agent",
+      "github",
+      "automation"
+    ]
+  },
+  {
+    "name": "kaizen",
+    "description": "Apply continuous improvement with iterative changes and error-proofing to avoid over-engineering.",
+    "repo": "https://github.com/NeoLabHQ/context-engineering-kit",
+    "path": "plugins/kaizen/skills/kaizen",
+    "author": "NeoLabHQ",
+    "tags": [
+      "kaizen",
+      "improvement",
+      "workflow",
+      "quality"
+    ]
+  },
+  {
+    "name": "kubernetes-specialist",
+    "description": "Designs, deploys, configures, and troubleshoots Kubernetes clusters and workloads in production environments.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/03-infrastructure/kubernetes-specialist.md",
+    "author": "VoltAgent",
+    "tags": [
+      "kubernetes",
+      "containers",
+      "infrastructure"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "langsmith-fetch",
+    "description": "Debug LangChain and LangGraph agents by fetching and analyzing execution traces from LangSmith Studio, including tool calls and memory operations.",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "path": "langsmith-fetch",
+    "author": "ComposioHQ",
+    "tags": [
+      "development",
+      "langchain",
+      "observability",
+      "debugging"
+    ]
+  },
+  {
+    "name": "launch-tweet",
+    "description": "Draft a launch tweet or short thread for a solo product launch on X.",
+    "repo": "https://github.com/rockscy/solo-skills",
+    "path": "skills/launch-tweet",
+    "author": "rockscy",
+    "tags": [
+      "twitter",
+      "launch",
+      "marketing",
+      "writing"
+    ]
+  },
+  {
+    "name": "lead-research-assistant",
+    "description": "Identify high-quality leads by analyzing your business, searching for target companies, and providing actionable contact strategies for sales and marketing.",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "path": "lead-research-assistant",
+    "author": "ComposioHQ",
+    "tags": [
+      "business",
+      "sales",
+      "leads",
+      "marketing"
+    ]
+  },
+  {
+    "name": "lean-ctx",
+    "description": "Context runtime for AI agents with MCP tools, multiple read modes, shell patterns, and tree-sitter AST support to compress LLM context usage.",
+    "repo": "https://github.com/yvgude/lean-ctx",
+    "path": "skills/lean-ctx",
+    "author": "yvgude",
+    "tags": [
+      "development",
+      "context",
+      "mcp",
+      "tokens"
+    ]
+  },
+  {
+    "name": "linear",
+    "description": "Linear issue tracking and project management (25+ tools). Remote server with OAuth; no install needed.",
+    "repo": "",
+    "path": "",
+    "author": "Linear",
+    "tags": [
+      "productivity",
+      "issues",
+      "official",
+      "remote"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "url": "https://mcp.linear.app/mcp"
+    }
+  },
+  {
+    "name": "lw",
+    "description": "Uses the gh CLI to find pull requests merged into main from the previous Monday through Sunday and summarizes each in one bullet.",
+    "repo": "https://github.com/robzolkos/claude-commands",
+    "path": "lw.md",
+    "author": "robzolkos",
+    "tags": [
+      "github",
+      "pr",
+      "summary"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "markdown-to-epub-converter",
+    "description": "Convert markdown documents and chat summaries into formatted EPUB ebook files readable on any device or uploadable to Kindle.",
+    "repo": "https://github.com/smerchek/claude-epub-skill",
+    "path": "markdown-to-epub",
+    "author": "smerchek",
+    "tags": [
+      "document",
+      "epub",
+      "markdown",
+      "ebook"
+    ]
+  },
+  {
+    "name": "market-research",
+    "description": "Upstream market-research methodology - TAM/SAM/SOM sizing and survey sample-size planning.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "research-ops/skills/market-research",
+    "author": "alirezarezvani",
+    "tags": [
+      "research"
+    ]
+  },
+  {
+    "name": "master-claude-for-legal",
+    "description": "Set up Claude for legal teams: NDA triage, redline diffs, citation checks, privilege, and meeting briefs.",
+    "repo": "https://github.com/sboghossian/master-claude-for-legal",
+    "path": ".",
+    "author": "sboghossian",
+    "tags": [
+      "legal",
+      "documents",
+      "workflow"
+    ]
+  },
+  {
+    "name": "mcp-builder",
+    "description": "Build Model Context Protocol servers, including tool, resource, and prompt definitions.",
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/mcp-builder",
+    "author": "anthropics",
+    "tags": [
+      "mcp",
+      "server",
+      "tools",
+      "integration"
+    ]
+  },
+  {
+    "name": "mcp-server-builder",
+    "description": "Design and ship production-ready MCP servers from OpenAPI contracts in Python or TypeScript.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering/skills/mcp-server-builder",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "meeting-insights-analyzer",
+    "description": "Analyze meeting transcripts for behavioral patterns, speaking ratios, filler words, and leadership style.",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "path": "meeting-insights-analyzer",
+    "author": "ComposioHQ",
+    "tags": [
+      "meetings",
+      "analysis",
+      "communication",
+      "transcript"
+    ]
+  },
+  {
+    "name": "memory",
+    "description": "Official MCP reference server providing a knowledge-graph-based persistent memory store.",
+    "repo": "",
+    "path": "",
+    "author": "Anthropic / Model Context Protocol",
+    "tags": [
+      "official",
+      "memory",
+      "knowledge-graph",
+      "reference"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ]
+    }
+  },
+  {
+    "name": "migrate-to-shoehorn",
+    "description": "Migrate test files from as type assertions to @total-typescript/shoehorn for partial test data.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/misc/migrate-to-shoehorn",
+    "author": "mattpocock",
+    "tags": [
+      "tooling"
+    ]
+  },
+  {
+    "name": "minimalist-ui",
+    "description": "Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows.",
+    "repo": "https://github.com/Leonxlnx/taste-skill",
+    "path": "skills/minimalist-skill",
+    "author": "Leonxlnx",
+    "tags": [
+      "design",
+      "ui",
+      "frontend"
+    ]
+  },
+  {
+    "name": "mongodb",
+    "description": "MongoDB and Atlas access: query, aggregate, inspect schemas and manage collections. Requires MDB_MCP_CONNECTION_STRING env var.",
+    "repo": "",
+    "path": "",
+    "author": "MongoDB (mongodb-js)",
+    "tags": [
+      "database",
+      "mongodb",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mongodb-mcp-server@latest"
+      ]
+    }
+  },
+  {
+    "name": "move-code-quality",
+    "description": "Review Move language packages against the Move Book quality checklist for Move 2024 Edition.",
+    "repo": "https://github.com/1NickPappas/move-code-quality-skill",
+    "path": ".",
+    "author": "1NickPappas",
+    "tags": [
+      "code-review",
+      "quality",
+      "engineering"
+    ]
+  },
+  {
+    "name": "neon",
+    "description": "Neon serverless Postgres: create projects/branches, run SQL, manage migrations. Requires a Neon API key passed as argument.",
+    "repo": "",
+    "path": "",
+    "author": "Neon",
+    "tags": [
+      "ai-data",
+      "database",
+      "postgres",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@neondatabase/mcp-server-neon",
+        "start"
+      ]
+    }
+  },
+  {
+    "name": "notebooklm",
+    "description": "Query Google NotebookLM notebooks from Claude Code for source-grounded, citation-backed answers.",
+    "repo": "https://github.com/PleasePrompto/notebooklm-skill",
+    "path": ".",
+    "author": "PleasePrompto",
+    "tags": [
+      "research",
+      "browser",
+      "automation"
+    ]
+  },
+  {
+    "name": "notion",
+    "description": "Notion workspace access: search, read, create and update pages and databases. Requires NOTION_TOKEN env var (or use remote OAuth at mcp.notion.com).",
+    "repo": "",
+    "path": "",
+    "author": "Notion (makenotion)",
+    "tags": [
+      "productivity",
+      "notes",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@notionhq/notion-mcp-server"
+      ]
+    }
+  },
+  {
+    "name": "observability-designer",
+    "description": "Design observability strategies combining metrics, logs, and traces with SLI/SLO design.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering/skills/observability-designer",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "obsidian-bases",
+    "description": "Create and edit Obsidian Bases (.base files) with views, filters, formulas, and summaries for database-like views of notes.",
+    "repo": "https://github.com/kepano/obsidian-skills",
+    "path": "skills/obsidian-bases",
+    "author": "kepano",
+    "tags": [
+      "obsidian",
+      "bases",
+      "database",
+      "notes"
+    ]
+  },
+  {
+    "name": "obsidian-cli",
+    "description": "Interact with Obsidian vaults via the Obsidian CLI to read, create, search, and manage notes, tasks, and properties, and to develop and debug plugins and themes.",
+    "repo": "https://github.com/kepano/obsidian-skills",
+    "path": "skills/obsidian-cli",
+    "author": "kepano",
+    "tags": [
+      "obsidian",
+      "cli",
+      "notes",
+      "productivity"
+    ]
+  },
+  {
+    "name": "obsidian-vault",
+    "description": "Search, create, and manage notes in an Obsidian vault with wikilinks and index notes.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/personal/obsidian-vault",
+    "author": "mattpocock",
+    "tags": [
+      "writing",
+      "personal"
+    ]
+  },
+  {
+    "name": "openweb",
+    "description": "Typed JSON access to 90+ real websites across search, shopping, travel, finance, social, news, and dev tools to read, search, post, comment, or message.",
+    "repo": "https://github.com/openweb-org/openweb",
+    "path": "skills/openweb",
+    "author": "openweb-org",
+    "tags": [
+      "development",
+      "web",
+      "automation",
+      "api"
+    ]
+  },
+  {
+    "name": "outline",
+    "description": "Search, read, create, and manage documents in Outline wiki instances, cloud or self-hosted.",
+    "repo": "https://github.com/sanjay3290/ai-skills",
+    "path": "skills/outline",
+    "author": "sanjay3290",
+    "tags": [
+      "outline",
+      "wiki",
+      "documentation",
+      "collaboration"
+    ]
+  },
+  {
+    "name": "overkill",
+    "description": "Propose advanced maximalist alternatives to a solution, ranking advanced data structures, algorithms, frameworks, and tooling on a calibrated complexity scale.",
+    "repo": "https://github.com/santiago-vargas-de-kruijf/claude-overkill",
+    "path": "plugins/overkill/skills/overkill",
+    "author": "santiago-vargas-de-kruijf",
+    "tags": [
+      "development",
+      "architecture",
+      "learning",
+      "patterns"
+    ]
+  },
+  {
+    "name": "pda-reframing",
+    "description": "Reframe tasks and requests to reduce Persistent Demand Avoidance triggers for PDA autism and ADHD.",
+    "repo": "https://github.com/emory/ASD-AuDHD-PAI-Skills",
+    "path": "Skills/pda-reframing",
+    "author": "emory",
+    "tags": [
+      "accessibility",
+      "neurodiversity",
+      "reframing",
+      "assistive"
+    ]
+  },
+  {
+    "name": "pdf",
+    "description": "Fill, create, merge, split, and extract text and tables from PDF files programmatically.",
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/pdf",
+    "author": "anthropics",
+    "tags": [
+      "pdf",
+      "documents",
+      "office",
+      "extraction"
+    ]
+  },
+  {
+    "name": "penetration-tester",
+    "description": "Conducts authorized security penetration tests to identify vulnerabilities through active exploitation and validation.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/04-quality-security/penetration-tester.md",
+    "author": "VoltAgent",
+    "tags": [
+      "security",
+      "pentest",
+      "offensive-security"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "performance-engineer",
+    "description": "Identifies and eliminates performance bottlenecks in applications, databases, and infrastructure systems.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/04-quality-security/performance-engineer.md",
+    "author": "VoltAgent",
+    "tags": [
+      "performance",
+      "optimization",
+      "profiling"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "performance-profiler",
+    "description": "Profile Node.js, Python, and Go apps for CPU, memory, and I/O bottlenecks with flamegraphs.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering/skills/performance-profiler",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "pict-test-designer",
+    "description": "Design pairwise combinatorial test cases with PICT: models, parameters, constraints, and expected results.",
+    "repo": "https://github.com/omkamal/pypict-claude-skill",
+    "path": ".",
+    "author": "omkamal",
+    "tags": [
+      "testing",
+      "qa",
+      "quality"
+    ]
+  },
+  {
+    "name": "pinecone",
+    "description": "Pinecone vector database access: search indexes, upsert and query records and search Pinecone documentation. Requires PINECONE_API_KEY env var.",
+    "repo": "",
+    "path": "",
+    "author": "Pinecone (pinecone-io)",
+    "tags": [
+      "database",
+      "vector",
+      "pinecone",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@pinecone-database/mcp"
+      ]
+    }
+  },
+  {
+    "name": "pixelbin",
+    "description": "Generate and edit images and videos and build media pipelines using PixelBin's APIs and transformations.",
+    "repo": "https://github.com/anandpareek-hub/pixelbin-claude-skill",
+    "path": "skills/pixelbin",
+    "author": "anandpareek-hub",
+    "tags": [
+      "media",
+      "image-generation",
+      "video",
+      "cdn"
+    ]
+  },
+  {
+    "name": "playwright",
+    "description": "Browser automation via Playwright accessibility tree: navigate, click, type, screenshot. No API key required.",
+    "repo": "",
+    "path": "",
+    "author": "Microsoft",
+    "tags": [
+      "browser",
+      "automation",
+      "testing",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest"
+      ]
+    }
+  },
+  {
+    "name": "playwright-skill",
+    "description": "Browser automation with Playwright that auto-detects dev servers and writes test scripts to test pages, fill forms, take screenshots, and validate UX.",
+    "repo": "https://github.com/lackeyjb/playwright-skill",
+    "path": "skills/playwright-skill",
+    "author": "lackeyjb",
+    "tags": [
+      "development",
+      "playwright",
+      "browser",
+      "testing"
+    ]
+  },
+  {
+    "name": "postgres",
+    "description": "Postgres MCP server (Crystal DBA) for SQL queries, schema inspection, and performance analysis.",
+    "repo": "",
+    "path": "",
+    "author": "Crystal DBA (crystaldba)",
+    "tags": [
+      "postgres",
+      "database",
+      "sql",
+      "data",
+      "dev"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "uvx",
+      "args": [
+        "postgres-mcp",
+        "--access-mode=unrestricted"
+      ]
+    }
+  },
+  {
+    "name": "postmortem-solo",
+    "description": "Run a lightweight blame-free postmortem after an incident, failed launch, or missed deadline.",
+    "repo": "https://github.com/rockscy/solo-skills",
+    "path": "skills/postmortem-solo",
+    "author": "rockscy",
+    "tags": [
+      "postmortem",
+      "incident",
+      "retrospective",
+      "productivity"
+    ]
+  },
+  {
+    "name": "pptx",
+    "description": "Create, edit, and analyze Microsoft PowerPoint .pptx presentations.",
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/pptx",
+    "author": "anthropics",
+    "tags": [
+      "pptx",
+      "powerpoint",
+      "presentations",
+      "office"
+    ]
+  },
+  {
+    "name": "pr-review-expert",
+    "description": "Review pull requests, analyze code changes, check for security issues, or assess diff quality.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering/skills/pr-review-expert",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "pricing-strategist",
+    "description": "Design or revisit product pricing - model selection, Van Westendorp analysis, and packaging.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "commercial/skills/pricing-strategist",
+    "author": "alirezarezvani",
+    "tags": [
+      "sales",
+      "commercial"
+    ]
+  },
+  {
+    "name": "product-analytics",
+    "description": "Define product KPIs, build dashboards, run cohort or retention analysis, and read adoption trends.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "product-team/skills/product-analytics",
+    "author": "alirezarezvani",
+    "tags": [
+      "product"
+    ]
+  },
+  {
+    "name": "product-discovery",
+    "description": "Validate product opportunities, map assumptions, and test problem-solution fit before delivery.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "product-team/skills/product-discovery",
+    "author": "alirezarezvani",
+    "tags": [
+      "product"
+    ]
+  },
+  {
+    "name": "product-manager-toolkit",
+    "description": "PM toolkit with RICE prioritization, interview analysis, PRD templates, and GTM strategies.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "product-team/skills/product-manager-toolkit",
+    "author": "alirezarezvani",
+    "tags": [
+      "product"
+    ]
+  },
+  {
+    "name": "prompt-engineer",
+    "description": "Designs, optimizes, tests, and evaluates prompts for large language models in production systems.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/05-data-ai/prompt-engineer.md",
+    "author": "VoltAgent",
+    "tags": [
+      "prompt-engineering",
+      "llm",
+      "ai"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "prompt-engineering",
+    "description": "Teach prompt engineering techniques and patterns for commands, hooks, skills, and sub-agents, including Anthropic best practices and production templates.",
+    "repo": "https://github.com/NeoLabHQ/context-engineering-kit",
+    "path": "plugins/customaize-agent/skills/prompt-engineering",
+    "author": "NeoLabHQ",
+    "tags": [
+      "development",
+      "prompt-engineering",
+      "llm",
+      "prompts"
+    ]
+  },
+  {
+    "name": "protect-secrets",
+    "description": "PreToolUse hook that blocks reads, edits, writes, and Bash access to secret files like .env and credential files.",
+    "repo": "https://github.com/karanb192/claude-code-hooks",
+    "path": "hook-scripts/pre-tool-use/protect-secrets.js",
+    "author": "karanb192",
+    "tags": [
+      "security",
+      "secrets",
+      "nodejs"
+    ],
+    "kind": "hook",
+    "hook": {
+      "event": "PreToolUse",
+      "matcher": "Read|Edit|Write|Bash"
+    }
+  },
+  {
+    "name": "prototype",
+    "description": "Build a throwaway prototype to flesh out a design before committing, as a terminal app or toggleable UI variations.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/engineering/prototype",
+    "author": "mattpocock",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "publish",
+    "description": "Checks git status, updates gitignore, builds the package, bumps the patch version, commits, tags, pushes, and runs npm publish.",
+    "repo": "https://github.com/badlogic/claude-commands",
+    "path": "publish.md",
+    "author": "badlogic",
+    "tags": [
+      "release",
+      "npm",
+      "git"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "puppeteer",
+    "description": "MCP server for headless Chrome browser automation and screenshots via Puppeteer.",
+    "repo": "",
+    "path": "",
+    "author": "Model Context Protocol (archived reference)",
+    "tags": [
+      "browser",
+      "puppeteer",
+      "automation",
+      "screenshots"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-puppeteer"
+      ]
+    }
+  },
+  {
+    "name": "python-pro",
+    "description": "Builds type-safe, production-ready Python code with modern async patterns and extensive type coverage.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/02-language-specialists/python-pro.md",
+    "author": "VoltAgent",
+    "tags": [
+      "python",
+      "async",
+      "typing"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "qa-expert",
+    "description": "Provides quality assurance strategy, test planning across the development cycle, and quality metrics analysis.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/04-quality-security/qa-expert.md",
+    "author": "VoltAgent",
+    "tags": [
+      "qa",
+      "testing",
+      "quality"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "qdrant",
+    "description": "Qdrant vector search as a semantic memory layer (store and find). Configure via QDRANT_URL/QDRANT_API_KEY/COLLECTION_NAME env vars.",
+    "repo": "",
+    "path": "",
+    "author": "Qdrant",
+    "tags": [
+      "ai-data",
+      "vector-db",
+      "memory",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-qdrant"
+      ]
+    }
+  },
+  {
+    "name": "quiz",
+    "description": "Reads the code changed in the session and quizzes the user on two non-obvious techniques to reinforce learning.",
+    "repo": "https://github.com/robzolkos/claude-commands",
+    "path": "quiz.md",
+    "author": "robzolkos",
+    "tags": [
+      "learning",
+      "quiz",
+      "teaching"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "raffle-winner-picker",
+    "description": "Pick random winners from lists, spreadsheets, or Google Sheets for giveaways and contests.",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "path": "raffle-winner-picker",
+    "author": "ComposioHQ",
+    "tags": [
+      "raffle",
+      "random",
+      "productivity",
+      "contests"
+    ]
+  },
+  {
+    "name": "recursive-research",
+    "description": "Deep self-regulating recursive research up to PhD level across any domain, with source tiering, autonomous decision frameworks, and disk checkpointing.",
+    "repo": "https://github.com/Anjos2/recursive-research",
+    "path": "plugins/recursive-research/skills/recursive-research",
+    "author": "Anjos2",
+    "tags": [
+      "data",
+      "research",
+      "analysis",
+      "autonomous"
+    ]
+  },
+  {
+    "name": "reddit-fetch",
+    "description": "Fetch content from Reddit using the curl JSON API when accessing Reddit URLs, researching topics, or when Reddit returns 403 or blocked errors.",
+    "repo": "https://github.com/ykdojo/claude-code-tips",
+    "path": "skills/reddit-fetch",
+    "author": "ykdojo",
+    "tags": [
+      "development",
+      "reddit",
+      "fetch",
+      "web"
+    ]
+  },
+  {
+    "name": "redesign-existing-projects",
+    "description": "Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking...",
+    "repo": "https://github.com/Leonxlnx/taste-skill",
+    "path": "skills/redesign-skill",
+    "author": "Leonxlnx",
+    "tags": [
+      "design",
+      "refactor",
+      "frontend"
+    ]
+  },
+  {
+    "name": "redis",
+    "description": "Redis data access: store, query and manage strings, hashes, lists, sets, streams and vector data. Requires REDIS_URL env var or connection flags.",
+    "repo": "",
+    "path": "",
+    "author": "Redis",
+    "tags": [
+      "database",
+      "redis",
+      "cache",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "uvx",
+      "args": [
+        "redis-mcp-server"
+      ]
+    }
+  },
+  {
+    "name": "refactor-clean",
+    "description": "Refactors code to improve readability and structure without changing behavior.",
+    "repo": "https://github.com/wshobson/commands",
+    "path": "tools/refactor-clean.md",
+    "author": "wshobson",
+    "tags": [
+      "refactor",
+      "cleanup",
+      "quality"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "refactoring-specialist",
+    "description": "Transforms poorly structured, complex, or duplicated code into clean, maintainable systems while preserving behavior.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/06-developer-experience/refactoring-specialist.md",
+    "author": "VoltAgent",
+    "tags": [
+      "refactoring",
+      "code-quality",
+      "maintainability"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "reflect",
+    "description": "Summarizes general learnings from the current session into bullet points and offers to save them to CLAUDE.md.",
+    "repo": "https://github.com/robzolkos/claude-commands",
+    "path": "reflect.md",
+    "author": "robzolkos",
+    "tags": [
+      "reflection",
+      "learning",
+      "memory"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "research-summarizer",
+    "description": "Structured research summarization for papers, articles, and reports with comparative analyses.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "product-team/research-summarizer/skills/research-summarizer",
+    "author": "alirezarezvani",
+    "tags": [
+      "product"
+    ]
+  },
+  {
+    "name": "reverse",
+    "description": "Acts as a senior engineer that asks focused questions over several turns to pressure-test a proposed solution before coding.",
+    "repo": "https://github.com/robzolkos/claude-commands",
+    "path": "reverse.md",
+    "author": "robzolkos",
+    "tags": [
+      "planning",
+      "review",
+      "questions"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "review-implementing",
+    "description": "Process and implement code review feedback and PR comments systematically.",
+    "repo": "https://github.com/mhattingpete/claude-skills-marketplace",
+    "path": "engineering-workflow-plugin/skills/review-implementing",
+    "author": "mhattingpete",
+    "tags": [
+      "code-review",
+      "pr",
+      "workflow",
+      "collaboration"
+    ]
+  },
+  {
+    "name": "roadmap-communicator",
+    "description": "Prepare roadmap narratives, release notes, changelogs, and stakeholder updates by audience.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "product-team/skills/roadmap-communicator",
+    "author": "alirezarezvani",
+    "tags": [
+      "product"
+    ]
+  },
+  {
+    "name": "rust-engineer",
+    "description": "Builds Rust systems with memory safety, ownership patterns, zero-cost abstractions, and performance optimization.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/02-language-specialists/rust-engineer.md",
+    "author": "VoltAgent",
+    "tags": [
+      "rust",
+      "systems",
+      "performance"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "saas-metrics-coach",
+    "description": "SaaS financial health advisor for ARR, MRR, churn, LTV, CAC, and NRR.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "finance/skills/saas-metrics-coach",
+    "author": "alirezarezvani",
+    "tags": [
+      "finance"
+    ]
+  },
+  {
+    "name": "scaffold-exercises",
+    "description": "Create exercise directory structures with sections, problems, solutions, and explainers that pass linting.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/misc/scaffold-exercises",
+    "author": "mattpocock",
+    "tags": [
+      "tooling"
+    ]
+  },
+  {
+    "name": "schema-markup",
+    "description": "Implement, audit, or validate structured data (schema markup) on a website.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "marketing-skill/skills/schema-markup",
+    "author": "alirezarezvani",
+    "tags": [
+      "marketing"
+    ]
+  },
+  {
+    "name": "secrets-vault-manager",
+    "description": "Set up secret management - HashiCorp Vault, cloud secret stores, rotation, and access audits.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering/skills/secrets-vault-manager",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "security-audit",
+    "description": "Performs a structured security audit of the codebase and reports findings.",
+    "repo": "https://github.com/qdhenry/Claude-Command-Suite",
+    "path": ".claude/commands/security/security-audit.md",
+    "author": "qdhenry",
+    "tags": [
+      "security",
+      "audit"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "security-auditor",
+    "description": "Conducts security audits, compliance assessments, and systematic vulnerability analysis with evidence-based findings.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/04-quality-security/security-auditor.md",
+    "author": "VoltAgent",
+    "tags": [
+      "security",
+      "audit",
+      "compliance"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "security-pen-testing",
+    "description": "Perform security audits, penetration testing, vulnerability scanning, and OWASP Top 10 checks.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering-team/skills/security-pen-testing",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "security-scan",
+    "description": "Scans the codebase for security vulnerabilities, exposed secrets, and insecure dependencies.",
+    "repo": "https://github.com/wshobson/commands",
+    "path": "tools/security-scan.md",
+    "author": "wshobson",
+    "tags": [
+      "security",
+      "audit",
+      "scan"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "senior-backend",
+    "description": "Design and implement backend systems - REST APIs, microservices, databases, and auth flows.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering-team/skills/senior-backend",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "senior-data-engineer",
+    "description": "Data engineering for scalable pipelines and ETL/ELT - Python, SQL, Spark, Airflow, dbt, and Kafka.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering-team/skills/senior-data-engineer",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "senior-frontend",
+    "description": "Frontend development for React, Next.js, TypeScript, and Tailwind CSS applications.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering-team/skills/senior-frontend",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "sentry",
+    "description": "Sentry's official MCP server for querying issues, errors, and project data from Sentry.",
+    "repo": "",
+    "path": "",
+    "author": "Sentry (getsentry)",
+    "tags": [
+      "sentry",
+      "observability",
+      "errors",
+      "official",
+      "dev"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@sentry/mcp-server@latest"
+      ]
+    }
+  },
+  {
+    "name": "seo-audit",
+    "description": "Audit, review, or diagnose technical and on-page SEO issues on a site.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "marketing-skill/skills/seo-audit",
+    "author": "alirezarezvani",
+    "tags": [
+      "marketing"
+    ]
+  },
+  {
+    "name": "sequential-thinking",
+    "description": "Official MCP reference server for structured step-by-step reasoning via a thought-sequence tool.",
+    "repo": "",
+    "path": "",
+    "author": "Anthropic / Model Context Protocol",
+    "tags": [
+      "official",
+      "reasoning",
+      "thinking",
+      "reference"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    }
+  },
+  {
+    "name": "setup-matt-pocock-skills",
+    "description": "Set up an Agent skills block in AGENTS.md/CLAUDE.md and docs/agents/ so engineering skills know the repo conventions.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/engineering/setup-matt-pocock-skills",
+    "author": "mattpocock",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "setup-pre-commit",
+    "description": "Set up Husky pre-commit hooks with lint-staged (Prettier), type checking, and tests in the current repo.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/misc/setup-pre-commit",
+    "author": "mattpocock",
+    "tags": [
+      "tooling"
+    ]
+  },
+  {
+    "name": "ship-decision",
+    "description": "Force a fast regret-minimizing product decision when a solo founder is stuck between options.",
+    "repo": "https://github.com/rockscy/solo-skills",
+    "path": "skills/ship-decision",
+    "author": "rockscy",
+    "tags": [
+      "decision",
+      "product",
+      "founder",
+      "productivity"
+    ]
+  },
+  {
+    "name": "ship-learn-next",
+    "description": "Turn learning content like transcripts and articles into actionable implementation plans.",
+    "repo": "https://github.com/michalparkola/tapestry-skills-for-claude-code",
+    "path": "ship-learn-next",
+    "author": "michalparkola",
+    "tags": [
+      "productivity",
+      "learning",
+      "planning",
+      "workflow"
+    ]
+  },
+  {
+    "name": "skill-builder",
+    "description": "Detect source types and build AI skills using Skill Seekers from documentation, repos, PDFs, videos, or other knowledge sources.",
+    "repo": "https://github.com/yusufkaraaslan/Skill_Seekers",
+    "path": "skills/skill-seekers",
+    "author": "yusufkaraaslan",
+    "tags": [
+      "development",
+      "skills",
+      "authoring",
+      "documentation"
+    ]
+  },
+  {
+    "name": "skill-creator",
+    "description": "Scaffold, structure, and write new Agent Skills following the SKILL.md format.",
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/skill-creator",
+    "author": "anthropics",
+    "tags": [
+      "skills",
+      "authoring",
+      "meta",
+      "scaffolding"
+    ]
+  },
+  {
+    "name": "slack",
+    "description": "Slack workspace access: list channels, post messages, read history, reactions. Requires SLACK_BOT_TOKEN and SLACK_TEAM_ID env vars.",
+    "repo": "",
+    "path": "",
+    "author": "Model Context Protocol",
+    "tags": [
+      "productivity",
+      "chat",
+      "reference"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-slack"
+      ]
+    }
+  },
+  {
+    "name": "slack-gif-creator",
+    "description": "Create animated GIFs optimized for Slack with size validators and animation primitives.",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "path": "slack-gif-creator",
+    "author": "ComposioHQ",
+    "tags": [
+      "gif",
+      "slack",
+      "animation",
+      "media"
+    ]
+  },
+  {
+    "name": "smart-debug",
+    "description": "Analyzes an error and traces it to a root cause with a proposed fix.",
+    "repo": "https://github.com/wshobson/commands",
+    "path": "tools/smart-debug.md",
+    "author": "wshobson",
+    "tags": [
+      "debug",
+      "error",
+      "troubleshooting"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "snowflake",
+    "description": "Snowflake access: run Cortex AI services, query data and manage objects via a service config file. Pass --service-config-file and set Snowflake auth env vars.",
+    "repo": "",
+    "path": "",
+    "author": "Snowflake (Snowflake-Labs)",
+    "tags": [
+      "database",
+      "snowflake",
+      "analytics",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "uvx",
+      "args": [
+        "snowflake-labs-mcp",
+        "--service-config-file",
+        "config.yaml"
+      ]
+    }
+  },
+  {
+    "name": "soc2-compliance",
+    "description": "Prepare for SOC 2 audits - map Trust Service Criteria, build control matrices, and collect evidence.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "ra-qm-team/skills/soc2-compliance",
+    "author": "alirezarezvani",
+    "tags": [
+      "regulatory",
+      "quality"
+    ]
+  },
+  {
+    "name": "sqlite",
+    "description": "MCP server exposing a SQLite database for queries and table inspection over stdio.",
+    "repo": "",
+    "path": "",
+    "author": "Model Context Protocol (archived reference)",
+    "tags": [
+      "sqlite",
+      "database",
+      "sql",
+      "data"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-sqlite",
+        "--db-path",
+        "/path/to/db.sqlite"
+      ]
+    }
+  },
+  {
+    "name": "standup-solo",
+    "description": "Run a five-minute personal standup for a solo dev covering shipped, blocked, and next.",
+    "repo": "https://github.com/rockscy/solo-skills",
+    "path": "skills/standup-solo",
+    "author": "rockscy",
+    "tags": [
+      "standup",
+      "productivity",
+      "solo-dev",
+      "workflow"
+    ]
+  },
+  {
+    "name": "statistical-analyst",
+    "description": "Run hypothesis tests, analyze A/B results, calculate sample sizes, and interpret significance.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering/statistical-analyst/skills/statistical-analyst",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "stitch-design-taste",
+    "description": "Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards - strict typography, calibrated color, asymmetric...",
+    "repo": "https://github.com/Leonxlnx/taste-skill",
+    "path": "skills/stitch-skill",
+    "author": "Leonxlnx",
+    "tags": [
+      "design",
+      "ui",
+      "stitch",
+      "frontend"
+    ]
+  },
+  {
+    "name": "stripe",
+    "description": "Stripe API access: customers, payments, invoices, products via function calling. Requires a Stripe secret key (--api-key or STRIPE_SECRET_KEY env).",
+    "repo": "",
+    "path": "",
+    "author": "Stripe",
+    "tags": [
+      "payments",
+      "fintech",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@stripe/mcp",
+        "--tools=all"
+      ]
+    }
+  },
+  {
+    "name": "subagent-driven-development",
+    "description": "Dispatch independent subagents for individual tasks with code review checkpoints between iterations, enabling fast controlled development.",
+    "repo": "https://github.com/NeoLabHQ/context-engineering-kit",
+    "path": "plugins/sadd/skills/subagent-driven-development",
+    "author": "NeoLabHQ",
+    "tags": [
+      "development",
+      "subagents",
+      "workflow",
+      "review"
+    ]
+  },
+  {
+    "name": "supabase",
+    "description": "Supabase project management: query Postgres, manage tables, branches, edge functions. Requires SUPABASE_ACCESS_TOKEN env var; --read-only recommended.",
+    "repo": "",
+    "path": "",
+    "author": "Supabase Community",
+    "tags": [
+      "ai-data",
+      "database",
+      "postgres",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase/mcp-server-supabase@latest",
+        "--read-only"
+      ]
+    }
+  },
+  {
+    "name": "swiftui-design-skill",
+    "description": "Design distinctive SwiftUI iOS and macOS interfaces and review UI quality, avoiding generic patterns.",
+    "repo": "https://github.com/wholiver/swiftui-design-skill",
+    "path": ".",
+    "author": "wholiver",
+    "tags": [
+      "design",
+      "ui",
+      "ios"
+    ]
+  },
+  {
+    "name": "systematic-debugging",
+    "description": "Debug failures with a structured hypothesis-and-test methodology instead of guessing.",
+    "repo": "https://github.com/obra/superpowers",
+    "path": "skills/systematic-debugging",
+    "author": "obra",
+    "tags": [
+      "debugging",
+      "workflow",
+      "testing",
+      "methodology"
+    ]
+  },
+  {
+    "name": "tailored-resume-generator",
+    "description": "Analyze job descriptions and generate tailored resumes highlighting relevant experience.",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "path": "tailored-resume-generator",
+    "author": "ComposioHQ",
+    "tags": [
+      "resume",
+      "jobs",
+      "writing",
+      "productivity"
+    ]
+  },
+  {
+    "name": "tavily",
+    "description": "Tavily web search and content extraction for LLMs. Requires TAVILY_API_KEY env var.",
+    "repo": "",
+    "path": "",
+    "author": "Tavily AI",
+    "tags": [
+      "web",
+      "search",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "tavily-mcp@latest"
+      ]
+    }
+  },
+  {
+    "name": "tdd",
+    "description": "Test-driven development with the red-green-refactor loop for building features or fixing bugs test-first.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/engineering/tdd",
+    "author": "mattpocock",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "tdd-cycle",
+    "description": "Drives a red-green-refactor test-driven development cycle for a change.",
+    "repo": "https://github.com/wshobson/commands",
+    "path": "workflows/tdd-cycle.md",
+    "author": "wshobson",
+    "tags": [
+      "tdd",
+      "testing",
+      "workflow"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "tdd-guide",
+    "description": "Test-driven development for unit tests, fixtures, mocks, and coverage across Jest, Pytest, and JUnit.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering-team/skills/tdd-guide",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "teach",
+    "description": "Teach the user a new skill or concept within this workspace.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/productivity/teach",
+    "author": "mattpocock",
+    "tags": [
+      "productivity"
+    ]
+  },
+  {
+    "name": "tech-debt-tracker",
+    "description": "Scan codebases for technical debt, score severity, and generate prioritized remediation plans.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering/skills/tech-debt-tracker",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "telegram",
+    "description": "Telegram access via MTProto: read, send and manage messages, chats and contacts on a user account. Requires Telegram API credentials.",
+    "repo": "",
+    "path": "",
+    "author": "Yeabsira Driba (dryeab)",
+    "tags": [
+      "chat",
+      "telegram",
+      "messaging"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "uvx",
+      "args": [
+        "mcp-telegram"
+      ]
+    }
+  },
+  {
+    "name": "terminal-title",
+    "description": "Automatically update the terminal window title to reflect the current high-level task so developers can manage multiple Claude Code terminals.",
+    "repo": "https://github.com/bluzername/claude-code-terminal-title",
+    "path": "temp_extract/terminal-title",
+    "author": "bluzername",
+    "tags": [
+      "development",
+      "terminal",
+      "claude-code",
+      "productivity"
+    ]
+  },
+  {
+    "name": "terraform-patterns",
+    "description": "Terraform infrastructure-as-code skill for Claude Code, Codex, Gemini CLI, Cursor, and OpenClaw.",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "path": "engineering/terraform-patterns/skills/terraform-patterns",
+    "author": "alirezarezvani",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "test-automator",
+    "description": "Builds and enhances automated test frameworks, creates test scripts, and integrates testing into CI/CD pipelines.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/04-quality-security/test-automator.md",
+    "author": "VoltAgent",
+    "tags": [
+      "testing",
+      "automation",
+      "ci-cd"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "test-coverage",
+    "description": "Analyzes test coverage and identifies untested code paths.",
+    "repo": "https://github.com/qdhenry/Claude-Command-Suite",
+    "path": ".claude/commands/test/test-coverage.md",
+    "author": "qdhenry",
+    "tags": [
+      "testing",
+      "coverage",
+      "quality"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "test-driven-development",
+    "description": "Drive implementation with a red-green-refactor test-first workflow.",
+    "repo": "https://github.com/obra/superpowers",
+    "path": "skills/test-driven-development",
+    "author": "obra",
+    "tags": [
+      "tdd",
+      "testing",
+      "workflow",
+      "development"
+    ]
+  },
+  {
+    "name": "test-fixing",
+    "description": "Run tests and systematically fix failing tests using smart error grouping.",
+    "repo": "https://github.com/mhattingpete/claude-skills-marketplace",
+    "path": "engineering-workflow-plugin/skills/test-fixing",
+    "author": "mhattingpete",
+    "tags": [
+      "testing",
+      "debugging",
+      "workflow",
+      "collaboration"
+    ]
+  },
+  {
+    "name": "theme-factory",
+    "description": "Apply font and color themes to artifacts like slides, docs, and HTML pages with 10 presets.",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "path": "theme-factory",
+    "author": "ComposioHQ",
+    "tags": [
+      "theme",
+      "design",
+      "styling",
+      "artifacts"
+    ]
+  },
+  {
+    "name": "time",
+    "description": "Official MCP reference server for current time queries and timezone conversion.",
+    "repo": "",
+    "path": "",
+    "author": "Anthropic / Model Context Protocol",
+    "tags": [
+      "official",
+      "time",
+      "timezone",
+      "reference"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-time"
+      ]
+    }
+  },
+  {
+    "name": "to-issues",
+    "description": "Break a plan, spec, or PRD into independently-grabbable issues using tracer-bullet vertical slices.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/engineering/to-issues",
+    "author": "mattpocock",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "to-prd",
+    "description": "Turn the current conversation context into a PRD and publish it to the project issue tracker.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/engineering/to-prd",
+    "author": "mattpocock",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "todo-branch",
+    "description": "Phased workflow that turns vague todos into features on the current branch with a single commit at completion.",
+    "repo": "https://github.com/badlogic/claude-commands",
+    "path": "todo-branch.md",
+    "author": "badlogic",
+    "tags": [
+      "workflow",
+      "git",
+      "todo"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "todo-worktree",
+    "description": "Phased workflow that turns vague todos into features using git worktrees with INIT, SELECT, REFINE, IMPLEMENT, and COMMIT stops.",
+    "repo": "https://github.com/badlogic/claude-commands",
+    "path": "todo-worktree.md",
+    "author": "badlogic",
+    "tags": [
+      "workflow",
+      "git",
+      "worktree"
+    ],
+    "kind": "command"
+  },
+  {
+    "name": "todoist",
+    "description": "Todoist task management: create, find, update and complete tasks and projects. Requires a Todoist API token env var.",
+    "repo": "",
+    "path": "",
+    "author": "Doist",
+    "tags": [
+      "productivity",
+      "tasks",
+      "official"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@doist/todoist-mcp"
+      ]
+    }
+  },
+  {
+    "name": "transformers-js",
+    "description": "Use Transformers.js to run machine learning models in JavaScript/TypeScript for NLP, vision, audio, and multimodal tasks in browsers and server runtimes.",
+    "repo": "https://github.com/huggingface/skills",
+    "path": "skills/transformers-js",
+    "author": "huggingface",
+    "tags": [
+      "transformers",
+      "javascript",
+      "machine-learning",
+      "webgpu"
+    ]
+  },
+  {
+    "name": "triage",
+    "description": "Triage issues through a state machine driven by triage roles to review incoming bugs and feature requests.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/engineering/triage",
+    "author": "mattpocock",
+    "tags": [
+      "engineering"
+    ]
+  },
+  {
+    "name": "twitter-algorithm-optimizer",
+    "description": "Rewrite and optimize tweets for reach using Twitter's open-source algorithm insights.",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "path": "twitter-algorithm-optimizer",
+    "author": "ComposioHQ",
+    "tags": [
+      "twitter",
+      "social",
+      "optimization",
+      "writing"
+    ]
+  },
+  {
+    "name": "typescript-pro",
+    "description": "Implements TypeScript with advanced type system patterns, complex generics, and end-to-end type safety.",
+    "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+    "path": "categories/02-language-specialists/typescript-pro.md",
+    "author": "VoltAgent",
+    "tags": [
+      "typescript",
+      "types",
+      "generics"
+    ],
+    "kind": "agent"
+  },
+  {
+    "name": "using-git-worktrees",
+    "description": "Use git worktrees to isolate parallel branches of work.",
+    "repo": "https://github.com/obra/superpowers",
+    "path": "skills/using-git-worktrees",
+    "author": "obra",
+    "tags": [
+      "git",
+      "worktrees",
+      "workflow",
+      "vcs"
+    ]
+  },
+  {
+    "name": "vercel",
+    "description": "Vercel platform access: manage projects and deployments and search Vercel documentation. Remote server with OAuth.",
+    "repo": "",
+    "path": "",
+    "author": "Vercel",
+    "tags": [
+      "devops",
+      "deployment",
+      "official",
+      "remote"
+    ],
+    "kind": "mcp",
+    "mcp": {
+      "url": "https://mcp.vercel.com"
+    }
+  },
+  {
+    "name": "vercel-optimize",
+    "description": "Run an observability-first Vercel cost and performance audit on deployed projects, producing ranked recommendations grounded in metrics and config.",
+    "repo": "https://github.com/vercel-labs/agent-skills",
+    "path": "skills/vercel-optimize",
+    "author": "vercel-labs",
+    "tags": [
+      "vercel",
+      "performance",
+      "cost",
+      "optimization"
+    ]
+  },
+  {
+    "name": "vercel-react-best-practices",
+    "description": "React and Next.js performance optimization guidelines from Vercel Engineering for writing, reviewing, or refactoring code.",
+    "repo": "https://github.com/vercel-labs/agent-skills",
+    "path": "skills/react-best-practices",
+    "author": "vercel-labs",
+    "tags": [
+      "react",
+      "nextjs",
+      "performance",
+      "vercel"
+    ]
+  },
+  {
+    "name": "verification-before-completion",
+    "description": "Verify a task actually works by running it before declaring it complete.",
+    "repo": "https://github.com/obra/superpowers",
+    "path": "skills/verification-before-completion",
+    "author": "obra",
+    "tags": [
+      "verification",
+      "workflow",
+      "quality",
+      "testing"
+    ]
+  },
+  {
+    "name": "web-artifacts-builder",
+    "description": "Build interactive single-file web artifacts and HTML/JS applications.",
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/web-artifacts-builder",
+    "author": "anthropics",
+    "tags": [
+      "web",
+      "artifacts",
+      "html",
+      "interactive"
+    ]
+  },
+  {
+    "name": "web-design-guidelines",
+    "description": "Review UI code for Web Interface Guidelines compliance, including accessibility and UX audits.",
+    "repo": "https://github.com/vercel-labs/agent-skills",
+    "path": "skills/web-design-guidelines",
+    "author": "vercel-labs",
+    "tags": [
+      "ui",
+      "accessibility",
+      "design",
+      "review"
+    ]
+  },
+  {
+    "name": "webapp-testing",
+    "description": "Test web applications by driving a browser to verify behavior and capture screenshots.",
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/webapp-testing",
+    "author": "anthropics",
+    "tags": [
+      "testing",
+      "web",
+      "browser",
+      "qa"
+    ]
+  },
+  {
+    "name": "write-a-skill",
+    "description": "Create new agent skills with proper structure, progressive disclosure, and bundled resources.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/productivity/write-a-skill",
+    "author": "mattpocock",
+    "tags": [
+      "productivity"
+    ]
+  },
+  {
+    "name": "writing-plans",
+    "description": "Produce structured implementation plans before writing code.",
+    "repo": "https://github.com/obra/superpowers",
+    "path": "skills/writing-plans",
+    "author": "obra",
+    "tags": [
+      "planning",
+      "workflow",
+      "development",
+      "specs"
+    ]
+  },
+  {
+    "name": "x-twitter-scraper",
+    "description": "Xquik guide for X/Twitter data workflows, MCP setup, webhooks, extraction jobs, and confirmation-gated actions.",
+    "repo": "https://github.com/Xquik-dev/x-twitter-scraper",
+    "path": "skills/x-twitter-scraper",
+    "author": "Xquik",
+    "tags": [
+      "x",
+      "twitter",
+      "mcp",
+      "api",
+      "webhooks"
+    ],
+    "ref": "179402853cba795accbe62416d5dffa257b9b7db"
+  },
+  {
+    "name": "xlsx",
+    "description": "Create, read, and modify Microsoft Excel .xlsx spreadsheets including formulas and charts.",
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/xlsx",
+    "author": "anthropics",
+    "tags": [
+      "xlsx",
+      "excel",
+      "spreadsheets",
+      "office"
+    ]
+  },
+  {
+    "name": "youtube-downloader",
+    "description": "Download YouTube videos with selectable quality and format, including audio-only MP3.",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "path": "video-downloader",
+    "author": "ComposioHQ",
+    "tags": [
+      "youtube",
+      "video",
+      "download",
+      "media"
+    ]
+  },
+  {
+    "name": "youtube-transcript",
+    "description": "Download YouTube video transcripts via yt-dlp and prepare summaries.",
+    "repo": "https://github.com/michalparkola/tapestry-skills-for-claude-code",
+    "path": "youtube-transcript",
+    "author": "michalparkola",
+    "tags": [
+      "youtube",
+      "transcript",
+      "video",
+      "writing"
+    ]
+  },
+  {
+    "name": "zoom-out",
+    "description": "Tell the agent to zoom out and give broader context or a higher-level perspective on how code fits together.",
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/engineering/zoom-out",
+    "author": "mattpocock",
+    "tags": [
+      "engineering"
+    ]
+  }
+]

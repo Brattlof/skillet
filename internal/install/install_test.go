@@ -836,6 +836,38 @@ func TestInstallHookExtensionChangeCleansUp(t *testing.T) {
 	}
 }
 
+func TestInstallHookMatcherChangeReplacesRegistration(t *testing.T) {
+	base := t.TempDir()
+	dir := filepath.Join(base, "hooks")
+	settings := filepath.Join(base, "settings.json")
+
+	src := gitRepoWith(t, map[string]string{"hooks/guard.sh": "#!/usr/bin/env bash\necho hi\n"})
+	mk := func(matcher string) registry.Entry {
+		return registry.Entry{
+			Name: "guard", Description: "d", Author: "t", Repo: src,
+			Path: "hooks/guard.sh", Kind: "hook",
+			Hook: &registry.HookSpec{Event: "PreToolUse", Matcher: matcher},
+		}
+	}
+
+	if _, err := Install(context.Background(), mk("Read|Edit|Write|Bash"), dir); err != nil {
+		t.Fatalf("install wide matcher: %v", err)
+	}
+	// Reinstall the same hook from the same script and path, only narrowing the
+	// matcher. The wide-matcher block must be replaced, not left beside the new one.
+	if _, err := Install(context.Background(), mk("Read|Edit|Write"), dir); err != nil {
+		t.Fatalf("reinstall narrow matcher: %v", err)
+	}
+
+	if stale := commandsIn(t, settings, "PreToolUse", "Read|Edit|Write|Bash"); len(stale) != 0 {
+		t.Fatalf("stale wide-matcher registration left behind: %v", stale)
+	}
+	abs, _ := filepath.Abs(filepath.Join(dir, "guard.sh"))
+	if cmds := commandsIn(t, settings, "PreToolUse", "Read|Edit|Write"); len(cmds) != 1 || cmds[0] != abs {
+		t.Fatalf("new matcher registration = %v, want [%s]", cmds, abs)
+	}
+}
+
 func TestDiagnoseRecordlessFileNotBroken(t *testing.T) {
 	dir := t.TempDir()
 	if err := os.WriteFile(filepath.Join(dir, "loose.md"), []byte("x"), 0o644); err != nil {

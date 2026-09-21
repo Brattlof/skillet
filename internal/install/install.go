@@ -105,23 +105,30 @@ func Install(ctx context.Context, e registry.Entry, dir string) (string, error) 
 		return "", err
 	}
 	dest := filepath.Join(dir, artifact)
-	// If a previous install of this name used a different artifact (a hook whose
-	// script extension changed, or a switch to another kind), remove it first so
-	// the reinstall does not orphan a file or a stale settings.json registration.
 	if prev, ok, rerr := ReadRecord(dir, e.Name); rerr == nil && ok {
 		// The artifact name is read back from a stored record. Guard against a
-		// tampered or corrupt record steering the cleanup RemoveAll outside dir.
+		// tampered or corrupt record steering cleanup outside dir.
 		art := prev.ArtifactName()
-		if old := filepath.Join(dir, art); old != dest && filepath.IsLocal(filepath.FromSlash(art)) {
-			if prev.Kind == "hook" && prev.Hook != nil {
-				abs, aerr := filepath.Abs(old)
-				if aerr != nil {
-					abs = old
-				}
-				if uerr := unregisterHook(settingsPath(dir), prev.Hook.Event, prev.Hook.Matcher, abs); uerr != nil {
-					return "", fmt.Errorf("clearing the previous hook registration for %s: %w", e.Name, uerr)
-				}
+		old := filepath.Join(dir, art)
+		safe := filepath.IsLocal(filepath.FromSlash(art))
+		// Always clear the previous hook registration before reinstalling, even
+		// when the artifact filename is unchanged. The entry's event or matcher may
+		// have changed, and registerHook below keys blocks by matcher, so skipping
+		// this would leave a stale block and the hook would also fire under the old
+		// event or matcher.
+		if safe && prev.Kind == "hook" && prev.Hook != nil {
+			abs, aerr := filepath.Abs(old)
+			if aerr != nil {
+				abs = old
 			}
+			if uerr := unregisterHook(settingsPath(dir), prev.Hook.Event, prev.Hook.Matcher, abs); uerr != nil {
+				return "", fmt.Errorf("clearing the previous hook registration for %s: %w", e.Name, uerr)
+			}
+		}
+		// If a previous install used a different artifact (a hook whose script
+		// extension changed, or a switch to another kind), remove it so the
+		// reinstall does not orphan a file.
+		if safe && old != dest {
 			if rerr := os.RemoveAll(old); rerr != nil {
 				return "", rerr
 			}

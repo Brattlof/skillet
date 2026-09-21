@@ -166,6 +166,14 @@ func TestValidateRejectsUnsafeRefAndCksum(t *testing.T) {
 	if err := Validate(bc); err == nil {
 		t.Fatal("expected non-sha256 cksum to be rejected")
 	}
+	// Both the legacy and the current checksum formats are accepted.
+	for _, ck := range []string{"sha256:abc123", "sha256.v2:abc123"} {
+		gc := base
+		gc.Cksum = ck
+		if err := Validate(gc); err != nil {
+			t.Fatalf("expected cksum %q to be accepted: %v", ck, err)
+		}
+	}
 }
 
 func TestValidateInstall(t *testing.T) {

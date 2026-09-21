@@ -124,6 +124,10 @@ func addMCP(e registry.Entry, targetFlag string) error {
 	if !install.ValidMCPClient(client) {
 		return fmt.Errorf("an mcp server installs per client; --target must be one of %s", strings.Join(install.MCPClients(), ", "))
 	}
+	// An MCP server is code the client launches (or a remote it trusts) on every
+	// startup, with no pinning. Name what it will do so the user can judge it.
+	fmt.Fprintln(os.Stderr, "warning: an MCP server runs with your privileges; only add ones you trust")
+	fmt.Fprintf(os.Stderr, "         %s will %s on every %s startup\n", e.Name, mcpRunSummary(e.MCP), client)
 	p, err := install.InstallMCP(e, client)
 	if err != nil {
 		return err
@@ -131,6 +135,23 @@ func addMCP(e registry.Entry, targetFlag string) error {
 	fmt.Printf("Registered MCP server %s with %s -> %s\n", e.Name, client, p)
 	fmt.Fprintf(os.Stderr, "note: restart %s (or reload its MCP config) to pick up %s\n", client, e.Name)
 	return nil
+}
+
+// mcpRunSummary describes what an MCP entry does at startup, for the install-time
+// trust warning: the stdio command line it runs, or the remote endpoint it
+// connects to.
+func mcpRunSummary(s *registry.MCPSpec) string {
+	if s == nil {
+		return "load"
+	}
+	if s.URL != "" {
+		return "connect to " + s.URL
+	}
+	cmd := s.Command
+	if len(s.Args) > 0 {
+		cmd += " " + strings.Join(s.Args, " ")
+	}
+	return "run " + cmd
 }
 
 // infoMCP prints details for an mcp-kind entry, whose server spec replaces the

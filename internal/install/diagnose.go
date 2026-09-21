@@ -3,6 +3,7 @@ package install
 import (
 	"os"
 	"path/filepath"
+	"runtime"
 	"sort"
 )
 
@@ -16,6 +17,7 @@ const (
 	StatusBroken           Status = "recorded but not installed"
 	StatusNoRecord         Status = "installed without a manifest record"
 	StatusHookUnregistered Status = "installed but not registered in settings.json"
+	StatusHookNotExec      Status = "hook script is not executable"
 )
 
 // Diagnosis is the result of checking one artifact.
@@ -26,10 +28,11 @@ type Diagnosis struct {
 
 // Diagnose checks every installed artifact in dir against its manifest record: a
 // missing install, a skill missing its SKILL.md, content that has drifted from the
-// recorded checksum, a hook that lost its settings.json registration, or an
-// install with no provenance record. kind tells it the artifact shape to expect
-// (skill directories vs command/hook files); an empty kind accepts either. It does
-// not touch the network; registry membership is checked by the caller.
+// recorded checksum, a hook that lost its executable bit or its settings.json
+// registration, or an install with no provenance record. kind tells it the
+// artifact shape to expect (skill directories vs command/hook files); an empty kind
+// accepts either. It does not touch the network; registry membership is checked by
+// the caller.
 func Diagnose(dir, kind string) ([]Diagnosis, error) {
 	recs, err := Records(dir)
 	if err != nil {
@@ -113,6 +116,13 @@ func diagnoseOne(dir, dirKind, artifact string, rec Record, hasRec bool) (Status
 		if sum != rec.Cksum {
 			return StatusDrift, nil
 		}
+	}
+
+	// The checksum ignores permission bits so it matches across platforms, so check
+	// the executable bit a hook needs here. Without it the hook fails to run, and a
+	// guard hook stops guarding. Windows has no executable bit to check.
+	if kind == "hook" && hasRec && runtime.GOOS != "windows" && info.Mode()&0o100 == 0 {
+		return StatusHookNotExec, nil
 	}
 
 	if kind == "hook" && hasRec && rec.Hook != nil {

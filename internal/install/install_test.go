@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"testing"
 
@@ -163,7 +164,7 @@ func TestDiagnose(t *testing.T) {
 
 	// healthy: dir + SKILL.md + record whose cksum matches the content
 	hp := mkSkill("healthy", "# ok\n")
-	sum, err := hashTree(hp, cksumPrefixV2)
+	sum, err := hashTree(hp)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -377,11 +378,11 @@ func TestHashTreeDeterministicAndSensitive(t *testing.T) {
 		return d
 	}
 
-	h1, err := hashTree(mk(), cksumPrefixV2)
+	h1, err := hashTree(mk())
 	if err != nil {
 		t.Fatal(err)
 	}
-	h2, err := hashTree(mk(), cksumPrefixV2)
+	h2, err := hashTree(mk())
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -396,7 +397,7 @@ func TestHashTreeDeterministicAndSensitive(t *testing.T) {
 	if err := os.WriteFile(filepath.Join(changed, "a.txt"), []byte("different"), 0o644); err != nil {
 		t.Fatal(err)
 	}
-	h3, err := hashTree(changed, cksumPrefixV2)
+	h3, err := hashTree(changed)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -405,7 +406,7 @@ func TestHashTreeDeterministicAndSensitive(t *testing.T) {
 	}
 }
 
-func TestHashFileIgnoresNonExecPermBits(t *testing.T) {
+func TestHashIgnoresPermBits(t *testing.T) {
 	dir := t.TempDir()
 	hashAt := func(name string, mode os.FileMode) string {
 		p := filepath.Join(dir, name)
@@ -415,21 +416,66 @@ func TestHashFileIgnoresNonExecPermBits(t *testing.T) {
 		if err := os.Chmod(p, mode); err != nil { // WriteFile is subject to umask; force the exact mode
 			t.Fatal(err)
 		}
-		h, err := hashFile(p, cksumPrefixV2)
+		h, err := hashFile(p)
 		if err != nil {
 			t.Fatal(err)
 		}
 		return h
 	}
 
-	// Non-executable permission differences must not change the hash, so an
-	// identical file hashes the same on Unix (0644) and Windows (0666).
-	if a, b := hashAt("a", 0o644), hashAt("b", 0o664); a != b {
-		t.Errorf("non-exec perm bits changed the hash: %s vs %s", a, b)
+	// Permission bits must not change the hash: they vary with the umask on Unix,
+	// and Windows reports no executable bit at all, so identical content has to
+	// hash the same everywhere.
+	want := hashAt("a", 0o644)
+	for name, mode := range map[string]os.FileMode{"b": 0o664, "c": 0o755, "d": 0o444} {
+		if got := hashAt(name, mode); got != want {
+			t.Errorf("mode %o changed the hash: %s vs %s", mode, got, want)
+		}
 	}
-	// The executable bit must change the hash: a hook losing +x is meaningful.
-	if plain, exec := hashAt("c", 0o644), hashAt("d", 0o755); plain == exec {
-		t.Errorf("executable bit did not change the hash: %s", plain)
+}
+
+// v1 framed each file as "path mode\n" followed by raw contents, so bytes at the
+// end of one file could be split off into a new file without changing the hash.
+// v2 must tell those trees apart.
+func TestHashTreeFramingUnambiguous(t *testing.T) {
+	mk := func(files map[string]string) string {
+		d := t.TempDir()
+		for name, content := range files {
+			p := filepath.Join(d, name)
+			if err := os.WriteFile(p, []byte(content), 0o644); err != nil {
+				t.Fatal(err)
+			}
+			if err := os.Chmod(p, 0o644); err != nil { // pin the mode v1 embeds, whatever the umask
+				t.Fatal(err)
+			}
+		}
+		return d
+	}
+	one := mk(map[string]string{"a.md": "hello\nb.sh 644\necho pwned\n"})
+	two := mk(map[string]string{"a.md": "hello\n", "b.sh": "echo pwned\n"})
+
+	v1a, err := hashTreeV1(one)
+	if err != nil {
+		t.Fatal(err)
+	}
+	v1b, err := hashTreeV1(two)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if v1a != v1b {
+		t.Fatal("test setup: the two trees should collide under v1")
+	}
+
+	v2a, err := hashTree(one)
+	if err != nil {
+		t.Fatal(err)
+	}
+	v2b, err := hashTree(two)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if v2a == v2b {
+		t.Fatal("v2 hashes a split file the same as the original tree")
 	}
 }
 
@@ -440,11 +486,11 @@ func TestChecksumFormatVersions(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	v2, err := hashFile(p, cksumPrefixV2)
+	v2, err := hashFile(p)
 	if err != nil {
 		t.Fatal(err)
 	}
-	v1, err := hashFile(p, cksumPrefixV1)
+	v1, err := hashFileV1(p)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -480,7 +526,7 @@ func TestLegacyChecksumNotDrift(t *testing.T) {
 	if err := os.WriteFile(filepath.Join(sk, "SKILL.md"), []byte("# ok\n"), 0o644); err != nil {
 		t.Fatal(err)
 	}
-	v1, err := hashTree(sk, cksumPrefixV1)
+	v1, err := hashTreeV1(sk)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -545,7 +591,7 @@ func TestInstallPinnedAndChecksum(t *testing.T) {
 	if err != nil {
 		t.Fatalf("install: %v", err)
 	}
-	sum, err := hashTree(got, cksumPrefixV2)
+	sum, err := hashTree(got)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -907,6 +953,78 @@ func TestInstallHookRegistersAndUnregisters(t *testing.T) {
 	noSpec.Hook = nil
 	if _, err := Install(context.Background(), noSpec, t.TempDir()); err == nil {
 		t.Fatal("a hook with no spec should be rejected")
+	}
+}
+
+// Git for Windows defaults to core.autocrlf=true, which would check text out with
+// CRLF, so the same artifact would install and hash differently per OS (and a
+// shell hook would break). The clone must keep the committed line endings.
+func TestInstallIgnoresAutocrlf(t *testing.T) {
+	gitconfig := filepath.Join(t.TempDir(), "gitconfig")
+	if err := os.WriteFile(gitconfig, []byte("[core]\n\tautocrlf = true\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	t.Setenv("GIT_CONFIG_GLOBAL", gitconfig)
+	t.Setenv("GIT_CONFIG_NOSYSTEM", "1")
+
+	const script = "#!/usr/bin/env bash\necho hi\n"
+	src := gitRepoWith(t, map[string]string{"hooks/greet.sh": script})
+	e := registry.Entry{
+		Name: "greet", Description: "d", Author: "t", Repo: src,
+		Path: "hooks/greet.sh", Kind: "hook",
+		Hook: &registry.HookSpec{Event: "SessionStart"},
+	}
+	for _, ref := range []string{"", "HEAD"} { // shallow clone, and full clone plus checkout
+		e.Ref = ref
+		dest, err := Install(context.Background(), e, filepath.Join(t.TempDir(), "hooks"))
+		if err != nil {
+			t.Fatalf("install (ref %q): %v", ref, err)
+		}
+		got, err := os.ReadFile(dest)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if string(got) != script {
+			t.Errorf("ref %q: installed %q, want %q", ref, got, script)
+		}
+	}
+}
+
+// The checksum ignores permission bits, so doctor has to catch a hook that lost
+// its executable bit on its own; the hook would otherwise fail to run unnoticed.
+func TestDiagnoseHookNotExecutable(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		t.Skip("Windows has no executable bit")
+	}
+	src := gitRepoWith(t, map[string]string{"hooks/greet.sh": "#!/usr/bin/env bash\necho hi\n"})
+	dir := filepath.Join(t.TempDir(), "hooks")
+	e := registry.Entry{
+		Name: "greet", Description: "d", Author: "t", Repo: src,
+		Path: "hooks/greet.sh", Kind: "hook",
+		Hook: &registry.HookSpec{Event: "SessionStart"},
+	}
+	dest, err := Install(context.Background(), e, dir)
+	if err != nil {
+		t.Fatalf("install: %v", err)
+	}
+	statusOf := func() Status {
+		diags, err := Diagnose(dir, "hook")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if len(diags) != 1 {
+			t.Fatalf("diagnoses = %+v, want one", diags)
+		}
+		return diags[0].Status
+	}
+	if got := statusOf(); got != StatusOK {
+		t.Fatalf("fresh install status = %q, want ok", got)
+	}
+	if err := os.Chmod(dest, 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if got := statusOf(); got != StatusHookNotExec {
+		t.Fatalf("status after chmod -x = %q, want %q", got, StatusHookNotExec)
 	}
 }
 

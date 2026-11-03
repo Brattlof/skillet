@@ -1,0 +1,11 @@
+{
+  "name": "spike",
+  "description": "Throwaway experiments that answer a feasibility question before the real build.",
+  "repo": "https://github.com/NousResearch/hermes-agent",
+  "path": "skills/software-development/spike",
+  "author": "NousResearch",
+  "tags": [
+    "engineering",
+    "prototyping"
+  ]
+}

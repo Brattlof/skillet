@@ -1,0 +1,11 @@
+{
+  "name": "supabase-postgres-best-practices",
+  "description": "Postgres best practices for schema, indexes, migrations and queries, for Postgres anywhere.",
+  "repo": "https://github.com/supabase/agent-skills",
+  "path": "skills/supabase-postgres-best-practices",
+  "author": "supabase",
+  "tags": [
+    "postgres",
+    "database"
+  ]
+}

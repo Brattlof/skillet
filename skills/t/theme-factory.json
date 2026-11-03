@@ -1,9 +1,9 @@
 {
   "name": "theme-factory",
   "description": "Apply font and color themes to artifacts like slides, docs, and HTML pages with 10 presets.",
-  "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
-  "path": "theme-factory",
-  "author": "ComposioHQ",
+  "repo": "https://github.com/anthropics/skills",
+  "path": "skills/theme-factory",
+  "author": "anthropics",
   "tags": [
     "theme",
     "design",

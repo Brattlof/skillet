@@ -1,0 +1,12 @@
+{
+  "name": "emil-design-eng",
+  "description": "Emil Kowalski's design-engineering philosophy on UI polish, components, and animation decisions.",
+  "repo": "https://github.com/emilkowalski/skills",
+  "path": "skills/emil-design-eng",
+  "author": "emilkowalski",
+  "tags": [
+    "design",
+    "ui",
+    "animation"
+  ]
+}

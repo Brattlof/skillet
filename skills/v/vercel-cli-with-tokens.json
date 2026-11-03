@@ -1,0 +1,12 @@
+{
+  "name": "vercel-cli-with-tokens",
+  "description": "Deploy and manage Vercel projects with token auth instead of interactive login.",
+  "repo": "https://github.com/vercel-labs/agent-skills",
+  "path": "skills/vercel-cli-with-tokens",
+  "author": "vercel-labs",
+  "tags": [
+    "vercel",
+    "deployment",
+    "cli"
+  ]
+}

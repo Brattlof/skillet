@@ -1,0 +1,12 @@
+{
+  "name": "ui-ux-pro-max",
+  "description": "UI/UX design reference for web, mobile and desktop: styles, palettes, type, accessibility, interaction.",
+  "repo": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+  "path": ".claude/skills/ui-ux-pro-max",
+  "author": "nextlevelbuilder",
+  "tags": [
+    "design",
+    "ui",
+    "ux"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "executing-plans",
+  "description": "Execute a written implementation plan yourself, task by task, with review checkpoints.",
+  "repo": "https://github.com/obra/superpowers",
+  "path": "skills/executing-plans",
+  "author": "obra",
+  "tags": [
+    "engineering",
+    "workflow",
+    "planning"
+  ]
+}

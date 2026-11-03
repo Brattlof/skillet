@@ -1,0 +1,12 @@
+{
+  "name": "agent-browser",
+  "description": "Browser automation CLI for agents: navigate, fill forms, click, screenshot, and extract data.",
+  "repo": "https://github.com/vercel-labs/agent-browser",
+  "path": "skills/agent-browser",
+  "author": "vercel-labs",
+  "tags": [
+    "browser",
+    "automation",
+    "testing"
+  ]
+}

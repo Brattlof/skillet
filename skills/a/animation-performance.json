@@ -1,0 +1,12 @@
+{
+  "name": "animation-performance",
+  "description": "Keep web animations inside the frame budget and find why one drops frames.",
+  "repo": "https://github.com/emilkowalski/skills",
+  "path": "skills/animation-performance",
+  "author": "emilkowalski",
+  "tags": [
+    "animation",
+    "performance",
+    "frontend"
+  ]
+}

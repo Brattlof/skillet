@@ -1,0 +1,12 @@
+{
+  "name": "seo",
+  "description": "SEO questions answered from your Search Console, Analytics and Bing Webmaster data via a CLI.",
+  "repo": "https://github.com/iannuttall/seo",
+  "path": "skills/seo",
+  "author": "iannuttall",
+  "tags": [
+    "seo",
+    "marketing",
+    "analytics"
+  ]
+}

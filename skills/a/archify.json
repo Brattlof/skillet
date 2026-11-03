@@ -1,0 +1,12 @@
+{
+  "name": "archify",
+  "description": "Turn an idea, plan, or codebase into an interactive architecture or workflow diagram as standalone HTML.",
+  "repo": "https://github.com/tt-a1i/archify",
+  "path": "archify",
+  "author": "tt-a1i",
+  "tags": [
+    "diagrams",
+    "architecture",
+    "documentation"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "megacave",
+  "description": "Caveman in Classical Chinese register: far fewer characters, technical terms kept verbatim.",
+  "repo": "https://github.com/JuliusBrussee/caveman",
+  "path": "skills/megacave",
+  "author": "JuliusBrussee",
+  "tags": [
+    "productivity",
+    "tokens"
+  ]
+}

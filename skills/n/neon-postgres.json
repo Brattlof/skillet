@@ -1,0 +1,12 @@
+{
+  "name": "neon-postgres",
+  "description": "Neon Postgres connections, pooling, migrations, branching and autoscaling.",
+  "repo": "https://github.com/neondatabase/agent-skills",
+  "path": "skills/neon-postgres",
+  "author": "neondatabase",
+  "tags": [
+    "neon",
+    "postgres",
+    "database"
+  ]
+}

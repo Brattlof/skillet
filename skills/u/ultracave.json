@@ -1,0 +1,11 @@
+{
+  "name": "ultracave",
+  "description": "Caveman at maximum compression: fragments, one word where one word is enough.",
+  "repo": "https://github.com/JuliusBrussee/caveman",
+  "path": "skills/ultracave",
+  "author": "JuliusBrussee",
+  "tags": [
+    "productivity",
+    "tokens"
+  ]
+}

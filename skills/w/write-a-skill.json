@@ -3,6 +3,7 @@
   "description": "Create new agent skills with proper structure, progressive disclosure, and bundled resources.",
   "repo": "https://github.com/mattpocock/skills",
   "path": "skills/productivity/write-a-skill",
+  "ref": "ab7196a1584ac60688aeb63cf0b56a5114c4a6f3",
   "author": "mattpocock",
   "tags": [
     "productivity"

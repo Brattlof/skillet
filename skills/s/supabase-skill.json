@@ -1,0 +1,12 @@
+{
+  "name": "supabase-skill",
+  "description": "Work with Supabase: database, auth, edge functions, realtime, storage, and supabase-js.",
+  "repo": "https://github.com/supabase/agent-skills",
+  "path": "skills/supabase",
+  "author": "supabase",
+  "tags": [
+    "supabase",
+    "database",
+    "backend"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "google-agents-cli-eval",
+  "description": "Evaluate ADK agents: eval datasets, failure analysis and result comparison.",
+  "repo": "https://github.com/google/agents-cli",
+  "path": "skills/google-agents-cli-eval",
+  "author": "google",
+  "tags": [
+    "agents",
+    "google-cloud",
+    "evals"
+  ]
+}

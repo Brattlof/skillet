@@ -1,0 +1,11 @@
+{
+  "name": "ponytail-debt",
+  "description": "Harvest every ponytail: shortcut comment in a repo into a tech-debt ledger.",
+  "repo": "https://github.com/DietrichGebert/ponytail",
+  "path": "skills/ponytail-debt",
+  "author": "DietrichGebert",
+  "tags": [
+    "engineering",
+    "tech-debt"
+  ]
+}

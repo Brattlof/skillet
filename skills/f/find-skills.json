@@ -1,0 +1,11 @@
+{
+  "name": "find-skills",
+  "description": "Discover and install agent skills when you ask how to do something or whether a skill exists for it.",
+  "repo": "https://github.com/vercel-labs/skills",
+  "path": "skills/find-skills",
+  "author": "vercel-labs",
+  "tags": [
+    "skills",
+    "discovery"
+  ]
+}

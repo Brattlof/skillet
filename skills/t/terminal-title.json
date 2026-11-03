@@ -3,6 +3,7 @@
   "description": "Automatically update the terminal window title to reflect the current high-level task so developers can manage multiple Claude Code terminals.",
   "repo": "https://github.com/bluzername/claude-code-terminal-title",
   "path": "temp_extract/terminal-title",
+  "ref": "1327205312e4edd687747c717f287e844b19ef5e",
   "author": "bluzername",
   "tags": [
     "development",

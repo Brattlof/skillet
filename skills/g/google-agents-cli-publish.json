@@ -1,0 +1,12 @@
+{
+  "name": "google-agents-cli-publish",
+  "description": "Publish and register an ADK agent with Gemini Enterprise.",
+  "repo": "https://github.com/google/agents-cli",
+  "path": "skills/google-agents-cli-publish",
+  "author": "google",
+  "tags": [
+    "agents",
+    "google-cloud",
+    "gemini"
+  ]
+}

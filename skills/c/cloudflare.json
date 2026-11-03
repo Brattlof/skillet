@@ -1,0 +1,12 @@
+{
+  "name": "cloudflare",
+  "description": "Choose Cloudflare products for apps, APIs, agents, storage, networking and security.",
+  "repo": "https://github.com/cloudflare/skills",
+  "path": "skills/cloudflare",
+  "author": "cloudflare",
+  "tags": [
+    "cloudflare",
+    "architecture",
+    "deployment"
+  ]
+}

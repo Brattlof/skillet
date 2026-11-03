@@ -1,0 +1,11 @@
+{
+  "name": "hyperframes-registry",
+  "description": "Install ready-made HyperFrames blocks: transitions, titles, captions, charts, 3D, camera moves.",
+  "repo": "https://github.com/heygen-com/hyperframes",
+  "path": "skills/hyperframes-registry",
+  "author": "heygen-com",
+  "tags": [
+    "video",
+    "animation"
+  ]
+}

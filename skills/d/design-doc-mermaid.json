@@ -1,0 +1,12 @@
+{
+  "name": "design-doc-mermaid",
+  "description": "Create Mermaid diagrams from text or source code for design docs and wikis.",
+  "repo": "https://github.com/spillwavesolutions/design-doc-mermaid",
+  "path": ".",
+  "author": "spillwavesolutions",
+  "tags": [
+    "diagrams",
+    "documentation",
+    "mermaid"
+  ]
+}

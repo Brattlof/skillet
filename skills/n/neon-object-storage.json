@@ -1,0 +1,11 @@
+{
+  "name": "neon-object-storage",
+  "description": "S3-compatible object storage that branches with your Neon database.",
+  "repo": "https://github.com/neondatabase/agent-skills",
+  "path": "skills/neon-object-storage",
+  "author": "neondatabase",
+  "tags": [
+    "neon",
+    "storage"
+  ]
+}

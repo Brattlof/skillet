@@ -1,0 +1,12 @@
+{
+  "name": "ponytail-review",
+  "description": "Code review that only hunts over-engineering: reinvented stdlib, needless dependencies, speculative abstractions.",
+  "repo": "https://github.com/DietrichGebert/ponytail",
+  "path": "skills/ponytail-review",
+  "author": "DietrichGebert",
+  "tags": [
+    "engineering",
+    "code-review",
+    "simplicity"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "animation-vocabulary",
+  "description": "Glossary that turns a vague description of a motion effect into its exact name.",
+  "repo": "https://github.com/emilkowalski/skills",
+  "path": "skills/animation-vocabulary",
+  "author": "emilkowalski",
+  "tags": [
+    "animation",
+    "design"
+  ]
+}

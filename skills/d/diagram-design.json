@@ -1,0 +1,12 @@
+{
+  "name": "diagram-design",
+  "description": "Editorial architecture, flow, sequence, ER and timeline diagrams as self-contained HTML and SVG.",
+  "repo": "https://github.com/cathrynlavery/diagram-design",
+  "path": "skills/diagram-design",
+  "author": "cathrynlavery",
+  "tags": [
+    "diagrams",
+    "design",
+    "documentation"
+  ]
+}

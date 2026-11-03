@@ -1,0 +1,11 @@
+{
+  "name": "research",
+  "description": "Investigate a question against primary sources and save the findings as Markdown in the repo.",
+  "repo": "https://github.com/mattpocock/skills",
+  "path": "skills/engineering/research",
+  "author": "mattpocock",
+  "tags": [
+    "research",
+    "documentation"
+  ]
+}

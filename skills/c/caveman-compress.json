@@ -1,0 +1,11 @@
+{
+  "name": "caveman-compress",
+  "description": "Rewrite memory files like CLAUDE.md into caveman voice to cut the tokens they cost every session.",
+  "repo": "https://github.com/JuliusBrussee/caveman",
+  "path": "skills/caveman-compress",
+  "author": "JuliusBrussee",
+  "tags": [
+    "productivity",
+    "tokens"
+  ]
+}

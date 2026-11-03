@@ -1,0 +1,12 @@
+{
+  "name": "hyperframes",
+  "description": "Make, edit, animate and render videos as HTML compositions with HyperFrames.",
+  "repo": "https://github.com/heygen-com/hyperframes",
+  "path": "skills/hyperframes",
+  "author": "heygen-com",
+  "tags": [
+    "video",
+    "media",
+    "animation"
+  ]
+}

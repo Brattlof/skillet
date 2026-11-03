@@ -1,0 +1,12 @@
+{
+  "name": "shadcn",
+  "description": "Add, search, fix, style and compose shadcn/ui components with project context and docs.",
+  "repo": "https://github.com/shadcn-ui/ui",
+  "path": "skills/shadcn",
+  "author": "shadcn-ui",
+  "tags": [
+    "ui",
+    "react",
+    "frontend"
+  ]
+}

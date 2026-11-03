@@ -1,0 +1,12 @@
+{
+  "name": "wizard",
+  "description": "Generate an interactive bash wizard that walks a human through steps only they can do, like dashboards and secrets.",
+  "repo": "https://github.com/mattpocock/skills",
+  "path": "skills/engineering/wizard",
+  "author": "mattpocock",
+  "tags": [
+    "engineering",
+    "devops",
+    "cli"
+  ]
+}

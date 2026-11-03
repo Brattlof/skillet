@@ -3,6 +3,7 @@
   "description": "Edit and improve articles by restructuring sections, improving clarity, and tightening prose.",
   "repo": "https://github.com/mattpocock/skills",
   "path": "skills/personal/edit-article",
+  "ref": "f958fa17c1b62c3f7be38fc09512669acf6b64fc",
   "author": "mattpocock",
   "tags": [
     "writing",

@@ -1,0 +1,12 @@
+{
+  "name": "neon-functions",
+  "description": "Deploy serverless Node.js HTTP functions on a Neon branch next to your data.",
+  "repo": "https://github.com/neondatabase/agent-skills",
+  "path": "skills/neon-functions",
+  "author": "neondatabase",
+  "tags": [
+    "neon",
+    "serverless",
+    "backend"
+  ]
+}

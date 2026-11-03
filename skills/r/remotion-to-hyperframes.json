@@ -1,0 +1,11 @@
+{
+  "name": "remotion-to-hyperframes",
+  "description": "Port Remotion, Lottie, Three.js or canvas animation into HyperFrames, verified frame by frame.",
+  "repo": "https://github.com/heygen-com/hyperframes",
+  "path": "skills/remotion-to-hyperframes",
+  "author": "heygen-com",
+  "tags": [
+    "video",
+    "migration"
+  ]
+}

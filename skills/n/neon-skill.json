@@ -1,0 +1,12 @@
+{
+  "name": "neon-skill",
+  "description": "Overview of Neon's backend primitives: Postgres, auth, object storage, functions, AI gateway, realtime.",
+  "repo": "https://github.com/neondatabase/agent-skills",
+  "path": "skills/neon",
+  "author": "neondatabase",
+  "tags": [
+    "neon",
+    "postgres",
+    "backend"
+  ]
+}

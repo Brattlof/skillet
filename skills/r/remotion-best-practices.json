@@ -1,0 +1,12 @@
+{
+  "name": "remotion-best-practices",
+  "description": "Entry point and best practices for building videos in React with Remotion.",
+  "repo": "https://github.com/remotion-dev/skills",
+  "path": "skills/remotion-best-practices",
+  "author": "remotion-dev",
+  "tags": [
+    "video",
+    "react",
+    "media"
+  ]
+}

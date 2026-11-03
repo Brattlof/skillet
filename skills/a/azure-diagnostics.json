@@ -1,0 +1,12 @@
+{
+  "name": "azure-diagnostics",
+  "description": "Debug Azure production issues with AppLens, Azure Monitor and resource health.",
+  "repo": "https://github.com/microsoft/azure-skills",
+  "path": "skills/azure-diagnostics",
+  "author": "microsoft",
+  "tags": [
+    "azure",
+    "debugging",
+    "devops"
+  ]
+}

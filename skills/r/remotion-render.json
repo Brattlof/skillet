@@ -1,0 +1,11 @@
+{
+  "name": "remotion-render",
+  "description": "Export a Remotion composition to a video file.",
+  "repo": "https://github.com/remotion-dev/skills",
+  "path": "skills/remotion-render",
+  "author": "remotion-dev",
+  "tags": [
+    "video",
+    "media"
+  ]
+}

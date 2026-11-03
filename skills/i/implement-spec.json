@@ -1,0 +1,11 @@
+{
+  "name": "implement-spec",
+  "description": "Implement a spec and its tickets in code.",
+  "repo": "https://github.com/mattpocock/skills",
+  "path": "skills/engineering/implement-spec",
+  "author": "mattpocock",
+  "tags": [
+    "engineering",
+    "workflow"
+  ]
+}

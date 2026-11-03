@@ -1,0 +1,11 @@
+{
+  "name": "caveman-commit",
+  "description": "Write a Conventional Commits message compressed to intent only.",
+  "repo": "https://github.com/JuliusBrussee/caveman",
+  "path": "skills/caveman-commit",
+  "author": "JuliusBrussee",
+  "tags": [
+    "git",
+    "productivity"
+  ]
+}

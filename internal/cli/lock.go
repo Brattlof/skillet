@@ -190,7 +190,7 @@ func verifyLock(target, dirOverride string) error {
 			continue
 		}
 		locked[strings.ToLower(le.Name)] = true
-		sum, ok, err := install.CurrentChecksum(instDir, le.Name)
+		match, ok, err := install.VerifyChecksum(instDir, le.Name, le.Cksum)
 		if err != nil {
 			return err
 		}
@@ -198,7 +198,7 @@ func verifyLock(target, dirOverride string) error {
 		case !ok:
 			fmt.Printf("FAIL  %s: not installed\n", le.Name)
 			problems++
-		case le.Cksum != "" && sum != le.Cksum:
+		case le.Cksum != "" && !match:
 			fmt.Printf("FAIL  %s: content differs from the lockfile\n", le.Name)
 			problems++
 		default:

@@ -44,7 +44,8 @@ than 3,000 dead links.
    - A hook shard adds a `hook` block naming the event it registers for, for example
      `"hook": { "event": "PreToolUse", "matcher": "Bash" }`.
    - Optional `ref` (a commit SHA or tag) pins installs to an exact version, and optional
-     `cksum` (a `sha256:` hash) makes the install tamper-evident.
+     `cksum` (a `sha256.v2:` hash, the value skillet records in `skillet.lock` after an
+     install) makes the install tamper-evident.
 3. Run `go run ./cmd/buildindex -check` to validate the shards, then `go test ./...`.
 4. Open a PR. In the description, tell us **how you've used it** (one or two sentences).
 

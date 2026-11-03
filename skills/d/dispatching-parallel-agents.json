@@ -1,0 +1,12 @@
+{
+  "name": "dispatching-parallel-agents",
+  "description": "Split two or more independent tasks across parallel subagents without shared state.",
+  "repo": "https://github.com/obra/superpowers",
+  "path": "skills/dispatching-parallel-agents",
+  "author": "obra",
+  "tags": [
+    "engineering",
+    "workflow",
+    "agents"
+  ]
+}

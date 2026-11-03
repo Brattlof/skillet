@@ -1,0 +1,11 @@
+{
+  "name": "receiving-code-review",
+  "description": "Handle review feedback with technical verification instead of blind agreement or blind implementation.",
+  "repo": "https://github.com/obra/superpowers",
+  "path": "skills/receiving-code-review",
+  "author": "obra",
+  "tags": [
+    "engineering",
+    "code-review"
+  ]
+}

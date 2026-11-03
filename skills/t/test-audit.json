@@ -1,0 +1,11 @@
+{
+  "name": "test-audit",
+  "description": "Gate for new tests and audit for low-value ones: duplicate proof, implementation-coupled asserts, test-only seams.",
+  "repo": "https://github.com/openclaw/openclaw",
+  "path": ".agents/skills/test-audit",
+  "author": "openclaw",
+  "tags": [
+    "testing",
+    "quality"
+  ]
+}

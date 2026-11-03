@@ -1,0 +1,12 @@
+{
+  "name": "unslop",
+  "description": "Turn vibecoded, AI-looking UI into a designed interface with its own character.",
+  "repo": "https://github.com/heydamir/unslop",
+  "path": "skills/unslop",
+  "author": "heydamir",
+  "tags": [
+    "design",
+    "ui",
+    "frontend"
+  ]
+}

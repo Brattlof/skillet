@@ -1,0 +1,12 @@
+{
+  "name": "prisma-client-api",
+  "description": "Prisma Client API reference: model queries, filters, operators and client methods.",
+  "repo": "https://github.com/prisma/skills",
+  "path": "prisma-client-api",
+  "author": "prisma",
+  "tags": [
+    "prisma",
+    "database",
+    "typescript"
+  ]
+}

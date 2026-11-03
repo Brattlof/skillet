@@ -3,6 +3,7 @@
   "description": "Tell the agent to zoom out and give broader context or a higher-level perspective on how code fits together.",
   "repo": "https://github.com/mattpocock/skills",
   "path": "skills/engineering/zoom-out",
+  "ref": "801a01cc7d265e06dd9dbcef5a4c471add05a0b3",
   "author": "mattpocock",
   "tags": [
     "engineering"

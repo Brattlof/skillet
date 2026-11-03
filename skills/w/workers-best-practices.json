@@ -1,0 +1,11 @@
+{
+  "name": "workers-best-practices",
+  "description": "Cloudflare Workers best practices for writing, reviewing and configuring production Workers.",
+  "repo": "https://github.com/cloudflare/skills",
+  "path": "skills/workers-best-practices",
+  "author": "cloudflare",
+  "tags": [
+    "cloudflare",
+    "serverless"
+  ]
+}

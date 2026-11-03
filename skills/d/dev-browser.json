@@ -1,0 +1,11 @@
+{
+  "name": "dev-browser",
+  "description": "Browser automation with persistent named pages via the dev-browser CLI.",
+  "repo": "https://github.com/SawyerHood/dev-browser",
+  "path": "skills/dev-browser",
+  "author": "SawyerHood",
+  "tags": [
+    "browser",
+    "automation"
+  ]
+}

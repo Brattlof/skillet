@@ -1,0 +1,13 @@
+{
+  "name": "deslop",
+  "description": "Behavior-preserving cleanup of AI slop in the current branch diff: narrating comments, imagined-state checks, type-laundering casts.",
+  "repo": "https://github.com/openclaw/openclaw",
+  "path": ".agents/skills/deslop",
+  "ref": "4668b290d506e508ae0ab1263fc9077e0e8fd3db",
+  "author": "openclaw",
+  "tags": [
+    "engineering",
+    "code-review",
+    "quality"
+  ]
+}

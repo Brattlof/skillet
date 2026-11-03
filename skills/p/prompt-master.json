@@ -1,0 +1,11 @@
+{
+  "name": "prompt-master",
+  "description": "Write, fix, or adapt prompts for a specific AI tool.",
+  "repo": "https://github.com/nidhinjs/prompt-master",
+  "path": ".",
+  "author": "nidhinjs",
+  "tags": [
+    "prompting",
+    "writing"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "improve-animations",
+  "description": "Audit a codebase's motion code and produce prioritized, self-contained fix plans.",
+  "repo": "https://github.com/emilkowalski/skills",
+  "path": "skills/improve-animations",
+  "author": "emilkowalski",
+  "tags": [
+    "animation",
+    "frontend",
+    "quality"
+  ]
+}

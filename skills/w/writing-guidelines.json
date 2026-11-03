@@ -1,0 +1,11 @@
+{
+  "name": "writing-guidelines",
+  "description": "Review docs and prose for voice, tone, and style against a writing handbook.",
+  "repo": "https://github.com/vercel-labs/agent-skills",
+  "path": "skills/writing-guidelines",
+  "author": "vercel-labs",
+  "tags": [
+    "writing",
+    "documentation"
+  ]
+}

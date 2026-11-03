@@ -1,0 +1,11 @@
+{
+  "name": "codebase-design",
+  "description": "Shared vocabulary for designing deep modules, seams, and testable interfaces.",
+  "repo": "https://github.com/mattpocock/skills",
+  "path": "skills/engineering/codebase-design",
+  "author": "mattpocock",
+  "tags": [
+    "engineering",
+    "architecture"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "media-use",
+  "description": "Get or make media for a HyperFrames video: music, voiceover, images, transcripts, cutouts, grades.",
+  "repo": "https://github.com/heygen-com/hyperframes",
+  "path": "skills/media-use",
+  "author": "heygen-com",
+  "tags": [
+    "video",
+    "media",
+    "audio"
+  ]
+}

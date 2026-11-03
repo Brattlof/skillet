@@ -1,0 +1,11 @@
+{
+  "name": "cloudflare-security-audit",
+  "description": "Security review and vulnerability research for codebases, APIs, services, CLIs and libraries.",
+  "repo": "https://github.com/cloudflare/security-audit-skill",
+  "path": "skills/security-audit",
+  "author": "cloudflare",
+  "tags": [
+    "security",
+    "code-review"
+  ]
+}

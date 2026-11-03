@@ -1,0 +1,12 @@
+{
+  "name": "wrangler",
+  "description": "Run and troubleshoot Wrangler CLI commands for local dev, previews, deploys and resources.",
+  "repo": "https://github.com/cloudflare/skills",
+  "path": "skills/wrangler",
+  "author": "cloudflare",
+  "tags": [
+    "cloudflare",
+    "cli",
+    "deployment"
+  ]
+}

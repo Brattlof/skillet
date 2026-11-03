@@ -3,6 +3,7 @@
   "description": "Search, create, and manage notes in an Obsidian vault with wikilinks and index notes.",
   "repo": "https://github.com/mattpocock/skills",
   "path": "skills/personal/obsidian-vault",
+  "ref": "f958fa17c1b62c3f7be38fc09512669acf6b64fc",
   "author": "mattpocock",
   "tags": [
     "writing",

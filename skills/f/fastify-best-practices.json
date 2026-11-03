@@ -1,0 +1,12 @@
+{
+  "name": "fastify-best-practices",
+  "description": "Build, configure and debug Fastify servers and REST APIs in TypeScript or JavaScript.",
+  "repo": "https://github.com/mcollina/skills",
+  "path": "skills/fastify",
+  "author": "mcollina",
+  "tags": [
+    "nodejs",
+    "backend",
+    "api"
+  ]
+}

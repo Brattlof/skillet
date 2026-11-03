@@ -1,9 +1,9 @@
 {
   "name": "slack-gif-creator",
   "description": "Create animated GIFs optimized for Slack with size validators and animation primitives.",
-  "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
-  "path": "slack-gif-creator",
-  "author": "ComposioHQ",
+  "repo": "https://github.com/anthropics/skills",
+  "path": "skills/slack-gif-creator",
+  "author": "anthropics",
   "tags": [
     "gif",
     "slack",

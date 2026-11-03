@@ -1,0 +1,12 @@
+{
+  "name": "impeccable",
+  "description": "Design, critique, audit and polish frontend interfaces with a shared design vocabulary.",
+  "repo": "https://github.com/pbakaus/impeccable",
+  "path": ".claude/skills/impeccable",
+  "author": "pbakaus",
+  "tags": [
+    "design",
+    "ui",
+    "frontend"
+  ]
+}

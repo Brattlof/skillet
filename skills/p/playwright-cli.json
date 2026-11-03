@@ -1,0 +1,12 @@
+{
+  "name": "playwright-cli",
+  "description": "Automate browser interactions and work with Playwright tests from the CLI.",
+  "repo": "https://github.com/microsoft/playwright-cli",
+  "path": "skills/playwright-cli",
+  "author": "microsoft",
+  "tags": [
+    "browser",
+    "testing",
+    "automation"
+  ]
+}

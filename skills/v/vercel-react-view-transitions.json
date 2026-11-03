@@ -1,0 +1,12 @@
+{
+  "name": "vercel-react-view-transitions",
+  "description": "Native-feeling animations with React's View Transition API.",
+  "repo": "https://github.com/vercel-labs/agent-skills",
+  "path": "skills/react-view-transitions",
+  "author": "vercel-labs",
+  "tags": [
+    "react",
+    "animation",
+    "vercel"
+  ]
+}

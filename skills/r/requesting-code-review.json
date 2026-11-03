@@ -1,0 +1,11 @@
+{
+  "name": "requesting-code-review",
+  "description": "Dispatch a reviewer subagent to check finished work against its requirements before merging.",
+  "repo": "https://github.com/obra/superpowers",
+  "path": "skills/requesting-code-review",
+  "author": "obra",
+  "tags": [
+    "engineering",
+    "code-review"
+  ]
+}

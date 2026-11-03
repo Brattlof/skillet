@@ -1,0 +1,11 @@
+{
+  "name": "humanizer",
+  "description": "Rewrite AI-sounding text so it reads like the writer, without changing what it says.",
+  "repo": "https://github.com/blader/humanizer",
+  "path": ".",
+  "author": "blader",
+  "tags": [
+    "writing",
+    "editing"
+  ]
+}

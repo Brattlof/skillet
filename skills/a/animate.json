@@ -1,0 +1,11 @@
+{
+  "name": "animate",
+  "description": "Build an animation from scratch, deciding purpose, tool, properties, curve and duration in the right order.",
+  "repo": "https://github.com/emilkowalski/skills",
+  "path": "skills/animate",
+  "author": "emilkowalski",
+  "tags": [
+    "animation",
+    "frontend"
+  ]
+}

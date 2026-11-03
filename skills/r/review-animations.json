@@ -1,0 +1,12 @@
+{
+  "name": "review-animations",
+  "description": "Review animation and motion code against a high craft bar.",
+  "repo": "https://github.com/emilkowalski/skills",
+  "path": "skills/review-animations",
+  "author": "emilkowalski",
+  "tags": [
+    "animation",
+    "code-review",
+    "frontend"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "ponytail",
+  "description": "Lazy senior-dev mode: the smallest change that fully solves the task, stdlib and native features before custom code.",
+  "repo": "https://github.com/DietrichGebert/ponytail",
+  "path": "skills/ponytail",
+  "author": "DietrichGebert",
+  "tags": [
+    "engineering",
+    "simplicity",
+    "productivity"
+  ]
+}

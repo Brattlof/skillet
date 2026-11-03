@@ -1,0 +1,11 @@
+{
+  "name": "reverse-any-video",
+  "description": "Rebuild any video file as an editable HyperFrames project and check it against the original.",
+  "repo": "https://github.com/heygen-com/hyperframes",
+  "path": "skills/reverse-any-video",
+  "author": "heygen-com",
+  "tags": [
+    "video",
+    "media"
+  ]
+}

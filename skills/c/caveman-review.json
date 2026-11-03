@@ -1,0 +1,11 @@
+{
+  "name": "caveman-review",
+  "description": "Compressed code review: one line per finding with location, problem and fix.",
+  "repo": "https://github.com/JuliusBrussee/caveman",
+  "path": "skills/caveman-review",
+  "author": "JuliusBrussee",
+  "tags": [
+    "code-review",
+    "productivity"
+  ]
+}

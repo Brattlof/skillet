@@ -1,0 +1,11 @@
+{
+  "name": "grilling",
+  "description": "Grill you relentlessly about a plan, decision, or idea to stress-test it.",
+  "repo": "https://github.com/mattpocock/skills",
+  "path": "skills/productivity/grilling",
+  "author": "mattpocock",
+  "tags": [
+    "productivity",
+    "planning"
+  ]
+}

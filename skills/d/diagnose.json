@@ -3,6 +3,7 @@
   "description": "Disciplined diagnosis loop for hard bugs and performance regressions: reproduce, minimise, hypothesise, instrument, fix, regression-test.",
   "repo": "https://github.com/mattpocock/skills",
   "path": "skills/engineering/diagnose",
+  "ref": "694fa30311e02c2639942308513555e61ee84a6f",
   "author": "mattpocock",
   "tags": [
     "debugging",

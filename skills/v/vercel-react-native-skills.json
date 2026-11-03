@@ -1,0 +1,12 @@
+{
+  "name": "vercel-react-native-skills",
+  "description": "React Native and Expo best practices for performant mobile apps.",
+  "repo": "https://github.com/vercel-labs/agent-skills",
+  "path": "skills/react-native-skills",
+  "author": "vercel-labs",
+  "tags": [
+    "react-native",
+    "mobile",
+    "vercel"
+  ]
+}

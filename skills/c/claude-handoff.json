@@ -1,0 +1,11 @@
+{
+  "name": "claude-handoff",
+  "description": "Hand the current conversation off to a fresh background agent that continues the work.",
+  "repo": "https://github.com/mattpocock/skills",
+  "path": "skills/in-progress/claude-handoff",
+  "author": "mattpocock",
+  "tags": [
+    "workflow",
+    "agents"
+  ]
+}

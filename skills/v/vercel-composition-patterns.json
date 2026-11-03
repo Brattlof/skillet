@@ -1,0 +1,12 @@
+{
+  "name": "vercel-composition-patterns",
+  "description": "React composition patterns that scale: compound components, context providers, no boolean-prop sprawl.",
+  "repo": "https://github.com/vercel-labs/agent-skills",
+  "path": "skills/composition-patterns",
+  "author": "vercel-labs",
+  "tags": [
+    "react",
+    "frontend",
+    "vercel"
+  ]
+}

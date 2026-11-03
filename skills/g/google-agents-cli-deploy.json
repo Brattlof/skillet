@@ -1,0 +1,12 @@
+{
+  "name": "google-agents-cli-deploy",
+  "description": "Deploy ADK agents to Agent Runtime, Cloud Run or GKE, with CI/CD and secrets.",
+  "repo": "https://github.com/google/agents-cli",
+  "path": "skills/google-agents-cli-deploy",
+  "author": "google",
+  "tags": [
+    "agents",
+    "google-cloud",
+    "deployment"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "mastra",
+  "description": "Build agents, workflows, tools and memory with the Mastra framework's current APIs.",
+  "repo": "https://github.com/mastra-ai/skills",
+  "path": "skills/mastra",
+  "author": "mastra-ai",
+  "tags": [
+    "agents",
+    "typescript",
+    "framework"
+  ]
+}

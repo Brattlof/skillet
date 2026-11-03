@@ -1,0 +1,12 @@
+{
+  "name": "apple-design",
+  "description": "Apple-style fluid, physical motion and gesture-driven UI translated for the web.",
+  "repo": "https://github.com/emilkowalski/skills",
+  "path": "skills/apple-design",
+  "author": "emilkowalski",
+  "tags": [
+    "design",
+    "ui",
+    "animation"
+  ]
+}

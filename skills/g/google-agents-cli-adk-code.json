@@ -1,0 +1,12 @@
+{
+  "name": "google-agents-cli-adk-code",
+  "description": "Write agent code with Google's Agent Development Kit: agents, tools, callbacks, state.",
+  "repo": "https://github.com/google/agents-cli",
+  "path": "skills/google-agents-cli-adk-code",
+  "author": "google",
+  "tags": [
+    "agents",
+    "google-cloud",
+    "adk"
+  ]
+}

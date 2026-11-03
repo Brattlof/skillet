@@ -19,7 +19,7 @@
 skillet installs **MCP servers** (Model Context Protocol), **Agent Skills** (the open
 `SKILL.md` standard), and Claude Code slash commands, hooks, subagents, and output styles into
 Claude Code, Cursor, OpenAI Codex, Gemini CLI, Copilot, and Cline - from a curated, verified
-registry of 290+ entries. One static Go binary, no Node or npm.
+registry of 370+ entries. One static Go binary, no Node or npm.
 
 <div align="center">
   <img src="assets/demo.gif" alt="skillet demo: search a registry and install a skill or MCP server into Claude Code with one command" width="700">

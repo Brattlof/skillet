@@ -1,0 +1,12 @@
+{
+  "name": "book-to-skill",
+  "description": "Convert a book or document (PDF, EPUB, DOCX and more) into a structured agent skill.",
+  "repo": "https://github.com/virgiliojr94/book-to-skill",
+  "path": ".",
+  "author": "virgiliojr94",
+  "tags": [
+    "skills",
+    "authoring",
+    "learning"
+  ]
+}

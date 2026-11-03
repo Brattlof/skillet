@@ -1,0 +1,11 @@
+{
+  "name": "chief-of-staff",
+  "description": "Pursue a long-running goal in one session by coordinating subagents.",
+  "repo": "https://github.com/mattpocock/skills",
+  "path": "skills/in-progress/chief-of-staff",
+  "author": "mattpocock",
+  "tags": [
+    "workflow",
+    "agents"
+  ]
+}

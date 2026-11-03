@@ -1,9 +1,9 @@
 {
   "name": "subagent-driven-development",
   "description": "Dispatch independent subagents for individual tasks with code review checkpoints between iterations, enabling fast controlled development.",
-  "repo": "https://github.com/NeoLabHQ/context-engineering-kit",
-  "path": "plugins/sadd/skills/subagent-driven-development",
-  "author": "NeoLabHQ",
+  "repo": "https://github.com/obra/superpowers",
+  "path": "skills/subagent-driven-development",
+  "author": "obra",
   "tags": [
     "development",
     "subagents",

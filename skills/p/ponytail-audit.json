@@ -1,0 +1,12 @@
+{
+  "name": "ponytail-audit",
+  "description": "Whole-repo over-engineering audit: a ranked list of what to delete, simplify, or replace with stdlib.",
+  "repo": "https://github.com/DietrichGebert/ponytail",
+  "path": "skills/ponytail-audit",
+  "author": "DietrichGebert",
+  "tags": [
+    "engineering",
+    "code-review",
+    "simplicity"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "writing-skills",
+  "description": "Create and edit agent skills test-first, verifying they change agent behavior before you ship them.",
+  "repo": "https://github.com/obra/superpowers",
+  "path": "skills/writing-skills",
+  "author": "obra",
+  "tags": [
+    "skills",
+    "authoring"
+  ]
+}

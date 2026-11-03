@@ -1,9 +1,9 @@
 {
   "name": "caveman",
   "description": "Ultra-compressed communication mode that cuts token usage about 75 percent while keeping full technical accuracy.",
-  "repo": "https://github.com/mattpocock/skills",
-  "path": "skills/productivity/caveman",
-  "author": "mattpocock",
+  "repo": "https://github.com/JuliusBrussee/caveman",
+  "path": "skills/caveman",
+  "author": "JuliusBrussee",
   "tags": [
     "productivity"
   ]

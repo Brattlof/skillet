@@ -1,0 +1,11 @@
+{
+  "name": "hyperframes-cli",
+  "description": "The HyperFrames CLI: scaffold, check, preview, render and recover from failures.",
+  "repo": "https://github.com/heygen-com/hyperframes",
+  "path": "skills/hyperframes-cli",
+  "author": "heygen-com",
+  "tags": [
+    "video",
+    "cli"
+  ]
+}

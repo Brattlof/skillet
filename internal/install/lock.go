@@ -18,7 +18,8 @@ type LockEntry struct {
 	Path   string             `json:"path"`
 	Commit string             `json:"commit,omitempty"`
 	Cksum  string             `json:"cksum,omitempty"`
-	Hook   *registry.HookSpec `json:"hook,omitempty"` // hook registration, so restore can re-register it
+	Hook   *registry.HookSpec `json:"hook,omitempty"`   // hook registration, so restore can re-register it
+	Source string             `json:"source,omitempty"` // "skills.sh" for a community skill
 }
 
 // Lockfile pins an exact set of skills for reproducible installs.

@@ -12,6 +12,7 @@ import (
 
 	"github.com/Brattlof/skillet/internal/install"
 	"github.com/Brattlof/skillet/internal/registry"
+	"github.com/Brattlof/skillet/internal/skillssh"
 )
 
 const dirUsage = "exact install directory (overrides --target; default per kind)"
@@ -56,15 +57,26 @@ func cmdAdd(ctx context.Context, args []string) error {
 	fs := flag.NewFlagSet("add", flag.ContinueOnError)
 	dir := fs.String("dir", "", dirUsage)
 	tgtFlag := fs.String("target", "", targetUsage)
+	force := fs.Bool("force", false, forceUsage)
+	replace := fs.Bool("replace", false, replaceUsage)
 	pos, err := parseArgs(fs, args)
 	if err != nil {
 		return err
 	}
 	if len(pos) < 1 {
-		return errors.New("usage: skillet add <name>[@ref] [--target NAME] [--dir PATH]")
+		return errors.New("usage: skillet add <name|owner/repo/skill>[@ref] [--target NAME] [--dir PATH]")
 	}
 
 	name, ref := splitNameRef(pos[0])
+	if source, skill, ok := skillssh.ParseSpec(name); ok {
+		return addCommunity(ctx, source, skill, ref, *tgtFlag, *dir, *force, *replace)
+	}
+	if strings.Contains(name, "/") {
+		if first, _, _ := strings.Cut(name, "/"); strings.Contains(first, ".") {
+			return fmt.Errorf("%q is hosted on a website, not GitHub; skillet installs skills.sh skills from GitHub only", name)
+		}
+		return fmt.Errorf("%q is not a registry name or an owner/repo/skill from skills.sh", name)
+	}
 	entry, ok, err := registry.Find(ctx, name)
 	if err != nil {
 		return err
@@ -99,8 +111,9 @@ func cmdAdd(ctx context.Context, args []string) error {
 	if err != nil {
 		return err
 	}
+	warnReplacing(instDir, entry)
 	fmt.Printf("Installing %s from %s ...\n", entry.Name, entry.Repo)
-	dest, err := install.Install(ctx, entry, instDir)
+	dest, err := install.InstallWith(ctx, entry, instDir, install.Options{Replace: *replace})
 	if err != nil {
 		return err
 	}
@@ -184,6 +197,7 @@ func cmdUpdate(ctx context.Context, args []string) error {
 	fs := flag.NewFlagSet("update", flag.ContinueOnError)
 	dir := fs.String("dir", "", dirUsage)
 	tgtFlag := fs.String("target", "", targetUsage)
+	force := fs.Bool("force", false, "update a skills.sh skill even if its security audit now fails")
 	pos, err := parseArgs(fs, args)
 	if err != nil {
 		return err
@@ -227,16 +241,27 @@ func cmdUpdate(ctx context.Context, args []string) error {
 
 	var updated, unchanged, skipped int
 	for _, it := range items {
-		entry, ok, err := registry.Find(ctx, it.name)
+		entry, opt, skip, err := updateEntry(ctx, it.name, it.dir)
 		if err != nil {
 			return err
 		}
-		if !ok {
-			fmt.Printf("skipped %s (not in the registry)\n", it.name)
+		if skip != "" {
+			fmt.Printf("skipped %s (%s)\n", it.name, skip)
 			skipped++
 			continue
 		}
-		prev, cur, err := install.Update(ctx, entry, it.dir)
+		// A community skill is re-audited on every update: the audit gate exists
+		// for the skill that was safe when installed and is not any more.
+		if opt.Source == skillssh.SourceName {
+			source, _ := sourceFromRepo(entry.Repo)
+			if aerr := checkAudit(ctx, source, entry.Name, *force); aerr != nil {
+				fmt.Fprintln(os.Stderr, "error:", aerr)
+				fmt.Printf("skipped %s (blocked by its security audit)\n", it.name)
+				skipped++
+				continue
+			}
+		}
+		prev, cur, err := install.UpdateWith(ctx, entry, it.dir, opt)
 		if err != nil {
 			return fmt.Errorf("updating %s: %w", it.name, err)
 		}
@@ -254,6 +279,30 @@ func cmdUpdate(ctx context.Context, args []string) error {
 	}
 	fmt.Printf("\n%d updated, %d unchanged, %d skipped\n", updated, unchanged, skipped)
 	return nil
+}
+
+// updateEntry resolves what to reinstall for an installed item, or a reason to
+// skip it. A community skill updates from the repo it was installed from,
+// re-finding its folder in case it moved; anything else updates from the
+// registry entry of the same name.
+func updateEntry(ctx context.Context, name, dir string) (e registry.Entry, opt install.Options, skip string, err error) {
+	if rec, ok, rerr := install.ReadRecord(dir, name); rerr == nil && ok && rec.Source == skillssh.SourceName {
+		// The record is a local file anyone could edit; never trust it blindly.
+		source, valid := sourceFromRepo(rec.Repo)
+		if !valid || !skillssh.ValidSlug(rec.Name) || !strings.EqualFold(rec.Name, name) {
+			return e, opt, fmt.Sprintf("its install record has an invalid source %q", rec.Repo), nil
+		}
+		e = communityEntry(source, rec.Name, rec.Ref)
+		if verr := validateCommunity(e); verr != nil {
+			return registry.Entry{}, opt, "its install record is invalid: " + verr.Error(), nil
+		}
+		return e, install.Options{Source: skillssh.SourceName, Discover: rec.Name}, "", nil
+	}
+	entry, ok, err := registry.Find(ctx, name)
+	if err == nil && !ok {
+		return e, opt, "not in the registry", nil
+	}
+	return entry, install.Options{}, "", err
 }
 
 func cmdDoctor(ctx context.Context, args []string) error {
@@ -290,11 +339,22 @@ func cmdDoctor(ctx context.Context, args []string) error {
 		if err != nil {
 			return err
 		}
+		community := map[string]bool{}
+		if recs, rerr := install.Records(dk.Dir); rerr == nil {
+			for _, r := range recs {
+				if r.Source == skillssh.SourceName {
+					community[strings.ToLower(r.Name)] = true
+				}
+			}
+		}
 		for _, d := range diags {
 			total++
 			switch d.Status {
 			case install.StatusOK:
-				if registryKnown && !inRegistry[strings.ToLower(d.Name)] {
+				if community[strings.ToLower(d.Name)] {
+					fmt.Printf("ok    %s (community, from skills.sh)\n", d.Name)
+					ok++
+				} else if registryKnown && !inRegistry[strings.ToLower(d.Name)] {
 					fmt.Printf("warn  %s: not in the registry\n", d.Name)
 					warnings++
 				} else {
@@ -494,6 +554,8 @@ func listStatus(hasRec, inReg bool, rec install.Record, e registry.Entry) string
 	switch {
 	case !hasRec:
 		return "no record"
+	case rec.Source == skillssh.SourceName:
+		return "community" // from skills.sh; compared against its repo, not the registry
 	case !inReg:
 		return "not in registry"
 	case e.Ref != "" && e.Ref != rec.Ref:
@@ -555,11 +617,19 @@ func cmdSearch(ctx context.Context, args []string) error {
 		}
 		results = filtered
 	}
-	if len(results) == 0 {
-		fmt.Printf("No skills match %q\n", query)
-		return nil
+	// skills.sh lists skills only and has no tags, so a kind or tag filter keeps
+	// the search to the registry. An empty query lists the registry, not the web.
+	withCommunity := strings.TrimSpace(query) != "" && (*kind == "" || *kind == "skill") && *tag == ""
+	if len(results) > 0 {
+		printEntries(results)
 	}
-	printEntries(results)
+	shown := 0
+	if withCommunity {
+		shown = searchCommunity(ctx, query, results)
+	}
+	if len(results) == 0 && shown == 0 {
+		fmt.Printf("No skills match %q\n", query)
+	}
 	return nil
 }
 
@@ -581,9 +651,12 @@ func cmdInfo(ctx context.Context, args []string) error {
 		return err
 	}
 	if len(pos) < 1 {
-		return errors.New("usage: skillet info <name> [--target NAME] [--dir PATH]")
+		return errors.New("usage: skillet info <name|owner/repo/skill> [--target NAME] [--dir PATH]")
 	}
 	name := pos[0]
+	if source, skill, ok := skillssh.ParseSpec(name); ok {
+		return infoCommunity(ctx, source, skill, *tgtFlag, *dir)
+	}
 
 	entry, ok, err := registry.Find(ctx, name)
 	if err != nil {

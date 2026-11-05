@@ -11,8 +11,16 @@ on:
       - 'agents/**'
       - 'output-styles/**'
       - 'cmd/buildindex/**'
+      - 'cmd/buildtrending/**'
       - 'internal/registry/**'
+      - 'internal/skillssh/**'
+      - 'internal/trending/**'
       - '.github/workflows/publish.yml'
+  # Refresh the trending and hot snapshot every hour. The index is rebuilt too,
+  # since gh-pages is republished whole.
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -31,6 +39,23 @@ jobs:
           go-version-file: go.mod
       - name: Compile index
         run: go run ./cmd/buildindex -out dist/index.json
+      - name: Fetch the previous trending snapshot
+        # Reused for descriptions, and republished if the new build fails.
+        run: |
+          curl -fsSL --retry 2 -o prev-trending.json \
+            "https://raw.githubusercontent.com/${{ github.repository }}/gh-pages/trending.json" \
+            || rm -f prev-trending.json
+      - name: Build the trending snapshot
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # A skills.sh outage or page change must not block the index, so a
+        # failed build keeps the last good snapshot. The CLI warns once it is
+        # more than six hours old.
+        run: |
+          if ! go run ./cmd/buildtrending -out dist/trending.json -previous prev-trending.json; then
+            echo "::warning::trending snapshot build failed; republishing the previous snapshot"
+            if [ -s prev-trending.json ]; then cp prev-trending.json dist/trending.json; fi
+          fi
       - name: Publish to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:

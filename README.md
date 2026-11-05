@@ -81,6 +81,8 @@ go install github.com/Brattlof/skillet/cmd/skillet@latest
 
 ```text
 skillet add <name>[@ref]   Install any registry entry (optionally pinned)
+skillet add <owner/repo/skill>
+                           Install a community skill from skills.sh
 skillet install            Restore everything from skillet.lock
 skillet install --frozen   Verify the install matches skillet.lock (no changes)
 skillet lock               Write skillet.lock from what is installed
@@ -88,8 +90,10 @@ skillet update [name]      Update an installed item, or all of them
 skillet doctor             Check installed items for problems
 skillet remove <name>      Remove an installed item
 skillet list               List installed items
-skillet search <query>     Search the registry (ranked + fuzzy; --kind, --tag)
-skillet info <name>        Show details of a registry entry
+skillet search <query>     Search the registry, then skills.sh (--kind, --tag)
+skillet info <name>        Show details of a registry entry or community skill
+skillet trending           Show trending skills on skills.sh (--limit N)
+skillet hot                Show skills rising on skills.sh in the last hour
 skillet registry           Show every registry entry
 skillet publish            How to publish your own skill
 skillet completion <sh>    Output a bash, zsh, or fish completion script
@@ -97,7 +101,8 @@ skillet self-update        Update the skillet binary to the latest release
 ```
 
 Add `--target agents` to any command to use `~/.agents/skills` instead of
-`~/.claude/skills`, or set `SKILLET_TARGET=agents`.
+`~/.claude/skills`, or set `SKILLET_TARGET=agents`. skillet never overwrites a file or
+folder it did not install; pass `--replace` to `add` or `install` to allow it.
 
 ### Skills, commands, hooks, agents, output styles, and MCP servers
 
@@ -148,6 +153,42 @@ export SKILLET_TARGET=agents                      # make it the default
 skillet add hello-skill --dir ~/somewhere/else    # an exact directory
 ```
 
+### Community skills from skills.sh
+
+The curated registry is small on purpose. For everything else, skillet also searches
+[skills.sh](https://skills.sh), Vercel's open directory of Agent Skills:
+
+```console
+$ skillet search pdf
+NAME  KIND   DESCRIPTION                                   TAGS
+pdf   skill  Fill, create, merge, split, and extract ...  pdf,documents
+
+From skills.sh (community, not reviewed by skillet):
+SKILL                                       INSTALLS
+openai/skills/pdf                           13.6k
+github/awesome-copilot/pdftk-server         10.0k
+
+$ skillet add openai/skills/pdf
+audit: Gen Agent Trust Hub pass, Socket pass, Snyk warn (Risk: MEDIUM · 1 issue), ...
+Installed openai/skills/pdf -> ~/.claude/skills/pdf (from skills/.curated/pdf)
+
+$ skillet trending      # or: skillet hot
+```
+
+- `skillet add owner/repo/skill` (or a pasted `https://skills.sh/...` URL) clones the
+  GitHub repo, finds the folder whose `SKILL.md` names that skill, and installs it. It
+  shows the same security audit as the skill's skills.sh page (Pass, Warn, or Fail from
+  each scanner) and refuses a Fail unless you pass `--force`; `update` and `install`
+  re-check it. `list`, `doctor`, and
+  `skillet.lock` track community installs too.
+- `skillet trending` and `skillet hot` read a snapshot that CI rebuilds every hour from
+  the skills.sh leaderboards. Install counts there are self-reported telemetry and easy to
+  inflate, so the snapshot drops forks, archived repos, repos under 10 stars, trending
+  entries with more than 50 installs per star (unless skills.sh marks them official), and
+  anything with a failed audit. It is a filter, not a review.
+- Only GitHub-hosted skills install; skills.sh entries served from a website are skipped.
+  `SKILLET_OFFLINE=1` keeps every command off skills.sh.
+
 ## Reproducible installs
 
 Pin an install to an exact version with `skillet add <name>@<ref>` (a commit SHA or
@@ -167,6 +208,8 @@ elsewhere with `SKILLET_LOCKFILE`.
 - `SKILLET_SKILLS_DIR` - override the skills directory (skills kind only).
 - `SKILLET_CACHE_DIR` - override where the fetched index is cached.
 - `SKILLET_LOCKFILE` - override the lockfile path (default: `./skillet.lock`).
+- `SKILLET_TRENDING_URL` - override the trending snapshot URL.
+- `SKILLET_SKILLSSH_URL` - override the skills.sh origin (for testing or a mirror).
 
 ## How it works
 
@@ -185,8 +228,9 @@ copy with `SKILLET_OFFLINE=1`.
 
 ## Security
 
-A skill runs with your agent's privileges, so only install skills you trust. skillet warns
-when you install an unpinned skill; pin to an exact version with `skillet add <name>@<ref>`
+A skill runs with your agent's privileges, so only install skills you trust. Community
+skills from skills.sh are not reviewed by skillet; skillet shows their skills.sh audit and
+blocks a failed one by default. skillet warns when you install an unpinned skill; pin to an exact version with `skillet add <name>@<ref>`
 and audit installs with `skillet doctor`. See [SECURITY.md](SECURITY.md) for the full trust
 model and how to report a vulnerability.
 

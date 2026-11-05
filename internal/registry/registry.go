@@ -11,7 +11,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io"
 	"io/fs"
 	"net"
 	"net/http"
@@ -24,6 +23,7 @@ import (
 	"time"
 
 	skillet "github.com/Brattlof/skillet"
+	"github.com/Brattlof/skillet/internal/httpcache"
 )
 
 // Entry is a single curated skill in the registry.
@@ -87,36 +87,16 @@ const cacheTTL = time.Hour
 
 var httpClient = &http.Client{Timeout: 10 * time.Second}
 
+// indexCacheName is the cached copy of the compiled index.
+const indexCacheName = "index.json"
+
 // Load returns the skill index. It prefers a fresh on-disk cache, then revalidates
 // with the remote index, and falls back to the cache and finally to the embedded
 // baseline. It does not fail for a transient network problem as long as the
 // embedded shards parse.
 func Load(ctx context.Context) ([]Entry, error) {
-	if offline() {
-		if entries, _, ok := readCache(); ok {
-			return entries, nil
-		}
-		return loadEmbedded()
-	}
-
-	cached, meta, haveCache := readCache()
-	if haveCache && time.Since(meta.Fetched) < cacheTTL {
-		return cached, nil
-	}
-
-	body, etag, status, err := fetchIndex(ctx, meta.ETag)
-	if err == nil && status == http.StatusOK {
-		if entries, derr := decodeIndex(body); derr == nil {
-			writeCache(body, etag)
-			return entries, nil
-		}
-	}
-	if err == nil && status == http.StatusNotModified && haveCache {
-		touchCache(meta.ETag)
-		return cached, nil
-	}
-	if haveCache {
-		return cached, nil
+	if body, ok := httpcache.Get(ctx, httpClient, indexURL(), indexCacheName, cacheTTL, validIndex); ok {
+		return decodeIndex(body)
 	}
 	return loadEmbedded()
 }
@@ -125,10 +105,17 @@ func Load(ctx context.Context) ([]Entry, error) {
 // cache exists. It never touches the network, so it is safe for latency-sensitive
 // paths like shell completion.
 func Cached() ([]Entry, error) {
-	if entries, _, ok := readCache(); ok {
-		return entries, nil
+	if body, ok := httpcache.Cached(indexCacheName, validIndex); ok {
+		return decodeIndex(body)
 	}
 	return loadEmbedded()
+}
+
+// validIndex reports whether b is a usable index. The body httpcache returns is
+// always one that passed it, so callers decode that body, never a side effect.
+func validIndex(b []byte) error {
+	_, err := decodeIndex(b)
+	return err
 }
 
 // Find returns the entry whose name matches (case-insensitively).
@@ -507,116 +494,4 @@ func indexURL() string {
 		return v
 	}
 	return defaultRegistryURL
-}
-
-func offline() bool {
-	switch strings.ToLower(os.Getenv("SKILLET_OFFLINE")) {
-	case "1", "true", "yes":
-		return true
-	}
-	return false
-}
-
-func fetchIndex(ctx context.Context, etag string) (body []byte, newETag string, status int, err error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, indexURL(), nil)
-	if err != nil {
-		return nil, "", 0, err
-	}
-	if etag != "" {
-		req.Header.Set("If-None-Match", etag)
-	}
-	resp, err := httpClient.Do(req)
-	if err != nil {
-		return nil, "", 0, err
-	}
-	defer func() {
-		_, _ = io.Copy(io.Discard, resp.Body)
-		resp.Body.Close()
-	}()
-	if resp.StatusCode == http.StatusNotModified {
-		return nil, etag, resp.StatusCode, nil
-	}
-	if resp.StatusCode != http.StatusOK {
-		return nil, "", resp.StatusCode, fmt.Errorf("registry returned %s", resp.Status)
-	}
-	b, err := io.ReadAll(io.LimitReader(resp.Body, 64<<20))
-	if err != nil {
-		return nil, "", resp.StatusCode, err
-	}
-	return b, resp.Header.Get("ETag"), resp.StatusCode, nil
-}
-
-type cacheMeta struct {
-	ETag    string    `json:"etag"`
-	Fetched time.Time `json:"fetched"`
-}
-
-func cacheDir() string {
-	if v := os.Getenv("SKILLET_CACHE_DIR"); v != "" {
-		return v
-	}
-	base, err := os.UserCacheDir()
-	if err != nil {
-		return ""
-	}
-	return filepath.Join(base, "skillet")
-}
-
-func readCache() ([]Entry, cacheMeta, bool) {
-	dir := cacheDir()
-	if dir == "" {
-		return nil, cacheMeta{}, false
-	}
-	b, err := os.ReadFile(filepath.Join(dir, "index.json"))
-	if err != nil {
-		return nil, cacheMeta{}, false
-	}
-	entries, err := decodeIndex(b)
-	if err != nil {
-		return nil, cacheMeta{}, false
-	}
-	var m cacheMeta
-	if mb, err := os.ReadFile(filepath.Join(dir, "index.meta")); err == nil {
-		_ = json.Unmarshal(mb, &m)
-	}
-	return entries, m, true
-}
-
-func writeCache(body []byte, etag string) {
-	dir := cacheDir()
-	if dir == "" || os.MkdirAll(dir, 0o755) != nil {
-		return
-	}
-	if err := writeFileAtomic(filepath.Join(dir, "index.json"), body); err != nil {
-		return // do not stamp meta for an index we failed to persist
-	}
-	touchCache(etag)
-}
-
-func touchCache(etag string) {
-	dir := cacheDir()
-	if dir == "" {
-		return
-	}
-	if mb, err := json.Marshal(cacheMeta{ETag: etag, Fetched: time.Now()}); err == nil {
-		_ = writeFileAtomic(filepath.Join(dir, "index.meta"), mb)
-	}
-}
-
-// writeFileAtomic writes b to path via a temp file and rename, so a crash or a
-// concurrent process never leaves a half-written file.
-func writeFileAtomic(path string, b []byte) error {
-	tmp, err := os.CreateTemp(filepath.Dir(path), ".tmp-*")
-	if err != nil {
-		return err
-	}
-	defer os.Remove(tmp.Name())
-	if _, err := tmp.Write(b); err != nil {
-		tmp.Close()
-		return err
-	}
-	if err := tmp.Close(); err != nil {
-		return err
-	}
-	return os.Rename(tmp.Name(), path)
 }

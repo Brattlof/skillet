@@ -70,7 +70,7 @@ func TestRestorePrunesAndFrozenVerifies(t *testing.T) {
 	t.Setenv("SKILLET_LOCKFILE", lockfile)
 
 	// Restore reinstalls "a" and prunes "b" (managed but not in the lock).
-	if err := restoreFromLock(ctx, "claude", override); err != nil {
+	if err := restoreFromLock(ctx, "claude", override, false, false); err != nil {
 		t.Fatalf("restore: %v", err)
 	}
 	if _, err := os.Stat(filepath.Join(override, "a")); err != nil {
@@ -109,7 +109,7 @@ func TestRestoreAndVerifyAgreeUnderAgents(t *testing.T) {
 	}
 	t.Setenv("SKILLET_LOCKFILE", lockfile)
 
-	if err := restoreFromLock(context.Background(), "agents", ""); err != nil {
+	if err := restoreFromLock(context.Background(), "agents", "", false, false); err != nil {
 		t.Fatalf("restore should skip the command entry, not error: %v", err)
 	}
 	if err := verifyLock("agents", ""); err != nil {

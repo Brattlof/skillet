@@ -52,12 +52,34 @@ func expand(p string) (string, error) {
 // The entry is assumed already validated by the registry (Repo is an https URL
 // and Ref is a plain git ref), which keeps the git calls below safe.
 func Install(ctx context.Context, e registry.Entry, dir string) (string, error) {
+	return InstallWith(ctx, e, dir, Options{})
+}
+
+// Options adjusts an install.
+type Options struct {
+	// Source records where the entry came from (skillssh.SourceName for a
+	// community skill); empty means the curated registry.
+	Source string
+	// Discover, when set, ignores e.Path and finds the folder of the skill with
+	// this slug in the cloned repo. Community skills carry no path.
+	Discover string
+	// Replace allows overwriting an existing file or folder at the destination
+	// that skillet did not install (it has no install record). Without it such
+	// an install fails, so a hand-made skill is never silently deleted.
+	Replace bool
+}
+
+// InstallWith is Install with options.
+func InstallWith(ctx context.Context, e registry.Entry, dir string, opt Options) (string, error) {
 	// Defense in depth: never let a name or path escape the install directory,
 	// even if a caller forgot to validate (for example restoring from a lockfile).
 	if !safeName(e.Name) {
 		return "", fmt.Errorf("unsafe skill name %q", e.Name)
 	}
-	if !filepath.IsLocal(filepath.FromSlash(e.Path)) {
+	if opt.Discover != "" && e.KindOrDefault() != "skill" {
+		return "", fmt.Errorf("only a skill can be discovered in a repo, not a %s", e.KindOrDefault())
+	}
+	if opt.Discover == "" && !filepath.IsLocal(filepath.FromSlash(e.Path)) {
 		return "", fmt.Errorf("unsafe skill path %q", e.Path)
 	}
 	if _, err := exec.LookPath("git"); err != nil {
@@ -76,6 +98,13 @@ func Install(ctx context.Context, e registry.Entry, dir string) (string, error) 
 
 	if err := fetchRepo(ctx, e, tmp); err != nil {
 		return "", err
+	}
+	if opt.Discover != "" {
+		p, err := findSkill(tmp, opt.Discover)
+		if err != nil {
+			return "", fmt.Errorf("%s: %w", e.Repo, err)
+		}
+		e.Path = p
 	}
 
 	src := filepath.Join(tmp, filepath.FromSlash(e.Path))
@@ -133,6 +162,8 @@ func Install(ctx context.Context, e registry.Entry, dir string) (string, error) 
 				return "", rerr
 			}
 		}
+	} else if _, serr := os.Lstat(dest); serr == nil && !opt.Replace {
+		return "", fmt.Errorf("%s already exists and was not installed by skillet; move it away or pass --replace", dest)
 	}
 	if err := os.RemoveAll(dest); err != nil {
 		return "", err
@@ -186,6 +217,7 @@ func Install(ctx context.Context, e registry.Entry, dir string) (string, error) 
 		Commit:      commit,
 		Cksum:       sum,
 		Hook:        e.Hook,
+		Source:      opt.Source,
 		InstalledAt: time.Now(),
 	}
 	if err := writeRecord(dir, rec); err != nil {
@@ -234,8 +266,13 @@ func resolveCommit(ctx context.Context, repoDir string) (string, error) {
 // records, so the caller can report what changed. The previous record is zero if
 // the skill was not installed before.
 func Update(ctx context.Context, e registry.Entry, dir string) (prev Record, cur Record, err error) {
+	return UpdateWith(ctx, e, dir, Options{})
+}
+
+// UpdateWith is Update with install options.
+func UpdateWith(ctx context.Context, e registry.Entry, dir string, opt Options) (prev Record, cur Record, err error) {
 	prev, _, _ = ReadRecord(dir, e.Name)
-	if _, ierr := Install(ctx, e, dir); ierr != nil {
+	if _, ierr := InstallWith(ctx, e, dir, opt); ierr != nil {
 		return Record{}, Record{}, ierr
 	}
 	cur, _, err = ReadRecord(dir, e.Name)
@@ -246,26 +283,35 @@ func Update(ctx context.Context, e registry.Entry, dir string) (prev Record, cur
 // branch; with a ref (any commit or tag) it does a full clone and checks it out.
 // The "--" and "--end-of-options" separators stop git from parsing a value that
 // begins with a dash as an option.
+//
+// Git never prompts for credentials: every repo skillet installs from is public,
+// and a mistyped or missing repo should fail, not ask for a GitHub password.
 func fetchRepo(ctx context.Context, e registry.Entry, tmp string) error {
 	if e.Ref == "" {
-		clone := exec.CommandContext(ctx, "git", "clone", "--depth", "1", "--", e.Repo, tmp)
-		clone.Stderr = os.Stderr
+		clone := gitCommand(ctx, "clone", "--depth", "1", "--", e.Repo, tmp)
 		if err := clone.Run(); err != nil {
-			return fmt.Errorf("cloning %s: %w", e.Repo, err)
+			return fmt.Errorf("cloning %s (is the repository public and spelled right?): %w", e.Repo, err)
 		}
 		return nil
 	}
-	clone := exec.CommandContext(ctx, "git", "clone", "--quiet", "--", e.Repo, tmp)
-	clone.Stderr = os.Stderr
+	clone := gitCommand(ctx, "clone", "--quiet", "--", e.Repo, tmp)
 	if err := clone.Run(); err != nil {
-		return fmt.Errorf("cloning %s: %w", e.Repo, err)
+		return fmt.Errorf("cloning %s (is the repository public and spelled right?): %w", e.Repo, err)
 	}
-	checkout := exec.CommandContext(ctx, "git", "-C", tmp, "checkout", "--quiet", "--end-of-options", e.Ref)
-	checkout.Stderr = os.Stderr
+	checkout := gitCommand(ctx, "-C", tmp, "checkout", "--quiet", "--end-of-options", e.Ref)
 	if err := checkout.Run(); err != nil {
 		return fmt.Errorf("checking out %s@%s: %w", e.Repo, e.Ref, err)
 	}
 	return nil
+}
+
+// gitCommand runs git with terminal credential prompts disabled and its errors
+// shown to the user.
+func gitCommand(ctx context.Context, args ...string) *exec.Cmd {
+	cmd := exec.CommandContext(ctx, "git", args...)
+	cmd.Env = append(os.Environ(), "GIT_TERMINAL_PROMPT=0", "GCM_INTERACTIVE=never")
+	cmd.Stderr = os.Stderr
+	return cmd
 }
 
 // Remove deletes an installed artifact and its provenance record. A hook is

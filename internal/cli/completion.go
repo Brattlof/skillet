@@ -93,7 +93,7 @@ const bashCompletion = `_skillet() {
     local cur prev sub cmds
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
-    cmds="add install update doctor remove list lock search info registry publish completion self-update version help"
+    cmds="add install update doctor remove list lock search info trending hot registry publish completion self-update version help"
 
     if [ "$COMP_CWORD" -eq 1 ]; then
         COMPREPLY=( $(compgen -W "$cmds" -- "$cur") )
@@ -126,7 +126,7 @@ complete -F _skillet skillet
 const zshCompletion = `#compdef skillet
 _skillet() {
     local -a cmds
-    cmds=(add install update doctor remove list lock search info registry publish completion self-update version help)
+    cmds=(add install update doctor remove list lock search info trending hot registry publish completion self-update version help)
 
     if (( CURRENT == 2 )); then
         compadd -- $cmds
@@ -150,7 +150,7 @@ compdef _skillet skillet
 `
 
 const fishCompletion = `complete -c skillet -f
-complete -c skillet -n __fish_use_subcommand -a "add install update doctor remove list lock search info registry publish completion self-update version help"
+complete -c skillet -n __fish_use_subcommand -a "add install update doctor remove list lock search info trending hot registry publish completion self-update version help"
 complete -c skillet -n "__fish_seen_subcommand_from add install info search" -a "(skillet __complete add 2>/dev/null)"
 complete -c skillet -n "__fish_seen_subcommand_from remove update" -a "(skillet __complete remove 2>/dev/null)"
 complete -c skillet -n "__fish_seen_subcommand_from completion" -a "bash zsh fish"

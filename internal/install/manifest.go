@@ -30,6 +30,7 @@ type Record struct {
 	Commit      string             `json:"commit,omitempty"`   // commit actually installed
 	Cksum       string             `json:"cksum,omitempty"`    // sha256 hash of the installed content
 	Hook        *registry.HookSpec `json:"hook,omitempty"`     // hook registration, for un-registering on remove
+	Source      string             `json:"source,omitempty"`   // "skills.sh" for a community skill; empty for the registry
 	InstalledAt time.Time          `json:"installed_at"`
 }
 

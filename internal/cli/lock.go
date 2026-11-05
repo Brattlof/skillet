@@ -10,6 +10,7 @@ import (
 
 	"github.com/Brattlof/skillet/internal/install"
 	"github.com/Brattlof/skillet/internal/registry"
+	"github.com/Brattlof/skillet/internal/skillssh"
 )
 
 // lockPath is the lockfile location: $SKILLET_LOCKFILE or skillet.lock in the cwd.
@@ -44,6 +45,7 @@ func upsertLock(rec install.Record) error {
 		Commit: rec.Commit,
 		Cksum:  rec.Cksum,
 		Hook:   rec.Hook,
+		Source: rec.Source,
 	})
 	return install.WriteLock(p, lf)
 }
@@ -56,6 +58,8 @@ func cmdInstall(ctx context.Context, args []string) error {
 	dir := fs.String("dir", "", dirUsage)
 	tgtFlag := fs.String("target", "", targetUsage)
 	frozen := fs.Bool("frozen", false, "verify the install matches the lockfile without changing anything")
+	force := fs.Bool("force", false, forceUsage)
+	replace := fs.Bool("replace", false, replaceUsage)
 	pos, err := parseArgs(fs, args)
 	if err != nil {
 		return err
@@ -73,10 +77,10 @@ func cmdInstall(ctx context.Context, args []string) error {
 	if *frozen {
 		return verifyLock(tgt, *dir)
 	}
-	return restoreFromLock(ctx, tgt, *dir)
+	return restoreFromLock(ctx, tgt, *dir, *force, *replace)
 }
 
-func restoreFromLock(ctx context.Context, target, dirOverride string) error {
+func restoreFromLock(ctx context.Context, target, dirOverride string, force, replace bool) error {
 	p := lockPath()
 	if _, err := os.Stat(p); err != nil {
 		return fmt.Errorf("no lockfile at %s (run: skillet lock)", p)
@@ -95,7 +99,7 @@ func restoreFromLock(ctx context.Context, target, dirOverride string) error {
 		locked[strings.ToLower(le.Name)] = true
 	}
 
-	var n, skipped int
+	var n, skipped, community int
 	for _, le := range lf.Skills {
 		e := registry.Entry{Name: le.Name, Kind: le.Kind, Repo: le.Repo, Path: le.Path, Ref: le.Commit, Cksum: le.Cksum, Hook: le.Hook}
 		// The lockfile is an untrusted, shareable artifact, so validate every
@@ -112,7 +116,29 @@ func restoreFromLock(ctx context.Context, target, dirOverride string) error {
 			skipped++
 			continue
 		}
-		dest, err := install.Install(ctx, e, instDir)
+		// Keep the source so update still knows a restored community skill came
+		// from skills.sh. Only that one value is honored; anything else is the registry.
+		opt := install.Options{Replace: replace}
+		if le.Source == skillssh.SourceName {
+			// A lockfile is shareable and untrusted: re-check the audit, and find
+			// the skill by name at the pinned commit rather than trusting the
+			// recorded path, so what installs is the skill that was audited.
+			source, ok := sourceFromRepo(le.Repo)
+			if !ok || !skillssh.ValidSlug(le.Name) {
+				fmt.Fprintf(os.Stderr, "skipping %s: not a valid skills.sh skill\n", le.Name)
+				skipped++
+				continue
+			}
+			if aerr := checkAudit(ctx, source, le.Name, force); aerr != nil {
+				fmt.Fprintf(os.Stderr, "skipping %s: %v\n", le.Name, aerr)
+				skipped++
+				continue
+			}
+			opt.Source = skillssh.SourceName
+			opt.Discover = le.Name
+			community++
+		}
+		dest, err := install.InstallWith(ctx, e, instDir, opt)
 		if err != nil {
 			return fmt.Errorf("installing %s: %w", le.Name, err)
 		}
@@ -136,6 +162,11 @@ func restoreFromLock(ctx context.Context, target, dirOverride string) error {
 		summary += fmt.Sprintf(", pruned %d", pruned)
 	}
 	fmt.Printf("%s from %s\n", summary, p)
+	if community > 0 {
+		// The audit is of each skill's current version; the lockfile pins exact
+		// commits, so it, not the audit, decides what was installed.
+		fmt.Fprintln(os.Stderr, "note: skills.sh audits cover each skill's current version, and the lockfile pins exact commits; review a lockfile you did not write like code")
+	}
 	return nil
 }
 
@@ -263,6 +294,7 @@ func cmdLock(_ context.Context, args []string) error {
 				Commit: r.Commit,
 				Cksum:  r.Cksum,
 				Hook:   r.Hook,
+				Source: r.Source,
 			})
 		}
 	}

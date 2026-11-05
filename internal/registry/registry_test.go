@@ -442,3 +442,29 @@ func TestLoadFallsBackToEmbedded(t *testing.T) {
 		t.Fatal("expected embedded fallback to return at least hello-skill")
 	}
 }
+
+// A stale cache plus a fresh but invalid index must serve the cached entries,
+// not an empty registry.
+func TestLoadStaleCacheSurvivesBadRemote(t *testing.T) {
+	good := `[{"name":"cached-skill","description":"d","repo":"https://x/y","path":"p","author":"a"}]`
+	body := good
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		_, _ = w.Write([]byte(body))
+	}))
+	defer srv.Close()
+	dir := t.TempDir()
+	t.Setenv("SKILLET_REGISTRY_URL", srv.URL)
+	t.Setenv("SKILLET_CACHE_DIR", dir)
+	if _, err := Load(context.Background()); err != nil {
+		t.Fatal(err)
+	}
+	// Make the cache stale and the remote invalid.
+	if err := os.WriteFile(filepath.Join(dir, "index.meta"), []byte(`{"fetched":"2000-01-01T00:00:00Z"}`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	body = `[{"name":"broken"}]`
+	entries, err := Load(context.Background())
+	if err != nil || len(entries) != 1 || entries[0].Name != "cached-skill" {
+		t.Fatalf("got %+v, %v; want the cached entry", entries, err)
+	}
+}

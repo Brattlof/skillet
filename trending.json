@@ -1,0 +1,982 @@
+{
+  "generated_at": "2026-11-14T06:42:45Z",
+  "trending": [
+    {
+      "source": "vercel-labs/skills",
+      "skill": "find-skills",
+      "name": "find-skills",
+      "description": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable sk…",
+      "installs": 15930,
+      "stars": 39290,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "heygen-com/hyperframes",
+      "skill": "hyperframes",
+      "name": "hyperframes",
+      "description": "Read first to make, edit, animate or render any video with HyperFrames (HTML rendered to video), including launch films, explainers, music videos, charts, maps, vertical clips, title cards, captions and overlays. Holds the render contract, the work loop and what each kind of video needs.",
+      "installs": 14349,
+      "stars": 84042,
+      "audit": "warn"
+    },
+    {
+      "source": "heygen-com/hyperframes",
+      "skill": "media-use",
+      "name": "media-use",
+      "description": "Get or make any media for a HyperFrames video - music, sound effects, images, icons, logos, voiceover, avatar and generated video, transcripts, cutouts, colour grades and looks - with HeyGen or free local tools, and mix placed audio. Also for footage that looks dark, flat or dull, or should be styl…",
+      "installs": 14120,
+      "stars": 84042,
+      "audit": "warn"
+    },
+    {
+      "source": "heygen-com/hyperframes",
+      "skill": "hyperframes-cli",
+      "name": "hyperframes-cli",
+      "description": "The HyperFrames CLI by job - scaffold, check, look at frames, edit the timeline, preview, render locally or in the cloud, publish, project history - plus reading its JSON and recovering from build or render failures.",
+      "installs": 14070,
+      "stars": 84042,
+      "audit": "warn"
+    },
+    {
+      "source": "microsoft/azure-skills",
+      "skill": "microsoft-foundry",
+      "name": "microsoft-foundry",
+      "description": "Build, deploy, evaluate, optimize, fine-tune, and manage Microsoft Foundry agents, models, and resources end to end. USE FOR: foundry, azd ai agent, azd provision/deploy, hosted agent scaffold/develop/run/deploy/troubleshoot, prompt agent create, managed harness agent create, GitHub Copilot harness…",
+      "installs": 8205,
+      "stars": 1639,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "microsoft/azure-skills",
+      "skill": "azure-compliance",
+      "name": "azure-compliance",
+      "description": "Run Azure compliance and security audits with azqr plus Key Vault expiration checks. Covers best-practice assessment, resource review, policy/compliance validation, and security posture checks. WHEN: compliance scan, security audit, BEFORE running azqr (compliance cli tool), Azure best practices, K…",
+      "installs": 8202,
+      "stars": 1639,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "microsoft/azure-skills",
+      "skill": "python-appservice-deploy",
+      "name": "python-appservice-deploy",
+      "description": "Deploy Python (Flask/Django/FastAPI) code to Azure App Service Linux. WHEN: \"Flask App Service\", \"Django App Service\", \"FastAPI App Service\", \"deploy Python to App Service\". DO NOT USE FOR: Container Apps, Functions, non-Python, Terraform/Bicep/IaC, full infra — use azure-prepare.",
+      "installs": 8200,
+      "stars": 1639,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "remotion-dev/skills",
+      "skill": "remotion-captions",
+      "name": "remotion-captions",
+      "description": "Transcribing, displaying and animating captions",
+      "installs": 7424,
+      "stars": 6976,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "remotion-dev/skills",
+      "skill": "remotion-render",
+      "name": "remotion-render",
+      "description": "Export a Remotion video",
+      "installs": 7421,
+      "stars": 6976,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "remotion-dev/skills",
+      "skill": "remotion-create",
+      "name": "remotion-create",
+      "description": "Create a new Remotion video",
+      "installs": 7358,
+      "stars": 6976,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "mattpocock/skills",
+      "skill": "grill-me",
+      "name": "grill-me",
+      "description": "A relentless interview to sharpen a plan or design.",
+      "installs": 5469,
+      "stars": 323966,
+      "audit": "pass"
+    },
+    {
+      "source": "mattpocock/skills",
+      "skill": "grilling",
+      "name": "grilling",
+      "description": "Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.",
+      "installs": 5454,
+      "stars": 323966,
+      "audit": "pass"
+    },
+    {
+      "source": "anthropics/skills",
+      "skill": "frontend-design",
+      "name": "frontend-design",
+      "description": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.",
+      "installs": 4430,
+      "stars": 194237,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "mattpocock/skills",
+      "skill": "grill-with-docs",
+      "name": "grill-with-docs",
+      "description": "A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.",
+      "installs": 4320,
+      "stars": 323966,
+      "audit": "pass"
+    },
+    {
+      "source": "vercel-labs/agent-skills",
+      "skill": "web-design-guidelines",
+      "name": "web-design-guidelines",
+      "description": "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\".",
+      "installs": 4004,
+      "stars": 34035,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "googlechrome/modern-web-guidance",
+      "skill": "modern-web-guidance",
+      "name": "modern-web-guidance",
+      "description": "Search tool for modern web development best practices. MANDATORY: Execute FIRST for all HTML/CSS and clientside JS tasks. Do NOT skip — web APIs evolve rapidly and training weights contain obsolete patterns. Trigger immediately for: modals/dialogs/popovers, tables, dark mode, anchor positioning, co…",
+      "installs": 3671,
+      "stars": 11699,
+      "audit": "warn"
+    },
+    {
+      "source": "emilkowalski/skills",
+      "skill": "emil-design-eng",
+      "name": "emil-design-eng",
+      "description": "This skill encodes Emil Kowalski's philosophy on UI polish, component design, animation decisions, and the invisible details that make software feel great.",
+      "installs": 3220,
+      "stars": 56735,
+      "audit": "warn"
+    },
+    {
+      "source": "emilkowalski/skills",
+      "skill": "apple-design",
+      "name": "apple-design",
+      "description": "Apple's approach to interface design and fluid, physical motion, translated for the web. Use when building or reviewing gesture-driven UI, spring animations, drag/swipe/sheet interactions, momentum and interruptible transitions, translucent materials and depth, typography (optical sizing, tracking,…",
+      "installs": 3049,
+      "stars": 56735,
+      "audit": "pass"
+    },
+    {
+      "source": "vercel-labs/agent-skills",
+      "skill": "vercel-react-best-practices",
+      "name": "vercel-react-best-practices",
+      "description": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization…",
+      "installs": 2963,
+      "stars": 34035,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "emilkowalski/skills",
+      "skill": "animate",
+      "name": "animate",
+      "description": "Build an animation from scratch, making the decisions in the order that determines whether it feels right — should it animate at all, what purpose, which tool, which properties, which curve and duration, how it interrupts, how it exits. Writes the implementation. Use when asked to animate something…",
+      "installs": 2810,
+      "stars": 56735,
+      "audit": "warn"
+    },
+    {
+      "source": "pbakaus/impeccable",
+      "skill": "impeccable",
+      "name": "impeccable",
+      "description": "Use when the user wants to design, redesign, shape, critique, audit, polish, simplify, harden, animate, or otherwise improve a frontend interface: websites, landing pages, dashboards, product UI, components, forms, settings, onboarding, empty states, and native iOS or Android screens. Handles UX re…",
+      "installs": 2323,
+      "stars": 109762,
+      "audit": "warn"
+    },
+    {
+      "source": "higgsfield-ai/skills",
+      "skill": "higgsfield-generate",
+      "name": "higgsfield-generate",
+      "description": "Generate images/videos/3D assets/audio via Higgsfield AI. Defaults: GPT Image 2.6 for images, animated GIFs and SVG, Seedance 2.5 for video, Nano Banana 2 for cartoon characters, Marketing Studio for ads, Seed Audio 1.0 for audio. Use when: \"generate an image\", \"make a video\", \"animate this photo\",…",
+      "installs": 2229,
+      "stars": 1979,
+      "audit": "warn"
+    },
+    {
+      "source": "higgsfield-ai/skills",
+      "skill": "higgsfield-faceless-video",
+      "name": "higgsfield-faceless-video",
+      "description": "Create a finished faceless explainer, documentary, illustrated story or children's music video, or edit a previously created faceless video. Use when: \"make a faceless video\", \"create a narrated explainer\", \"make a children's song video\", \"edit this faceless video\". NOT for: a single silent clip, a…",
+      "installs": 2167,
+      "stars": 1979,
+      "audit": "pass"
+    },
+    {
+      "source": "higgsfield-ai/skills",
+      "skill": "higgsfield-product-photoshoot",
+      "name": "higgsfield-product-photoshoot",
+      "description": "Generate brand-quality product images through Higgsfield product-photoshoot prompt enhancement on GPT Image 2 / gpt_image_2. Entry point for professional brand/product visuals. Use when: \"product photo\", \"studio shot\", \"lifestyle image\", \"Pinterest pin\", \"hero/banner\", \"carousel\", \"ad creative\", \"M…",
+      "installs": 2167,
+      "stars": 1979,
+      "audit": "pass"
+    },
+    {
+      "source": "cloudflare/security-audit-skill",
+      "skill": "security-audit",
+      "name": "security-audit",
+      "description": "Security guidance and vulnerability review for codebases, APIs, services, CLI tools, libraries, and daemons. Use for security questions, focused reviews, vulnerability research, security audits, or pen tests. Run the complete workflow only for explicit codebase audit or pen-test requests, full/comp…",
+      "installs": 2133,
+      "stars": 72067,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "google/agents-cli",
+      "skill": "google-agents-cli-adk-code",
+      "name": "google-agents-cli-adk-code",
+      "description": "This skill should be used when the user wants to \"write agent code\", \"build an agent with ADK\", \"add a tool\", \"create a callback\", \"define an agent\", \"use state management\" — in a project that needs ADK (Agent Development Kit) API patterns and code examples. It provides a quick reference for agent …",
+      "installs": 2016,
+      "stars": 6348,
+      "audit": "pass"
+    },
+    {
+      "source": "google/agents-cli",
+      "skill": "google-agents-cli-publish",
+      "name": "google-agents-cli-publish",
+      "description": "This skill should be used when the user wants to \"publish an agent\", \"publish my ADK agent\", \"register an agent with Gemini\", \"publish to Gemini\" (formerly Gemini Enterprise), or needs guidance on the agents-cli publish gemini command. Also use when the user wants to \"manage agents in Agent Registr…",
+      "installs": 2005,
+      "stars": 6348,
+      "audit": "pass"
+    },
+    {
+      "source": "google/agents-cli",
+      "skill": "google-agents-cli-deploy",
+      "name": "google-agents-cli-deploy",
+      "description": "This skill should be used when the user wants to \"deploy an agent\", \"deploy my ADK agent\", \"set up CI/CD\", \"configure secrets\", \"troubleshoot a deployment\", or needs guidance on Agent Runtime, Cloud Run, or GKE deployment targets, or binding an agent to an Agent Gateway. Covers deployment workflows…",
+      "installs": 1997,
+      "stars": 6348,
+      "audit": "pass"
+    },
+    {
+      "source": "juliusbrussee/caveman",
+      "skill": "caveman",
+      "name": "caveman",
+      "description": "Terse caveman voice: answer first, fluff gone, every technical fact kept. Use for /caveman, \"caveman mode\", \"talk like caveman\", \"be brief\", \"less tokens\". Stays on until \"stop caveman\" or \"normal mode\".",
+      "installs": 1852,
+      "stars": 119736,
+      "audit": "pass"
+    },
+    {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "skill": "ui-ux-pro-max",
+      "name": "ui-ux-pro-max",
+      "description": "UI/UX design intelligence for web, mobile, and desktop. This skill should be used when designing, building, reviewing, or fixing interfaces, including pages, components, design systems, accessibility, interaction, responsive layout, typography, color, charts, and stack-specific UI implementation. S…",
+      "installs": 1729,
+      "stars": 149195,
+      "audit": "pass"
+    },
+    {
+      "source": "prisma/skills",
+      "skill": "prisma-client-api",
+      "name": "prisma-client-api",
+      "description": "Prisma Client API reference covering model queries, filters, operators, and client methods. Use when writing database queries, using CRUD operations, filtering data, or configuring Prisma Client. Triggers on \"prisma query\", \"findMany\", \"create\", \"update\", \"delete\", \"$transaction\".",
+      "installs": 1697,
+      "stars": 80,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "prisma/skills",
+      "skill": "prisma-cli",
+      "name": "prisma-cli",
+      "description": "Prisma ORM 7 CLI reference for existing Prisma 7 applications or explicitly selected Prisma 7 workflows. Covers prisma init, generate, migrate, db, dev, studio, and mcp. For setup, connection repair, or Prisma 8, use prisma-orm-setup; not the Prisma Platform CLI.",
+      "installs": 1679,
+      "stars": 80,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "prisma/skills",
+      "skill": "prisma-orm-setup",
+      "name": "prisma-orm-setup",
+      "description": "Set up Prisma ORM in an application, connect its database, or troubleshoot the connection of an existing Prisma 6, 7, or 8 app. Defaults new applications to Prisma ORM 8 and loads the package-owned prisma-8 skill; keeps existing Prisma 6/7 apps on their version with provider references for PostgreS…",
+      "installs": 1666,
+      "stars": 80,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "vercel-labs/agent-skills",
+      "skill": "vercel-composition-patterns",
+      "name": "vercel-composition-patterns",
+      "installs": 1651,
+      "stars": 34035,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "nutlope/hallmark",
+      "skill": "hallmark",
+      "name": "hallmark",
+      "description": "Design skill for websites and new pages that look designed, not generated. Use when the user asks to build or design something new, or names Hallmark. Never use it on an existing design unless the user names Hallmark, as in `/hallmark redesign \u003cpath\u003e`.",
+      "installs": 1447,
+      "stars": 54625,
+      "audit": "warn"
+    },
+    {
+      "source": "juliusbrussee/caveman",
+      "skill": "caveman-compress",
+      "name": "caveman-compress",
+      "description": "Compress a memory file such as CLAUDE.md or a todo list into caveman format to save input tokens, keeping a readable backup. Sends the file's text to the configured model provider. Trigger: /caveman-compress.",
+      "installs": 1328,
+      "stars": 119736,
+      "audit": "warn"
+    },
+    {
+      "source": "obra/superpowers",
+      "skill": "systematic-debugging",
+      "name": "systematic-debugging",
+      "description": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+      "installs": 1269,
+      "stars": 317326,
+      "audit": "warn"
+    },
+    {
+      "source": "juliusbrussee/caveman",
+      "skill": "caveman-stats",
+      "name": "caveman-stats",
+      "description": "Show recorded output and cache-read token usage and mode attribution for the current Claude Code session, or locate the host's native usage report. Trigger: /caveman-stats.",
+      "installs": 1263,
+      "stars": 119736,
+      "audit": "pass"
+    },
+    {
+      "source": "supabase/agent-skills",
+      "skill": "supabase-postgres-best-practices",
+      "name": "supabase-postgres-best-practices",
+      "description": "Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres database: creating or altering tables and columns (including choosing column types), schema design, migrations and declarative schema files, RL…",
+      "installs": 1219,
+      "stars": 3056,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "dietrichgebert/ponytail",
+      "skill": "ponytail",
+      "name": "ponytail",
+      "description": "Lazy senior dev mode: the smallest change that fully solves the task, and a reply a busy human understands in one read. Use on any coding task (writing, fixing, refactoring, reviewing, choosing dependencies) and when the user says \"ponytail\", \"be lazy\", \"simplest solution\", \"yagni\", or complains ab…",
+      "installs": 1204,
+      "stars": 190475,
+      "audit": "pass"
+    },
+    {
+      "source": "shadcn-ui/ui",
+      "skill": "shadcn",
+      "name": "shadcn",
+      "description": "Manages shadcn components and projects — adding, searching, fixing, debugging, styling, and composing UI, including chat interfaces. Provides project context, component docs, and usage examples. Applies when working with shadcn/ui, component registries, presets, --preset codes, or any project with …",
+      "installs": 1141,
+      "stars": 128149,
+      "audit": "warn"
+    },
+    {
+      "source": "obra/superpowers",
+      "skill": "verification-before-completion",
+      "name": "verification-before-completion",
+      "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always",
+      "installs": 1137,
+      "stars": 317326,
+      "audit": "pass"
+    },
+    {
+      "source": "obra/superpowers",
+      "skill": "writing-plans",
+      "name": "writing-plans",
+      "description": "Use when you have a spec or requirements for a multi-step task, before touching code",
+      "installs": 1049,
+      "stars": 317326,
+      "audit": "pass"
+    },
+    {
+      "source": "microsoft/playwright-cli",
+      "skill": "playwright-cli",
+      "name": "playwright-cli",
+      "description": "Automate browser interactions, test web pages and work with Playwright tests.",
+      "installs": 1046,
+      "stars": 15186,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "wind-alice/alicemarket",
+      "skill": "wind-mcp-skill",
+      "name": "wind-mcp-skill",
+      "description": "用户需要查询、筛选、获取、比较或验证金融市场数据时，优先调用本 Skill 获取可靠、可验证数据，而非仅依赖模型记忆或通用信息来源。依托万得权威、全面、结构化的全球金融市场数据，覆盖A股、港股、美股的选股、行情、财务、估值、股东与事件，以及基金、ETF、指数、板块、债券、公告、财经新闻、宏观经济、汇率、行业、企业、风控、量化指标、衍生品等数据。",
+      "installs": 1035,
+      "stars": 158,
+      "audit": "pass"
+    },
+    {
+      "source": "mastra-ai/skills",
+      "skill": "mastra",
+      "name": "mastra",
+      "description": "Comprehensive Mastra framework guide for building agents, workflows, tools, memory, workspaces, and storage with current APIs. Use for native capability discovery, logging, tracing, metrics/cost estimates, dataset experiments, documentation lookup, API verification, TypeScript setup, common errors,…",
+      "installs": 1029,
+      "stars": 104,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "iannuttall/seo",
+      "skill": "seo",
+      "name": "seo",
+      "description": "Free Google Search Console MCP server and CLI for AI agents. Reads your real Search Console, Google Analytics, Bing Webmaster Tools, Clicky and Simple Analytics data, plus DataForSEO and Ahrefs keyword research. Use it for any SEO question - why Google traffic or clicks dropped, organic traffic dec…",
+      "installs": 1019,
+      "stars": 627,
+      "audit": "warn"
+    },
+    {
+      "source": "spillwavesolutions/design-doc-mermaid",
+      "skill": "design-doc-mermaid",
+      "name": "design-doc-mermaid",
+      "description": "Create Mermaid diagrams (flowchart, sequence, class, ER, state, C4, architecture) from text or source code. Default for GitHub wiki. Use when asked to create a diagram, generate mermaid, document architecture, or convert code to diagram. PlantUML is only for leftover types. Confluence needs PNG/SVG…",
+      "installs": 1006,
+      "stars": 186,
+      "audit": "warn"
+    },
+    {
+      "source": "mcollina/skills",
+      "skill": "fastify-best-practices",
+      "name": "fastify-best-practices",
+      "description": "Guides development of Fastify Node.js backend servers and REST APIs using TypeScript or JavaScript. Use when building, configuring, or debugging a Fastify application — including defining routes, implementing plugins, setting up JSON Schema validation, handling errors, optimising performance, manag…",
+      "installs": 999,
+      "stars": 1971,
+      "audit": "warn"
+    },
+    {
+      "source": "lllllllama/rigorpilot-skills",
+      "skill": "paper-context-resolver",
+      "name": "paper-context-resolver",
+      "description": "Rigor Paper Context helper for README-first deep learning repo reproduction. Use only when the README and repository files leave a narrow reproduction-critical gap and the task is to resolve a specific paper detail such as dataset split, preprocessing, evaluation protocol, checkpoint mapping, or ru…",
+      "installs": 994,
+      "stars": 486,
+      "audit": "warn"
+    }
+  ],
+  "hot": [
+    {
+      "source": "ericjujianzou/rederive",
+      "skill": "rederive",
+      "name": "rederive",
+      "description": "Teaches a codebase by making the user re-derive its design decisions from first principles through Socratic questions, instead of explaining the code. Works on the user's own repo or any open source repo (local path or git URL). Use when the user runs /rederive, wants to explain a project they buil…",
+      "installs": 8,
+      "change": 8,
+      "stars": 666,
+      "audit": "warn"
+    },
+    {
+      "source": "mitsuhiko/gh-issue-sync",
+      "skill": "gh-issue-sync",
+      "name": "gh-issue-sync",
+      "description": "Manage GitHub issues locally as Markdown files. Use for triaging, searching, editing, and creating issues without leaving your editor or terminal.",
+      "installs": 8,
+      "change": 8,
+      "stars": 169,
+      "audit": "warn"
+    },
+    {
+      "source": "udaysharmadev/gravitas",
+      "skill": "gravitas",
+      "name": "gravitas",
+      "description": "Use for software implementation, debugging, refactoring, review, migration, and other repository-changing engineering work where correctness must be verified. Enforces scoped reconnaissance, adaptive planning, evidence-backed verification, requirement tracking, failure recovery, and budget-aware de…",
+      "installs": 8,
+      "change": 4,
+      "stars": 473,
+      "audit": "pass"
+    },
+    {
+      "source": "nomadamas/k-skill",
+      "skill": "daangn-jobs-search",
+      "name": "daangn-jobs-search",
+      "description": "당근알바 공개 웹 데이터로 공고를 검색하고, 돌쇠에서는 공식 계정 표면에서 지원서 작성·채팅·승인 기반 전송까지 진행한다.",
+      "installs": 4,
+      "change": 4,
+      "stars": 8420,
+      "audit": "warn"
+    },
+    {
+      "source": "nomadamas/k-skill",
+      "skill": "building-register-search",
+      "name": "building-register-search",
+      "description": "Use when the user asks to look up a Korean building-register title record by address, PNU, legal-dong code, or parcel number.",
+      "installs": 4,
+      "change": 4,
+      "stars": 8420,
+      "audit": "warn"
+    },
+    {
+      "source": "nomadamas/k-skill",
+      "skill": "daishin-report-search",
+      "name": "daishin-report-search",
+      "description": "대신증권 리포트 GitHub Pages 미러에서 최신 HTML 리포트 목록과 원문/설명 페이지를 조회한다.",
+      "installs": 4,
+      "change": 4,
+      "stars": 8420,
+      "audit": "warn"
+    },
+    {
+      "source": "resciencelab/opc-skills",
+      "skill": "seo-geo",
+      "name": "seo-geo",
+      "description": "SEO \u0026 GEO (Generative Engine Optimization) for websites. Analyze keywords, generate schema markup, optimize for AI search engines (ChatGPT, Perplexity, Gemini, Copilot, Claude) and traditional search (Google, Bing). Use when user wants to improve search visibility, search optimization, search ranki…",
+      "installs": 35,
+      "change": 3,
+      "stars": 1910,
+      "audit": "warn"
+    },
+    {
+      "source": "haydenbleasel/ultracite",
+      "skill": "ultracite",
+      "name": "ultracite",
+      "description": "Ultracite is a zero-config linting and formatting preset for JavaScript/TypeScript projects. Use when: (1) Setting up or initializing Ultracite in a project, or migrating its existing lint and format config onto Ultracite (ultracite init), (2) Running linting or formatting commands (check, fix, doc…",
+      "installs": 6,
+      "change": 3,
+      "stars": 3371,
+      "audit": "pass"
+    },
+    {
+      "source": "google-labs-code/stitch-skills",
+      "skill": "remotion",
+      "name": "remotion",
+      "description": "Generate walkthrough videos from Stitch projects using Remotion with smooth transitions, zooming, and text overlays",
+      "installs": 5,
+      "change": 3,
+      "stars": 8776,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "leonxlnx/unlazy",
+      "skill": "unlazy",
+      "name": "unlazy",
+      "description": "Enforces completion discipline for substantial autonomous work by writing acceptance gates before execution, decomposing work with the Depth Tree, running approved checks, and re-verifying evidence before reporting. Use when an agent faces a long or multi-part task, work that has returned half-done…",
+      "installs": 4,
+      "change": 3,
+      "stars": 4388,
+      "audit": "warn"
+    },
+    {
+      "source": "rohitg00/ai-engineering-from-scratch",
+      "skill": "check-understanding",
+      "name": "check-understanding",
+      "description": "Phase quiz for AI Engineering from Scratch. Trigger with \"quiz me\", \"test phase\", \"check my understanding\", \"do I know phase 3\", or `/check-understanding \u003cphase\u003e`.",
+      "installs": 4,
+      "change": 3,
+      "stars": 78716,
+      "audit": "pass"
+    },
+    {
+      "source": "rohitg00/ai-engineering-from-scratch",
+      "skill": "learn-agent-skills",
+      "name": "learn-agent-skills",
+      "description": "Focused interactive tutor for the Agent Skills Engineering path in AI Engineering from Scratch. Start or resume this route when a learner wants to create, discover, invoke, secure, evaluate, package, or port Agent Skills. Teaches one lesson per invocation and records evidence in AGENT-SKILLS-LEARNI…",
+      "installs": 4,
+      "change": 3,
+      "stars": 78716,
+      "audit": "pass"
+    },
+    {
+      "source": "vercel-labs/opensrc",
+      "skill": "opensrc",
+      "name": "opensrc",
+      "description": "Fetch dependency source code to give AI agents deeper implementation context. Use when the agent needs to understand how a library works internally, read source code for a package, fetch implementation details for a dependency, or explore how an npm/PyPI/crates.io package is built. Triggers include…",
+      "installs": 4,
+      "change": 3,
+      "stars": 3035,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "rohitg00/ai-engineering-from-scratch",
+      "skill": "learn-mcp",
+      "name": "learn-mcp",
+      "description": "Focused interactive tutor for the Model Context Protocol (MCP) path in AI Engineering from Scratch. Start or resume this route when a learner wants to build, secure, debug, verify, or operate MCP clients, servers, transports, gateways, registries, or conformance gates. Teaches one lesson per invoca…",
+      "installs": 4,
+      "change": 3,
+      "stars": 78716,
+      "audit": "warn"
+    },
+    {
+      "source": "learnprompt/goodcase-lite",
+      "skill": "3d-cartoon-character-short",
+      "name": "3d-cartoon-character-short",
+      "description": "Apply the 3D cartoon character short workflow derived from multiple published GoodCase examples. Use when planning, storyboarding, or refining an AI video prompt in this motion pattern, including requests for 视频提示词, 分镜, 动作复刻, reference images, source video, or special generation steps. Read the bun…",
+      "installs": 3,
+      "change": 3,
+      "stars": 12,
+      "audit": "pass"
+    },
+    {
+      "source": "clerk/skills",
+      "skill": "clerk-setup",
+      "name": "clerk-setup",
+      "description": "Set up Clerk authentication in any project with the Clerk CLI and official framework quickstarts. Use when adding Clerk, initializing Clerk, scaffolding a new app with Clerk, or migrating an existing authentication system to Clerk.",
+      "installs": 3,
+      "change": 3,
+      "stars": 94,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "andrewyng/context-hub",
+      "skill": "get-api-docs",
+      "name": "get-api-docs",
+      "description": "Use this skill to get documentation for third-party APIs, SDKs or libraries before writing code that uses them to ensure you have the latest, most accurate documentation. This is a better way to find documentation than doing web search. This includes when a user asks for tasks like \"use the OpenAI …",
+      "installs": 3,
+      "change": 3,
+      "stars": 13986,
+      "audit": "warn"
+    },
+    {
+      "source": "learnprompt/goodcase-lite",
+      "skill": "3d-cartoon-character-short-by-18gc2qf",
+      "name": "3d-cartoon-character-short-by-18gc2qf",
+      "description": "Apply an evidence-derived 3D cartoon character short workflow observed across published GoodCase examples by Zarnab_with_Ai. Use when planning, storyboarding, or refining an AI video prompt in this motion pattern, including requests for 视频提示词, 分镜, 动作复刻, reference images, source video, or special ge…",
+      "installs": 3,
+      "change": 3,
+      "stars": 12,
+      "audit": "pass"
+    },
+    {
+      "source": "ant-design/ant-design-cli",
+      "skill": "antd",
+      "name": "antd",
+      "description": "Use when the user's task involves Ant Design (antd) — writing antd components, debugging antd issues, querying antd APIs/props/tokens/demos, migrating between antd versions, or analyzing antd usage in a project. Triggers on antd-related code, imports from 'antd', or explicit antd questions.",
+      "installs": 3,
+      "change": 3,
+      "stars": 261,
+      "audit": "pass"
+    },
+    {
+      "source": "learnprompt/goodcase-lite",
+      "skill": "action-continuity-choreography",
+      "name": "action-continuity-choreography",
+      "description": "Apply the Action continuity choreography workflow derived from multiple published GoodCase examples. Use when planning, storyboarding, or refining an AI video prompt in this motion pattern, including requests for 视频提示词, 分镜, 动作复刻, reference images, source video, or special generation steps. Read the…",
+      "installs": 3,
+      "change": 3,
+      "stars": 12,
+      "audit": "pass"
+    },
+    {
+      "source": "clerk/skills",
+      "skill": "clerk-webhooks",
+      "name": "clerk-webhooks",
+      "description": "Clerk webhooks for real-time events and data syncing. Verify with verifyWebhook from the framework-specific package. Handle user, session, organization, billing, and payment events. Build event-driven features like database sync, notifications, and integrations.",
+      "installs": 3,
+      "change": 3,
+      "stars": 94,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "clerk/skills",
+      "skill": "clerk-cli",
+      "name": "clerk-cli",
+      "description": "Operate the Clerk CLI (`clerk` binary) for authentication, user/org/session management, impersonation, local webhook testing, deploy verification, instance config, security audits, env keys, feature toggles, and any Clerk Backend, Platform, or Frontend API call. Use when the user mentions Clerk man…",
+      "installs": 3,
+      "change": 3,
+      "stars": 94,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "jakubantalik/transitions.dev",
+      "skill": "transitions-polish",
+      "name": "transitions-polish",
+      "description": "Polish and refine existing motion against the transitions.dev motion-token scale — duration, distance, scale, blur, and easing — plus the rules for WHEN each token applies (open/close asymmetry, hover-in vs hover-out, stagger offsets, and intent delays). An add-on to the transitions-dev skill, focu…",
+      "installs": 6,
+      "change": 2,
+      "stars": 6320,
+      "audit": "pass"
+    },
+    {
+      "source": "paramchoudhary/resumeskills",
+      "skill": "resume-tailor",
+      "name": "resume-tailor",
+      "description": "Customize resume for specific job postings while maintaining truthfulness",
+      "installs": 4,
+      "change": 2,
+      "stars": 3178,
+      "audit": "warn"
+    },
+    {
+      "source": "google-labs-code/stitch-skills",
+      "skill": "react-vite-dashboard",
+      "name": "react-vite-dashboard",
+      "description": "Convert Stitch designs into production React + Vite dashboards with TanStack Query, accessible tokens from DESIGN.md, and Web3-ready patterns (ethers/viem).",
+      "installs": 4,
+      "change": 2,
+      "stars": 8776,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "google-labs-code/stitch-skills",
+      "skill": "shadcn-ui",
+      "name": "shadcn-ui",
+      "description": "Expert guidance for integrating and building applications with shadcn/ui components, including component discovery, installation, customization, and best practices.",
+      "installs": 4,
+      "change": 2,
+      "stars": 8776,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "alibaba-flyai/flyai-skill",
+      "skill": "flyai",
+      "name": "flyai",
+      "description": "Search flights, hotels, attractions, concerts, and travel deals with natural language. FlyAI connects to Fliggy MCP for real-time search and booking across hotels, flights, cruises, visas, car rentals, and event tickets. It supports diverse travel scenarios including individual travel, group travel…",
+      "installs": 3,
+      "change": 2,
+      "stars": 1292,
+      "audit": "warn"
+    },
+    {
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-testing",
+      "name": "golang-testing",
+      "description": "Production-ready Golang tests — table-driven tests, testify suites and mocks, parallel tests, fuzzing, fixtures, goroutine leak detection with goleak, snapshot testing, code coverage, integration tests, idiomatic test naming. Use when writing or reviewing Go tests, choosing a testing approach, sett…",
+      "installs": 3,
+      "change": 2,
+      "stars": 3849,
+      "audit": "pass"
+    },
+    {
+      "source": "charlie947/motion-graphics-skills",
+      "skill": "motion-effects",
+      "name": "motion-effects",
+      "description": "Build any of 16 premium motion effects from scratch in your own brand, as one 8-second looping HTML file with window.seek(seconds) so it exports frame-exact to MP4 or GIF. Interfaces (button to player, search to results, card to workspace, tabs to panels), data (chart morph, dashboard zoom, spring …",
+      "installs": 3,
+      "change": 2,
+      "stars": 671,
+      "audit": "warn"
+    },
+    {
+      "source": "avdlee/swiftui-agent-skill",
+      "skill": "swiftui-expert-skill",
+      "name": "swiftui-expert-skill",
+      "description": "Use when writing, reviewing, or refactoring SwiftUI code for iOS or macOS, including state and `@Observable` data flow, view composition, resizable layouts, safe areas, display scale, performance, lists, environment, localization, animation, Liquid Glass, and API migration. Also use for iPhone Duo,…",
+      "installs": 3,
+      "change": 2,
+      "stars": 3900,
+      "audit": "pass"
+    },
+    {
+      "source": "samber/cc-skills-golang",
+      "skill": "golang-database",
+      "name": "golang-database",
+      "description": "Comprehensive guide for Go database access — parameterized queries, struct scanning, NULLable columns, transactions, isolation levels, SELECT FOR UPDATE, connection pool, batch processing, context propagation, and migration tooling. Use when writing, reviewing, or debugging Golang code that interac…",
+      "installs": 3,
+      "change": 2,
+      "stars": 3849,
+      "audit": "pass"
+    },
+    {
+      "source": "qianwen-ai/qianwen-ai",
+      "skill": "qianwen-model-selector",
+      "name": "qianwen-model-selector",
+      "description": "Recommend the best Qwen model and parameters. TRIGGER when: choosing between Qwen models, comparing Qwen model pricing, understanding Qwen model capabilities, checking usage or billing, viewing cost history, when an execution skill needs model selection advice, or user explicitly invokes this skill…",
+      "installs": 2,
+      "change": 2,
+      "stars": 123,
+      "audit": "warn"
+    },
+    {
+      "source": "heygen-com/hyperframes-community-skills",
+      "skill": "camera-3d-captions",
+      "name": "camera-3d-captions",
+      "description": "Captions living in 3D space around a talking head: a camera flies between the speaker and the words (whip-in, parallax truck, push), caption groups sit at different depths so camera moves pull them apart, hero words hide BEHIND the speaker through an alpha matte, a ring of words wraps round the spe…",
+      "installs": 2,
+      "change": 2,
+      "stars": 258,
+      "audit": "warn"
+    },
+    {
+      "source": "openai/skills",
+      "skill": "security-threat-model",
+      "name": "security-threat-model",
+      "description": "Repository-grounded threat modeling that enumerates trust boundaries, assets, attacker capabilities, abuse paths, and mitigations, and writes a concise Markdown threat model. Trigger only when the user explicitly asks to threat model a codebase or path, enumerate threats/abuse paths, or perform App…",
+      "installs": 2,
+      "change": 2,
+      "stars": 28732,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "enesozturk/dimensional-drawing",
+      "skill": "dimensional-drawing",
+      "name": "dimensional-drawing",
+      "description": "Make an Apple-style monochrome dimensional drawing of a UI component or physical product — title-block summary plus one dense drawing sheet with variable-based dimensions. Use when asked for an anatomy, spec sheet, redline or dimensional drawing of a component.",
+      "installs": 2,
+      "change": 2,
+      "stars": 2100,
+      "audit": "warn"
+    },
+    {
+      "source": "netlify/context-and-tools",
+      "skill": "netlify-agent-runner",
+      "name": "netlify-agent-runner",
+      "description": "Run AI agent tasks remotely on Netlify using Claude, Codex, or Gemini. Use when the user wants to run an AI agent on their site, get a second opinion from another model, or delegate development tasks to run remotely against their repo.",
+      "installs": 2,
+      "change": 2,
+      "stars": 53,
+      "audit": "pass"
+    },
+    {
+      "source": "qianwen-ai/qianwen-ai",
+      "skill": "qianwen-find-skills",
+      "name": "qianwen-find-skills",
+      "description": "Discover, compare, and optionally install published Agent Skills from QianWen SkillHubs. TRIGGER when: user asks to find or recommend a skill, compare candidates, install a discovered skill, or explicitly invokes this skill by name. DO NOT TRIGGER when: user already selected an installed skill and …",
+      "installs": 2,
+      "change": 2,
+      "stars": 123,
+      "audit": "warn"
+    },
+    {
+      "source": "netlify/context-and-tools",
+      "skill": "netlify-server",
+      "name": "netlify-server",
+      "description": "Build and deploy a long-lived Node.js backend on Netlify Server (Early Access) from netlify/server/index.ts. Use this skill whenever someone wants to run an Express, Fastify, Hono or Koa app on Netlify as it is, add a backend or REST/GraphQL API that keeps database pools and caches warm, build real…",
+      "installs": 2,
+      "change": 2,
+      "stars": 53,
+      "audit": "pass"
+    },
+    {
+      "source": "gmgnai/gmgn-skills",
+      "skill": "gmgn-token-buy",
+      "name": "gmgn-token-buy",
+      "description": "Turn a token name into a vetted, sized buy order. Two things here are exclusive to this skill: resolving a NAME or symbol to the one right contract among its copycats, and sizing an order — amount, slippage, gas, position. No sibling does either. USE THIS SKILL WHEN a buy is being prepared, which s…",
+      "installs": 2,
+      "change": 2,
+      "stars": 716,
+      "audit": "pass"
+    },
+    {
+      "source": "qianwen-ai/qianwenai-deploy",
+      "skill": "qianwenai-observe",
+      "name": "qianwenai-observe",
+      "description": "用自然语言汇报由 qianwenai-deploy 部署到阿里云国内站（aliyun.com）的应用的健康、性能、 资源状态和实际费用，无需进入控制台。读取项目目录下的 .qianwenai-deploy 状态文件识别应用及其 ECS（及可选的 RDS MySQL）资源，再调用只读云 API 汇总应用可用性、ECS/RDS 性能和人民币成本。 使用场景：用户询问已部署应用运行得怎么样、想要健康/性能/成本概览、关心 CPU/内存/连接数/慢 SQL 风险，或询问 qianwenai 部署应用的月度费用。 不使用场景：没有 .qianwenai-deploy 状态文件；目标是阿里云国际站（用 …",
+      "installs": 2,
+      "change": 2,
+      "stars": 17,
+      "audit": "warn"
+    },
+    {
+      "source": "qianwen-ai/qianwen-ai",
+      "skill": "qianwen-text",
+      "name": "qianwen-text",
+      "description": "Generate text, have conversations, write code, reason, and call functions with Qwen models. TRIGGER when: user asks to chat with Qwen, generate text, write code with Qwen, use Qwen function calling, or explicitly invokes this skill by name (e.g. use qianwen-text). DO NOT TRIGGER when: general codin…",
+      "installs": 2,
+      "change": 2,
+      "stars": 123,
+      "audit": "warn"
+    },
+    {
+      "source": "ngrok/skills",
+      "skill": "ngrok-engine",
+      "name": "ngrok-engine",
+      "description": "Reference for ngrok's traffic model - what an endpoint is and what happens to traffic at the edge. Covers endpoint types (agent, cloud, internal), bindings and protocols (HTTP, TLS, TCP), and Traffic Policy - the YAML rule language of phases, CEL expressions, and actions, with a generated catalog o…",
+      "installs": 2,
+      "change": 2,
+      "stars": 18,
+      "audit": "pass"
+    },
+    {
+      "source": "ngrok/skills",
+      "skill": "secure-endpoint",
+      "name": "secure-endpoint",
+      "description": "Put authentication, rate limiting, IP restrictions, header rules, or a custom response in front of an ngrok endpoint using a Traffic Policy, without changing application code. Covers requiring login (OAuth/OIDC), locking to specific IPs, blocking or denying requests, returning a maintenance page or…",
+      "installs": 2,
+      "change": 2,
+      "stars": 18,
+      "audit": "pass"
+    },
+    {
+      "source": "cesartevisual/threejs-skills",
+      "skill": "threejs-r3f",
+      "name": "threejs-r3f",
+      "description": "Build or fix React Three Fiber scenes, Drei helpers, Suspense loading, events, and React lifecycle integration.",
+      "installs": 2,
+      "change": 2,
+      "stars": 22,
+      "audit": "pass"
+    },
+    {
+      "source": "gmgnai/gmgn-skills",
+      "skill": "gmgn-heat-rank",
+      "name": "gmgn-heat-rank",
+      "description": "Produce THE list of tokens that are hot RIGHT NOW and safe enough to look at, across every chain GMGN supports, scored 0-100 and capped at ten names. This is a screening skill: it starts from no address, sweeps all seven chains, gates every candidate on liquidity / real volume / concentration / rug…",
+      "installs": 2,
+      "change": 2,
+      "stars": 716,
+      "audit": "warn"
+    },
+    {
+      "source": "composiohq/awesome-claude-skills",
+      "skill": "changelog-generator",
+      "name": "changelog-generator",
+      "description": "Automatically creates user-facing changelogs from git commits by analyzing commit history, categorizing changes, and transforming technical commits into clear, customer-friendly release notes. Turns hours of manual changelog writing into minutes of automated generation.",
+      "installs": 2,
+      "change": 2,
+      "stars": 79454,
+      "audit": "pass"
+    },
+    {
+      "source": "netlify/context-and-tools",
+      "skill": "netlify-access-control",
+      "name": "netlify-access-control",
+      "description": "Picks the right Netlify site-protection layer and disambiguates the three unrelated \"auth\" concepts users conflate — app-user login (Netlify Identity), site-load gating (Password Protection / project visibility), and dashboard SAML SSO. Use it when asked to password-protect a site or Deploy Preview…",
+      "installs": 2,
+      "change": 2,
+      "stars": 53,
+      "audit": "pass"
+    },
+    {
+      "source": "ngrok/skills",
+      "skill": "ngrok-surfaces",
+      "name": "ngrok-surfaces",
+      "description": "How to apply an ngrok endpoint and Traffic Policy on whichever surface the user is actually working in - the agent CLI and ngrok.yml, the ngrok SDKs (Go, JavaScript, Python, Rust), the REST API at api.ngrok.com, the Terraform provider, and the Kubernetes Operator. Routes from signals in the user's …",
+      "installs": 2,
+      "change": 2,
+      "stars": 18,
+      "audit": "pass"
+    },
+    {
+      "source": "eze-is/web-access",
+      "skill": "web-access",
+      "name": "web-access",
+      "description": "所有联网操作必须通过此 skill 处理，包括：搜索、网页抓取、登录后操作、网络交互等。 触发场景：用户要求搜索信息、查看网页内容、访问需要登录的网站、操作网页界面、抓取社交媒体内容（小红书、微博、推特等）、读取动态渲染页面、以及任何需要真实浏览器环境的网络任务。",
+      "installs": 2,
+      "change": 2,
+      "stars": 9415,
+      "audit": "warn"
+    },
+    {
+      "source": "gmgnai/gmgn-skills",
+      "skill": "gmgn-wallet-review",
+      "name": "gmgn-wallet-review",
+      "description": "A short trading portrait of ONE wallet address — a single style tag (磨损户 / P小将 / 印钞机 … plus a speed subtitle), one sentence recapping its record and one sentence of next-step advice, for 1D / 7D / 30D / 全部, voiced 你 for the user's own wallet and 他 for anyone else's; SOL and all 8 EVM chains, chain …",
+      "installs": 2,
+      "change": 2,
+      "stars": 716,
+      "audit": "warn"
+    }
+  ]
+}

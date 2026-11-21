@@ -1,0 +1,976 @@
+{
+  "generated_at": "2026-11-21T11:24:18Z",
+  "trending": [
+    {
+      "source": "vercel-labs/skills",
+      "skill": "find-skills",
+      "name": "find-skills",
+      "description": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable sk…",
+      "installs": 14534,
+      "stars": 40285,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "heygen-com/hyperframes",
+      "skill": "hyperframes",
+      "name": "hyperframes",
+      "description": "Read first to make, edit, animate or render any video with HyperFrames (HTML rendered to video), including launch films, explainers, music videos, charts, maps, vertical clips, title cards, captions and overlays. Holds the render contract, the work loop and what each kind of video needs.",
+      "installs": 12810,
+      "stars": 87644,
+      "audit": "warn"
+    },
+    {
+      "source": "heygen-com/hyperframes",
+      "skill": "style-sampling",
+      "name": "style-sampling",
+      "description": "Make a new episode in a proven video style - Collage Explainer, Finance Explainer, Animated Science Explainer, 3D Brand Explainer, 3D True Crime - on the person's topic. Use for \"an episode of\", \"in the style of\", \"sample this style\", 「用这个风格做一集」. One video to copy is reverse-any-video.",
+      "installs": 10509,
+      "stars": 87644,
+      "audit": "warn"
+    },
+    {
+      "source": "remotion-dev/skills",
+      "skill": "remotion-captions",
+      "name": "remotion-captions",
+      "description": "Transcribing, displaying and animating captions",
+      "installs": 7412,
+      "stars": 7694,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "remotion-dev/skills",
+      "skill": "remotion-render",
+      "name": "remotion-render",
+      "description": "Export a Remotion video",
+      "installs": 7398,
+      "stars": 7694,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "remotion-dev/skills",
+      "skill": "remotion-create",
+      "name": "remotion-create",
+      "description": "Create a new Remotion video",
+      "installs": 7359,
+      "stars": 7694,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "microsoft/azure-skills",
+      "skill": "azure-ai",
+      "name": "azure-ai",
+      "description": "Build and troubleshoot Azure AI Search, Speech, OpenAI, and Document Intelligence apps. WHEN: AI Search, query search, vector search, hybrid search, semantic search, speech-to-text, text-to-speech, transcribe, Speech SDK logs, session ID, result ID, OCR, convert text to speech.",
+      "installs": 6605,
+      "stars": 1662,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "microsoft/azure-skills",
+      "skill": "microsoft-foundry",
+      "name": "microsoft-foundry",
+      "description": "Build, deploy, evaluate, optimize, fine-tune, and manage Microsoft Foundry agents, models, and resources end to end. USE FOR: foundry, azd ai agent, azd provision/deploy, hosted agent scaffold/develop/run/deploy/troubleshoot, prompt agent create, managed harness agent create, GitHub Copilot harness…",
+      "installs": 6605,
+      "stars": 1662,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "microsoft/azure-skills",
+      "skill": "azure-diagnostics",
+      "name": "azure-diagnostics",
+      "description": "Debug Azure production issues using AppLens, Azure Monitor, resource health, and safe triage, including evidence-only diagnosis without live access. WHEN: debug production issues, troubleshoot app service, app service high CPU, app service deployment failure, troubleshoot container apps, container …",
+      "installs": 6600,
+      "stars": 1662,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "mattpocock/skills",
+      "skill": "grilling",
+      "name": "grilling",
+      "description": "Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.",
+      "installs": 5336,
+      "stars": 329325,
+      "audit": "pass"
+    },
+    {
+      "source": "heygen-com/hyperframes",
+      "skill": "remotion-to-hyperframes",
+      "name": "remotion-to-hyperframes",
+      "description": "Bring existing video code or footage into HyperFrames and verify it frame by frame against the original - Remotion first, also Motion Canvas, Lottie, Three.js, p5.js, canvas or plain HTML/CSS animation, or renders from Manim, After Effects or Blender. Use to port, convert, migrate or reuse work mad…",
+      "installs": 5144,
+      "stars": 87644,
+      "audit": "warn"
+    },
+    {
+      "source": "mattpocock/skills",
+      "skill": "grill-me",
+      "name": "grill-me",
+      "description": "A relentless interview to sharpen a plan or design.",
+      "installs": 5075,
+      "stars": 329325,
+      "audit": "pass"
+    },
+    {
+      "source": "anthropics/skills",
+      "skill": "frontend-design",
+      "name": "frontend-design",
+      "description": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.",
+      "installs": 4307,
+      "stars": 198235,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "mattpocock/skills",
+      "skill": "domain-modeling",
+      "name": "domain-modeling",
+      "description": "Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a GLOSSARY.md, or recording or editing an ADR.",
+      "installs": 4226,
+      "stars": 329325,
+      "audit": "pass"
+    },
+    {
+      "source": "vercel-labs/agent-skills",
+      "skill": "web-design-guidelines",
+      "name": "web-design-guidelines",
+      "description": "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\".",
+      "installs": 3488,
+      "stars": 34636,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "vercel-labs/agent-skills",
+      "skill": "vercel-react-best-practices",
+      "name": "vercel-react-best-practices",
+      "description": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization…",
+      "installs": 3233,
+      "stars": 34636,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "emilkowalski/skills",
+      "skill": "emil-design-eng",
+      "name": "emil-design-eng",
+      "description": "This skill encodes Emil Kowalski's philosophy on UI polish, component design, animation decisions, and the invisible details that make software feel great.",
+      "installs": 2626,
+      "stars": 58540,
+      "audit": "warn"
+    },
+    {
+      "source": "emilkowalski/skills",
+      "skill": "apple-design",
+      "name": "apple-design",
+      "description": "Apple's approach to interface design and fluid, physical motion, translated for the web. Use when building or reviewing gesture-driven UI, spring animations, drag/swipe/sheet interactions, momentum and interruptible transitions, translucent materials and depth, typography (optical sizing, tracking,…",
+      "installs": 2393,
+      "stars": 58540,
+      "audit": "pass"
+    },
+    {
+      "source": "pbakaus/impeccable",
+      "skill": "impeccable",
+      "name": "impeccable",
+      "description": "Use when the user wants to design, redesign, shape, critique, audit, polish, simplify, harden, animate, or otherwise improve a frontend interface: websites, landing pages, dashboards, product UI, components, forms, settings, onboarding, empty states, and native iOS or Android screens. Handles UX re…",
+      "installs": 2325,
+      "stars": 114251,
+      "audit": "warn"
+    },
+    {
+      "source": "googlechrome/modern-web-guidance",
+      "skill": "modern-web-guidance",
+      "name": "modern-web-guidance",
+      "description": "Search tool for modern web development best practices. MANDATORY: Execute FIRST for all HTML/CSS and clientside JS tasks. Do NOT skip — web APIs evolve rapidly and training weights contain obsolete patterns. Trigger immediately for: modals/dialogs/popovers, tables, dark mode, anchor positioning, co…",
+      "installs": 2224,
+      "stars": 24170,
+      "audit": "warn"
+    },
+    {
+      "source": "emilkowalski/skills",
+      "skill": "animate",
+      "name": "animate",
+      "description": "Build an animation from scratch, making the decisions in the order that determines whether it feels right — should it animate at all, what purpose, which tool, which properties, which curve and duration, how it interrupts, how it exits. Writes the implementation. Use when asked to animate something…",
+      "installs": 2191,
+      "stars": 58540,
+      "audit": "warn"
+    },
+    {
+      "source": "nutlope/hallmark",
+      "skill": "hallmark",
+      "name": "hallmark",
+      "description": "Design skill for websites and new pages that look designed, not generated. Use when the user asks to build or design something new, or names Hallmark. Never use it on an existing design unless the user names Hallmark, as in `/hallmark redesign \u003cpath\u003e`.",
+      "installs": 1809,
+      "stars": 58822,
+      "audit": "warn"
+    },
+    {
+      "source": "prisma/skills",
+      "skill": "prisma-client-api",
+      "name": "prisma-client-api",
+      "description": "Prisma Client API reference covering model queries, filters, operators, and client methods. Use when writing database queries, using CRUD operations, filtering data, or configuring Prisma Client. Triggers on \"prisma query\", \"findMany\", \"create\", \"update\", \"delete\", \"$transaction\".",
+      "installs": 1748,
+      "stars": 80,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "prisma/skills",
+      "skill": "prisma-cli",
+      "name": "prisma-cli",
+      "description": "Prisma ORM 7 CLI reference for existing Prisma 7 applications or explicitly selected Prisma 7 workflows. Covers prisma init, generate, migrate, db, dev, studio, and mcp. For setup, connection repair, or Prisma 8, use prisma-orm-setup; not the Prisma Platform CLI.",
+      "installs": 1737,
+      "stars": 80,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "prisma/skills",
+      "skill": "prisma-database-setup",
+      "name": "prisma-database-setup",
+      "description": "Deprecated compatibility name for prisma-orm-setup. Use only when a user or existing integration explicitly invokes prisma-database-setup; otherwise select prisma-orm-setup.",
+      "installs": 1735,
+      "stars": 80,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "skill": "ui-ux-pro-max",
+      "name": "ui-ux-pro-max",
+      "description": "UI/UX design intelligence for web, mobile, and desktop. This skill should be used when designing, building, reviewing, or fixing interfaces, including pages, components, design systems, accessibility, interaction, responsive layout, typography, color, charts, and stack-specific UI implementation. S…",
+      "installs": 1704,
+      "stars": 152312,
+      "audit": "pass"
+    },
+    {
+      "source": "higgsfield-ai/skills",
+      "skill": "higgsfield-generate",
+      "name": "higgsfield-generate",
+      "description": "Generate images/videos/3D assets/audio via Higgsfield AI. Defaults: GPT Image 2.6 for images, animated GIFs and SVG, Seedance 2.5 for video, Nano Banana 2 for cartoon characters, Marketing Studio for ads, Seed Audio 1.0 for audio. Use when: \"generate an image\", \"make a video\", \"animate this photo\",…",
+      "installs": 1660,
+      "stars": 2035,
+      "audit": "warn"
+    },
+    {
+      "source": "juliusbrussee/caveman",
+      "skill": "caveman",
+      "name": "caveman",
+      "description": "Terse caveman voice: answer first, fluff gone, every technical fact kept. Use for /caveman, \"caveman mode\", \"talk like caveman\", \"be brief\", \"less tokens\". Stays on until \"stop caveman\" or \"normal mode\".",
+      "installs": 1644,
+      "stars": 121869,
+      "audit": "pass"
+    },
+    {
+      "source": "higgsfield-ai/skills",
+      "skill": "higgsfield-product-photoshoot",
+      "name": "higgsfield-product-photoshoot",
+      "description": "Generate brand-quality product images through Higgsfield product-photoshoot prompt enhancement on GPT Image 2 / gpt_image_2. Entry point for professional brand/product visuals. Use when: \"product photo\", \"studio shot\", \"lifestyle image\", \"Pinterest pin\", \"hero/banner\", \"carousel\", \"ad creative\", \"M…",
+      "installs": 1609,
+      "stars": 2035,
+      "audit": "pass"
+    },
+    {
+      "source": "higgsfield-ai/skills",
+      "skill": "higgsfield-faceless-video",
+      "name": "higgsfield-faceless-video",
+      "description": "Create a finished faceless explainer, documentary, illustrated story or children's music video, or edit a previously created faceless video. Use when: \"make a faceless video\", \"create a narrated explainer\", \"make a children's song video\", \"edit this faceless video\". NOT for: a single silent clip, a…",
+      "installs": 1603,
+      "stars": 2035,
+      "audit": "pass"
+    },
+    {
+      "source": "cloudflare/security-audit-skill",
+      "skill": "security-audit",
+      "name": "security-audit",
+      "description": "Security guidance and vulnerability review for codebases, APIs, services, CLI tools, libraries, and daemons. Use for security questions, focused reviews, vulnerability research, security audits, or pen tests. Run the complete workflow only for explicit codebase audit or pen-test requests, full/comp…",
+      "installs": 1585,
+      "stars": 76458,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "google/agents-cli",
+      "skill": "google-agents-cli-adk-code",
+      "name": "google-agents-cli-adk-code",
+      "description": "This skill should be used when the user wants to \"write agent code\", \"build an agent with ADK\", \"add a tool\", \"create a callback\", \"define an agent\", \"use state management\" — in a project that needs ADK (Agent Development Kit) API patterns and code examples. It provides a quick reference for agent …",
+      "installs": 1443,
+      "stars": 6381,
+      "audit": "warn"
+    },
+    {
+      "source": "google/agents-cli",
+      "skill": "google-agents-cli-publish",
+      "name": "google-agents-cli-publish",
+      "description": "This skill should be used when the user wants to \"publish an agent\", \"publish my ADK agent\", \"register an agent with Gemini\", \"publish to Gemini\" (formerly Gemini Enterprise), or needs guidance on the agents-cli publish gemini command. Also use when the user wants to \"manage agents in Agent Registr…",
+      "installs": 1432,
+      "stars": 6381,
+      "audit": "warn"
+    },
+    {
+      "source": "google/agents-cli",
+      "skill": "google-agents-cli-workflow",
+      "name": "google-agents-cli-workflow",
+      "description": "This skill should be used when the user wants to \"develop an agent\", \"build an agent using ADK\", \"run the agent locally\", \"debug agent code\", \"test an agent\", \"deploy an agent\", \"publish an agent\", \"monitor an agent\", or needs the ADK (Agent Development Kit) development lifecycle and coding guideli…",
+      "installs": 1409,
+      "stars": 6381,
+      "audit": "warn"
+    },
+    {
+      "source": "vercel-labs/agent-skills",
+      "skill": "vercel-composition-patterns",
+      "name": "vercel-composition-patterns",
+      "installs": 1354,
+      "stars": 34636,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "obra/superpowers",
+      "skill": "systematic-debugging",
+      "name": "systematic-debugging",
+      "description": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+      "installs": 1331,
+      "stars": 323289,
+      "audit": "warn"
+    },
+    {
+      "source": "obra/superpowers",
+      "skill": "verification-before-completion",
+      "name": "verification-before-completion",
+      "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always",
+      "installs": 1234,
+      "stars": 323289,
+      "audit": "pass"
+    },
+    {
+      "source": "microsoft/playwright-cli",
+      "skill": "playwright-cli",
+      "name": "playwright-cli",
+      "description": "Automate browser interactions, test web pages and work with Playwright tests.",
+      "installs": 1221,
+      "stars": 15349,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "obra/superpowers",
+      "skill": "writing-plans",
+      "name": "writing-plans",
+      "description": "Use when you have a spec or requirements for a multi-step task, before touching code",
+      "installs": 1170,
+      "stars": 323289,
+      "audit": "pass"
+    },
+    {
+      "source": "juliusbrussee/caveman",
+      "skill": "caveman-compress",
+      "name": "caveman-compress",
+      "description": "Compress a memory file such as CLAUDE.md or a todo list into caveman format to save input tokens, keeping a readable backup. Sends the file's text to the configured model provider. Trigger: /caveman-compress.",
+      "installs": 1160,
+      "stars": 121869,
+      "audit": "warn"
+    },
+    {
+      "source": "juliusbrussee/caveman",
+      "skill": "caveman-stats",
+      "name": "caveman-stats",
+      "description": "Show recorded output and cache-read token usage and mode attribution for the current Claude Code session, or locate the host's native usage report. Trigger: /caveman-stats.",
+      "installs": 1118,
+      "stars": 121869,
+      "audit": "pass"
+    },
+    {
+      "source": "mastra-ai/skills",
+      "skill": "mastra",
+      "name": "mastra",
+      "description": "Comprehensive Mastra framework guide for building agents, workflows, tools, memory, workspaces, and storage with current APIs. Use for native capability discovery, logging, tracing, metrics/cost estimates, dataset experiments, documentation lookup, API verification, TypeScript setup, common errors,…",
+      "installs": 1108,
+      "stars": 105,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "dietrichgebert/ponytail",
+      "skill": "ponytail",
+      "name": "ponytail",
+      "description": "Lazy senior dev mode: the smallest change that fully solves the task, and a reply a busy human understands in one read. Use on any coding task (writing, fixing, refactoring, reviewing, choosing dependencies) and when the user says \"ponytail\", \"be lazy\", \"simplest solution\", \"yagni\", or complains ab…",
+      "installs": 1107,
+      "stars": 195950,
+      "audit": "pass"
+    },
+    {
+      "source": "supabase/agent-skills",
+      "skill": "supabase-postgres-best-practices",
+      "name": "supabase-postgres-best-practices",
+      "description": "Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres database: creating or altering tables and columns (including choosing column types), schema design, migrations and declarative schema files, RL…",
+      "installs": 1095,
+      "stars": 3117,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "mcollina/skills",
+      "skill": "fastify-best-practices",
+      "name": "fastify-best-practices",
+      "description": "Guides development of Fastify Node.js backend servers and REST APIs using TypeScript or JavaScript. Use when building, configuring, or debugging a Fastify application — including defining routes, implementing plugins, setting up JSON Schema validation, handling errors, optimising performance, manag…",
+      "installs": 1072,
+      "stars": 1979,
+      "audit": "warn"
+    },
+    {
+      "source": "spillwavesolutions/design-doc-mermaid",
+      "skill": "design-doc-mermaid",
+      "name": "design-doc-mermaid",
+      "description": "Create Mermaid diagrams (flowchart, sequence, class, ER, state, C4, architecture) from text or source code. Default for GitHub wiki. Use when asked to create a diagram, generate mermaid, document architecture, or convert code to diagram. PlantUML is only for leftover types. Confluence needs PNG/SVG…",
+      "installs": 1069,
+      "stars": 187,
+      "audit": "warn"
+    },
+    {
+      "source": "coreyhaines31/marketingskills",
+      "skill": "copywriting",
+      "name": "copywriting",
+      "description": "When the user wants to write or rewrite page copy (homepage, landing, pricing, feature), or asks which headline, promise, or message to lead with. Diagnoses the input first (blank brief, real voice, or point edit) and changes only what it calls for. Claims must be supportable; a declined claim name…",
+      "installs": 1061,
+      "stars": 61798,
+      "audit": "pass"
+    },
+    {
+      "source": "iannuttall/seo",
+      "skill": "seo",
+      "name": "seo",
+      "description": "Free Google Search Console MCP server and CLI for AI agents. Reads your real Search Console, Google Analytics, Bing Webmaster Tools, Clicky and Simple Analytics data, plus DataForSEO and Ahrefs keyword research. Use it for any SEO question - why Google traffic or clicks dropped, organic traffic dec…",
+      "installs": 1053,
+      "stars": 642,
+      "audit": "warn"
+    },
+    {
+      "source": "nrwl/nx-ai-agents-config",
+      "skill": "nx-workspace",
+      "name": "nx-workspace",
+      "description": "Explore and understand Nx workspaces. USE WHEN answering questions about the workspace, projects, or tasks. ALSO USE WHEN an nx command fails or you need to check available targets/configuration before running a task. EXAMPLES: 'What projects are in this workspace?', 'How is project X configured?',…",
+      "installs": 1051,
+      "stars": 29,
+      "audit": "pass"
+    },
+    {
+      "source": "amplitude/mcp-marketplace",
+      "skill": "add-analytics-instrumentation",
+      "name": "add-analytics-instrumentation",
+      "description": "End-to-end analytics instrumentation workflow for a PR, branch, file, directory, or feature. Reads the code, discovers what events should be tracked, and produces a concrete instrumentation plan — all in one shot. Use this skill whenever a user wants to add analytics to a PR, asks \"instrument this …",
+      "installs": 1050,
+      "stars": 48,
+      "audit": "warn"
+    }
+  ],
+  "hot": [
+    {
+      "source": "danielwh2/sprite-stacking",
+      "skill": "sprite-stacking",
+      "name": "sprite-stacking",
+      "description": "Makes fake-3D rotatable pixel art with sprite stacking. Turns four orthographic views (top, side, front, back) into a visual-hull carved slice strip, checks it, and renders a crisp turntable for web Canvas, Godot, Unity or Phaser. Use when someone asks to \"make a rotatable pixel art car\", \"sprite s…",
+      "installs": 2,
+      "change": 2,
+      "stars": 256,
+      "audit": "pass"
+    },
+    {
+      "source": "openmontageinc/openmontage",
+      "skill": "tailwind-design-system",
+      "name": "tailwind-design-system",
+      "description": "Build scalable design systems with Tailwind CSS v4, design tokens, component libraries, and responsive patterns. Use when creating component libraries, implementing design systems, or standardizing UI patterns.",
+      "installs": 2,
+      "change": 2,
+      "stars": 82032,
+      "audit": "pass"
+    },
+    {
+      "source": "openmontageinc/openmontage",
+      "skill": "manimce-best-practices",
+      "name": "manimce-best-practices",
+      "description": "Trigger when: (1) User mentions \"manim\" or \"Manim Community\" or \"ManimCE\", (2) Code contains `from manim import *`, (3) User runs `manim` CLI commands, (4) Working with Scene, MathTex, Create(), or ManimCE-specific classes. Best practices for Manim Community Edition - the community-maintained Pytho…",
+      "installs": 2,
+      "change": 2,
+      "stars": 82032,
+      "audit": "pass"
+    },
+    {
+      "source": "openmontageinc/openmontage",
+      "skill": "threejs-world-generation",
+      "name": "threejs-world-generation",
+      "description": "Build deterministic, editable, free-viewpoint Three.js worlds from text or structured briefs. Use for cinematic 3D terrain, semantic regions, procedural biomes, explicit landmarks, environmental scattering, camera fly-throughs, world diagnostics, or requests for a real 3D environment rather than ge…",
+      "installs": 2,
+      "change": 2,
+      "stars": 82032,
+      "audit": "pass"
+    },
+    {
+      "source": "convex/agent-skills",
+      "skill": "convex-bundle-size",
+      "name": "convex-bundle-size",
+      "description": "Debug and shrink a Convex deployment's bundle with @convex-dev/bundle-analyzer: find duplicate packages, \"use node\" code leaking into the Convex runtime, dev dependencies and test files in deployed code, then fix and measure before/after. TRIGGER on 'Total module size exceeded the unzipped maximum'…",
+      "installs": 2,
+      "change": 2,
+      "stars": 70,
+      "audit": "warn"
+    },
+    {
+      "source": "stablyai/orca",
+      "skill": "orca-per-workspace-env",
+      "name": "orca-per-workspace-env",
+      "description": "Set up, review, debug, or validate an Orca per-workspace environment recipe: the on-demand, disposable runtime (cloud sandbox, VM, SSH host, or local container) Orca creates fresh for each workspace. Use to stand up a new recipe end to end, fix an `environmentRecipes` entry in `orca.yaml`, scaffold…",
+      "installs": 2,
+      "change": 2,
+      "stars": 131455,
+      "audit": "warn"
+    },
+    {
+      "source": "daymade/claude-code-skills",
+      "skill": "asr-transcribe-to-text",
+      "name": "asr-transcribe-to-text",
+      "description": "Transcribes audio or video to speaker-labeled, timestamped text, locally with MLX on Apple Silicon or remotely. Use for 转录 / 录音转文字 / 说话人分离 / 字幕, and also for preparing audio for ASR without transcribing: 转格式, 降采样到 16kHz, merging recorder segments, or compressing and speeding up audio before 飞书妙记 — …",
+      "installs": 3,
+      "change": 1,
+      "stars": 1540,
+      "audit": "warn"
+    },
+    {
+      "source": "daymade/claude-code-skills",
+      "skill": "audio-router",
+      "name": "audio-router",
+      "description": "StepFun ASR/TTS配音; transcript/妙记→纪要, merge/review minutes; 通用ASR/校字直达。daudio 波形/吞字/尾衰: waveform/cutpoint/tail.",
+      "installs": 3,
+      "change": 1,
+      "stars": 1540,
+      "audit": "warn"
+    },
+    {
+      "source": "nomadamas/k-skill",
+      "skill": "korean-character-count",
+      "name": "korean-character-count",
+      "description": "Count Korean text deterministically with exact grapheme, line, and byte contracts for self-intros and form limits.",
+      "installs": 2,
+      "change": 1,
+      "stars": 8483,
+      "audit": "warn"
+    },
+    {
+      "source": "nomadamas/k-skill",
+      "skill": "donation-place-search",
+      "name": "donation-place-search",
+      "description": "Use when the user asks where to donate, 기부처 조회, or donation place recommendations by Korean location and category. Recommend recipients with best-effort 1365 verification-assist links and never execute donations. 돌쇠에서는 공식 표면을 통한 후속 액션까지 진행한다.",
+      "installs": 2,
+      "change": 1,
+      "stars": 8483,
+      "audit": "warn"
+    },
+    {
+      "source": "vercel/vercel-plugin",
+      "skill": "vercel-schedules",
+      "name": "vercel-schedules",
+      "description": "Vercel Schedules guidance — run a private function, route, or Vercel Queues topic on a cron cadence or once at a set time. Covers static schedules in vercel.json, dynamic per-user schedules with @vercel/schedules, handleSchedule, the vercel schedules CLI, environments, jitter, and migrating from Cr…",
+      "installs": 2,
+      "change": 1,
+      "stars": 342,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "nomadamas/k-skill",
+      "skill": "household-waste-info",
+      "name": "household-waste-info",
+      "description": "Use when the user asks for 생활쓰레기 배출 요일/시간/장소 정보 by 지역명(시군구) and wants official data.go.kr household waste guidance.",
+      "installs": 2,
+      "change": 1,
+      "stars": 8483,
+      "audit": "warn"
+    },
+    {
+      "source": "referodesign/refero_skill",
+      "skill": "refero-design",
+      "name": "refero-design",
+      "description": "Primary/default skill for UI design, product design, web design, landing pages, dashboards, product screens, redesigns, visual polish, frontend/CSS styling, design systems, components, responsive design, typography, color, spacing, motion, icons, accessibility, copywriting, conversion, and anti-AI-…",
+      "installs": 2,
+      "change": 1,
+      "stars": 357,
+      "audit": "warn"
+    },
+    {
+      "source": "cursor/plugins",
+      "skill": "architect",
+      "name": "architect",
+      "description": "Sketch types, signatures, and module structure before code, then stay in the loop while implementation fills in. Use for /architect, 'architect this', 'design this', or non-trivial work where jumping to code would lock in the wrong shape.",
+      "installs": 2,
+      "change": 1,
+      "stars": 17955,
+      "audit": "pass"
+    },
+    {
+      "source": "superagent-ai/skills",
+      "skill": "skill-security",
+      "name": "skill-security",
+      "description": "Audit an AI agent skill for security risks before installing or trusting it. Runs a deterministic scanner (regex patterns, Python AST analysis, source-to-sink taint tracking, and YARA signatures) and then reasons about intent — catching prompt injection, credential exfiltration, persistence, memory…",
+      "installs": 2,
+      "change": 1,
+      "stars": 82,
+      "audit": "warn"
+    },
+    {
+      "source": "google-labs-code/stitch-skills",
+      "skill": "enhance-prompt",
+      "name": "enhance-prompt",
+      "description": "Transforms vague UI ideas into polished, Stitch-optimized prompts. Enhances specificity, adds UI/UX keywords, injects design system context, and structures output for better generation results.",
+      "installs": 2,
+      "change": 1,
+      "stars": 11189,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "binance/binance-skills-hub",
+      "skill": "crypto-market-rank",
+      "name": "crypto-market-rank",
+      "description": "Crypto market leaderboards — ranked aggregate feeds across the whole market: social-hype/sentiment rank, trending / top-search / Binance Alpha / tokenized-stocks rank, smart-money net-inflow rank (which tokens received the most inflow), top meme tokens by breakout score on Pulse launchpad, top trad…",
+      "installs": 2,
+      "change": 1,
+      "stars": 1204,
+      "audit": "warn"
+    },
+    {
+      "source": "saadeghi/daisyui",
+      "skill": "daisyui",
+      "name": "daisyui",
+      "description": "Official daisyUI component-library skill for Tailwind CSS. When you write HTML or JSX code, you must use it. Even if the user does not request it, use it.",
+      "installs": 2,
+      "change": 1,
+      "stars": 42922,
+      "audit": "warn"
+    },
+    {
+      "source": "ognjengt/founder-skills",
+      "skill": "cro-optimization",
+      "name": "cro-optimization",
+      "description": "Analyzes landing pages and provides detailed CRO (Conversion Rate Optimization) recommendations. Use when user provides a landing page URL or HTML/CSS code and needs optimization advice to maximize conversions, signups, or sales. Extracts page elements, audits against proven CRO principles, and del…",
+      "installs": 1,
+      "change": 1,
+      "stars": 693,
+      "audit": "warn"
+    },
+    {
+      "source": "n1arko/redaktura-skills",
+      "skill": "post",
+      "name": "post",
+      "description": "Короткие русскоязычные посты для Telegram, LinkedIn, Instagram и других соцсетей: пост с нуля, пост из статьи, анонс в канал, переписывание первой строки, усиление хука и финала. Use this skill whenever the user asks to write, rewrite, draft, shorten, or improve a Russian social media post, Telegra…",
+      "installs": 1,
+      "change": 1,
+      "stars": 238,
+      "audit": "pass"
+    },
+    {
+      "source": "jeffallan/writing-with-agents",
+      "skill": "content-strategist",
+      "name": "content-strategist",
+      "description": "Use when planning a multi-article content strategy from a research corpus, creating domain maps for content topology, building production plans for pillar and cluster articles, or tracking cross-article production.",
+      "installs": 1,
+      "change": 1,
+      "stars": 39,
+      "audit": "warn"
+    },
+    {
+      "source": "wuyoscar/jev-skill",
+      "skill": "jev-eval",
+      "name": "jev-eval",
+      "description": "Judge supplied outputs against explicit criteria, including code-change reviews and authorized safety evaluations. Use for evidence-backed review leads, rubric judgments, or batch, multi-turn and team transcript evaluation; not permission to merge or run targets.",
+      "installs": 1,
+      "change": 1,
+      "stars": 684,
+      "audit": "warn"
+    },
+    {
+      "source": "google/skills",
+      "skill": "google-mobile-ads-validate",
+      "name": "google-mobile-ads-validate",
+      "description": "Validates a project's Google Mobile Ads (GMA) SDK integration for iOS, Android, or Unity projects. Use when conducting a full pre-launch audit of an app that integrates GMA SDK or when validating any individual GMA SDK integration checks, such as when validating ad unit IDs and ad formats, SKAdNetw…",
+      "installs": 1,
+      "change": 1,
+      "stars": 24498,
+      "audit": "pass"
+    },
+    {
+      "source": "haomingz/kimi-skills",
+      "skill": "ui-blueprint",
+      "name": "ui-blueprint",
+      "description": "从参考 UI 截图或设计稿中提取完整的设计系统，生成包含配色、字体、组件和间距规范的设计文档，并最终产出可直接用于实现、风格一致的 MVP 界面提示词。当用户提供 UI 截图并希望提取设计规范、构建设计系统文档、或需要基于参考风格创建新界面时触发。",
+      "installs": 1,
+      "change": 1,
+      "stars": 25,
+      "audit": "warn"
+    },
+    {
+      "source": "varghq/skills",
+      "skill": "video-moodboard",
+      "name": "video-moodboard",
+      "description": "Build a moodboard that AI image and video models actually follow, in the order that matters most, and prove it on stills before any video is paid for. Ranked from a 48-still test, 6,086 X posts and 14 official prompt guides: references, light, subject lock, framing, palette, motion, texture, type, …",
+      "installs": 1,
+      "change": 1,
+      "stars": 42,
+      "audit": "warn"
+    },
+    {
+      "source": "lingzhi227/agent-research-skills",
+      "skill": "paper-assembly",
+      "name": "paper-assembly",
+      "description": "Orchestrate the full paper pipeline end-to-end. Manage state propagation between phases (literature → plan → code → experiments → figures → tables → writing → review), support checkpointing and resumption. Use for assembling a complete paper from components.",
+      "installs": 1,
+      "change": 1,
+      "stars": 475,
+      "audit": "warn"
+    },
+    {
+      "source": "wuyoscar/jev-skill",
+      "skill": "jev-act",
+      "name": "jev-act",
+      "description": "Choose one legal next action in a browser, desktop, game or simulation. Supply fresh observed state and available actions. The host or simulator executes and checks the result; selection does not grant permission.",
+      "installs": 1,
+      "change": 1,
+      "stars": 684,
+      "audit": "warn"
+    },
+    {
+      "source": "google/skills",
+      "skill": "google-mobile-ads-rewarded",
+      "name": "google-mobile-ads-rewarded",
+      "description": "Provides instructions for implementing, integrating, or configuring Google Mobile Ads (GMA) SDK rewarded ads in Android, iOS, or Unity mobile applications. Use when the task involves setting up rewarded ads. Don't use for \"rewarded interstitial\" ads.",
+      "installs": 1,
+      "change": 1,
+      "stars": 24498,
+      "audit": "pass"
+    },
+    {
+      "source": "diego3g/craft",
+      "skill": "craft",
+      "name": "craft",
+      "description": "Use when asked to design, create, mock up or redesign one or more pages, screens, flows or UI elements, or when the person runs /craft (/craft:craft in the Claude Code plugin).",
+      "installs": 1,
+      "change": 1,
+      "stars": 327,
+      "audit": "pass"
+    },
+    {
+      "source": "glincker/ableton-skills",
+      "skill": "midi-cleanup",
+      "name": "midi-cleanup",
+      "description": "Use when the user asks to humanize a MIDI part, fix voice leading, quantize notes, clean up timing, fix stuck/duplicate notes, or generally polish a MIDI clip they recorded or wrote. Examples - \"humanize this hat\", \"voice these chords better\", \"the timing is too stiff\", \"fix the voice leading on th…",
+      "installs": 1,
+      "change": 1,
+      "stars": 54,
+      "audit": "pass"
+    },
+    {
+      "source": "glincker/ableton-skills",
+      "skill": "tempo-coach",
+      "name": "tempo-coach",
+      "description": "Use when the user is unsure about tempo, time signature, or rhythmic feel choices. Examples - \"what tempo should this be?\", \"should I switch to 3/4?\", \"is 95 BPM right for lo-fi?\", \"how do I make this feel less stiff rhythmically?\".",
+      "installs": 1,
+      "change": 1,
+      "stars": 54,
+      "audit": "pass"
+    },
+    {
+      "source": "danjdewhurst/story-skills",
+      "skill": "submission",
+      "name": "submission",
+      "description": "This skill should be used when the user asks to \"write a query letter\", \"query\", \"querying\", \"pitch\", \"blurb\", \"back cover copy\", \"jacket copy\", \"comp titles\", \"comparable titles\", \"synopsis for agents\", \"submit to agents\", \"submission tracker\", \"self-publishing description\", \"retailer description\"…",
+      "installs": 1,
+      "change": 1,
+      "stars": 441,
+      "audit": "pass"
+    },
+    {
+      "source": "binance/binance-skills-hub",
+      "skill": "binance-wallet-tracker",
+      "name": "binance-wallet-tracker",
+      "description": "Wallet tracking and monitoring on Binance Web3. Monitor token/trade activity for private groups or public Smart Money/KOL data. Four domains: (A) Discovery — consensus, pioneer, leaderboard diff, token buyer lookup, time-window summaries, similar wallets; (B) Evaluation — token risk (tokenRiskLevel…",
+      "installs": 1,
+      "change": 1,
+      "stars": 1204,
+      "audit": "warn"
+    },
+    {
+      "source": "practicalswan/agent-skills",
+      "skill": "supabase-postgres-best-practices",
+      "name": "supabase-postgres-best-practices",
+      "description": "Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres database: creating or altering tables and columns (including choosing column types), schema design, migrations and declarative schema files, RL…",
+      "installs": 1,
+      "change": 1,
+      "stars": 24,
+      "audit": "pass"
+    },
+    {
+      "source": "aladicf/better-web-ui",
+      "skill": "harden",
+      "name": "harden",
+      "description": "Improve interface resilience through better error handling, i18n support, text overflow handling, and edge case management, making interfaces robust and production-ready. Use when the user asks to harden, make production-ready, handle edge cases, add error states, or fix overflow and i18n issues.",
+      "installs": 1,
+      "change": 1,
+      "stars": 53,
+      "audit": "pass"
+    },
+    {
+      "source": "jihe520/mathmodelagent",
+      "skill": "6verity",
+      "name": "6verity",
+      "description": "数学建模竞赛最终验证和验收阶段，支持 Typst 和 LaTeX 双引擎。用于论文写完后检查章节数量、标题顺序、图表引用、数值一致性、占位符、内部文件泄露、参考文献、代码可复现性、编译和提交就绪状态。",
+      "installs": 1,
+      "change": 1,
+      "stars": 6392,
+      "audit": "pass"
+    },
+    {
+      "source": "glincker/ableton-skills",
+      "skill": "sound-designer",
+      "name": "sound-designer",
+      "description": "Use when the user wants to design a synth patch from scratch or modify an existing one - lead, bass, pad, pluck, lush keys, FX. Targets stock Ableton synths (Operator, Wavetable, Analog, Drift). Examples - \"make me a wide supersaw lead\", \"design a sub bass\", \"give me a lush pad like Olafur Arnalds\".",
+      "installs": 1,
+      "change": 1,
+      "stars": 54,
+      "audit": "pass"
+    },
+    {
+      "source": "modelstudioai/cli",
+      "skill": "bailian-cli",
+      "name": "bailian-cli",
+      "description": "阿里云百炼 / Aliyun Bailian / DashScope 资源管理与 `bl` CLI hub： 应用调用与管理（bl flow-agent：调用/创建/更新/发布/删除/复制/版本、工作流画布；旧 bl app call/list 已废弃）、决策模型推理（bl decision）、模型目录/模型列表、用量/额度/配额、免费额度、 工作空间、MCP 市场、pipeline、文件上传、ParseX 文档/音视频解析与字段抽取、Batch 批量推理与 CSV 转换、同步 Batch Chat、console API、登录鉴权与配置、 Agent skill 安装/列表/更新/卸载（b…",
+      "installs": 1,
+      "change": 1,
+      "stars": 371,
+      "audit": "warn"
+    },
+    {
+      "source": "udaysharmadev/gravitas",
+      "skill": "gravitas-highstakes",
+      "name": "gravitas-highstakes",
+      "description": "Mandatory checkpoint skill for irreversible/high-stakes changes (schema migrations, file deletion, auth/security changes, production config, force-pushes). Use when a task risks hard-to-reverse damage.",
+      "installs": 1,
+      "change": 1,
+      "stars": 507,
+      "audit": "pass"
+    },
+    {
+      "source": "lingzhi227/agent-research-skills",
+      "skill": "experiment-code",
+      "name": "experiment-code",
+      "description": "Write ML experiment code with iterative improvement. Generate training/evaluation pipelines, debug errors, and optimize results through code reflection. Use when implementing experiments for a research paper.",
+      "installs": 1,
+      "change": 1,
+      "stars": 475,
+      "audit": "warn"
+    },
+    {
+      "source": "varghq/skills",
+      "skill": "make-a-woke-profile-with-chatgpt",
+      "name": "make-a-woke-profile-with-chatgpt",
+      "description": "Turn one selfie into a satirical \"I MADE ME WOKE\" profile set with GPT Image 2.6, the image model in ChatGPT (aka Wokify): 11 woke versions of you (character sheet, woke friends photo, LinkedIn-style profile, DEI video call, protest TV interview, action figure, holographic trading card, woke cat, o…",
+      "installs": 1,
+      "change": 1,
+      "stars": 42,
+      "audit": "pass"
+    },
+    {
+      "source": "varghq/skills",
+      "skill": "gpt-image-gif",
+      "name": "gpt-image-gif",
+      "description": "Turn a still, mascot, logo or a plain prompt into a looping animated GIF with GPT Image 2.6 on varg (output_format gif): the sprite-sheet pixel budget with a measured table of frame sizes that fit 2, 4, 6, 9, 12 and 16 frames, the approve-a-still-first workflow, loop-lock prompt wording, frame_dura…",
+      "installs": 1,
+      "change": 1,
+      "stars": 42,
+      "audit": "pass"
+    },
+    {
+      "source": "practicalswan/agent-skills",
+      "skill": "best-practices",
+      "name": "best-practices",
+      "description": "Apply modern web development best practices for security, compatibility, and code quality. Use when asked to \"apply best practices\", \"security audit\", \"modernize code\", \"code quality review\", or \"check for vulnerabilities\".",
+      "installs": 1,
+      "change": 1,
+      "stars": 24,
+      "audit": "pass"
+    },
+    {
+      "source": "ognjengt/founder-skills",
+      "skill": "product-hunt-launch-plan",
+      "name": "product-hunt-launch-plan",
+      "description": "Creates a comprehensive, personalized Product Hunt launch plan to rank",
+      "installs": 1,
+      "change": 1,
+      "stars": 693,
+      "audit": "pass"
+    },
+    {
+      "source": "google/skills",
+      "skill": "data-manager-api-troubleshooting",
+      "name": "data-manager-api-troubleshooting",
+      "description": "Diagnoses and fixes errors, warnings, and missing data for Data Manager API event and audience ingestion requests. Use when an IngestEvents, IngestAudienceMembers, RemoveAudienceMembers, RemoveAllAudienceMembers, or RetrieveRequestStatus call fails (INVALID_ARGUMENT, REQUIRED_FIELD_MISSING, INVALID…",
+      "installs": 1,
+      "change": 1,
+      "stars": 24498,
+      "audit": "pass"
+    },
+    {
+      "source": "binance/binance-skills-hub",
+      "skill": "binance-prediction-updown",
+      "name": "binance-prediction-updown",
+      "description": "Scaffold for assembling prediction-market strategies on Binance Agentic Wallet, for recurring BTC Up/Down rounds. Wires round enumeration, market screening, two-step ordering, fill and settlement confirmation and redemption into one runnable pipeline, and exposes every probability judgement as a ho…",
+      "installs": 1,
+      "change": 1,
+      "stars": 1204,
+      "audit": "warn"
+    },
+    {
+      "source": "nonlooped/roblox-suite",
+      "skill": "roblox",
+      "name": "roblox",
+      "description": "Route Roblox Luau tasks to specialist skills. Use for architecture decisions, broad development requests, or work spanning several Roblox systems.",
+      "installs": 1,
+      "change": 1,
+      "stars": 36,
+      "audit": "pass"
+    },
+    {
+      "source": "aladicf/better-web-ui",
+      "skill": "frontend-design",
+      "name": "frontend-design",
+      "description": "Create distinctive, production-grade frontend interfaces with strong hierarchy, thoughtful systems, and polished implementation that avoid generic AI aesthetics. Use when the user wants to build or redesign web pages, flows, components, or full app surfaces, or when another better-web-ui skill need…",
+      "installs": 1,
+      "change": 1,
+      "stars": 53,
+      "audit": "pass"
+    },
+    {
+      "source": "skydashnet/material-design-3-ui-skill",
+      "skill": "material-design-3-ui",
+      "name": "material-design-3-ui",
+      "description": "Design, redesign, review, or implement user interfaces using Google Material Design 3 (M3), Material You, and optional Material 3 Expressive principles. Use for UI/UX screens, app flows, design systems, component selection, theming, responsive/adaptive layouts, accessibility audits, Figma-ready spe…",
+      "installs": 1,
+      "change": 1,
+      "stars": 395,
+      "audit": "pass"
+    },
+    {
+      "source": "wshobson/agents",
+      "skill": "market-sizing-analysis",
+      "name": "market-sizing-analysis",
+      "description": "Calculate TAM/SAM/SOM for market opportunities using top-down, bottom-up, and value theory methodologies. Use this skill when sizing markets, estimating addressable revenue, validating market opportunity for a new venture, or building investor-ready market analysis for a startup pitch or business p…",
+      "installs": 1,
+      "change": 1,
+      "stars": 42760,
+      "audit": "pass"
+    }
+  ]
+}

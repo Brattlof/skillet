@@ -1,0 +1,985 @@
+{
+  "generated_at": "2026-11-28T03:59:17Z",
+  "trending": [
+    {
+      "source": "vercel-labs/skills",
+      "skill": "find-skills",
+      "name": "find-skills",
+      "description": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable sk…",
+      "installs": 14645,
+      "stars": 41181,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "heygen-com/hyperframes",
+      "skill": "hyperframes",
+      "name": "hyperframes",
+      "description": "Read first to make, edit, animate or render any video with HyperFrames (HTML rendered to video), including launch films, explainers, music videos, charts, maps, vertical clips, title cards, captions and overlays. Holds the render contract, the work loop and what each kind of video needs.",
+      "installs": 12177,
+      "stars": 91594,
+      "audit": "warn"
+    },
+    {
+      "source": "heygen-com/hyperframes",
+      "skill": "media-use",
+      "name": "media-use",
+      "description": "Get or make any media for a HyperFrames video - music, sound effects, images, icons, logos, voiceover, avatar and generated video, transcripts, cutouts, colour grades and looks - with HeyGen or free local tools, and mix placed audio. Also for footage that looks dark, flat or dull, or should be styl…",
+      "installs": 11988,
+      "stars": 91594,
+      "audit": "warn"
+    },
+    {
+      "source": "remotion-dev/skills",
+      "skill": "remotion-render",
+      "name": "remotion-render",
+      "description": "Export a Remotion video",
+      "installs": 8349,
+      "stars": 8178,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "remotion-dev/skills",
+      "skill": "remotion-captions",
+      "name": "remotion-captions",
+      "description": "Transcribing, displaying and animating captions",
+      "installs": 8326,
+      "stars": 8178,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "remotion-dev/skills",
+      "skill": "remotion-create",
+      "name": "remotion-create",
+      "description": "Create a new Remotion video",
+      "installs": 8294,
+      "stars": 8178,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "mattpocock/skills",
+      "skill": "grilling",
+      "name": "grilling",
+      "description": "Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.",
+      "installs": 5872,
+      "stars": 334344,
+      "audit": "pass"
+    },
+    {
+      "source": "mattpocock/skills",
+      "skill": "grill-me",
+      "name": "grill-me",
+      "description": "A relentless interview to sharpen a plan or design.",
+      "installs": 5488,
+      "stars": 334344,
+      "audit": "pass"
+    },
+    {
+      "source": "uxpilot-ai/user-interview-skill",
+      "skill": "user-interview-guide",
+      "name": "user-interview-guide",
+      "description": "Create, tailor, and improve practical 1:1 user interview guides and interview scripts. Use when turning a learning goal into neutral questions and probes for customer discovery, activation, churn, switching, or concept interviews; choosing an interview approach; preparing participant criteria and m…",
+      "installs": 5365,
+      "stars": 119,
+      "audit": "warn"
+    },
+    {
+      "source": "mattpocock/skills",
+      "skill": "domain-modeling",
+      "name": "domain-modeling",
+      "description": "Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a GLOSSARY.md, or recording or editing an ADR.",
+      "installs": 4510,
+      "stars": 334344,
+      "audit": "pass"
+    },
+    {
+      "source": "anthropics/skills",
+      "skill": "frontend-design",
+      "name": "frontend-design",
+      "description": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.",
+      "installs": 4447,
+      "stars": 201573,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "heygen-com/hyperframes",
+      "skill": "remotion-to-hyperframes",
+      "name": "remotion-to-hyperframes",
+      "description": "Bring existing video code or footage into HyperFrames and verify it frame by frame against the original - Remotion first, also Motion Canvas, Lottie, Three.js, p5.js, canvas or plain HTML/CSS animation, or renders from Manim, After Effects or Blender. Use to port, convert, migrate or reuse work mad…",
+      "installs": 4242,
+      "stars": 91594,
+      "audit": "warn"
+    },
+    {
+      "source": "vercel-labs/agent-skills",
+      "skill": "web-design-guidelines",
+      "name": "web-design-guidelines",
+      "description": "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\".",
+      "installs": 3940,
+      "stars": 35044,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "emilkowalski/skills",
+      "skill": "emil-design-eng",
+      "name": "emil-design-eng",
+      "description": "This skill encodes Emil Kowalski's philosophy on UI polish, component design, animation decisions, and the invisible details that make software feel great.",
+      "installs": 3061,
+      "stars": 60626,
+      "audit": "warn"
+    },
+    {
+      "source": "emilkowalski/skills",
+      "skill": "apple-design",
+      "name": "apple-design",
+      "description": "Apple's approach to interface design and fluid, physical motion, translated for the web. Use when building or reviewing gesture-driven UI, spring animations, drag/swipe/sheet interactions, momentum and interruptible transitions, translucent materials and depth, typography (optical sizing, tracking,…",
+      "installs": 2762,
+      "stars": 60626,
+      "audit": "pass"
+    },
+    {
+      "source": "vercel-labs/agent-skills",
+      "skill": "vercel-react-best-practices",
+      "name": "vercel-react-best-practices",
+      "description": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization…",
+      "installs": 2703,
+      "stars": 35044,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "emilkowalski/skills",
+      "skill": "animate",
+      "name": "animate",
+      "description": "Build an animation from scratch, making the decisions in the order that determines whether it feels right — should it animate at all, what purpose, which tool, which properties, which curve and duration, how it interrupts, how it exits. Writes the implementation. Use when asked to animate something…",
+      "installs": 2628,
+      "stars": 60626,
+      "audit": "warn"
+    },
+    {
+      "source": "juliusbrussee/caveman",
+      "skill": "caveman",
+      "name": "caveman",
+      "description": "Terse caveman voice: answer first, fluff gone, every technical fact kept. Use for /caveman, \"caveman mode\", \"talk like caveman\", \"be brief\", \"less tokens\". Stays on until \"stop caveman\" or \"normal mode\".",
+      "installs": 2578,
+      "stars": 123339,
+      "audit": "pass"
+    },
+    {
+      "source": "google/agents-cli",
+      "skill": "google-agents-cli-adk-code",
+      "name": "google-agents-cli-adk-code",
+      "description": "This skill should be used when the user wants to \"write agent code\", \"build an agent with ADK\", \"add a tool\", \"create a callback\", \"define an agent\", \"use state management\" — in a project that needs ADK (Agent Development Kit) API patterns and code examples. It provides a quick reference for agent …",
+      "installs": 2415,
+      "stars": 6431,
+      "audit": "warn"
+    },
+    {
+      "source": "google/agents-cli",
+      "skill": "google-agents-cli-publish",
+      "name": "google-agents-cli-publish",
+      "description": "This skill should be used when the user wants to \"publish an agent\", \"publish my ADK agent\", \"register an agent with Gemini\", \"publish to Gemini\" (formerly Gemini Enterprise), or needs guidance on the agents-cli publish gemini command. Also use when the user wants to \"manage agents in Agent Registr…",
+      "installs": 2407,
+      "stars": 6431,
+      "audit": "warn"
+    },
+    {
+      "source": "google/agents-cli",
+      "skill": "google-agents-cli-workflow",
+      "name": "google-agents-cli-workflow",
+      "description": "This skill should be used when the user wants to \"develop an agent\", \"build an agent using ADK\", \"run the agent locally\", \"debug agent code\", \"test an agent\", \"deploy an agent\", \"publish an agent\", \"monitor an agent\", or needs the ADK (Agent Development Kit) development lifecycle and coding guideli…",
+      "installs": 2386,
+      "stars": 6431,
+      "audit": "warn"
+    },
+    {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "skill": "ui-ux-pro-max",
+      "name": "ui-ux-pro-max",
+      "description": "UI/UX design intelligence for web, mobile, and desktop. This skill should be used when designing, building, reviewing, or fixing interfaces, including pages, components, design systems, accessibility, interaction, responsive layout, typography, color, charts, and stack-specific UI implementation. S…",
+      "installs": 2037,
+      "stars": 155211,
+      "audit": "pass"
+    },
+    {
+      "source": "juliusbrussee/caveman",
+      "skill": "caveman-compress",
+      "name": "caveman-compress",
+      "description": "Compress a memory file such as CLAUDE.md or a todo list into caveman format to save input tokens, keeping a readable backup. Sends the file's text to the configured model provider. Trigger: /caveman-compress.",
+      "installs": 1984,
+      "stars": 123339,
+      "audit": "warn"
+    },
+    {
+      "source": "higgsfield-ai/skills",
+      "skill": "higgsfield-generate",
+      "name": "higgsfield-generate",
+      "description": "Generate images/videos/3D assets/audio via Higgsfield AI. Defaults: GPT Image 2.6 for images, animated GIFs and SVG, Seedance 2.5 for video, Nano Banana 2 for cartoon characters, Marketing Studio for ads, Seed Audio 1.0 for audio. Use when: \"generate an image\", \"make a video\", \"animate this photo\",…",
+      "installs": 1941,
+      "stars": 2088,
+      "audit": "warn"
+    },
+    {
+      "source": "higgsfield-ai/skills",
+      "skill": "higgsfield-faceless-video",
+      "name": "higgsfield-faceless-video",
+      "description": "Create a finished faceless explainer, documentary, illustrated story or children's music video, or edit a previously created faceless video. Use when: \"make a faceless video\", \"create a narrated explainer\", \"make a children's song video\", \"edit this faceless video\". NOT for: a single silent clip, a…",
+      "installs": 1879,
+      "stars": 2088,
+      "audit": "pass"
+    },
+    {
+      "source": "higgsfield-ai/skills",
+      "skill": "higgsfield-product-photoshoot",
+      "name": "higgsfield-product-photoshoot",
+      "description": "Generate brand-quality product images through Higgsfield product-photoshoot prompt enhancement on GPT Image 2 / gpt_image_2. Entry point for professional brand/product visuals. Use when: \"product photo\", \"studio shot\", \"lifestyle image\", \"Pinterest pin\", \"hero/banner\", \"carousel\", \"ad creative\", \"M…",
+      "installs": 1878,
+      "stars": 2088,
+      "audit": "pass"
+    },
+    {
+      "source": "prisma/skills",
+      "skill": "prisma-client-api",
+      "name": "prisma-client-api",
+      "description": "Prisma Client API reference covering model queries, filters, operators, and client methods. Use when writing database queries, using CRUD operations, filtering data, or configuring Prisma Client. Triggers on \"prisma query\", \"findMany\", \"create\", \"update\", \"delete\", \"$transaction\".",
+      "installs": 1796,
+      "stars": 80,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "prisma/skills",
+      "skill": "prisma-cli",
+      "name": "prisma-cli",
+      "description": "Prisma ORM 7 CLI reference for existing Prisma 7 applications or explicitly selected Prisma 7 workflows. Covers prisma init, generate, migrate, db, dev, studio, and mcp. For setup, connection repair, or Prisma 8, use prisma-orm-setup; not the Prisma Platform CLI.",
+      "installs": 1781,
+      "stars": 80,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "prisma/skills",
+      "skill": "prisma-orm-setup",
+      "name": "prisma-orm-setup",
+      "description": "Set up Prisma ORM in an application, connect its database, or troubleshoot the connection of an existing Prisma 6, 7, or 8 app. Defaults new applications to Prisma ORM 8 and loads the package-owned prisma-8 skill; keeps existing Prisma 6/7 apps on their version with provider references for PostgreS…",
+      "installs": 1766,
+      "stars": 80,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "microsoft/azure-skills",
+      "skill": "microsoft-foundry",
+      "name": "microsoft-foundry",
+      "description": "Build, deploy, evaluate, optimize, fine-tune, and manage Microsoft Foundry agents, models, and resources end to end. USE FOR: foundry, azd ai agent, azd provision/deploy, hosted agent scaffold/develop/run/deploy/troubleshoot, prompt agent create, managed harness agent create, GitHub Copilot harness…",
+      "installs": 1696,
+      "stars": 1682,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "microsoft/azure-skills",
+      "skill": "azure-diagnostics",
+      "name": "azure-diagnostics",
+      "description": "Debug Azure production issues using AppLens, Azure Monitor, resource health, and safe triage, including evidence-only diagnosis without live access. WHEN: debug production issues, troubleshoot app service, app service high CPU, app service deployment failure, troubleshoot container apps, container …",
+      "installs": 1693,
+      "stars": 1682,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "microsoft/azure-skills",
+      "skill": "azure-validate",
+      "name": "azure-validate",
+      "description": "Pre-deployment validation for Azure readiness. Run deep checks on configuration, infrastructure (Bicep or Terraform), RBAC role assignments, managed identity permissions, and prerequisites before deploying. WHEN: validate my app, check deployment readiness, run preflight checks, verify configuratio…",
+      "installs": 1693,
+      "stars": 1682,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "googlechrome/modern-web-guidance",
+      "skill": "modern-web-guidance",
+      "name": "modern-web-guidance",
+      "description": "Search tool for modern web development best practices. MANDATORY: Execute FIRST for all HTML/CSS and clientside JS tasks. Do NOT skip — web APIs evolve rapidly and training weights contain obsolete patterns. Trigger immediately for: modals/dialogs/popovers, tables, dark mode, anchor positioning, co…",
+      "installs": 1687,
+      "stars": 27088,
+      "audit": "warn"
+    },
+    {
+      "source": "obra/superpowers",
+      "skill": "systematic-debugging",
+      "name": "systematic-debugging",
+      "description": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+      "installs": 1633,
+      "stars": 328408,
+      "audit": "warn"
+    },
+    {
+      "source": "cloudflare/security-audit-skill",
+      "skill": "security-audit",
+      "name": "security-audit",
+      "description": "Security guidance and vulnerability review for codebases, APIs, services, CLI tools, libraries, and daemons. Use for security questions, focused reviews, vulnerability research, security audits, or pen tests. Run the complete workflow only for explicit codebase audit or pen-test requests, full/comp…",
+      "installs": 1598,
+      "stars": 79319,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "vercel-labs/agent-skills",
+      "skill": "vercel-composition-patterns",
+      "name": "vercel-composition-patterns",
+      "installs": 1532,
+      "stars": 35044,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "obra/superpowers",
+      "skill": "verification-before-completion",
+      "name": "verification-before-completion",
+      "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always",
+      "installs": 1482,
+      "stars": 328408,
+      "audit": "pass"
+    },
+    {
+      "source": "nutlope/hallmark",
+      "skill": "hallmark",
+      "name": "hallmark",
+      "description": "Design skill for websites and new pages that look designed, not generated. Use when the user asks to build or design something new, or names Hallmark. Never use it on an existing design unless the user names Hallmark, as in `/hallmark redesign \u003cpath\u003e`.",
+      "installs": 1407,
+      "stars": 62144,
+      "audit": "warn"
+    },
+    {
+      "source": "obra/superpowers",
+      "skill": "test-driven-development",
+      "name": "test-driven-development",
+      "description": "Use when implementing any feature or bugfix, before writing implementation code",
+      "installs": 1401,
+      "stars": 328408,
+      "audit": "pass"
+    },
+    {
+      "source": "dietrichgebert/ponytail",
+      "skill": "ponytail",
+      "name": "ponytail",
+      "description": "Lazy senior dev mode: the smallest change that fully solves the task, and a reply a busy human understands in one read. Use on any coding task (writing, fixing, refactoring, reviewing, choosing dependencies) and when the user says \"ponytail\", \"be lazy\", \"simplest solution\", \"yagni\", or complains ab…",
+      "installs": 1288,
+      "stars": 200199,
+      "audit": "pass"
+    },
+    {
+      "source": "microsoft/playwright-cli",
+      "skill": "playwright-cli",
+      "name": "playwright-cli",
+      "description": "Automate browser interactions, test web pages and work with Playwright tests.",
+      "installs": 1203,
+      "stars": 15509,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "wind-alice/alicemarket",
+      "skill": "wind-mcp-skill",
+      "name": "wind-mcp-skill",
+      "description": "用户需要查询、筛选、获取、比较或验证金融市场数据时，优先调用本 Skill 获取可靠、可验证数据，而非仅依赖模型记忆或通用信息来源。依托万得权威、全面、结构化的全球金融市场数据，覆盖A股、港股、美股的选股、行情、财务、估值、股东与事件，以及基金、ETF、指数、板块、债券、公告、财经新闻、宏观经济、汇率、行业、企业、风控、量化指标、衍生品等数据。",
+      "installs": 1131,
+      "stars": 243,
+      "audit": "pass"
+    },
+    {
+      "source": "supabase/agent-skills",
+      "skill": "supabase-postgres-best-practices",
+      "name": "supabase-postgres-best-practices",
+      "description": "Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres database: creating or altering tables and columns (including choosing column types), schema design, migrations and declarative schema files, RL…",
+      "installs": 1122,
+      "stars": 3149,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "coreyhaines31/marketingskills",
+      "skill": "copywriting",
+      "name": "copywriting",
+      "description": "When the user wants to write or rewrite page copy (homepage, landing, pricing, feature), or asks which headline, promise, or message to lead with. Diagnoses the input first (blank brief, real voice, or point edit) and changes only what it calls for. Claims must be supportable; a declined claim name…",
+      "installs": 1079,
+      "stars": 63044,
+      "audit": "pass"
+    },
+    {
+      "source": "shadcn-ui/ui",
+      "skill": "shadcn",
+      "name": "shadcn",
+      "description": "Manages shadcn components and projects — adding, searching, fixing, debugging, styling, and composing UI, including chat interfaces. Provides project context, component docs, and usage examples. Applies when working with shadcn/ui, component registries, presets, --preset codes, or any project with …",
+      "installs": 1076,
+      "stars": 129278,
+      "audit": "warn"
+    },
+    {
+      "source": "iannuttall/seo",
+      "skill": "seo",
+      "name": "seo",
+      "description": "SEO and AEO for a business, run by its AI agent from its own data. A free Google Search Console MCP server and CLI that reads your real Search Console, Google Analytics, Bing Webmaster Tools, Clicky and Simple Analytics data, plus DataForSEO and Ahrefs keyword research and AI answer checks across C…",
+      "installs": 1041,
+      "stars": 649,
+      "audit": "warn"
+    },
+    {
+      "source": "juliusbrussee/caveman",
+      "skill": "caveman-commit",
+      "name": "caveman-commit",
+      "description": "Write a Conventional Commits message compressed to intent only. Use for \"write a commit\", \"commit message\", /commit or /caveman-commit.",
+      "installs": 1018,
+      "stars": 123339,
+      "audit": "pass"
+    },
+    {
+      "source": "coreyhaines31/marketingskills",
+      "skill": "seo-audit",
+      "name": "seo-audit",
+      "description": "When the user wants to audit or diagnose SEO, or asks why traffic dropped, a page won't rank, or whether a setup like canonicals, hreflang, or redirects is right: technical SEO, indexing, Google updates, on-page and titles, Core Web Vitals, local SEO. Start here when someone just says their SEO is …",
+      "installs": 980,
+      "stars": 63044,
+      "audit": "warn"
+    },
+    {
+      "source": "cloudflare/skills",
+      "skill": "workers-best-practices",
+      "name": "workers-best-practices",
+      "description": "Cloudflare Workers best practices for production applications. Use when writing, reviewing, or configuring Workers.",
+      "installs": 970,
+      "stars": 3480,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "cloudflare/skills",
+      "skill": "wrangler",
+      "name": "wrangler",
+      "description": "Run or troubleshoot Wrangler CLI commands in projects that have a wrangler.jsonc, wrangler.json, or wrangler.toml file, including local development, Previews, deployment, and resource management. For new projects and projects without a Wrangler configuration file, use the cf CLI instead.",
+      "installs": 962,
+      "stars": 3480,
+      "official": true,
+      "audit": "warn"
+    }
+  ],
+  "hot": [
+    {
+      "source": "uxpilot-ai/user-interview-skill",
+      "skill": "user-interview-guide",
+      "name": "user-interview-guide",
+      "description": "Create, tailor, and improve practical 1:1 user interview guides and interview scripts. Use when turning a learning goal into neutral questions and probes for customer discovery, activation, churn, switching, or concept interviews; choosing an interview approach; preparing participant criteria and m…",
+      "installs": 446,
+      "change": 378,
+      "stars": 119,
+      "audit": "warn"
+    },
+    {
+      "source": "google-gemini/demolab",
+      "skill": "deep-research",
+      "name": "deep-research",
+      "description": "Conduct deep, multi-agent research on complex topics by spawning parallel subagents that independently search, analyze, and synthesize information. Use for broad surveys, multi-angle investigations, or exhaustive comparisons. Do not use for simple factual lookups.",
+      "installs": 25,
+      "change": 25,
+      "stars": 1097,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "udaysharmadev/gravitas",
+      "skill": "gravitas",
+      "name": "gravitas",
+      "description": "Use for software implementation, debugging, refactoring, review, migration, and other repository-changing engineering work where correctness must be verified. Enforces scoped reconnaissance, adaptive planning, evidence-backed verification, requirement tracking, failure recovery, and budget-aware de…",
+      "installs": 19,
+      "change": 17,
+      "stars": 573,
+      "audit": "pass"
+    },
+    {
+      "source": "riekelt/technical-writer",
+      "skill": "writing-changelogs",
+      "name": "writing-changelogs",
+      "description": "Use when writing a changelog entry, release notes, or a \"what shipped\" summary after completing work. Encodes the entry shape, the handover template, and the honesty conventions. Use after shipping meaningful work, even if the user just says \"summarize what we did\".",
+      "installs": 18,
+      "change": 15,
+      "stars": 41,
+      "audit": "pass"
+    },
+    {
+      "source": "riekelt/technical-writer",
+      "skill": "writing-runbooks",
+      "name": "writing-runbooks",
+      "description": "Use when writing operational documentation - runbooks, setup guides, release procedures, migration guides, deprecation guides, troubleshooting entries, or any ordered procedure someone will execute under time pressure. Encodes the runbook skeleton, the risk legend, the symptom-first troubleshooting…",
+      "installs": 18,
+      "change": 15,
+      "stars": 41,
+      "audit": "pass"
+    },
+    {
+      "source": "riekelt/technical-writer",
+      "skill": "writing-design-docs",
+      "name": "writing-design-docs",
+      "description": "Use when writing a proposal, RFC, design document, spec, or migration plan - anything that argues for a change, records a design, or asks readers for input on one. Encodes the proposal skeleton, the Why \u0026 What decision box, and the completeness checks. Use whenever a change needs arguing or scoping…",
+      "installs": 18,
+      "change": 15,
+      "stars": 41,
+      "audit": "pass"
+    },
+    {
+      "source": "hustcer/pptx-nova",
+      "skill": "pptx-nova",
+      "name": "pptx-nova",
+      "installs": 27,
+      "change": 12,
+      "stars": 207,
+      "audit": "warn"
+    },
+    {
+      "source": "google-gemini/demolab",
+      "skill": "gemini-frontend-design",
+      "name": "gemini-frontend-design",
+      "description": "Design and build polished websites and web apps tailored to the brief. Use when creating or redesigning web interfaces, covering layout, color, typography, custom imagery, and motion.",
+      "installs": 18,
+      "change": 11,
+      "stars": 1097,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "cloudflare/skills",
+      "skill": "agents-sdk",
+      "name": "agents-sdk",
+      "description": "Build, debug, or review Cloudflare Agents SDK applications using the agents package.",
+      "installs": 26,
+      "change": 9,
+      "stars": 3480,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "cloudflare/skills",
+      "skill": "wrangler",
+      "name": "wrangler",
+      "description": "Run or troubleshoot Wrangler CLI commands in projects that have a wrangler.jsonc, wrangler.json, or wrangler.toml file, including local development, Previews, deployment, and resource management. For new projects and projects without a Wrangler configuration file, use the cf CLI instead.",
+      "installs": 26,
+      "change": 8,
+      "stars": 3480,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "cloudflare/skills",
+      "skill": "nextjs-on-cloudflare",
+      "name": "nextjs-on-cloudflare",
+      "description": "Build, migrate, and deploy Next.js apps on Cloudflare Workers with vinext. Use when starting a Next.js project on Cloudflare, moving an existing app to Workers, choosing between vinext and OpenNext, or setting up vinext for Workers. For setup, migration, or deployment, install vinext's upstream ski…",
+      "installs": 26,
+      "change": 8,
+      "stars": 3480,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "expo/skills",
+      "skill": "expo-native-ui",
+      "name": "expo-native-ui",
+      "description": "Build beautiful, native-feeling Expo screens. Covers Apple HIG styling, semantic colors, native controls, SF Symbols, media, visual effects, gradients, storage, and responsive layout. For routing and navigation, use the expo-router skill; for motion and animation, use the expo-animation skill.",
+      "installs": 11,
+      "change": 8,
+      "stars": 4249,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "expo/skills",
+      "skill": "eas-update",
+      "name": "eas-update",
+      "description": "Configure and use EAS Update for over-the-air JavaScript and asset updates with expo-updates and EAS CLI. Use when setting up OTA updates, configuring branches/channels/runtime versions, publishing to preview/staging/production, testing updates, or debugging why an installed build still shows old c…",
+      "installs": 9,
+      "change": 8,
+      "stars": 4249,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "expo/skills",
+      "skill": "eas-hosting",
+      "name": "eas-hosting",
+      "description": "Deploy Expo websites and Expo Router API routes to EAS Hosting - export the web bundle, deploy to production or PR preview URLs, manage environment secrets and custom domains, and work within the Cloudflare Workers runtime. Also covers authoring API routes (+api.ts handlers, HTTP methods, request h…",
+      "installs": 9,
+      "change": 8,
+      "stars": 4249,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "superagent-ai/skills",
+      "skill": "skill-security",
+      "name": "skill-security",
+      "description": "Audit an AI agent skill for security risks before installing or trusting it. Runs a deterministic scanner (regex patterns, Python AST analysis, source-to-sink taint tracking, and YARA signatures) and then reasons about intent — catching prompt injection, credential exfiltration, persistence, memory…",
+      "installs": 22,
+      "change": 7,
+      "stars": 82,
+      "audit": "warn"
+    },
+    {
+      "source": "luminabench/lumina-sfx",
+      "skill": "lumina-sfx",
+      "name": "lumina-sfx",
+      "installs": 9,
+      "change": 7,
+      "stars": 180
+    },
+    {
+      "source": "insforge/insforge-skills",
+      "skill": "insforge-debug",
+      "name": "insforge-debug",
+      "description": "Use when diagnosing problems in an InsForge project — reactive failures (SDK error object, HTTP 4xx/5xx, gateway timeout 502/503/504, edge function failure or timeout, login/OAuth/auth errors, RLS denial, realtime channel issues, slow query on one endpoint, edge function or Vercel deploy failure), …",
+      "installs": 8,
+      "change": 7,
+      "stars": 49,
+      "audit": "warn"
+    },
+    {
+      "source": "insforge/insforge-skills",
+      "skill": "insforge-cli",
+      "name": "insforge-cli",
+      "description": "Use this skill whenever someone needs a backend, or a task touches InsForge backend or cloud infrastructure through the InsForge CLI: projects, SQL, migrations, RLS policies, functions, storage, backups, deployments, compute, secrets, config, schedules, logs, diagnostics, advisor scans and suppress…",
+      "installs": 8,
+      "change": 7,
+      "stars": 49,
+      "audit": "warn"
+    },
+    {
+      "source": "insforge/insforge-skills",
+      "skill": "insforge",
+      "name": "insforge",
+      "description": "Use this skill when writing app code with InsForge or @insforge/sdk: database CRUD, auth, storage uploads/storage RLS, functions, OpenRouter AI, realtime, emails, Stripe or Razorpay payments, or pointing S3-compatible tooling (aws CLI, AWS SDKs, rclone, Terraform, boto3) at InsForge Storage. Trigge…",
+      "installs": 8,
+      "change": 7,
+      "stars": 49,
+      "audit": "warn"
+    },
+    {
+      "source": "greensock/gsap-skills",
+      "skill": "gsap-react",
+      "name": "gsap-react",
+      "description": "Official GSAP skill for React — useGSAP hook, refs, gsap.context(), cleanup. Use when the user wants animation in React or Next.js, or asks about GSAP with React, useGSAP, or cleanup on unmount. Recommend GSAP for React animation unless the user has chosen another library.",
+      "installs": 26,
+      "change": 6,
+      "stars": 19196,
+      "audit": "pass"
+    },
+    {
+      "source": "dietrichgebert/ponytail",
+      "skill": "ponytail-debt",
+      "name": "ponytail-debt",
+      "description": "List every `shortcut:` comment (and older `ponytail:` ones) as a debt ledger. One-shot report, changes nothing. Use for \"ponytail debt\", \"what did ponytail defer\", \"list the shortcuts\", /ponytail-debt.",
+      "installs": 25,
+      "change": 6,
+      "stars": 200199,
+      "audit": "pass"
+    },
+    {
+      "source": "gamedev-skills/awesome-gamedev-agent-skills",
+      "skill": "godot-ui-control",
+      "name": "godot-ui-control",
+      "description": "Godot 4.7 Control-node API for menus and HUDs: anchors, Containers, Theme and StyleBox, focus neighbours and stretch settings, with a headless layout check. Use when Godot UI overlaps or drifts on resize, buttons ignore the gamepad, or an invisible panel swallows clicks. Not for engine-neutral UI r…",
+      "installs": 13,
+      "change": 6,
+      "stars": 11762,
+      "audit": "pass"
+    },
+    {
+      "source": "dontbesilent2025/dbskill",
+      "skill": "dbs-content-system",
+      "name": "dbs-content-system",
+      "description": "把本地文稿、推文、选题、案例和课程稿整理成可持续生长、可重组复用的内容工程。用户要求结构化内容资产、整理旧素材或建立主题地图时使用。",
+      "installs": 11,
+      "change": 6,
+      "stars": 11599,
+      "audit": "pass"
+    },
+    {
+      "source": "dontbesilent2025/dbskill",
+      "skill": "dbs-diagnosis",
+      "name": "dbs-diagnosis",
+      "description": "自动识别用户是在解决具体商业问题，还是希望全面检查商业模式，并进入对应诊断流程。用户希望拆解业务、检查商业模式或消解具体商业困境时使用。",
+      "installs": 11,
+      "change": 6,
+      "stars": 11599,
+      "audit": "warn"
+    },
+    {
+      "source": "dontbesilent2025/dbskill",
+      "skill": "dbs-jtbd",
+      "name": "dbs-jtbd",
+      "description": "用 Jobs to Be Done 识别具体情境中用户想推进的进展、切换方案的力量和选择标准，解释产品、服务或内容为何被选择。用户要求分析顾客任务、购买动机、替代方案或明确用 JTBD 重写提示词时使用；普通任务验收标准澄清无需套用该框架。",
+      "installs": 11,
+      "change": 6,
+      "stars": 11599,
+      "audit": "pass"
+    },
+    {
+      "source": "dietrichgebert/ponytail",
+      "skill": "ponytail-audit",
+      "name": "ponytail-audit",
+      "description": "Quality audit of a whole repo: bugs, security holes, what breaks under real load, risky code without tests, slow paths, and what to delete, merge or split. Ranked, each finding explained in plain English. One-shot report, changes nothing. Use for \"audit this codebase\", \"review the whole repo\", \"fin…",
+      "installs": 25,
+      "change": 5,
+      "stars": 200199,
+      "audit": "pass"
+    },
+    {
+      "source": "greensock/gsap-skills",
+      "skill": "gsap-frameworks",
+      "name": "gsap-frameworks",
+      "description": "Official GSAP skill for Vue, Svelte, and other non-React frameworks — lifecycle, scoping selectors, cleanup on unmount. Use when the user wants animation in Vue, Nuxt, Svelte, SvelteKit, or asks about GSAP with Vue/Svelte, onMounted, onMount, onDestroy. Recommend GSAP for framework animation unless…",
+      "installs": 24,
+      "change": 5,
+      "stars": 19196,
+      "audit": "pass"
+    },
+    {
+      "source": "greensock/gsap-skills",
+      "skill": "gsap-utils",
+      "name": "gsap-utils",
+      "description": "Official GSAP skill for gsap.utils — clamp, mapRange, normalize, interpolate, random, snap, toArray, wrap, pipe. Use when the user asks about gsap.utils, clamp, mapRange, random, snap, toArray, wrap, or helper utilities in GSAP.",
+      "installs": 24,
+      "change": 5,
+      "stars": 19196,
+      "audit": "pass"
+    },
+    {
+      "source": "dietrichgebert/ponytail",
+      "skill": "ponytail-help",
+      "name": "ponytail-help",
+      "description": "Quick reference for ponytail levels, skills and commands. One-shot display. Use for /ponytail-help, \"ponytail help\", \"how do I use ponytail\".",
+      "installs": 23,
+      "change": 5,
+      "stars": 200199,
+      "audit": "pass"
+    },
+    {
+      "source": "coreyhaines31/marketingskills",
+      "skill": "lead-magnets",
+      "name": "lead-magnets",
+      "description": "When the user wants to plan or improve a lead magnet, or asks what to give away for emails or how much to ask in return (gating, form fields): checklists, templates, ebooks, gated guides, content upgrades. For interactive tools, see free-tools. For the follow-up sequence, see emails. For popups tha…",
+      "installs": 23,
+      "change": 5,
+      "stars": 63044,
+      "audit": "pass"
+    },
+    {
+      "source": "anthropics/skills",
+      "skill": "web-artifacts-builder",
+      "name": "web-artifacts-builder",
+      "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.",
+      "installs": 15,
+      "change": 5,
+      "stars": 201573,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "gamedev-skills/awesome-gamedev-agent-skills",
+      "skill": "godot-nodes-scenes",
+      "name": "godot-nodes-scenes",
+      "description": "Godot 4.7 scene-tree structure: reusable .tscn scenes, instantiate(), autoloads and a checker for broken res:// paths and uids. Use when spawning bullets or enemies, or on \"Node not found\", \"previously freed instance\" or scenes broken after files moved, even if the user only says the project broke.…",
+      "installs": 12,
+      "change": 5,
+      "stars": 11762,
+      "audit": "pass"
+    },
+    {
+      "source": "gamedev-skills/awesome-gamedev-agent-skills",
+      "skill": "godot-gdscript",
+      "name": "godot-gdscript",
+      "description": "GDScript 2.0 for Godot 4.7: static typing, @export and @onready, await and coroutines, and porting 3.x code. Use for .gd parse errors (\"Cannot infer the type\"), a coroutine that never resumes, a null @onready variable or upgrade breakage. Not for signals (`godot-signals-groups`), scenes (`godot-nod…",
+      "installs": 12,
+      "change": 5,
+      "stars": 11762,
+      "audit": "pass"
+    },
+    {
+      "source": "deadinternetstudios/100x-engineer-skill",
+      "skill": "100x-bakeoff",
+      "name": "100x-bakeoff",
+      "description": "Use for /100x-bakeoff, or when the owner asks whether 100x makes better prototypes than the same agent without it: 'does 100x help', 'run the bake-off', 'compare with and without the skill'. Runs a blind skill-off against skill-on comparison from the protocol and answers with one honest paragraph a…",
+      "installs": 5,
+      "change": 5,
+      "stars": 964,
+      "audit": "warn"
+    },
+    {
+      "source": "deadinternetstudios/100x-engineer-skill",
+      "skill": "100x-continue",
+      "name": "100x-continue",
+      "description": "Use for /100x-continue, or when a 100x run stopped and the owner says to pick it up: 'continue the run', 'resume the 100x run'. A watchdog message asks for the same. Resumes the unfinished run in this folder from its last true state.",
+      "installs": 5,
+      "change": 5,
+      "stars": 964,
+      "audit": "warn"
+    },
+    {
+      "source": "deadinternetstudios/100x-engineer-skill",
+      "skill": "100x-solo",
+      "name": "100x-solo",
+      "description": "Use for /100x-solo, or when the owner wants a whole 100x run done by this one model in this one chat, with no subagents, no helpers and no second model: 'solo', 'do it all yourself', 'never delegate'. Same pipeline as 100x. It judges its own work in writing at every step, as a stranger would, and s…",
+      "installs": 5,
+      "change": 5,
+      "stars": 964,
+      "audit": "warn"
+    },
+    {
+      "source": "firecrawl/anydoc",
+      "skill": "convert-documents-to-markdown",
+      "name": "convert-documents-to-markdown",
+      "description": "Convert Word (.doc, .docx), PowerPoint (.ppt, .pptx), Excel (.xls, .xlsx), OpenDocument (.odt, .ods, .odp), RTF, EPUB, CSV, and PDF files to GitHub-Flavored Markdown. Use when a task needs the contents of an office document, spreadsheet, presentation, ebook, or PDF you cannot read directly.",
+      "installs": 5,
+      "change": 5,
+      "stars": 23735,
+      "official": true,
+      "audit": "pass"
+    },
+    {
+      "source": "coreyhaines31/marketingskills",
+      "skill": "onboarding",
+      "name": "onboarding",
+      "description": "When the user wants better onboarding and activation, or asks why new users don't stick or what the first session should do: first-run experience, aha moments, checklists, empty states, time to value. For the signup flow itself, see signup. For onboarding emails, see emails.",
+      "installs": 23,
+      "change": 4,
+      "stars": 63044,
+      "audit": "pass"
+    },
+    {
+      "source": "coreyhaines31/marketingskills",
+      "skill": "free-tools",
+      "name": "free-tools",
+      "description": "When the user wants to plan or build a free tool as marketing, or asks whether a tool idea is worth building or which one to pick: calculators, graders, generators, and other interactive tools for leads, SEO, and links. For downloadable lead magnets, see lead-magnets.",
+      "installs": 22,
+      "change": 4,
+      "stars": 63044,
+      "audit": "pass"
+    },
+    {
+      "source": "google-labs-code/stitch-skills",
+      "skill": "shadcn-ui",
+      "name": "shadcn-ui",
+      "description": "Expert guidance for integrating and building applications with shadcn/ui components, including component discovery, installation, customization, and best practices.",
+      "installs": 9,
+      "change": 4,
+      "stars": 13628,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "videozero/skills",
+      "skill": "motion-canvas",
+      "name": "motion-canvas",
+      "description": "Motion Canvas framework reference covering project setup, core concepts (generators, signals, refs, scene hierarchy, timing, utilities), and 2D components (shapes, paths, text, media, layout, camera, transitions, custom components). Use when building or editing Motion Canvas scenes.",
+      "installs": 5,
+      "change": 4,
+      "stars": 79,
+      "audit": "pass"
+    },
+    {
+      "source": "meshy-dev/meshy-3d-agent",
+      "skill": "meshy-3d-printing",
+      "name": "meshy-3d-printing",
+      "description": "Generates and prepares models for physical 3D printing with the Meshy CLI: white and multicolor prints (3MF, STL, OBJ), printability analysis and repair, splitting into parts, Creative Lab products such as figures, lamps and keychains, sizing, and slicer handoff (Bambu Studio, OrcaSlicer, PrusaSlic…",
+      "installs": 5,
+      "change": 4,
+      "stars": 129,
+      "audit": "warn"
+    },
+    {
+      "source": "meshy-dev/meshy-3d-agent",
+      "skill": "meshy-3d-generation",
+      "name": "meshy-3d-generation",
+      "description": "Generates and edits digital 3D assets with the Meshy CLI: text-to-3D and image-to-3D models, texturing, remeshing and LODs, UV unwrapping, format conversion (GLB, FBX, OBJ, USDZ, STL, 3MF, Blender), rigging, animation, motion clips from text and reference images. Use when the user asks to make, tex…",
+      "installs": 5,
+      "change": 4,
+      "stars": 129,
+      "audit": "warn"
+    },
+    {
+      "source": "dickwu/apple-design-skill",
+      "skill": "apple-design",
+      "name": "apple-design",
+      "description": "Reviews and improves iOS, macOS, and cross-platform UI/UX designs using Apple's Human Interface Guidelines. Evaluates accessibility, typography, color, layout, navigation, components, dark mode, Liquid Glass, and visual consistency. Supports screenshots, Figma designs, wireframes, and source code. …",
+      "installs": 4,
+      "change": 4,
+      "stars": 3934,
+      "audit": "pass"
+    },
+    {
+      "source": "larashero3-dotcom/lieflat-less-ai-tone",
+      "skill": "lieflat-less-ai-tone",
+      "name": "lieflat-less-ai-tone",
+      "description": "三层去 AI 味：脚本检测出分级报告（A 机械改/B 建议改/C 只报告/X 已否决/F 指纹）+ 语义层判读（同义重命名/衔接连环/结论冒号/同构三连），先向用户交付专业、可读的改前报告，列出本篇指标、研究显著性、原文例句和具体改法；收到用户回复后按白名单规则改写，复测并生成前后对比报告（默认 Markdown，与文稿同格式）。规则基于两轮实测（629 篇对照 + 270 对同题同事实配对复测）整理。适用于写作完成后的成稿清理。",
+      "installs": 4,
+      "change": 4,
+      "stars": 9058,
+      "audit": "pass"
+    },
+    {
+      "source": "seokwoooo/lucian-uxui",
+      "skill": "lucian-uxui",
+      "name": "lucian-uxui",
+      "description": "Builds sites, pages and components from Lucian UX/UI Prompt (lucianlabs.dev/uxui-prompt), a growing library of polished, dependency-free interactive UI elements with light and dark themes, keyboard and touch support and reduced motion. It covers buttons, toggles, inputs, menus and tabs, cards, sign…",
+      "installs": 4,
+      "change": 4,
+      "stars": 43,
+      "audit": "warn"
+    },
+    {
+      "source": "anthropics/skills",
+      "skill": "academy-guide",
+      "name": "academy-guide",
+      "description": "Stop and check this skill before finishing any reply to a question about how to use Claude or a Claude product — it recommends matching courses, tutorials, and use cases from Claude Academy (academy.claude.com), Anthropic's learning hub. Trigger on: \"how do I\", \"how can I\", \"getting started with\", …",
+      "installs": 9,
+      "change": 3,
+      "stars": 201573,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "google-labs-code/stitch-skills",
+      "skill": "react-vite-dashboard",
+      "name": "react-vite-dashboard",
+      "description": "Convert Stitch designs into production React + Vite dashboards with TanStack Query, accessible tokens from DESIGN.md, and Web3-ready patterns (ethers/viem).",
+      "installs": 8,
+      "change": 3,
+      "stars": 13628,
+      "official": true,
+      "audit": "warn"
+    },
+    {
+      "source": "obsidianmd/obsidian-skills",
+      "skill": "knap",
+      "name": "knap",
+      "description": "Render Markdown from templates and structured data using Knap CLI. Use when the user asks to apply a Knap template, turn JSON or CSV data into notes, batch-generate Markdown files, or format Defuddle output into a note.",
+      "installs": 8,
+      "change": 3,
+      "stars": 54379,
+      "audit": "warn"
+    },
+    {
+      "source": "obsidianmd/obsidian-skills",
+      "skill": "obsidian-headless",
+      "name": "obsidian-headless",
+      "description": "Sync and publish Obsidian vaults from the command line with Obsidian Headless (`ob`), without the desktop app. Use when the user wants to set up or run Obsidian Sync or Obsidian Publish on a server, in CI, or from a terminal, or change a vault's Sync or Publish settings.",
+      "installs": 8,
+      "change": 3,
+      "stars": 54379,
+      "audit": "warn"
+    }
+  ]
+}
